@@ -1,5 +1,5 @@
 import Roll from "@client/dice/roll.mjs";
-import { DatabaseCreateOperation } from "@common/abstract/_types.mjs";
+import { DatabaseCreateCallbackOptions, DatabaseCreateOperation } from "@common/abstract/_types.mjs";
 import { AudioFilePath, ChatMessageStyle, DocumentOwnershipLevel, RollMode } from "@common/constants.mjs";
 import { DocumentFlags } from "@common/data/_module.mjs";
 import { Document, DocumentMetadata } from "../abstract/_module.mjs";
@@ -21,7 +21,7 @@ export default class BaseChatMessage<TUser extends BaseUser | null = BaseUser | 
 
     static override defineSchema(): ChatMessageSchema;
 
-    override getUserLevel(user: BaseUser): DocumentOwnershipLevel | null;
+    override getUserLevel(user: BaseUser): DocumentOwnershipLevel;
 }
 
 export default interface BaseChatMessage<TUser extends BaseUser | null>
@@ -97,6 +97,10 @@ interface ChatMessageMetadata extends DocumentMetadata {
 }
 
 export interface ChatMessageCreateOperation extends DatabaseCreateOperation<null> {
+    rollMode?: RollMode | "roll";
+}
+
+export interface ChatMessageCreateCallbackOptions extends DatabaseCreateCallbackOptions {
     rollMode?: RollMode | "roll";
 }
 

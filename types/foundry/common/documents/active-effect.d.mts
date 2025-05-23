@@ -1,4 +1,4 @@
-import { DatabaseCreateOperation } from "@common/abstract/_types.mjs";
+import { DatabaseCreateCallbackOptions } from "@common/abstract/_types.mjs";
 import {
     ActiveEffectChangeMode,
     DocumentOwnershipLevel,
@@ -45,7 +45,7 @@ export default class BaseActiveEffect<TParent extends BaseActor | BaseItem<BaseA
 
     protected override _preCreate(
         data: this["_source"],
-        options: DatabaseCreateOperation<TParent>,
+        options: DatabaseCreateCallbackOptions,
         user: BaseUser,
     ): Promise<boolean | void>;
 }

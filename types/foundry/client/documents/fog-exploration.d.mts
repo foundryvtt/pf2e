@@ -1,4 +1,8 @@
-import { DatabaseCreateOperation, DatabaseDeleteOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
+import {
+    DatabaseCreateCallbackOptions,
+    DatabaseDeleteCallbackOptions,
+    DatabaseUpdateCallbackOptions,
+} from "@common/abstract/_types.mjs";
 import { BaseFogExploration } from "./_module.mjs";
 import ClientDocumentMixin from "./abstract/client-document.mjs";
 
@@ -20,15 +24,15 @@ export default class FogExploration extends ClientDocumentMixin(BaseFogExplorati
      */
     getTexture(): PIXI.Texture | null;
 
-    protected override _onCreate(data: this["_source"], options: DatabaseCreateOperation<null>, userId: string): void;
+    protected override _onCreate(data: this["_source"], options: DatabaseCreateCallbackOptions, userId: string): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DatabaseUpdateOperation<null>,
+        options: DatabaseUpdateCallbackOptions,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DatabaseDeleteOperation<null>, userId: string): void;
+    protected override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void;
 }
 
 export {};

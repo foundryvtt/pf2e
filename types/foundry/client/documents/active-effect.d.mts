@@ -1,5 +1,9 @@
 import { DocumentConstructionContext } from "@common/_types.mjs";
-import { DatabaseCreateOperation, DatabaseDeleteOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
+import {
+    DatabaseCreateCallbackOptions,
+    DatabaseDeleteCallbackOptions,
+    DatabaseUpdateCallbackOptions,
+} from "@common/abstract/_types.mjs";
 import Document from "@common/abstract/document.mjs";
 import { DataField } from "@common/data/fields.mjs";
 import BaseActiveEffect, {
@@ -7,7 +11,7 @@ import BaseActiveEffect, {
     EffectChangeData,
     EffectDurationData,
 } from "@common/documents/active-effect.mjs";
-import { Actor, BaseActor, BaseItem, BaseUser, Item, User } from "./_module.mjs";
+import { Actor, BaseActor, BaseItem, BaseUser, Item } from "./_module.mjs";
 import { ClientDocument } from "./abstract/client-document.mjs";
 
 declare const ClientBaseActiveEffect: new <TParent extends BaseActor | BaseItem | null>(
@@ -19,7 +23,9 @@ declare const ClientBaseActiveEffect: new <TParent extends BaseActor | BaseItem 
  * Each ActiveEffect belongs to the effects collection of its parent Document.
  * Each ActiveEffect contains a ActiveEffectData object which provides its source data.
  */
-export default class ActiveEffect<TParent extends Actor | Item | null> extends ClientBaseActiveEffect<TParent> {
+export default class ActiveEffect<
+    TParent extends Actor | Item | null = Actor | Item | null,
+> extends ClientBaseActiveEffect<TParent> {
     /**
      * Create an ActiveEffect instance from some status effect ID.
      * Delegates to {@link ActiveEffect._fromStatusEffect} to create the ActiveEffect instance
@@ -179,34 +185,25 @@ export default class ActiveEffect<TParent extends Actor | Item | null> extends C
 
     protected override _preCreate(
         data: this["_source"],
-        operation: DatabaseCreateOperation<TParent>,
+        options: DatabaseCreateCallbackOptions,
         user: BaseUser,
     ): Promise<boolean | void>;
-    protected override _preCreate(
-        data: this["_source"],
-        operation: DatabaseCreateOperation<TParent>,
-        user: User,
-    ): Promise<boolean | void>;
 
-    protected override _onCreate(
-        data: this["_source"],
-        options: DatabaseCreateOperation<TParent>,
-        userId: string,
-    ): void;
+    protected override _onCreate(data: this["_source"], options: DatabaseCreateCallbackOptions, userId: string): void;
 
     protected override _preUpdate(
         changed: Record<string, unknown>,
-        options: DatabaseUpdateOperation<TParent>,
-        user: User,
+        options: DatabaseUpdateCallbackOptions,
+        user: BaseUser,
     ): Promise<boolean | void>;
 
     protected override _onUpdate(
         changed: Record<string, unknown>,
-        options: DatabaseUpdateOperation<TParent>,
+        options: DatabaseUpdateCallbackOptions,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DatabaseDeleteOperation<TParent>, userId: string): void;
+    protected override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void;
 
     /**
      * Display changes to active effects as scrolling Token status text.
@@ -215,7 +212,7 @@ export default class ActiveEffect<TParent extends Actor | Item | null> extends C
     protected _displayScrollingStatus(enabled: boolean): void;
 }
 
-export default interface ActiveEffect<TParent extends Actor | Item | null> {
+export default interface ActiveEffect<TParent extends Actor | Item | null = Actor | Item | null> {
     duration: PreparedEffectDurationData;
 }
 

@@ -11,15 +11,18 @@ import BaseUser from "@common/documents/user.mjs";
 import { AppV1RenderOptions } from "../../client/appv1/api/application-v1.mjs";
 import { DataField, SourceFromSchema } from "../data/fields.mjs";
 import {
+    DatabaseCreateCallbackOptions,
     DatabaseCreateOperation,
+    DatabaseDeleteCallbackOptions,
     DatabaseDeleteOperation,
     DatabaseGetOperation,
+    DatabaseUpdateCallbackOptions,
     DatabaseUpdateOperation,
     DataModelValidationOptions,
     DataSchema,
 } from "./_types.mjs";
 import DatabaseBackend from "./backend.mjs";
-import DataModel, { RawObject } from "./data.mjs";
+import DataModel from "./data.mjs";
 import EmbeddedCollection from "./embedded-collection.mjs";
 
 /** The abstract base interface for all Document types. */
@@ -163,12 +166,7 @@ export default abstract class Document<
      * @param context.keepId Keep the original Document ID? Otherwise the ID will become undefined
      * @returns The cloned Document instance
      */
-    override clone(
-        data: Record<string, unknown> | undefined,
-        context: DocumentCloneContext & { save: true },
-    ): Promise<this>;
-    override clone(data?: Record<string, unknown>, context?: DocumentCloneContext & { save?: false }): this;
-    override clone(data?: Record<string, unknown>, context?: DocumentCloneContext): this | Promise<this>;
+    override clone(data?: Record<string, unknown>, context?: DocumentCloneContext): this;
 
     /**
      * For Documents which include game system data, migrate the system data object to conform to its latest data model.
@@ -524,7 +522,7 @@ export default abstract class Document<
      */
     protected _preCreate(
         data: this["_source"],
-        options: DatabaseCreateOperation<TParent>,
+        options: DatabaseCreateCallbackOptions,
         user: BaseUser,
     ): Promise<boolean | void>;
 
@@ -534,7 +532,7 @@ export default abstract class Document<
      * @param data    The initial data object provided to the document creation request
      * @param options Additional options which modify the creation request
      */
-    protected _onCreate(data: this["_source"], options: DatabaseCreateOperation<TParent>, userId: string): void;
+    protected _onCreate(data: this["_source"], options: DatabaseCreateCallbackOptions, userId: string): void;
 
     /**
      * Pre-process a creation operation, potentially altering its instructions or input data. Pre-operation events only
@@ -589,7 +587,7 @@ export default abstract class Document<
      */
     protected _preUpdate(
         changed: Record<string, unknown>,
-        options: DatabaseUpdateOperation<TParent>,
+        options: DatabaseUpdateCallbackOptions,
         user: BaseUser,
     ): Promise<boolean | void>;
 
@@ -602,7 +600,7 @@ export default abstract class Document<
      */
     protected _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DatabaseUpdateOperation<TParent>,
+        options: DatabaseUpdateCallbackOptions,
         userId: string,
     ): void;
 
@@ -656,7 +654,7 @@ export default abstract class Document<
      * @param user    The User requesting the document deletion
      * @returns A return value of false indicates the deletion operation should be cancelled.
      */
-    protected _preDelete(options: DatabaseDeleteOperation<TParent>, user: BaseUser): Promise<boolean | void>;
+    protected _preDelete(options: DatabaseDeleteCallbackOptions, user: BaseUser): Promise<boolean | void>;
 
     /**
      * Perform follow-up operations after a Document of this type is deleted.
@@ -664,7 +662,7 @@ export default abstract class Document<
      * @param options Additional options which modify the deletion request
      * @param userId The ID of the User requesting the document deletion
      */
-    protected _onDelete(options: DatabaseDeleteOperation<TParent>, userId: string): void;
+    protected _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void;
 
     /**
      * Pre-process a deletion operation, potentially altering its instructions or input data. Pre-operation events only
@@ -705,9 +703,7 @@ export default abstract class Document<
         user: BaseUser,
     ): Promise<void>;
 
-    override toObject(source?: true): this["_source"];
-    override toObject(source: false): RawObject<this>;
-    override toObject(source?: boolean): this["_source"] | RawObject<this>;
+    override toObject(source?: boolean): this["_source"];
 }
 
 type MetadataPermission = UserRoleName | UserPermission | ((...args: unknown[]) => boolean);
@@ -733,7 +729,9 @@ export interface DocumentMetadata {
 type _Document = Document<_Document | null>;
 
 declare global {
-    type PreCreate<T extends SourceFromSchema<DataSchema>> = DeepPartial<T>;
+    type PreCreate<T extends SourceFromSchema<DataSchema>> = T extends { type: string }
+        ? Omit<DeepPartial<T>, "type"> & { _id?: Maybe<string>; type: T["type"] }
+        : DeepPartial<T>;
 
     type EmbeddedDocumentUpdateData = {
         _id: string;

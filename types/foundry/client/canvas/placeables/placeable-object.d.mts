@@ -1,7 +1,11 @@
 import { CanvasDocument } from "@client/documents/abstract/canvas-document.mjs";
 import User from "@client/documents/user.mjs";
 import { Point } from "@common/_types.mjs";
-import { DatabaseCreateOperation, DatabaseDeleteOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
+import {
+    DatabaseCreateCallbackOptions,
+    DatabaseDeleteCallbackOptions,
+    DatabaseUpdateCallbackOptions,
+} from "@common/abstract/_types.mjs";
 import { UserAction } from "@common/constants.mjs";
 import { ControlIcon } from "../containers/_module.mjs";
 import { MouseInteractionManager, RenderFlag, RenderFlags } from "../interaction/_module.mjs";
@@ -176,23 +180,19 @@ export default abstract class PlaceableObject<
     protected _getTargetAlpha(): number;
 
     /** Register pending canvas operations which should occur after a new PlaceableObject of this type is created */
-    protected _onCreate(
-        data: TDocument["_source"],
-        options: DatabaseCreateOperation<TDocument["parent"]>,
-        userId: string,
-    ): void;
+    protected _onCreate(data: TDocument["_source"], options: DatabaseCreateCallbackOptions, userId: string): void;
 
     /** Define additional steps taken when an existing placeable object of this type is updated with new data */
 
     protected _onUpdate(
         changed: DeepPartial<TDocument["_source"]>,
-        options: DatabaseUpdateOperation<TDocument["parent"]>,
+        options: DatabaseUpdateCallbackOptions,
         userId: string,
     ): void;
 
     /** Define additional steps taken when an existing placeable object of this type is deleted */
 
-    protected _onDelete(options: DatabaseDeleteOperation<TDocument["parent"]>, userId: string): void;
+    protected _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void;
 
     /* -------------------------------------------- */
     /*  Methods                                     */

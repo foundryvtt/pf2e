@@ -1,4 +1,5 @@
 import type { ActorPF2e } from "@actor";
+import type { EnrichmentOptions } from "@client/applications/ux/text-editor.d.mts";
 import type { RawItemChatData } from "@item/base/data/index.ts";
 import { PhysicalItemPF2e } from "@item/physical/index.ts";
 import type { CoinDenomination } from "@item/physical/types.ts";

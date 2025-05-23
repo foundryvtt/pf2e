@@ -1,9 +1,8 @@
 import type { ActorPF2e } from "@actor";
-import type { DatabaseCreateOperation } from "@common/abstract/_types.d.mts";
+import type { DatabaseCreateCallbackOptions } from "@common/abstract/_types.d.mts";
 import type { EffectDurationSource } from "@common/documents/active-effect.d.mts";
 import type { AbstractEffectPF2e, ItemPF2e } from "@item";
 import * as R from "remeda";
-import { UserPF2e } from "./user/document.ts";
 
 export class ActiveEffectPF2e<TParent extends ActorPF2e | ItemPF2e | null> extends ActiveEffect<TParent> {
     /** Create an active effect from an (abstract) effect for use in token effect icons */
@@ -39,19 +38,12 @@ export class ActiveEffectPF2e<TParent extends ActorPF2e | ItemPF2e | null> exten
         );
     }
 
-    protected override _preCreate(
-        data: this["_source"],
-        operation: DatabaseCreateOperation<TParent>,
-        user: fd.BaseUser,
-    ): Promise<boolean | void>;
     protected override async _preCreate(
         data: this["_source"],
-        operation: DatabaseCreateOperation<TParent>,
-        user: UserPF2e,
+        options: DatabaseCreateCallbackOptions,
+        user: fd.BaseUser,
     ): Promise<boolean | void> {
         // Only allow the death overlay effect
-        if (!data.statuses.includes("dead")) return false;
-
-        return super._preCreate(data, operation, user);
+        return data.statuses.includes("dead") ? super._preCreate(data, options, user) : false;
     }
 }

@@ -1,6 +1,5 @@
 import { DocumentConstructionContext } from "@common/_types.mjs";
 import Collection, { CollectionGetOptions } from "../utils/collection.mjs";
-import { RawObject } from "./data.mjs";
 import Document from "./document.mjs";
 
 /** Used for the specific task of containing embedded Document instances within a parent Document. */
@@ -137,12 +136,10 @@ export default class EmbeddedCollection<TDocument extends Document<Document>> ex
 
     /**
      * Convert the EmbeddedCollection to an array of simple objects.
-     * @param [source=true] Draw data for contained Documents from the underlying data source?
+     * @param source Draw data for contained Documents from the underlying data source?
      * @returns The extracted array of primitive objects
      */
     toObject<T extends true>(source?: T): TDocument["_source"][];
-    toObject<T extends false>(source: T): RawObject<TDocument>[];
-    toObject<T extends boolean>(source?: T): TDocument["_source"][] | RawObject<TDocument>[];
 }
 
 interface EmbeddedCollectionGetOptions extends CollectionGetOptions {

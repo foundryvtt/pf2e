@@ -254,26 +254,25 @@ export default class PlaylistDirectory extends DocumentDirectory<Playlist> {
 
     protected override _onMatchSearchEntry(
         query: string,
-        entryIds: string[],
-        element,
+        entryIds: Set<string>,
+        element: HTMLElement,
         options?: { soundIds?: string[] },
     ): void;
 
     protected override _matchSearchEntries(
-        query: string,
-        entryIds: string[],
-        folderIds: string[],
-        autoExpandIds: string[],
-        options?: object,
+        query: RegExp,
+        entryIds: Set<string>,
+        folderIds: Set<string>,
+        autoExpandIds: Set<string>,
     ): void;
 
-    protected override _matchSearchFolders(query: string, folderIds: string[], autoExpandIds: string[]): void;
+    protected override _matchSearchFolders(query: RegExp, folderIds: Set<string>, autoExpandIds: Set<string>): void;
 
     /* -------------------------------------------- */
     /*  Drag & Drop                                 */
     /* -------------------------------------------- */
 
-    protected override _onDragStart(event: DragEvent);
+    protected override _onDragStart(event: DragEvent): void;
 
     protected override _onDrop(event: DragEvent): Promise<void>;
 

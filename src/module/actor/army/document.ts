@@ -5,13 +5,12 @@ import { ModifierPF2e } from "@actor/modifiers.ts";
 import { Kingdom } from "@actor/party/kingdom/model.ts";
 import { DamageContext } from "@actor/roll-context/damage.ts";
 import type { Rolled } from "@client/dice/_module.d.mts";
-import type { DatabaseDeleteOperation } from "@common/abstract/_types.d.mts";
+import type { DatabaseDeleteCallbackOptions } from "@common/abstract/_types.d.mts";
 import { type CampaignFeaturePF2e } from "@item";
 import type { ItemSourcePF2e, ItemType } from "@item/base/data/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { extractDamageDice, extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
-import type { UserPF2e } from "@module/user/index.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
 import { createDamageFormula } from "@system/damage/formula.ts";
@@ -21,7 +20,7 @@ import type { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
 import { ArmorStatistic, Statistic, StatisticDifficultyClass } from "@system/statistic/index.ts";
 import { createHTMLElement, signedInteger, tupleHasValue } from "@util";
 import * as R from "remeda";
-import { ActorPF2e, type ActorUpdateOperation, type HitPointsSummary } from "../base.ts";
+import { ActorPF2e, ActorUpdateCallbackOptions, HitPointsSummary } from "../base.ts";
 import type { ArmySource, ArmySystemData } from "./data.ts";
 import type { ArmyStrike } from "./types.ts";
 import { ARMY_STATS, ARMY_TYPES } from "./values.ts";
@@ -415,12 +414,12 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         if (source.type === "campaignFeature" && source.system?.category === "army-tactic") {
             const validArmyTypes = ARMY_TYPES.filter((t) => source.system?.traits?.value?.includes(t));
             if (validArmyTypes.length > 0 && !validArmyTypes.includes(this.system.traits.type)) {
-                ui.notifications.error(
-                    game.i18n.format("PF2E.Kingmaker.Army.Error.InvalidTacticType", {
+                ui.notifications.error("PF2E.Kingmaker.Army.Error.InvalidTacticType", {
+                    format: {
                         name: source.name,
                         type: game.i18n.localize(CONFIG.PF2E.kingmakerTraits[this.system.traits.type]),
-                    }),
-                );
+                    },
+                });
                 return false;
             }
         }
@@ -439,22 +438,22 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
 
     override _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        operation: ActorUpdateOperation<TParent>,
-        user: UserPF2e,
+        options: ActorUpdateCallbackOptions,
+        user: fd.BaseUser,
     ): Promise<boolean | void> {
-        const isFullReplace = !((operation.diff ?? true) && (operation.recursive ?? true));
-        if (isFullReplace) return super._preUpdate(changed, operation, user);
+        const isFullReplace = !((options.diff ?? true) && (options.recursive ?? true));
+        if (isFullReplace) return super._preUpdate(changed, options, user);
 
         if (typeof changed?.system?.attributes?.hp?.value === "number") {
             const max = Number(changed.system.attributes.hp.max ?? this.system.attributes.hp.max);
             changed.system.attributes.hp.value = Math.clamp(changed.system.attributes.hp.value, 0, max);
         }
 
-        return super._preUpdate(changed, operation, user);
+        return super._preUpdate(changed, options, user);
     }
 
-    override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void {
-        super._onDelete(operation, userId);
+    override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void {
+        super._onDelete(options, userId);
         this.kingdom?.reset();
     }
 }

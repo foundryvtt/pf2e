@@ -1,6 +1,6 @@
 import { ImageFilePath, MacroScope, MacroType } from "@common/constants.mjs";
 import { Document, DocumentMetadata, MetadataPermission } from "../abstract/_module.mjs";
-import { DatabaseCreateOperation } from "../abstract/_types.mjs";
+import { DatabaseCreateCallbackOptions } from "../abstract/_types.mjs";
 import * as fields from "../data/fields.mjs";
 import BaseUser from "./user.mjs";
 
@@ -36,7 +36,7 @@ export default class BaseMacro extends Document<null, MacroSchema> {
 
     protected override _preCreate(
         data: this["_source"],
-        options: DatabaseCreateOperation<null>,
+        options: DatabaseCreateCallbackOptions,
         user: BaseUser,
     ): Promise<boolean | void>;
 }

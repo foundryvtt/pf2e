@@ -1,5 +1,10 @@
-import type { SceneUpdateOperation } from "@client/documents/scene.d.mts";
-import type { DatabaseDeleteOperation, DatabaseUpdateOperation, Document } from "@common/abstract/_module.d.mts";
+import type { SceneUpdateOptions } from "@client/documents/scene.d.mts";
+import type {
+    DatabaseDeleteOperation,
+    DatabaseUpdateOperation,
+    Document,
+    EmbeddedCollection,
+} from "@common/abstract/_module.d.mts";
 import { LightLevels, SceneFlagsPF2e } from "./data.ts";
 import { checkAuras } from "./helpers.ts";
 import type {
@@ -104,8 +109,8 @@ class ScenePF2e extends Scene {
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
-    override _onUpdate(changed: DeepPartial<this["_source"]>, operation: SceneUpdateOperation, userId: string): void {
-        super._onUpdate(changed, operation, userId);
+    override _onUpdate(changed: DeepPartial<this["_source"]>, options: SceneUpdateOptions, userId: string): void {
+        super._onUpdate(changed, options, userId);
 
         const flagChanges = changed.flags?.pf2e ?? {};
         if (this.isView && ["rulesBasedVision", "hearingRange"].some((k) => flagChanges[k] !== undefined)) {
@@ -169,11 +174,11 @@ interface ScenePF2e extends Scene {
     /** Check for auras containing newly-placed or moved tokens (added as a debounced method) */
     checkAuras(): void;
 
-    readonly lights: foundry.abstract.EmbeddedCollection<AmbientLightDocumentPF2e<this>>;
-    readonly regions: foundry.abstract.EmbeddedCollection<RegionDocumentPF2e<this>>;
-    readonly templates: foundry.abstract.EmbeddedCollection<MeasuredTemplateDocumentPF2e<this>>;
-    readonly tiles: foundry.abstract.EmbeddedCollection<TileDocumentPF2e<this>>;
-    readonly tokens: foundry.abstract.EmbeddedCollection<TokenDocumentPF2e<this>>;
+    readonly lights: EmbeddedCollection<AmbientLightDocumentPF2e<this>>;
+    readonly regions: EmbeddedCollection<RegionDocumentPF2e<this>>;
+    readonly templates: EmbeddedCollection<MeasuredTemplateDocumentPF2e<this>>;
+    readonly tiles: EmbeddedCollection<TileDocumentPF2e<this>>;
+    readonly tokens: EmbeddedCollection<TokenDocumentPF2e<this>>;
 
     get sheet(): SceneConfigPF2e<this>;
 }

@@ -1,6 +1,12 @@
-import { DatabaseCreateOperation, DatabaseDeleteOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
+import {
+    DatabaseCreateOperation,
+    DatabaseDeleteCallbackOptions,
+    DatabaseDeleteOperation,
+    DatabaseUpdateCallbackOptions,
+    DatabaseUpdateOperation,
+} from "@common/abstract/_types.mjs";
 import Document from "@common/abstract/document.mjs";
-import { BasePlaylist, PlaylistSound, User } from "./_module.mjs";
+import { BasePlaylist, BaseUser, PlaylistSound } from "./_module.mjs";
 import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
 import CompendiumCollection from "./collections/compendium-collection.mjs";
 
@@ -101,66 +107,42 @@ export default class Playlist extends ClientBasePlaylist {
 
     protected override _preUpdate(
         data: Record<string, unknown>,
-        options: DatabaseUpdateOperation<null>,
-        user: User,
+        options: DatabaseUpdateCallbackOptions,
+        user: BaseUser,
     ): Promise<void>;
 
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DatabaseUpdateOperation<null>,
+        options: DatabaseUpdateCallbackOptions,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DatabaseDeleteOperation<null>, userId: string): void;
+    protected override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void;
 
-    protected override _onCreateDescendantDocuments(
-        parent: this,
-        collection: "sounds",
-        documents: PlaylistSound<this>[],
-        data: PlaylistSound<this>["_source"][],
-        options: DatabaseCreateOperation<this>,
-        userId: string,
-    ): void;
-    protected override _onCreateDescendantDocuments<TParent extends Document>(
-        parent: TParent,
+    protected override _onCreateDescendantDocuments<P extends Document>(
+        parent: P,
         collection: string,
-        documents: Document<TParent>,
+        documents: Document<P>[],
         data: object[],
-        options: DatabaseCreateOperation<TParent>,
+        options: DatabaseCreateOperation<P>,
         userId: string,
     ): void;
 
-    protected override _onUpdateDescendantDocuments(
-        parent: this,
-        collection: "sounds",
-        documents: PlaylistSound<this>[],
-        changes: DeepPartial<PlaylistSound<this>["_source"]>[],
-        options: DatabaseUpdateOperation<this>,
-        userId: string,
-    ): void;
-    protected override _onUpdateDescendantDocuments<TParent extends ClientDocument>(
-        parent: TParent,
+    protected override _onUpdateDescendantDocuments<P extends Document>(
+        parent: P,
         collection: string,
-        documents: ClientDocument<TParent>[],
+        documents: Document<P>[],
         changes: Record<string, unknown>[],
-        options: DatabaseUpdateOperation<TParent>,
+        options: DatabaseUpdateOperation<P>,
         userId: string,
     ): void;
 
-    protected override _onDeleteDescendantDocuments(
-        parent: this,
-        collection: "sounds",
-        documents: PlaylistSound<this>[],
-        ids: string[],
-        options: DatabaseDeleteOperation<this>,
-        userId: string,
-    ): void;
-    protected override _onDeleteDescendantDocuments<TParent extends Document>(
-        parent: TParent,
+    protected override _onDeleteDescendantDocuments<P extends Document>(
+        parent: P,
         collection: string,
-        documents: Document<TParent>[],
+        documents: Document<P>[],
         ids: string[],
-        options: DatabaseDeleteOperation<TParent>,
+        options: DatabaseDeleteOperation<P>,
         userId: string,
     ): void;
 

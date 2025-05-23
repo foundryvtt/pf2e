@@ -3,9 +3,7 @@ import type { ScenePF2e } from "./index.ts";
 
 class AmbientLightDocumentPF2e<
     TParent extends ScenePF2e | null = ScenePF2e | null,
-> extends AmbientLightDocument<TParent> {
-    // Still exists if we need it later, but slated for removal once V12 is fully out
-}
+> extends AmbientLightDocument<TParent> {}
 
 interface AmbientLightDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null>
     extends AmbientLightDocument<TParent> {

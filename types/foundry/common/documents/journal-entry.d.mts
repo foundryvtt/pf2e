@@ -14,7 +14,7 @@ export default interface BaseJournalEntry
         fields.ModelPropsFromSchema<JournalEntrySchema> {
     readonly pages: EmbeddedCollection<BaseJournalEntryPage<this>>;
 
-    get documentName(): (typeof BaseJournalEntry)["metadata"]["name"];
+    get documentName(): JournalEntryMetadata["name"];
 }
 
 interface JournalEntryMetadata extends DocumentMetadata {

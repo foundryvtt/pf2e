@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
 import type {
-    DatabaseCreateOperation,
-    DatabaseDeleteOperation,
+    DatabaseCreateCallbackOptions,
+    DatabaseDeleteCallbackOptions,
     DataModelConstructionContext,
 } from "@common/abstract/_types.d.mts";
 import { ItemPF2e } from "@item";
@@ -60,18 +60,14 @@ class MeasuredTemplateDocumentPF2e<
     }
 
     /** If present, show the clear-template button on the message from which this template was spawned */
-    protected override _onCreate(
-        data: this["_source"],
-        operation: DatabaseCreateOperation<TParent>,
-        userId: string,
-    ): void {
-        super._onCreate(data, operation, userId);
+    protected override _onCreate(data: this["_source"], options: DatabaseCreateCallbackOptions, userId: string): void {
+        super._onCreate(data, options, userId);
         toggleClearTemplatesButton(this.message);
     }
 
     /** If present, hide the clear-template button on the message from which this template was spawned */
-    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void {
-        super._onDelete(operation, userId);
+    protected override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void {
+        super._onDelete(options, userId);
         toggleClearTemplatesButton(this.message);
     }
 }

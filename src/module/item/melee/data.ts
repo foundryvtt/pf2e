@@ -60,7 +60,7 @@ class MeleeSystemData extends ItemSystemModel<MeleePF2e, NPCAttackSystemSchema> 
                     damageType: new fields.StringField({
                         required: true,
                         nullable: false,
-                        initial: undefined,
+                        initial: "bludgeoning",
                         choices: CONFIG.PF2E.damageTypes,
                     }),
                     category: new fields.StringField({
@@ -103,7 +103,7 @@ type NPCAttackSystemSchema = Omit<ItemSystemSchema, "traits"> & {
         fields.StringField<string, string, true, false, false>,
         fields.SchemaField<{
             damage: fields.StringField<string, string, true, false, false>;
-            damageType: fields.StringField<DamageType, DamageType, true, false, false>;
+            damageType: fields.StringField<DamageType, DamageType, true, false, true>;
             category: fields.StringField<DamageCategoryUnique, DamageCategoryUnique, true, true, true>;
         }>,
         true,

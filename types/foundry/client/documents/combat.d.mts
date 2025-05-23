@@ -1,8 +1,15 @@
-import { DocumentConstructionContext } from "@common/_types.mjs";
-import { DatabaseCreateOperation, DatabaseDeleteOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
+import {
+    DatabaseCreateCallbackOptions,
+    DatabaseCreateOperation,
+    DatabaseDeleteCallbackOptions,
+    DatabaseDeleteOperation,
+    DatabaseUpdateCallbackOptions,
+    DatabaseUpdateOperation,
+} from "@common/abstract/_types.mjs";
 import Document from "@common/abstract/document.mjs";
+import EmbeddedCollection from "@common/abstract/embedded-collection.mjs";
 import { ChatMessageCreateOperation } from "@common/documents/chat-message.mjs";
-import BaseCombat, { CombatSource } from "@common/documents/combat.mjs";
+import BaseCombat from "@common/documents/combat.mjs";
 import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
 import Combatant from "./combatant.mjs";
 
@@ -21,8 +28,6 @@ interface ClientBaseCombat extends InstanceType<typeof ClientBaseCombat> {}
  * @param [data={}] Initial data provided to construct the Combat document
  */
 export default class Combat extends ClientBaseCombat {
-    constructor(data: PreCreate<CombatSource>, context?: DocumentConstructionContext<null>);
-
     /** Track the sorted turn order of this combat encounter */
     turns: CollectionValue<this["combatants"]>[];
 
@@ -101,10 +106,10 @@ export default class Combat extends ClientBaseCombat {
     /**
      * Roll initiative for one or multiple Combatants within the Combat entity
      * @param ids A Combatant id or Array of ids for which to roll
-     * @param [options={}] Additional options which modify how initiative rolls are created or presented.
-     * @param [options.formula]           A non-default initiative formula to roll. Otherwise the system default is used.
-     * @param [options.updateTurn=true]   Update the Combat turn after adding new initiative scores to keep the turn on the same Combatant.
-     * @param [options.messageOptions={}] Additional options with which to customize created Chat Messages
+     * @param options Additional options which modify how initiative rolls are created or presented.
+     * @param options.formula A non-default initiative formula to roll. Otherwise the system default is used.
+     * @param options.updateTurn Update the Combat turn after adding new initiative scores to keep the turn on the same Combatant.
+     * @param options.messageOptions Additional options with which to customize created Chat Messages
      * @return A promise which resolves to the updated Combat entity once updates are complete.
      */
     rollInitiative(ids: string | string[], options?: RollInitiativeOptions): Promise<this>;
@@ -146,15 +151,15 @@ export default class Combat extends ClientBaseCombat {
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
-    protected override _onCreate(data: this["_source"], operation: DatabaseCreateOperation<null>, userId: string): void;
+    protected override _onCreate(data: this["_source"], options: DatabaseCreateCallbackOptions, userId: string): void;
 
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        operation: DatabaseUpdateOperation<null>,
+        options: DatabaseUpdateCallbackOptions,
         userId: string,
     ): void;
 
-    protected override _onDelete(operation: DatabaseDeleteOperation<null>, userId: string): void;
+    protected override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void;
 
     protected override _onCreateDescendantDocuments(
         parent: this,
@@ -265,7 +270,7 @@ export default class Combat extends ClientBaseCombat {
 }
 
 export default interface Combat extends ClientBaseCombat {
-    // readonly combatants: foundry.abstract.EmbeddedCollection<Combatant<this>>;
+    readonly combatants: EmbeddedCollection<Combatant<this>>;
 }
 
 export interface CombatHistoryData {

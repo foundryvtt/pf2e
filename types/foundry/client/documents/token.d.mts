@@ -4,6 +4,7 @@ import {
     DatabaseCreateOperation,
     DatabaseDeleteOperation,
     DatabaseOperation,
+    DatabaseUpdateCallbackOptions,
     DatabaseUpdateOperation,
 } from "@common/abstract/_types.mjs";
 import Document from "@common/abstract/document.mjs";
@@ -12,16 +13,15 @@ import Token, { TokenAnimationOptions, TokenResourceData } from "../canvas/place
 import {
     Actor,
     BaseToken,
+    BaseUser,
     Combat,
     Combatant,
     RegionDocument,
     Scene,
     TokenDocumentUUID,
     TrackedAttributesDescription,
-    User,
 } from "./_module.mjs";
 import { CanvasDocument, CanvasDocumentStatic } from "./abstract/canvas-document.mjs";
-import { ClientDocument } from "./abstract/client-document.mjs";
 
 interface CanvasBaseTokenStatic extends Omit<typeof BaseToken, "new">, CanvasDocumentStatic {}
 
@@ -40,7 +40,7 @@ export default class TokenDocument<TParent extends Scene | null = Scene | null> 
     actors: Collection<string, Actor>;
 
     /** The Regions this Token is currently in. */
-    regions: Set<RegionDocument<TParent>> | null;
+    regions: Set<RegionDocument<NonNullable<TParent>>>;
 
     /**
      * A lazily evaluated reference to the Actor this Token modifies.
@@ -92,12 +92,7 @@ export default class TokenDocument<TParent extends Scene | null = Scene | null> 
      */
     protected _prepareDetectionModes(): void;
 
-    override clone(
-        data: Record<string, unknown> | undefined,
-        context: DocumentCloneContext & { save: true },
-    ): Promise<this>;
-    override clone(data?: Record<string, unknown>, context?: DocumentCloneContext & { save?: false }): this;
-    override clone(data?: Record<string, unknown>, context?: DocumentCloneContext): this | Promise<this>;
+    override clone(data?: Record<string, unknown>, context?: DocumentCloneContext): this;
 
     /**
      * Create a synthetic Actor using a provided Token instance
@@ -141,13 +136,13 @@ export default class TokenDocument<TParent extends Scene | null = Scene | null> 
 
     protected override _preUpdate(
         data: Record<string, unknown>,
-        options: TokenUpdateOperation<TParent>,
-        user: User,
+        options: TokenUpdateCallbackOptions,
+        user: BaseUser,
     ): Promise<boolean | void>;
 
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: TokenUpdateOperation<TParent>,
+        options: TokenUpdateCallbackOptions,
         userId: string,
     ): void;
 
@@ -156,54 +151,54 @@ export default class TokenDocument<TParent extends Scene | null = Scene | null> 
      * The descendant documents themselves are configured to have a synthetic Actor as their parent.
      * We need this to ensure that the ActorDelta receives these events which do not bubble up.
      */
-    protected override _preCreateDescendantDocuments<TParent extends Document>(
-        parent: TParent,
+    protected override _preCreateDescendantDocuments<P extends Document>(
+        parent: P,
         collection: string,
         data: object[],
-        options: DatabaseCreateOperation<TParent>,
+        options: DatabaseCreateOperation<P>,
         userId: string,
     ): void;
 
-    protected override _preUpdateDescendantDocuments<TParent extends Document>(
-        parent: TParent,
+    protected override _preUpdateDescendantDocuments<P extends Document>(
+        parent: P,
         collection: string,
         changes: Record<string, unknown>[],
-        options: DatabaseUpdateOperation<TParent>,
+        options: DatabaseUpdateOperation<P>,
         userId: string,
     ): void;
 
-    protected override _preDeleteDescendantDocuments<TParent extends Document>(
-        parent: TParent,
+    protected override _preDeleteDescendantDocuments<P extends Document>(
+        parent: P,
         collection: string,
         ids: string[],
-        options: DatabaseDeleteOperation<TParent>,
+        options: DatabaseDeleteOperation<P>,
         userId: string,
     ): void;
 
-    protected override _onCreateDescendantDocuments<TParent extends Document>(
-        parent: TParent,
+    protected override _onCreateDescendantDocuments<P extends Document>(
+        parent: P,
         collection: string,
-        documents: Document<TParent>[],
+        documents: Document<P>[],
         data: object[],
-        options: DatabaseCreateOperation<TParent>,
+        options: DatabaseCreateOperation<P>,
         userId: string,
     ): void;
 
-    protected override _onUpdateDescendantDocuments<TParent extends Document>(
-        parent: TParent,
+    protected override _onUpdateDescendantDocuments<P extends Document>(
+        parent: P,
         collection: string,
-        documents: Document<TParent>[],
+        documents: Document<P>[],
         changes: Record<string, unknown>[],
-        options: DatabaseUpdateOperation<TParent>,
+        options: DatabaseUpdateOperation<P>,
         userId: string,
     ): void;
 
-    protected _onDeleteDescendantDocuments<TParent extends Document>(
-        parent: TParent,
+    protected _onDeleteDescendantDocuments<P extends Document>(
+        parent: P,
         collection: string,
-        documents: Document<TParent>[],
+        documents: Document<P>[],
         ids: string[],
-        options: DatabaseDeleteOperation<TParent>,
+        options: DatabaseDeleteOperation<P>,
         userId: string,
     ): void;
 
@@ -211,10 +206,7 @@ export default class TokenDocument<TParent extends Scene | null = Scene | null> 
      * When the base Actor for a TokenDocument changes, we may need to update its Actor instance
      * @internal
      */
-    protected _onUpdateBaseActor(
-        update?: Record<string, unknown>,
-        options?: DatabaseUpdateOperation<ClientDocument | null>,
-    ): void;
+    protected _onUpdateBaseActor(update?: Record<string, unknown>, options?: DatabaseUpdateCallbackOptions): void;
 
     /**
      * Whenever the token's actor delta changes, or the base actor changes, perform associated refreshes.
@@ -258,5 +250,8 @@ export interface TokenUpdateOperation<TParent extends Scene | null> extends Data
     teleport?: boolean;
     animation?: TokenAnimationOptions;
 }
+
+export interface TokenUpdateCallbackOptions
+    extends Omit<DatabaseUpdateOperation<null>, "action" | "pack" | "parent" | "restoreDelta" | "noHook" | "updates"> {}
 
 export {};

@@ -1,10 +1,14 @@
 import Token from "@client/canvas/placeables/token.mjs";
-import { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
+import {
+    DatabaseCreateOperation,
+    DatabaseDeleteOperation,
+    DatabaseUpdateCallbackOptions,
+    DatabaseUpdateOperation,
+} from "@common/abstract/_types.mjs";
 import Document from "@common/abstract/document.mjs";
-import EmbeddedCollection from "@common/abstract/embedded-collection.mjs";
 import { ImageFilePath, VideoFilePath } from "@common/constants.mjs";
 import ActorSheet from "../appv1/sheets/actor-sheet.mjs";
-import { ActiveEffect, ActorUUID, BaseActor, Combat, Scene, TokenDocument, User } from "./_module.mjs";
+import { ActiveEffect, ActorUUID, BaseActor, Combat, Item, Scene, TokenDocument } from "./_module.mjs";
 import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
 import Actors from "./collections/actors.mjs";
 
@@ -64,10 +68,10 @@ declare class Actor<TParent extends TokenDocument | null = TokenDocument | null>
     get isToken(): boolean;
 
     /** Retrieve the list of ActiveEffects that are currently applied to this Actor. */
-    get appliedEffects(): ActiveEffect<this>[];
+    get appliedEffects(): ActiveEffect<Actor | Item>[];
 
     /** An array of ActiveEffect instances which are present on the Actor which have a limited duration. */
-    get temporaryEffects(): ActiveEffect<this>[];
+    get temporaryEffects(): ActiveEffect<Actor | Item>[];
 
     /** Return a reference to the TokenDocument which owns this Actor as a synthetic override */
     get token(): TParent;
@@ -207,7 +211,7 @@ declare class Actor<TParent extends TokenDocument | null = TokenDocument | null>
 
     /**
      * Prune a whole scene from this actor's dependent tokens.
-     * @param scene  The scene.
+     * @param scene The scene.
      * @internal
      */
     _unregisterDependentScene(scene: NonNullable<NonNullable<TParent>["parent"]>): void;
@@ -216,31 +220,9 @@ declare class Actor<TParent extends TokenDocument | null = TokenDocument | null>
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
-    protected override _preCreate(
-        data: this["_source"],
-        options: DatabaseCreateOperation<TParent>,
-        user: User,
-    ): Promise<boolean | void>;
-
-    /**
-     * When an Actor is being created, apply default token configuration settings to its prototype token.
-     * @param data    Data explicitly provided to the creation workflow
-     * @param options Options which configure creation
-     * @param [options.fromCompendium] Does this creation workflow originate via compendium import?
-     */
-    protected _applyDefaultTokenSettings(
-        data: this["_source"],
-        options?: { fromCompendium?: boolean },
-    ): DeepPartial<this["_source"]>;
-
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DatabaseUpdateOperation<TParent>,
-        userId: string,
-    ): void;
-    protected override _onUpdate(
-        changed: DeepPartial<this["_source"]>,
-        options: DatabaseUpdateOperation<Document | null>,
+        options: DatabaseUpdateCallbackOptions,
         userId: string,
     ): void;
 
@@ -262,6 +244,15 @@ declare class Actor<TParent extends TokenDocument | null = TokenDocument | null>
         userId: string,
     ): void;
 
+    protected override _onDeleteDescendantDocuments<P extends Document>(
+        parent: P,
+        collection: string,
+        documents: Document<P>[],
+        ids: string[],
+        options: DatabaseDeleteOperation<P>,
+        userId: string,
+    ): void;
+
     /** Additional workflows to perform when any descendant document within this Actor changes. */
     protected _onEmbeddedDocumentChange(): void;
 
@@ -277,7 +268,7 @@ declare class Actor<TParent extends TokenDocument | null = TokenDocument | null>
 }
 
 declare interface Actor<TParent extends TokenDocument | null = TokenDocument | null> extends ClientBaseActor<TParent> {
-    readonly effects: EmbeddedCollection<ActiveEffect<this>>;
+    // readonly effects: EmbeddedCollection<ActiveEffect<this>>;
     // readonly items: EmbeddedCollection<Item<this>>;
 
     get sheet(): ActorSheet<Actor>;

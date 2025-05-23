@@ -1,5 +1,9 @@
 import { Scene, User, WallDocument } from "@client/documents/_module.mjs";
-import { DatabaseCreateOperation, DatabaseDeleteOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
+import {
+    DatabaseCreateCallbackOptions,
+    DatabaseDeleteCallbackOptions,
+    DatabaseUpdateCallbackOptions,
+} from "@common/abstract/_types.mjs";
 import { DoorControl } from "../containers/_module.mjs";
 import { Ray } from "../geometry/_module.mjs";
 import MouseInteractionManager from "../interaction/mouse-handler.mjs";
@@ -116,17 +120,17 @@ export default class Wall<
 
     protected override _onCreate(
         data: TDocument["_source"],
-        options: DatabaseCreateOperation<TDocument["parent"]>,
+        options: DatabaseCreateCallbackOptions,
         userId: string,
     ): void;
 
     protected override _onUpdate(
         changed: DeepPartial<TDocument["_source"]>,
-        options: DatabaseUpdateOperation<TDocument["parent"]>,
+        options: DatabaseUpdateCallbackOptions,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DatabaseDeleteOperation<TDocument["parent"]>, userId: string): void;
+    protected override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void;
 
     /**
      * Callback actions when a wall that contains a door is moved or its state is changed
