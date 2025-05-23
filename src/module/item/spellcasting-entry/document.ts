@@ -1,12 +1,11 @@
 import type { ActorPF2e } from "@actor";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { AttributeString } from "@actor/types.ts";
-import type { DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
+import type { DatabaseUpdateCallbackOptions } from "@common/abstract/_types.d.mts";
 import { ItemPF2e, PhysicalItemPF2e, type SpellPF2e } from "@item";
 import { MagicTradition } from "@item/spell/types.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { OneToTen, ZeroToFour, ZeroToTen } from "@module/data.ts";
-import type { UserPF2e } from "@module/user/index.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e, ordinalString, setHasElement, sluggify } from "@util";
 import * as R from "remeda";
@@ -411,13 +410,13 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     }
 
     /* -------------------------------------------- */
-    /*  Event Listeners and Handlers                */
+    /*  Event Handlers                              */
     /* -------------------------------------------- */
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DatabaseUpdateOperation<TParent>,
-        user: UserPF2e,
+        options: DatabaseUpdateCallbackOptions,
+        user: fd.BaseUser,
     ): Promise<boolean | void> {
         // Clamp slot updates
         if (changed.system?.slots) {
@@ -435,7 +434,6 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
                 }
             }
         }
-
         return super._preUpdate(changed, options, user);
     }
 }

@@ -22,9 +22,9 @@ export interface DocumentDirectoryConfiguration extends ApplicationConfiguration
 export default class DocumentDirectory<TDocument extends DirectoryMixinEntry> extends HandlebarsApplicationMixin(
     AbstractSidebarTab<DocumentDirectoryConfiguration, HandlebarsRenderOptions>,
 ) {
-    constructor(options: Partial<DocumentDirectoryConfiguration>);
+    constructor(options: DeepPartial<DocumentDirectoryConfiguration>);
 
-    static override DEFAULT_OPTIONS: Partial<DocumentDirectoryConfiguration>;
+    static override DEFAULT_OPTIONS: DeepPartial<DocumentDirectoryConfiguration>;
 
     static override PARTS: Record<string, HandlebarsTemplatePart>;
 
@@ -52,6 +52,10 @@ export default class DocumentDirectory<TDocument extends DirectoryMixinEntry> ex
     /* -------------------------------------------- */
     /*  Rendering                                   */
     /* -------------------------------------------- */
+
+    protected override _initializeApplicationOptions(
+        options: DeepPartial<DocumentDirectoryConfiguration>,
+    ): DocumentDirectoryConfiguration;
 
     /** Determine if the current user has permission to create directory entries. */
     protected _canCreateEntry(): boolean;
@@ -117,17 +121,23 @@ export default class DocumentDirectory<TDocument extends DirectoryMixinEntry> ex
     ): void;
 
     /* -------------------------------------------- */
+    /*  Public API                                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Collapse all open folders in this directory.
+     */
+    collapseAll(): void;
+
+    /* -------------------------------------------- */
     /*  Event Listeners & Handlers                  */
     /* -------------------------------------------- */
 
     /**
      * Handle activating a directory entry.
-     * @param {PointerEvent} event  The triggering click event.
-     * @param {HTMLElement} target  The action target element.
-     * @param {object} [options]
-     * @param {boolean} [options._skipDeprecation] Internal use only.
-     * @returns {Promise<void>}
-     * @protected
+     * @param event The triggering click event.
+     * @param HTMLElement target The action target element.
+     * @param options._skipDeprecation Internal use only.
      */
     protected _onClickEntry(
         event: PointerEvent,
@@ -168,6 +178,15 @@ export default class DocumentDirectory<TDocument extends DirectoryMixinEntry> ex
     /* -------------------------------------------- */
 
     /**
+     * Handle matching a given directory entry with the search filter.
+     * @param query The input search string.
+     * @param entryIds The matched directory entry IDs.
+     * @param element The candidate entry element.
+     * @param options Additional options for subclass-specific behavior.
+     */
+    protected _onMatchSearchEntry(query: string, entryIds: Set<string>, element: HTMLElement, options?: object): void;
+
+    /**
      * Handle directory searching and filtering.
      * @param event The keyboard input event.
      * @param query The input search string.
@@ -178,9 +197,9 @@ export default class DocumentDirectory<TDocument extends DirectoryMixinEntry> ex
 
     /**
      * Identify entries in the collection which match a provided search query.
-     * @param query              The search query.
-     * @param entryIds      The set of matched entry IDs.
-     * @param folderIds     The set of matched folder IDs.
+     * @param query The search query.
+     * @param entryIds The set of matched entry IDs.
+     * @param folderIds The set of matched folder IDs.
      * @param autoExpandIds The set of folder IDs that should be auto-expanded.
      */
     protected _matchSearchEntries(
@@ -231,11 +250,24 @@ export default class DocumentDirectory<TDocument extends DirectoryMixinEntry> ex
     ): Promise<void>;
 
     /**
+     * Test if the given entry is already present in this directory.
+     * @param entry The directory entry.
+     */
+    protected _entryAlreadyExists(entry: TDocument): boolean;
+
+    /**
      * Determing whether a given directory entry belongs to the given folder.
      * @param entry  The entry.
      * @param folder The target folder ID.
      */
     protected _entryBelongsToFolder(entry: TDocument, folder: string): boolean;
+
+    /**
+     * Get the entry instance from its dropped data.
+     * @param data The drag data.
+     * @throws If the correct instance type could not be retrieved.
+     */
+    protected _getDroppedEntryFromData(data: DropCanvasData): Promise<TDocument>;
 
     /**
      * Get drag data for an entry in this directory.
@@ -281,6 +313,11 @@ export default class DocumentDirectory<TDocument extends DirectoryMixinEntry> ex
      */
     protected _onDragHighlight(event: DragEvent): void;
 
+    /**
+     * Handle drag events over the directory.
+     */
+    protected _onDragOver(event: DragEvent): void;
+
     protected _onDragStart(event: DragEvent): void;
 
     protected _onDrop(event: DragEvent): void;
@@ -296,11 +333,31 @@ export default class DocumentDirectory<TDocument extends DirectoryMixinEntry> ex
     ): Promise<{ foldersToCreate: Folder[]; documentsToCreate: TDocument[] | object[] }>;
 
     /* -------------------------------------------- */
-    /*  Public API                                  */
+    /*  Helpers                                     */
     /* -------------------------------------------- */
 
-    /** Collapse all open folders in this directory. */
-    collapseAll(): void;
+    /**
+     * Get context menu entries for folders in a directory.
+     * @returns {ContextMenuEntry[]}
+     * @internal
+     */
+    static _getFolderContextOptions(): ContextMenuEntry[];
+
+    /**
+     * Helper method to handle dropping a folder onto the directory.
+     * @param target The drop target element.
+     * @param data The drop data.
+     * @param config.folders The sibling folders.
+     * @param config.label The label for entries in the directory.
+     * @param config.maxFolderDepth The maximum folder depth in this directory.
+     * @param config.type The type of entries in the directory.
+     * @internal
+     */
+    static _handleDroppedFolder(
+        target: HTMLElement,
+        data: object,
+        config: { folders: Folder[]; label: string; maxFolderDepth: number; type: string },
+    ): Promise<{ closestFolderId?: string; folder: Folder; sortData: object; foreign?: boolean } | void>;
 }
 
 export default interface DocumentDirectory<TDocument extends DirectoryMixinEntry> {

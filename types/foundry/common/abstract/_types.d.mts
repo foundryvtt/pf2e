@@ -98,6 +98,9 @@ export interface DatabaseCreateOperation<TParent extends Document | null> {
     parentUuid?: DocumentUUID;
 }
 
+export interface DatabaseCreateCallbackOptions
+    extends Omit<Partial<DatabaseCreateOperation<null>>, "action" | "data" | "pack" | "parent" | "noHook"> {}
+
 export interface DatabaseUpdateOperation<TParent extends Document | null> {
     action: "update";
     /** Whether the database operation is broadcast to other connected clients */
@@ -128,7 +131,14 @@ export interface DatabaseUpdateOperation<TParent extends Document | null> {
     parentUuid?: DocumentUUID;
 }
 
+export interface DatabaseUpdateCallbackOptions
+    extends Omit<
+        Partial<DatabaseUpdateOperation<null>>,
+        "action" | "pack" | "parent" | "restoreDelta" | "noHook" | "updates"
+    > {}
+
 export interface DatabaseDeleteOperation<TParent extends Document | null> {
+    action: "delete";
     /** Whether the database operation is broadcast to other connected clients */
     broadcast: boolean;
     /** An array of Document ids which should be deleted */
@@ -148,6 +158,12 @@ export interface DatabaseDeleteOperation<TParent extends Document | null> {
     /** A parent Document UUID provided when the parent instance is unavailable */
     parentUuid?: DocumentUUID;
 }
+
+export interface DatabaseDeleteCallbackOptions
+    extends Omit<
+        Partial<DatabaseDeleteOperation<null>>,
+        "action" | "deleteAll" | "ids" | "pack" | "parent" | "noHook"
+    > {}
 
 export type DatabaseAction = "get" | "create" | "update" | "delete";
 

@@ -1,13 +1,13 @@
 import { ActorPF2e } from "@actor";
 import type {
+    DatabaseCreateCallbackOptions,
     DatabaseCreateOperation,
     DatabaseDeleteOperation,
-    DatabaseUpdateOperation,
+    DatabaseUpdateCallbackOptions,
 } from "@common/abstract/_types.d.mts";
 import type Document from "@common/abstract/document.d.mts";
 import type { UserAction } from "@common/constants.d.mts";
 import { ItemType } from "@item/base/data/index.ts";
-import { UserPF2e } from "@module/user/document.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
 import { LootSource, LootSystemData } from "./data.ts";
 
@@ -52,7 +52,7 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
     }
 
     /** Anyone with Limited ownership can update a loot actor. */
-    override canUserModify(user: UserPF2e, action: UserAction): boolean {
+    override canUserModify(user: fd.BaseUser, action: UserAction): boolean {
         return (
             super.canUserModify(user, action) ||
             (action === "update" && this.permission >= CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED)
@@ -93,18 +93,18 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    protected override _onCreate(data: LootSource, options: DatabaseCreateOperation<TParent>, userId: string): void {
+    protected override _onCreate(data: LootSource, options: DatabaseCreateCallbackOptions, userId: string): void {
         if (game.user.id === userId) this.toggleTokenHiding();
         super._onCreate(data, options, userId);
     }
 
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        operation: DatabaseUpdateOperation<TParent>,
+        options: DatabaseUpdateCallbackOptions,
         userId: string,
     ): void {
         if (game.user.id === userId && changed.system?.hiddenWhenEmpty !== undefined) this.toggleTokenHiding();
-        super._onUpdate(changed, operation, userId);
+        super._onUpdate(changed, options, userId);
     }
 
     protected override _onCreateDescendantDocuments<P extends Document>(

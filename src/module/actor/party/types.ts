@@ -1,13 +1,7 @@
-import { ActorUpdateOperation } from "@actor/base.ts";
 import type { DataModel, DataSchema } from "@common/abstract/_module.d.mts";
 import { ItemType } from "@item/base/data/index.ts";
-import type { TokenDocumentPF2e } from "@scene";
 import type { Statistic } from "@system/statistic/index.ts";
 import type { PartySystemData } from "./data.ts";
-
-interface PartyUpdateOperation<TParent extends TokenDocumentPF2e | null> extends ActorUpdateOperation<TParent> {
-    removedMembers?: string[];
-}
 
 /** Interface for a party campaign implementation, alternative data preparation used by parties for special campaigns */
 interface PartyCampaign extends DataModel<PartySystemData, DataSchema> {
@@ -32,4 +26,4 @@ interface PartyCampaign extends DataModel<PartySystemData, DataSchema> {
     _preUpdate?(changed: Record<string, unknown>): void;
 }
 
-export type { PartyCampaign, PartyUpdateOperation };
+export type { PartyCampaign };

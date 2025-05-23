@@ -133,7 +133,7 @@ export default class Localization {
      * const stringId = "MY_TEST_STRING"; // "Your name is {name}"
      * game.i18n.format("MY_TEST_STRING", {name: "Andrew"}); // Produces "Your name is Andrew"
      */
-    format(stringId: string, data?: { [key: string]: string | number | boolean | null }): string;
+    format(stringId: string, data?: Record<string, Maybe<string | number | boolean>>): string;
 
     /**
      * Retrieve list formatter configured to the world's language setting.

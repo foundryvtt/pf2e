@@ -4,13 +4,12 @@ import { ClassDCData } from "@actor/character/data.ts";
 import type { FeatGroup } from "@actor/character/feats/index.ts";
 import type { SenseData } from "@actor/creature/index.ts";
 import type { DocumentHTMLEmbedConfig } from "@client/applications/ux/text-editor.d.mts";
-import type { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
+import type { DatabaseCreateCallbackOptions, DatabaseUpdateCallbackOptions } from "@common/abstract/_types.d.mts";
 import { ItemPF2e, type HeritagePF2e } from "@item";
 import { getActionCostRollOptions, normalizeActionChangeData, processSanctification } from "@item/ability/helpers.ts";
 import { ActionCost, Frequency, RawItemChatData } from "@item/base/data/index.ts";
 import { Rarity } from "@module/data.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "@module/rules/index.ts";
-import type { UserPF2e } from "@module/user/index.ts";
 import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify } from "@util";
 import * as R from "remeda";
@@ -363,8 +362,8 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     protected override async _preCreate(
         data: this["_source"],
-        operation: DatabaseCreateOperation<TParent>,
-        user: UserPF2e,
+        options: DatabaseCreateCallbackOptions,
+        user: fd.BaseUser,
     ): Promise<boolean | void> {
         // In case this was copied from an actor, clear the location if there's no parent.
         if (!this.parent) {
@@ -375,15 +374,15 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             }
         }
 
-        return super._preCreate(data, operation, user);
+        return super._preCreate(data, options, user);
     }
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        operation: DatabaseUpdateOperation<TParent>,
-        user: UserPF2e,
+        options: DatabaseUpdateCallbackOptions,
+        user: fd.BaseUser,
     ): Promise<boolean | void> {
-        if (!changed.system) return super._preUpdate(changed, operation, user);
+        if (!changed.system) return super._preUpdate(changed, options, user);
 
         // Ensure an empty-string `location` property is null
         if ("location" in changed.system) {
@@ -418,12 +417,12 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             }
         }
 
-        return super._preUpdate(changed, operation, user);
+        return super._preUpdate(changed, options, user);
     }
 
     /** Warn the owning user(s) if this feat was taken despite some restriction */
-    protected override _onCreate(data: FeatSource, operation: DatabaseCreateOperation<TParent>, userId: string): void {
-        super._onCreate(data, operation, userId);
+    protected override _onCreate(data: FeatSource, options: DatabaseCreateCallbackOptions, userId: string): void {
+        super._onCreate(data, options, userId);
 
         if (!(this.isOwner && this.actor?.isOfType("character") && this.isFeat)) return;
 

@@ -1,10 +1,11 @@
 import type { ActorPF2e } from "@actor";
 import { InventoryBulk } from "@actor/inventory/index.ts";
-import { RawItemChatData } from "@item/base/data/index.ts";
-import { EquipmentTrait } from "@item/equipment/data.ts";
+import type { EnrichmentOptions } from "@client/applications/ux/text-editor.d.mts";
+import type { DatabaseUpdateCallbackOptions } from "@common/abstract/_module.d.mts";
+import type { RawItemChatData } from "@item/base/data/index.ts";
+import type { EquipmentTrait } from "@item/equipment/data.ts";
 import { Bulk } from "@item/physical/bulk.ts";
 import { PhysicalItemPF2e } from "@item/physical/document.ts";
-import type { UserPF2e } from "@module/user/index.ts";
 import type { ContainerSource, ContainerSystemData } from "./data.ts";
 import { hasExtraDimensionalParent } from "./helpers.ts";
 
@@ -14,7 +15,7 @@ class ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     }
 
     /** This container's contents, reloaded every data preparation cycle */
-    contents: Collection<PhysicalItemPF2e<NonNullable<TParent>>> = new Collection();
+    contents: Collection<string, PhysicalItemPF2e<NonNullable<TParent>>> = new Collection();
 
     /** Is this an actual stowing container or merely one of the old pouches/quivers/etc.? */
     get stowsItems(): boolean {
@@ -95,10 +96,10 @@ class ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     /** Coerce changes to container bulk data into validity */
     protected override _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        operation: DatabaseUpdateOperation<TParent>,
-        user: UserPF2e,
+        options: DatabaseUpdateCallbackOptions,
+        user: fd.BaseUser,
     ): Promise<boolean | void> {
-        if (!changed.system?.bulk) return super._preUpdate(changed, operation, user);
+        if (!changed.system?.bulk) return super._preUpdate(changed, options, user);
 
         if (changed.system.bulk.heldOrStowed !== undefined) {
             changed.system.bulk.heldOrStowed = Math.clamp(Number(changed.system.bulk.heldOrStowed), 0, 999) || 0;
@@ -116,7 +117,7 @@ class ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
             }
         }
 
-        return super._preUpdate(changed, operation, user);
+        return super._preUpdate(changed, options, user);
     }
 }
 

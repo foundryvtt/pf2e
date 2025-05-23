@@ -10,14 +10,17 @@ import { DropCanvasData } from "@client/helpers/hooks.mjs";
 import { Collection, SortOptions } from "@client/utils/_module.mjs";
 import { DocumentConstructionContext } from "@common/_types.mjs";
 import {
+    DatabaseCreateCallbackOptions,
     DatabaseCreateOperation,
+    DatabaseDeleteCallbackOptions,
     DatabaseDeleteOperation,
+    DatabaseUpdateCallbackOptions,
     DatabaseUpdateOperation,
 } from "@common/abstract/_module.mjs";
 import Document from "@common/abstract/document.mjs";
 import { DocumentOwnershipLevel } from "@common/constants.mjs";
+import { BaseUser } from "../_module.mjs";
 import CompendiumCollection from "../collections/compendium-collection.mjs";
-import User from "../user.mjs";
 
 export default function ClientDocumentMixin<TParent extends Document | null, TDocument extends Document<TParent>>(
     Base: ConstructorOf<TDocument>,
@@ -166,7 +169,7 @@ export class ClientDocument<TParent extends Document | null = Document | null> e
      * Handle clicking on a content link for this document.
      * @param event The triggering click event.
      */
-    protected _onClickDocumentLink(event: PointerEvent): Application | Promise<ApplicationV2>;
+    protected _onClickDocumentLink(event: PointerEvent): this["sheet"] | Promise<this["sheet"]> | null;
 
     /* -------------------------------------------- */
     /*  Event Handlers                              */
@@ -174,31 +177,27 @@ export class ClientDocument<TParent extends Document | null = Document | null> e
 
     protected override _preCreate(
         data: this["_source"],
-        options: DatabaseCreateOperation<TParent>,
-        user: User,
+        options: DatabaseCreateCallbackOptions,
+        user: BaseUser,
     ): Promise<boolean | void>;
 
-    protected override _onCreate(
-        data: this["_source"],
-        options: DatabaseCreateOperation<TParent>,
-        userId: string,
-    ): void;
+    protected override _onCreate(data: this["_source"], options: DatabaseCreateCallbackOptions, userId: string): void;
 
     protected override _preUpdate(
         changes: Record<string, unknown>,
-        options: DatabaseUpdateOperation<TParent>,
-        user: User,
+        options: DatabaseUpdateCallbackOptions,
+        user: BaseUser,
     ): Promise<boolean | void>;
 
     protected override _onUpdate(
         data: Record<string, unknown>,
-        options: DatabaseUpdateOperation<TParent>,
+        options: DatabaseUpdateCallbackOptions,
         userId: string,
     ): void;
 
-    protected override _preDelete(options: DatabaseDeleteOperation<TParent>, user: User): Promise<boolean | void>;
+    protected override _preDelete(options: DatabaseDeleteCallbackOptions, user: BaseUser): Promise<boolean | void>;
 
-    protected override _onDelete(options: DatabaseDeleteOperation<TParent>, userId: string): void;
+    protected override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void;
 
     /* -------------------------------------------- */
     /*  Descendant Document Events                  */

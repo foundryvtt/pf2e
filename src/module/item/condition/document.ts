@@ -5,7 +5,6 @@ import { AbstractEffectPF2e, EffectBadge } from "@item/abstract-effect/index.ts"
 import { reduceItemName } from "@item/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { RuleElementOptions, RuleElementPF2e } from "@module/rules/index.ts";
-import type { UserPF2e } from "@module/user/index.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
@@ -289,7 +288,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
         operation: ConditionUpdateOperation<TParent>,
-        user: UserPF2e,
+        user: fd.BaseUser,
     ): Promise<boolean | void> {
         operation.conditionValue = this.value;
         return super._preUpdate(changed, operation, user);

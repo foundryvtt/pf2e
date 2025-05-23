@@ -1,12 +1,12 @@
 import { PlaceablesLayer } from "@client/canvas/layers/_module.mjs";
 import PlaceableObject from "@client/canvas/placeables/placeable-object.mjs";
 import {
-    DatabaseCreateOperation,
-    DatabaseDeleteOperation,
-    DatabaseUpdateOperation,
+    DatabaseCreateCallbackOptions,
+    DatabaseDeleteCallbackOptions,
+    DatabaseUpdateCallbackOptions,
 } from "@common/abstract/_module.mjs";
 import Document from "@common/abstract/document.mjs";
-import User from "../user.mjs";
+import { BaseUser } from "../_module.mjs";
 import { ClientDocument, ClientDocumentStatic } from "./client-document.mjs";
 
 /**
@@ -55,23 +55,19 @@ export class CanvasDocument<TParent extends Document | null = Document | null> e
 
     protected override _preCreate(
         data: Record<string, unknown>,
-        options: DatabaseCreateOperation<TParent>,
-        user: User,
+        options: DatabaseCreateCallbackOptions,
+        user: BaseUser,
     ): Promise<boolean | void>;
 
-    protected override _onCreate(
-        data: this["_source"],
-        options: DatabaseCreateOperation<TParent>,
-        userId: string,
-    ): void;
+    protected override _onCreate(data: this["_source"], options: DatabaseCreateCallbackOptions, userId: string): void;
 
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DatabaseUpdateOperation<TParent>,
+        options: DatabaseUpdateCallbackOptions,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DatabaseDeleteOperation<TParent>, userId: string): void;
+    protected override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void;
 }
 
 export interface CanvasDocumentStatic extends ClientDocumentStatic {}

@@ -1,5 +1,5 @@
 import Note from "@client/canvas/placeables/note.mjs";
-import { DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
+import { DatabaseUpdateCallbackOptions } from "@common/abstract/_types.mjs";
 import { DocumentOwnershipLevel } from "@common/constants.mjs";
 import { JournalPageSheet } from "../appv1/sheets/journal-page-sheet.mjs";
 import { BaseJournalEntryPage } from "./_module.mjs";
@@ -71,11 +71,11 @@ export default class JournalEntryPage<
     /*  Methods                                     */
     /* -------------------------------------------- */
 
-    protected override _onClickDocumentLink(event: PointerEvent): Promise<this["sheet"]>;
+    protected override _onClickDocumentLink(event: PointerEvent): this["sheet"] | Promise<this["sheet"]>;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DatabaseUpdateOperation<TParent>,
+        options: DatabaseUpdateCallbackOptions,
         userId: string,
     ): void;
 }

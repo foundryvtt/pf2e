@@ -1,5 +1,5 @@
 import { DrawingDocument, Scene, User } from "@client/documents/_module.mjs";
-import { DatabaseDeleteOperation } from "@common/abstract/_types.mjs";
+import { DatabaseDeleteCallbackOptions } from "@common/abstract/_types.mjs";
 import { DrawingsLayer } from "../layers/_module.mjs";
 import PlaceableObject from "./placeable-object.mjs";
 
@@ -102,7 +102,7 @@ export default class Drawing<
 
     protected override _onRelease(options?: object): void;
 
-    override _onDelete(options: DatabaseDeleteOperation<TDocument["parent"]>, userId: string): void;
+    override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void;
 
     /** Handle text entry in an active text tool */
     protected _onDrawingTextKeydown(event: KeyboardEvent): void;

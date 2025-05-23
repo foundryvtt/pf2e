@@ -2,7 +2,11 @@ import Sound from "@client/audio/sound.mjs";
 import AmbientSoundDocument from "@client/documents/ambient-sound.mjs";
 import Scene from "@client/documents/scene.mjs";
 import User from "@client/documents/user.mjs";
-import { DatabaseCreateOperation, DatabaseDeleteOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
+import {
+    DatabaseCreateCallbackOptions,
+    DatabaseDeleteCallbackOptions,
+    DatabaseUpdateCallbackOptions,
+} from "@common/abstract/_types.mjs";
 import { ControlIcon } from "../containers/_module.mjs";
 import PointSoundSource from "../sources/point-sound-source.mjs";
 import PlaceableObject from "./placeable-object.mjs";
@@ -75,17 +79,17 @@ export default class AmbientSound<
 
     protected override _onCreate(
         data: TDocument["_source"],
-        options: DatabaseCreateOperation<TDocument["parent"]>,
+        options: DatabaseCreateCallbackOptions,
         userId: string,
     ): void;
 
     protected override _onUpdate(
         changed: DeepPartial<TDocument["_source"]>,
-        options: DatabaseUpdateOperation<TDocument["parent"]>,
+        options: DatabaseUpdateCallbackOptions,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DatabaseDeleteOperation<TDocument["parent"]>, userId: string): void;
+    protected override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void;
 
     /* -------------------------------------------- */
     /*  Interaction Event Handlers                  */

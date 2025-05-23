@@ -1,5 +1,5 @@
 import type { TokenAnimationOptions, TokenResourceData, TokenShape } from "@client/canvas/placeables/token.d.mts";
-import type { TokenUpdateOperation } from "@client/documents/token.d.mts";
+import type { TokenUpdateCallbackOptions } from "@client/documents/token.d.mts";
 import type { Point } from "@common/_types.d.mts";
 import { EffectPF2e } from "@item";
 import type { UserPF2e } from "@module/user/document.ts";
@@ -550,12 +550,12 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /* -------------------------------------------- */
 
     /** Players can view an actor's sheet if the actor is lootable. */
-    protected override _canView(user: UserPF2e, event: PIXI.FederatedPointerEvent): boolean {
+    protected override _canView(user: User, event: PIXI.FederatedPointerEvent): boolean {
         return super._canView(user, event) || !!this.actor?.isLootableBy(user);
     }
 
     /** Prevent players from controlling an NPC when it's lootable */
-    protected override _canControl(user: UserPF2e, event?: PIXI.FederatedPointerEvent): boolean {
+    protected override _canControl(user: User, event?: PIXI.FederatedPointerEvent): boolean {
         if (!this.observer && this.actor?.isOfType("npc") && this.actor.isLootableBy(user)) return false;
         return super._canControl(user, event);
     }
@@ -584,10 +584,10 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /** Reset aura renders when token size or GM hidden changes. */
     override _onUpdate(
         changed: DeepPartial<TDocument["_source"]>,
-        operation: TokenUpdateOperation<TDocument["parent"]>,
+        options: TokenUpdateCallbackOptions,
         userId: string,
     ): void {
-        super._onUpdate(changed, operation, userId);
+        super._onUpdate(changed, options, userId);
 
         if (changed.width || "hidden" in changed) {
             if (this.animation) {

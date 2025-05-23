@@ -1,5 +1,6 @@
 import { DatabaseCreateOperation, DatabaseDeleteOperation } from "@common/abstract/_types.mjs";
 import Document from "@common/abstract/document.mjs";
+import EmbeddedCollection from "@common/abstract/embedded-collection.mjs";
 import { RollMode } from "@common/constants.mjs";
 import { ChatMessageCreateOperation } from "@common/documents/chat-message.mjs";
 import Roll from "../dice/roll.mjs";
@@ -32,11 +33,11 @@ export default class RollTable extends ClientBaseRollTable {
      * Display a result drawn from a RollTable in the Chat Log along.
      * Optionally also display the Roll which produced the result and configure aspects of the displayed messages.
      *
-     * @param results      An Array of one or more TableResult Documents which were drawn and should be displayed
-     * @param [options={}] Additional options which modify message creation
-     * @param [options.roll]              An optional Roll instance which produced the drawn results
-     * @param [options.messageData={}]    Additional data which customizes the created messages
-     * @param [options.messageOptions={}] Additional options which customize the created messages
+     * @param results An Array of one or more TableResult Documents which were drawn and should be displayed
+     * @param options Additional options which modify message creation
+     * @param options.roll An optional Roll instance which produced the drawn results
+     * @param options.messageData Additional data which customizes the created messages
+     * @param options.messageOptions Additional options which customize the created messages
      */
     toMessage(
         results: TableResult<this>[],
@@ -141,37 +142,21 @@ export default class RollTable extends ClientBaseRollTable {
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
-    protected override _onCreateDescendantDocuments(
-        parent: this,
-        collection: "results",
-        documents: TableResult<this>[],
-        data: TableResult<this>["_source"][],
-        operation: DatabaseCreateOperation<this>,
-        userId: string,
-    ): void;
-    protected override _onCreateDescendantDocuments<TParent extends Document>(
-        parent: TParent,
+    protected override _onCreateDescendantDocuments<P extends Document>(
+        parent: P,
         collection: string,
-        documents: Document<TParent>,
+        documents: Document<P>[],
         data: object[],
-        options: DatabaseCreateOperation<TParent>,
+        options: DatabaseCreateOperation<P>,
         userId: string,
     ): void;
 
-    protected override _onDeleteDescendantDocuments(
-        parent: this,
-        collection: "results",
-        documents: TableResult<this>[],
-        ids: string[],
-        operation: DatabaseDeleteOperation<this>,
-        userId: string,
-    ): void;
-    protected override _onDeleteDescendantDocuments<TParent extends Document>(
-        parent: TParent,
+    protected override _onDeleteDescendantDocuments<P extends Document>(
+        parent: P,
         collection: string,
-        documents: Document<TParent>[],
+        documents: Document<P>[],
         ids: string[],
-        options: DatabaseDeleteOperation<TParent>,
+        options: DatabaseDeleteOperation<P>,
         userId: string,
     ): void;
 
@@ -190,7 +175,7 @@ export default class RollTable extends ClientBaseRollTable {
 }
 
 export default interface RollTable extends ClientBaseRollTable {
-    // readonly results: foundry.abstract.EmbeddedCollection<TableResult<this>>;
+    readonly results: EmbeddedCollection<TableResult<this>>;
 }
 
 /**

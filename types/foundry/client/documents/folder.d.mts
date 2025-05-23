@@ -1,7 +1,7 @@
-import { DatabaseCreateOperation, DatabaseDeleteOperation } from "@common/abstract/_types.mjs";
+import { DatabaseCreateCallbackOptions, DatabaseDeleteCallbackOptions } from "@common/abstract/_types.mjs";
 import Collection from "@common/utils/collection.mjs";
 import { FormApplicationOptions } from "../appv1/api/form-application-v1.mjs";
-import { Actor, BaseFolder, Item, JournalEntry, Macro, RollTable, Scene, User } from "./_module.mjs";
+import { Actor, BaseFolder, BaseUser, Item, JournalEntry, Macro, RollTable, Scene } from "./_module.mjs";
 import ClientDocumentMixin from "./abstract/client-document.mjs";
 import WorldCollection from "./abstract/world-collection.mjs";
 import CompendiumCollection from "./collections/compendium-collection.mjs";
@@ -62,8 +62,8 @@ export default class Folder<TDocument extends EnfolderableDocument = Enfolderabl
 
     override _preCreate(
         data: this["_source"],
-        options: DatabaseCreateOperation<null>,
-        user: User,
+        options: DatabaseCreateCallbackOptions,
+        user: BaseUser,
     ): Promise<boolean | void>;
 
     /**
@@ -101,7 +101,7 @@ export default class Folder<TDocument extends EnfolderableDocument = Enfolderabl
      */
     exportDialog(pack: string, options?: Record<string, unknown>): Promise<void>;
 
-    protected override _onDelete(options: DatabaseDeleteOperation<null>, userId: string): void;
+    protected override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void;
 
     /**
      * Get the Folder documents which are sub-folders of the current folder, either direct children or recursively.

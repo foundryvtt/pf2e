@@ -1,7 +1,8 @@
 import { RegionPolygonTree } from "@client/data/region-shapes/polygon-tree.mjs";
 import { RegionShape } from "@client/data/region-shapes/shape.mjs";
+import EmbeddedCollection from "@common/abstract/embedded-collection.mjs";
 import Region, { RegionMovementSegment, RegionMovementWaypoint } from "../canvas/placeables/region.mjs";
-import { BaseRegion, Scene, User } from "./_module.mjs";
+import { BaseRegion, RegionBehavior, Scene, User } from "./_module.mjs";
 import { CanvasDocument, CanvasDocumentStatic } from "./abstract/canvas-document.mjs";
 
 interface CanvasBaseRegionStatic extends Omit<typeof BaseRegion, "new">, CanvasDocumentStatic {}
@@ -76,9 +77,9 @@ export default class RegionDocument<TParent extends Scene | null = Scene | null>
 }
 
 export default interface RegionDocument<TParent extends Scene | null = Scene | null> extends CanvasBaseRegion<TParent> {
-    _object: Region<this>;
+    get object(): Region<this>;
 
-    // readonly behaviors: EmbeddedCollection<RegionBehavior<this>>;
+    readonly behaviors: EmbeddedCollection<RegionBehavior<this>>;
 }
 
 export interface BaseRegionEvent<TDocument extends RegionDocument = RegionDocument, TUser extends User = User> {
