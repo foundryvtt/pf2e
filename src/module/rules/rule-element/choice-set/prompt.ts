@@ -38,7 +38,7 @@ class ChoiceSetPrompt extends PickAThingPrompt<ItemPF2e<ActorPF2e>, string | num
     };
 
     static override PARTS: Record<string, fa.api.HandlebarsTemplatePart> = {
-        base: { template: "systems/pf2e/templates/system/rules-elements/choice-set-prompt.hbs" },
+        base: { template: "systems/pf2e/templates/system/rules-elements/choice-set-prompt.hbs", root: true },
     };
 
     override async _prepareContext(): Promise<ChoiceSetTemplateData> {
