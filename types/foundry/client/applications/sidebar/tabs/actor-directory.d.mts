@@ -6,7 +6,7 @@ import DocumentDirectory, { DocumentDirectoryConfiguration } from "../document-d
  * The World Actor directory listing.
  */
 export default class ActorDirectory<TDocument extends Actor<null> = Actor<null>> extends DocumentDirectory<TDocument> {
-    static override DEFAULT_OPTIONS: Partial<DocumentDirectoryConfiguration>;
+    static override DEFAULT_OPTIONS: DeepPartial<DocumentDirectoryConfiguration>;
 
     static override tabName: "actors";
 
