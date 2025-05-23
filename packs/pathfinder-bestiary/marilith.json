@@ -1001,7 +1001,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The marilith makes two Strikes, each with a different weapon, and they use the remaining weapons for protection. The demon gains a circumstance bonus to AC for 1 round equal to the number of weapons not used for attacks. If the marilith later uses any of those weapons to attack (including for an Attack of Opportunity), the bonus to AC decreases by 1 for each weapon used.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Defensive Assault]</p>"
+                    "value": "<p>The marilith makes two Strikes, each with a different weapon, and they use the remaining weapons for protection. The demon gains a circumstance bonus to AC for 1 round equal to the number of weapons not used for attacks. If the marilith later uses any of those weapons to attack (including for an Attack of Opportunity), the bonus to AC decreases by 1 for each weapon used.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1009,6 +1009,10 @@
                     "title": ""
                 },
                 "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Defensive Assault",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Defensive Assault"
+                },
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -1031,14 +1035,52 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The marilith attacks a single target with all the weapons they wield in their arms, overwhelming the target with multiple attacks and leaving almost nowhere to dodge. The demon makes a longsword Strike. On a successful attack, the marilith deals longsword damage to the target, plus an additional @Damage[1d8[slashing]] damage for every longsword they wield beyond the first (typically @Damage[5d8[slashing]] damage). Even on a failed attack, the marilith deals the damage from one longsword to the target, though they still miss completely on a critical failure. This counts toward the marilith's multiple attack penalty as a number of attacks equal to the number of longswords the pride demon wields.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Focused Assault]</p>"
+                    "value": "<p>The marilith attacks a single target with all the weapons they wield in their arms, overwhelming the target with multiple attacks and leaving almost nowhere to dodge. The demon makes a longsword Strike. On a successful attack, the marilith deals longsword damage to the target, plus an additional 1d8 slashing damage for every longsword they wield beyond the first (typically 5d8 slashing damage). Even on a failed attack, the marilith deals the damage from one longsword to the target, though they still miss completely on a critical failure. This counts toward the marilith's multiple attack penalty as a number of attacks equal to the number of longswords the pride demon wields.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "focused-assault",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.MarilithFocusedAssault.One",
+                                "value": "0"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.MarilithFocusedAssault.Two",
+                                "value": "1"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.MarilithFocusedAssault.Three",
+                                "value": "2"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.MarilithFocusedAssault.Four",
+                                "value": "3"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.MarilithFocusedAssault.Five",
+                                "value": "4"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.MarilithFocusedAssault.Six",
+                                "value": "5"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": "{item|flags.pf2e.rulesSelections.focusedAssault}",
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "selector": "cold-iron-silver-longsword-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
