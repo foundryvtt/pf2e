@@ -7,7 +7,7 @@ import { ErrorPF2e } from "@util";
 /** A prompt for the user to select an item to receive an attachment */
 class ItemAttacher<TItem extends PhysicalItemPF2e> extends PickAThingPrompt<TItem, PhysicalItemPF2e> {
     static override PARTS: Record<string, fa.api.HandlebarsTemplatePart> = {
-        base: { template: "systems/pf2e/templates/items/item-attacher.hbs" },
+        base: { template: "systems/pf2e/templates/items/item-attacher.hbs", root: true },
     };
 
     constructor({ item }: { item: TItem }) {
