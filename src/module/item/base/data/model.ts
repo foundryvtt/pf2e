@@ -70,7 +70,7 @@ type ItemSystemSchema = {
     publication: fields.SchemaField<{
         title: fields.StringField<string, string, true, false, true>;
         authors: fields.StringField<string, string, true, false, true>;
-        license: fields.StringField<"OGL" | "ORC", "OGL" | "ORC", true, false, true>;
+        license: fields.StringField<"OGL" | "ORC" | "PFI", "OGL" | "ORC" | "PFI", true, false, true>;
         remaster: fields.BooleanField;
     }>;
     rules: fields.ArrayField<fields.ObjectField<RuleElementSource, RuleElementSource, true, false, false>>;

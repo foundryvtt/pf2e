@@ -168,6 +168,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
             publicationLicenses: [
                 { label: "PF2E.Publication.License.OGL", value: "OGL" },
                 { label: "PF2E.Publication.License.ORC", value: "ORC" },
+                { label: "PF2E.Publication.License.PFI", value: "PFI" },
             ],
         };
     }

@@ -23,7 +23,7 @@ class PublicationField extends fields.SchemaField<
             license: new fields.StringField({
                 required: true,
                 nullable: false,
-                choices: ["OGL", "ORC"],
+                choices: ["OGL", "ORC", "PFI"],
                 initial: "OGL",
             }),
             remaster: new fields.BooleanField({ required: true, nullable: false, initial: false }),
@@ -35,7 +35,7 @@ class PublicationField extends fields.SchemaField<
 type PublicationSchema = {
     title: fields.StringField<string, string, true, false, true>;
     authors: fields.StringField<string, string, true, false, true>;
-    license: fields.StringField<"ORC" | "OGL", "ORC" | "OGL", true, false, true>;
+    license: fields.StringField<"ORC" | "OGL" | "PFI", "ORC" | "OGL" | "PFI", true, false, true>;
     remaster: fields.BooleanField;
 };
 

@@ -92,7 +92,7 @@ type MigrationRecord = NewDocumentMigrationRecord | MigratedDocumentMigrationRec
 interface PublicationData {
     title: string;
     authors: string;
-    license: "ORC" | "OGL";
+    license: "ORC" | "OGL" | "PFI";
     remaster: boolean;
 }
 
