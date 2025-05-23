@@ -4,9 +4,9 @@
     "name": "Effect: Remaining Air",
     "system": {
         "badge": {
-            "max": 20,
+            "max": 600,
             "type": "counter",
-            "value": 20
+            "value": 600
         },
         "description": {
             "value": "<p>See @UUID[Compendium.pf2e.journals.JournalEntry.S55aqwWIzpQRFhcq.JournalEntryPage.OiRwxbfLNUniLg15#drowning-and-suffocating]{Drowning and Suffocating}</p>\n<p>You can hold your breath for a number of rounds equal to 5 + your Constitution modifier. Reduce your remaining air by 1 round at the end of each of your turns, or by 2 if you attacked or cast any spells that turn.</p>\n<p>You also lose 1 round worth of air each time you are critically hit or critically fail a save against a damaging effect. If you speak (including Casting a Spell) you lose all remaining air.</p>"
@@ -27,11 +27,17 @@
         },
         "rules": [
             {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.remainingAir.rounds",
+                "value": "5 + @actor.abilities.con.mod"
+            },
+            {
                 "itemId": "{item|id}",
                 "key": "ItemAlteration",
                 "mode": "override",
                 "property": "badge-max",
-                "value": "5 + @actor.abilities.con.mod"
+                "value": "@actor.flags.pf2e.remainingAir.rounds"
             },
             {
                 "key": "Note",
