@@ -1,12 +1,11 @@
 import type { ActorPF2e } from "@actor";
-import type { DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
+import type { DatabaseUpdateCallbackOptions } from "@common/abstract/_types.d.mts";
 import { ItemProxyPF2e, type WeaponPF2e } from "@item";
 import type { RawItemChatData } from "@item/base/data/index.ts";
 import { PhysicalItemPF2e, RUNE_DATA, getMaterialValuationData } from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import type { WeaponMaterialSource, WeaponSource, WeaponSystemSource, WeaponTraitsSource } from "@item/weapon/data.ts";
 import type { WeaponTrait } from "@item/weapon/types.ts";
-import type { UserPF2e } from "@module/user/document.ts";
 import type { DamageType } from "@system/damage/types.ts";
 import type { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, signedInteger } from "@util";
@@ -278,10 +277,10 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     protected override _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        operation: DatabaseUpdateOperation<TParent>,
-        user: UserPF2e,
+        options: DatabaseUpdateCallbackOptions,
+        user: fd.BaseUser,
     ): Promise<boolean | void> {
-        if (!changed.system) return super._preUpdate(changed, operation, user);
+        if (!changed.system) return super._preUpdate(changed, options, user);
 
         if (changed.system.acBonus !== undefined) {
             const integerValue = Math.floor(Number(changed.system.acBonus)) || 0;
@@ -303,7 +302,7 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             changed.system.traits.integrated = null;
         }
 
-        return super._preUpdate(changed, operation, user);
+        return super._preUpdate(changed, options, user);
     }
 }
 

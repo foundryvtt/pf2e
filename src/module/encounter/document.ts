@@ -5,10 +5,12 @@ import { isReallyPC, resetActors } from "@actor/helpers.ts";
 import { InitiativeRollResult } from "@actor/initiative.ts";
 import { SkillSlug } from "@actor/types.ts";
 import type {
+    DatabaseCreateCallbackOptions,
     DatabaseCreateOperation,
-    DatabaseDeleteOperation,
-    DatabaseUpdateOperation,
+    DatabaseDeleteCallbackOptions,
+    DatabaseUpdateCallbackOptions,
 } from "@common/abstract/_types.d.mts";
+import type EmbeddedCollection from "@common/abstract/embedded-collection.d.mts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
 import { calculateXP } from "@scripts/macros/index.ts";
 import { ThreatRating } from "@scripts/macros/xp/index.ts";
@@ -229,7 +231,7 @@ class EncounterPF2e extends Combat {
         const actors: ActorPF2e[] = R.unique(
             this.combatants.contents
                 .flatMap((c) => [c.actor, c.actor?.isOfType("character") ? c.actor.familiar : null])
-                .filter(R.isTruthy),
+                .filter(R.isNonNull),
         );
         resetActors(actors, { sheets: false, tokens: true });
     }
@@ -239,12 +241,8 @@ class EncounterPF2e extends Combat {
     /* -------------------------------------------- */
 
     /** Enable the initiative button on PC sheets */
-    protected override _onCreate(
-        data: this["_source"],
-        operation: DatabaseCreateOperation<null>,
-        userId: string,
-    ): void {
-        super._onCreate(data, operation, userId);
+    protected override _onCreate(data: this["_source"], options: DatabaseCreateCallbackOptions, userId: string): void {
+        super._onCreate(data, options, userId);
 
         const pcSheets = Object.values(ui.windows).filter(
             (sheet): sheet is CharacterSheetPF2e<CharacterPF2e> => sheet.constructor.name === "CharacterSheetPF2e",
@@ -257,10 +255,10 @@ class EncounterPF2e extends Combat {
     /** Call onTurnStart for each rule element on the new turn's actor */
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        operation: DatabaseUpdateOperation<null>,
+        options: DatabaseUpdateCallbackOptions,
         userId: string,
     ): void {
-        super._onUpdate(changed, operation, userId);
+        super._onUpdate(changed, options, userId);
 
         game.pf2e.StatusEffects.onUpdateEncounter(this);
 
@@ -317,8 +315,8 @@ class EncounterPF2e extends Combat {
     }
 
     /** Disable the initiative link on PC sheets if this was the only encounter */
-    protected override _onDelete(operation: DatabaseDeleteOperation<null>, userId: string): void {
-        super._onDelete(operation, userId);
+    protected override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void {
+        super._onDelete(options, userId);
 
         if (this.started) {
             Hooks.callAll("pf2e.endTurn", this.combatant ?? null, this, userId);
@@ -344,7 +342,7 @@ class EncounterPF2e extends Combat {
 }
 
 interface EncounterPF2e extends Combat {
-    readonly combatants: foundry.abstract.EmbeddedCollection<CombatantPF2e<this, TokenDocumentPF2e | null>>;
+    readonly combatants: EmbeddedCollection<CombatantPF2e<this, TokenDocumentPF2e | null>>;
 
     scene: ScenePF2e;
 

@@ -397,15 +397,15 @@ export default class Roll {
      *         or the Object of prepared chatData otherwise.
      */
     toMessage(
-        messageData: PreCreate<ChatMessageSource> | undefined,
+        messageData: DeepPartial<ChatMessageSource> | undefined,
         { rollMode, create }: { rollMode?: RollMode | "roll"; create: false },
     ): Promise<ChatMessageSource>;
     toMessage(
-        messageData?: PreCreate<ChatMessageSource>,
+        messageData?: DeepPartial<ChatMessageSource>,
         { rollMode, create }?: { rollMode?: RollMode | "roll"; create?: true },
     ): Promise<ChatMessage>;
     toMessage(
-        messageData?: PreCreate<ChatMessageSource>,
+        messageData?: DeepPartial<ChatMessageSource>,
         { rollMode, create }?: { rollMode?: RollMode | "roll"; create?: boolean },
     ): Promise<ChatMessage | ChatMessageSource>;
 

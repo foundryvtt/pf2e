@@ -1,6 +1,6 @@
 import { CreaturePF2e } from "@actor";
 import type { Abilities } from "@actor/creature/data.ts";
-import type { CreatureUpdateOperation } from "@actor/creature/index.ts";
+import type { CreatureUpdateCallbackOptions } from "@actor/creature/index.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { setHitPointsRollOptions, strikeFromMeleeItem } from "@actor/helpers.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
@@ -14,7 +14,6 @@ import { calculateDC } from "@module/dc.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { CreatureIdentificationData, creatureIdentificationDCs } from "@module/recall-knowledge.ts";
 import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
-import type { UserPF2e } from "@module/user/document.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import { ArmorStatistic, PerceptionStatistic, Statistic } from "@system/statistic/index.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
@@ -68,7 +67,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
     }
 
     /** Non-owning users may be able to loot a dead NPC. */
-    override canUserModify(user: User, action: UserAction): boolean {
+    override canUserModify(user: fd.BaseUser, action: UserAction): boolean {
         return (
             super.canUserModify(user, action) ||
             (action === "update" &&
@@ -581,11 +580,11 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        operation: CreatureUpdateOperation<TParent>,
-        user: UserPF2e,
+        options: CreatureUpdateCallbackOptions,
+        user: fd.BaseUser,
     ): Promise<boolean | void> {
-        const result = await super._preUpdate(changed, operation, user);
-        const isFullReplace = !((operation.diff ?? true) && (operation.recursive ?? true));
+        const result = await super._preUpdate(changed, options, user);
+        const isFullReplace = !((options.diff ?? true) && (options.recursive ?? true));
         if (isFullReplace || result === false || !changed.system) return result;
 
         this.#updatePrototypeToken(changed);

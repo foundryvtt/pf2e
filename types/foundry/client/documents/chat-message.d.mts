@@ -1,10 +1,15 @@
 import Roll, { Rolled } from "@client/dice/roll.mjs";
 import { DocumentConstructionContext } from "@common/_types.mjs";
-import { DatabaseCreateOperation, DatabaseDeleteOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
+import {
+    DatabaseCreateCallbackOptions,
+    DatabaseCreateOperation,
+    DatabaseDeleteCallbackOptions,
+    DatabaseUpdateCallbackOptions,
+} from "@common/abstract/_types.mjs";
 import Document from "@common/abstract/document.mjs";
 import { RollMode } from "@common/constants.mjs";
 import BaseChatMessage, { ChatMessageSource, ChatSpeakerData } from "@common/documents/chat-message.mjs";
-import { Actor, BaseActor, BaseUser, Scene, TokenDocument, User } from "./_module.mjs";
+import { Actor, BaseUser, Scene, TokenDocument, User } from "./_module.mjs";
 import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
 
 interface ClientBaseChatMessageStatic extends Omit<typeof BaseChatMessage, "new">, ClientDocumentStatic {}
@@ -134,19 +139,19 @@ declare class ChatMessage<TUser extends User | null = User | null> extends Clien
 
     protected override _preCreate(
         data: this["_source"],
-        options: DatabaseCreateOperation<null>,
-        user: BaseUser<BaseActor<null>>,
+        options: DatabaseCreateCallbackOptions,
+        user: BaseUser,
     ): Promise<boolean | void>;
 
-    protected override _onCreate(data: this["_source"], options: DatabaseCreateOperation<null>, userId: string): void;
+    protected override _onCreate(data: this["_source"], options: DatabaseCreateCallbackOptions, userId: string): void;
 
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DatabaseUpdateOperation<null>,
+        options: DatabaseUpdateCallbackOptions,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DatabaseDeleteOperation<null>, userId: string): void;
+    protected override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void;
 
     /* -------------------------------------------- */
     /*  Importing and Exporting                     */
@@ -159,17 +164,17 @@ declare class ChatMessage<TUser extends User | null = User | null> extends Clien
 declare namespace ChatMessage {
     function create<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
-        data: PreCreate<TDocument["_source"]>,
+        data: DeepPartial<TDocument["_source"]>,
         operation?: Partial<ChatMessageCreateOperation>,
     ): Promise<TDocument | undefined>;
     function create<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
-        data: PreCreate<TDocument["_source"]>[],
+        data: DeepPartial<TDocument["_source"]>[],
         operation?: Partial<ChatMessageCreateOperation>,
     ): Promise<TDocument[]>;
     function create<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
-        data: PreCreate<TDocument["_source"]> | PreCreate<TDocument["_source"]>[],
+        data: DeepPartial<TDocument["_source"]> | PreCreate<TDocument["_source"]>[],
         operation?: Partial<ChatMessageCreateOperation>,
     ): Promise<TDocument[] | TDocument | undefined>;
 }
@@ -181,7 +186,7 @@ export interface MessageConstructionContext extends DocumentConstructionContext<
 }
 
 export interface ChatMessageCreateOperation extends DatabaseCreateOperation<null> {
-    rollMode?: RollMode;
+    rollMode?: RollMode | "roll";
 }
 
 export interface ChatMessageRenderData {

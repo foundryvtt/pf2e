@@ -1,15 +1,17 @@
 import { CreaturePF2e, type CharacterPF2e } from "@actor";
-import type { ActorPF2e, ActorUpdateOperation } from "@actor/base.ts";
+import type { ActorPF2e } from "@actor/base.ts";
 import { CreatureSaves, LabeledSpeed } from "@actor/creature/data.ts";
+import { CreatureUpdateCallbackOptions } from "@actor/creature/index.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { createEncounterRollOptions, setHitPointsRollOptions } from "@actor/helpers.ts";
 import { ModifierPF2e, applyStackingRules } from "@actor/modifiers.ts";
-import { SaveType } from "@actor/types.ts";
+import type { ActorAlliance, SaveType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
+import type { DatabaseDeleteCallbackOptions } from "@common/abstract/_types.d.mts";
+import type { ActorUUID } from "@common/documents/_module.d.mts";
 import type { ItemType } from "@item/base/data/index.ts";
 import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import type { RuleElementPF2e } from "@module/rules/index.ts";
-import type { UserPF2e } from "@module/user/document.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import { Predicate } from "@system/predication.ts";
 import { ArmorStatistic, HitPointsStatistic, PerceptionStatistic, Statistic } from "@system/statistic/index.ts";
@@ -83,11 +85,17 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             suppress: true,
         });
 
-        type PartialSystemData = DeepPartial<FamiliarSystemData> & {
-            attributes: { speed: RawSpeed; flanking: object };
-            details: object;
+        type PartialSystemData = {
+            attributes: {
+                speed: { value: number; total: number; label?: string; otherSpeeds: LabeledSpeed[] };
+                flanking: { canFlank: boolean };
+                reach: { base: number; manipulate: number };
+            };
+            perception: object;
+            skills: object;
+            saves: Record<SaveType, object>;
+            details: { alliance: ActorAlliance };
         };
-        type RawSpeed = { value: number; otherSpeeds: LabeledSpeed[] };
 
         const system: PartialSystemData = this.system;
         system.attributes.flanking.canFlank = false;
@@ -251,31 +259,30 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
     /** Detect if a familiar is being reassigned from a master */
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        operation: FamiliarUpdateOperation<TParent>,
-        user: UserPF2e,
+        options: CreatureUpdateCallbackOptions & { previousMaster?: ActorUUID },
+        user: fd.BaseUser,
     ): Promise<boolean | void> {
         const newId = changed.system?.master?.id ?? this.system.master.id;
         if (newId !== this.system.master.id) {
-            operation.previousMaster = this.master?.uuid;
+            options.previousMaster = this.master?.uuid;
         }
 
         if (changed.system?.master) {
             changed.system.master.ability ||= null;
         }
 
-        return super._preUpdate(changed, operation, user);
+        return super._preUpdate(changed, options, user);
     }
 
     /** Remove familiar from former master if the master changed */
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        operation: FamiliarUpdateOperation<TParent>,
+        options: CreatureUpdateCallbackOptions & { previousMaster?: ActorUUID },
         userId: string,
     ): void {
-        super._onUpdate(changed, operation, userId);
-
-        if (operation.previousMaster && operation.previousMaster !== this.master?.uuid) {
-            const previousMaster = fromUuidSync<ActorPF2e>(operation.previousMaster);
+        super._onUpdate(changed, options, userId);
+        if (options.previousMaster && options.previousMaster !== this.master?.uuid) {
+            const previousMaster = fromUuidSync<ActorPF2e>(options.previousMaster);
             if (previousMaster?.isOfType("character")) {
                 previousMaster.familiar = null;
             }
@@ -283,9 +290,9 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
     }
 
     /** Remove the master's reference to this familiar */
-    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void {
+    protected override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void {
         if (this.master) this.master.familiar = null;
-        super._onDelete(operation, userId);
+        super._onDelete(options, userId);
     }
 }
 
@@ -293,10 +300,6 @@ interface FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentP
     extends CreaturePF2e<TParent> {
     readonly _source: FamiliarSource;
     system: FamiliarSystemData;
-}
-
-interface FamiliarUpdateOperation<TParent extends TokenDocumentPF2e | null> extends ActorUpdateOperation<TParent> {
-    previousMaster?: ActorUUID;
 }
 
 export { FamiliarPF2e };

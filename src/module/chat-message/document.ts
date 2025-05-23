@@ -2,7 +2,10 @@ import type { ActorPF2e } from "@actor";
 import { StrikeData } from "@actor/data/base.ts";
 import type { Rolled } from "@client/dice/roll.d.mts";
 import type { DataModelConstructionContext } from "@common/abstract/_module.mjs";
-import type { ChatMessageCreateOperation } from "@common/documents/chat-message.d.mts";
+import type {
+    ChatMessageCreateCallbackOptions,
+    ChatMessageCreateOperation,
+} from "@common/documents/chat-message.d.mts";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { RollInspector } from "@module/apps/roll-inspector/app.ts";
 import type { UserPF2e } from "@module/user/index.ts";
@@ -343,8 +346,12 @@ class ChatMessagePF2e extends ChatMessage {
         if (canvas.ready) this.token?.object?.emitHoverOut(nativeEvent);
     }
 
-    protected override _onCreate(data: this["_source"], operation: MessageCreateOperationPF2e, userId: string): void {
-        super._onCreate(data, operation, userId);
+    protected override _onCreate(
+        data: this["_source"],
+        options: ChatMessageCreateCallbackOptions & { restForTheNight?: boolean },
+        userId: string,
+    ): void {
+        super._onCreate(data, options, userId);
 
         // Handle critical hit and fumble card drawing
         if (this.isRoll && game.pf2e.settings.critFumble.cards) {
@@ -352,7 +359,7 @@ class ChatMessagePF2e extends ChatMessage {
         }
 
         // If this is a rest notification, re-render sheet for anyone currently viewing it
-        if (operation.restForTheNight) this.speakerActor?.render();
+        if (options.restForTheNight) this.speakerActor?.render();
     }
 }
 
@@ -366,7 +373,7 @@ interface ChatMessagePF2e extends ChatMessage {
 declare namespace ChatMessagePF2e {
     function createDocuments<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        data?: (TDocument | PreCreate<TDocument["_source"]>)[],
+        data?: (TDocument | DeepPartial<TDocument["_source"]>)[],
         operation?: Partial<MessageCreateOperationPF2e>,
     ): Promise<TDocument[]>;
 

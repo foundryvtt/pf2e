@@ -1,5 +1,9 @@
 import { AmbientLightDocument, Scene, User } from "@client/documents/_module.mjs";
-import { DatabaseCreateOperation, DatabaseDeleteOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
+import {
+    DatabaseCreateCallbackOptions,
+    DatabaseDeleteCallbackOptions,
+    DatabaseUpdateCallbackOptions,
+} from "@common/abstract/_types.mjs";
 import { ControlIcon } from "../containers/_module.mjs";
 import { LightingLayer } from "../layers/_module.mjs";
 import { PointDarknessSource, PointLightSource } from "../sources/_module.mjs";
@@ -100,17 +104,17 @@ export default class AmbientLight<
 
     protected override _onCreate(
         data: TDocument["_source"],
-        options: DatabaseCreateOperation<TDocument["parent"]>,
+        options: DatabaseCreateCallbackOptions,
         userId: string,
     ): void;
 
     protected override _onUpdate(
         changed: DeepPartial<TDocument["_source"]>,
-        options: DatabaseUpdateOperation<TDocument["parent"]>,
+        options: DatabaseUpdateCallbackOptions,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DatabaseDeleteOperation<TDocument["parent"]>, userId: string): void;
+    protected override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void;
 
     /* -------------------------------------------- */
     /*  Mouse Interaction Handlers                  */

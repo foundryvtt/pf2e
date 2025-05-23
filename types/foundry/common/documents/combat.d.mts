@@ -1,12 +1,22 @@
-import { Document, DocumentMetadata, EmbeddedCollection } from "../abstract/_module.mjs";
+import { DatabaseUpdateCallbackOptions, Document, DocumentMetadata, EmbeddedCollection } from "../abstract/_module.mjs";
 import * as fields from "../data/fields.mjs";
-import { BaseCombatant, BaseScene } from "./_module.mjs";
+import { BaseCombatant, BaseScene, BaseUser } from "./_module.mjs";
 
 /** The Combat document model. */
 export default class BaseCombat extends Document<null, CombatSchema> {
     static override get metadata(): CombatMetadata;
 
     static override defineSchema(): CombatSchema;
+
+    /* -------------------------------------------- */
+    /*  Event Handlers                              */
+    /* -------------------------------------------- */
+
+    protected override _preUpdate(
+        changed: DeepPartial<this["_source"]>,
+        options: DatabaseUpdateCallbackOptions,
+        user: BaseUser,
+    ): Promise<boolean | void>;
 }
 
 export default interface BaseCombat extends Document<null, CombatSchema>, fields.ModelPropsFromSchema<CombatSchema> {

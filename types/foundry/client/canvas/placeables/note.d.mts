@@ -1,5 +1,5 @@
 import { JournalEntry, NoteDocument, Scene, User } from "@client/documents/_module.mjs";
-import { DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
+import { DatabaseUpdateCallbackOptions } from "@common/abstract/_types.mjs";
 import { ControlIcon } from "../containers/_module.mjs";
 import NotesLayer from "../layers/notes.mjs";
 import PlaceableObject from "./placeable-object.mjs";
@@ -55,7 +55,7 @@ export default class Note<
 
     protected override _onUpdate(
         changed: DeepPartial<TDocument["_source"]>,
-        options: DatabaseUpdateOperation<TDocument["parent"]>,
+        options: DatabaseUpdateCallbackOptions,
         userId: string,
     ): void;
 

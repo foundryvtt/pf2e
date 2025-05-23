@@ -1,8 +1,7 @@
-import { DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
 import { ImageFilePath } from "@common/constants.mjs";
-import { Document, DocumentMetadata } from "../abstract/_module.mjs";
+import { DatabaseUpdateCallbackOptions, Document, DocumentMetadata } from "../abstract/_module.mjs";
 import * as fields from "../data/fields.mjs";
-import * as documents from "./_module.mjs";
+import { BaseScene, BaseUser } from "./_module.mjs";
 
 /**
  * The Document definition for FogExploration.
@@ -18,9 +17,9 @@ export default class BaseFogExploration extends Document<null, FogExplorationSch
     static override defineSchema(): FogExplorationSchema;
 
     protected override _preUpdate(
-        changed: Record<string, unknown>,
-        options: DatabaseUpdateOperation<null>,
-        user: documents.BaseUser,
+        changed: DeepPartial<this["_source"]>,
+        options: DatabaseUpdateCallbackOptions,
+        user: BaseUser,
     ): Promise<boolean | void>;
 }
 
@@ -42,9 +41,9 @@ type FogExplorationSchema = {
     /** The _id which uniquely identifies this FogExploration document */
     _id: fields.DocumentIdField;
     /** The _id of the Scene document to which this fog applies */
-    scene: fields.ForeignDocumentField<documents.BaseScene>;
+    scene: fields.ForeignDocumentField<BaseScene>;
     /** The _id of the User document to which this fog applies */
-    user: fields.ForeignDocumentField<documents.BaseUser>;
+    user: fields.ForeignDocumentField<BaseUser>;
     /** The base64 png image of the explored fog polygon */
     explored: fields.FilePathField<ImageFilePath, ImageFilePath, true>;
     /** The object of scene positions which have been explored at a certain vision radius */

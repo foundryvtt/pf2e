@@ -1,10 +1,12 @@
 import MeasuredTemplate from "../canvas/placeables/template.mjs";
-import { BaseMeasuredTemplate, Scene, User } from "./_module.mjs";
-import { CanvasDocument } from "./abstract/canvas-document.mjs";
+import { BaseMeasuredTemplate, Scene } from "./_module.mjs";
+import { CanvasDocument, CanvasDocumentStatic } from "./abstract/canvas-document.mjs";
 
-declare const CanvasBaseMeasuredTemplate: new <TParent extends Scene | null>(
-    ...args: any
-) => BaseMeasuredTemplate<TParent> & CanvasDocument<TParent>;
+interface CanvasBaseMeasuredTemplateStatic extends Omit<typeof BaseMeasuredTemplate, "new">, CanvasDocumentStatic {}
+
+declare const CanvasBaseMeasuredTemplate: {
+    new <TParent extends Scene | null>(...args: any): BaseMeasuredTemplate<TParent> & CanvasDocument<TParent>;
+} & CanvasBaseMeasuredTemplateStatic;
 
 interface CanvasBaseMeasuredTemplate<TParent extends Scene | null>
     extends InstanceType<typeof CanvasBaseMeasuredTemplate<TParent>> {}
@@ -22,17 +24,21 @@ export default class MeasuredTemplateDocument<
     /*  Model Properties                            */
     /* -------------------------------------------- */
 
-    /** A reference to the User who created the MeasuredTemplate document. */
-    get author(): User;
-
-    /** Rotation is an alias for direction */
+    /**
+     * Rotation is an alias for direction
+     */
     get rotation(): number;
+
+    /**
+     * Is the current User the author of this template?
+     */
+    get isAuthor(): boolean;
 }
 
 export default interface MeasuredTemplateDocument<TParent extends Scene | null = Scene | null>
     extends CanvasBaseMeasuredTemplate<TParent> {
-    _sheet: MeasuredTemplateConfig<this> | null;
-    _object: MeasuredTemplate<this> | null;
+    get sheet(): MeasuredTemplateConfig<this> | null;
+    get object(): MeasuredTemplate<this> | null;
 }
 
 export {};

@@ -1,6 +1,7 @@
+import CombatantConfig from "@client/applications/sheets/combatant-config.mjs";
 import { DocumentOwnershipLevel, DocumentOwnershipString } from "@common/constants.mjs";
 import Roll, { Rolled } from "../dice/roll.mjs";
-import { BaseCombatant, Combat, TokenDocument, User } from "./_module.mjs";
+import { BaseCombatant, BaseUser, Combat, TokenDocument, User } from "./_module.mjs";
 import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
 
 interface ClientBaseCombatantStatic extends Omit<typeof BaseCombatant, "new">, ClientDocumentStatic {}
@@ -57,7 +58,7 @@ export default class Combatant<
     /* -------------------------------------------- */
 
     override testUserPermission(
-        user: User,
+        user: BaseUser,
         permission: DocumentOwnershipString | DocumentOwnershipLevel,
         { exact }?: { exact?: boolean },
     ): boolean;
@@ -90,7 +91,7 @@ export default class Combatant<
 }
 
 export default interface Combatant<TParent extends Combat | null> extends ClientBaseCombatant<TParent> {
-    get sheet(): CombatantConfig<this>;
+    get sheet(): CombatantConfig;
 }
 
 export {};

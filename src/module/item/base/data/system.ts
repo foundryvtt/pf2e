@@ -1,3 +1,4 @@
+import type { DocumentFlags } from "@common/data/_types.d.mts";
 import type * as fields from "@common/data/fields.d.mts";
 import type { MigrationRecord, OneToThree, PublicationData, Rarity } from "@module/data.ts";
 import type { RuleElementSource } from "@module/rules/index.ts";
@@ -41,23 +42,23 @@ interface OtherTagsOnly {
     otherTags: string[];
 }
 
-interface ItemFlagsPF2e extends DocumentFlags {
+type ItemFlagsPF2e = DocumentFlags & {
     pf2e: {
         rulesSelections: Record<string, string | number | object | null>;
         itemGrants: Record<string, ItemGranterData>;
         grantedBy: ItemGrantData | null;
         [key: string]: unknown;
     };
-}
+};
 
-interface ItemSourceFlagsPF2e extends DocumentFlags {
+type ItemSourceFlagsPF2e = DocumentFlags & {
     pf2e?: {
         rulesSelections?: Record<string, string | number | object>;
         itemGrants?: Record<string, ItemGranterSource>;
         grantedBy?: ItemGrantSource | null;
         [key: string]: unknown;
     };
-}
+};
 
 interface ItemGrantSource {
     /** The ID of a granting or granted item */
@@ -149,8 +150,8 @@ export type {
     ItemFlagsPF2e,
     ItemGrantData,
     ItemGrantDeleteAction,
-    ItemGrantSource,
     ItemGranterSource,
+    ItemGrantSource,
     ItemSchemaPF2e,
     ItemSourceFlagsPF2e,
     ItemSystemData,

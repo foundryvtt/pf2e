@@ -3,10 +3,9 @@ import { SenseData } from "@actor/creature/index.ts";
 import { CreatureTrait } from "@actor/creature/types.ts";
 import { SIZE_TO_REACH } from "@actor/creature/values.ts";
 import { AttributeString } from "@actor/types.ts";
-import type { DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
+import type { DatabaseUpdateCallbackOptions } from "@common/abstract/_types.d.mts";
 import { ABCItemPF2e, type FeatPF2e } from "@item";
 import { Size } from "@module/data.ts";
-import type { UserPF2e } from "@module/user/document.ts";
 import { sluggify } from "@util";
 import { AncestrySource, AncestrySystemData } from "./data.ts";
 
@@ -154,10 +153,10 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
     /** Ensure certain fields are positive integers. */
     protected override _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        operation: DatabaseUpdateOperation<TParent>,
-        user: UserPF2e,
+        options: DatabaseUpdateCallbackOptions,
+        user: fd.BaseUser,
     ): Promise<boolean | void> {
-        if (!changed.system) return super._preUpdate(changed, operation, user);
+        if (!changed.system) return super._preUpdate(changed, options, user);
 
         const additionalLanguages = changed.system.additionalLanguages;
         if (additionalLanguages?.count !== undefined) {
@@ -172,7 +171,7 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
             }
         }
 
-        return super._preUpdate(changed, operation, user);
+        return super._preUpdate(changed, options, user);
     }
 }
 

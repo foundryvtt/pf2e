@@ -1,5 +1,5 @@
 import { resetActors } from "@actor/helpers.ts";
-import type { DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
+import type { DatabaseUpdateCallbackOptions } from "@common/abstract/_types.d.mts";
 import type { RegionDocumentPF2e } from "@scene";
 import type { EnvironmentBehaviorType } from "./environment.ts";
 
@@ -8,7 +8,7 @@ class RegionBehaviorPF2e<
 > extends RegionBehavior<TParent> {
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        operation: DatabaseUpdateOperation<TParent>,
+        options: DatabaseUpdateCallbackOptions,
         userId: string,
     ): void {
         // Reset actors inside the region of this behavior
@@ -23,7 +23,7 @@ class RegionBehaviorPF2e<
             }
         }
 
-        return super._onUpdate(data, operation, userId);
+        return super._onUpdate(data, options, userId);
     }
 }
 

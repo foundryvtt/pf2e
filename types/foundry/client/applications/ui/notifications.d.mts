@@ -35,7 +35,7 @@ export interface NotificationOptions {
      */
     clean?: boolean;
     /** A mapping of formatting strings passed to Localization#format */
-    format?: Record<string, string>;
+    format?: Record<string, Maybe<string | number | boolean>>;
 }
 
 export interface ProgressNotificationOptions extends NotificationOptions {

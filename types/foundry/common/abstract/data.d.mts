@@ -105,7 +105,7 @@ export default abstract class DataModel<
      * @param context Context options passed to the data model constructor
      * @returns The cloned Document instance
      */
-    clone(data?: Record<string, unknown>, context?: DataModelConstructionContext<TParent>): this | Promise<this>;
+    clone(data?: Record<string, unknown>, context?: DataModelConstructionContext<TParent>): this;
 
     /* ---------------------------------------- */
     /*  Data Validation Methods                 */
@@ -179,9 +179,7 @@ export default abstract class DataModel<
      * @param [source=true] Draw values from the underlying data source rather than transformed values
      * @returns The extracted primitive object
      */
-    toObject(source?: true): this["_source"];
-    toObject(source: false): RawObject<this>;
-    toObject(source?: boolean): this["_source"] | RawObject<this>;
+    toObject(source?: boolean): this["_source"];
 
     /**
      * Extract the source data for the DataModel into a simple object format that can be serialized.
@@ -223,9 +221,5 @@ export default abstract class DataModel<
      */
     static migrateDataSafe(source: object): object;
 }
-
-export type RawObject<TModel extends DataModel> = TModel extends { system: infer TSystem }
-    ? Omit<TModel, "system"> & { system: TSystem }
-    : TModel["_source"];
 
 type _DataModel = DataModel<_DataModel | null, DataSchema>;

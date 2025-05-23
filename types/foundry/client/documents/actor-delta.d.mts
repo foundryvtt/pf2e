@@ -1,6 +1,6 @@
-import { DatabaseDeleteOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
+import { DatabaseDeleteCallbackOptions, DatabaseUpdateCallbackOptions } from "@common/abstract/_types.mjs";
 import Document from "@common/abstract/document.mjs";
-import { Actor, BaseActorDelta, BaseToken, TokenDocument, User } from "./_module.mjs";
+import { Actor, BaseActorDelta, BaseToken, BaseUser, TokenDocument } from "./_module.mjs";
 import { ClientDocument } from "./abstract/client-document.mjs";
 
 declare const ClientBaseActorDelta: new <TParent extends BaseToken | null>(
@@ -76,24 +76,15 @@ export default class ActorDelta<TParent extends TokenDocument | null> extends Cl
     /*  Database Operations                         */
     /* -------------------------------------------- */
 
-    protected override _preDelete(options: DatabaseDeleteOperation<TParent>, user: User): Promise<boolean | void>;
-    protected override _preDelete(
-        options: DatabaseDeleteOperation<Document | null>,
-        user: User,
-    ): Promise<boolean | void>;
+    protected override _preDelete(options: DatabaseDeleteCallbackOptions, user: BaseUser): Promise<boolean | void>;
 
     protected override _onUpdate(
-        data: Record<string, unknown>,
-        options: DatabaseUpdateOperation<TParent>,
-        userId: string,
-    ): void;
-    protected override _onUpdate(
-        data: Record<string, unknown>,
-        options: DatabaseUpdateOperation<Document | null>,
+        data: DeepPartial<this["_source"]>,
+        options: DatabaseUpdateCallbackOptions,
         userId: string,
     ): void;
 
-    protected _onDelete(options: DatabaseDeleteOperation<TParent>, userId: string): void;
+    protected _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void;
 
     override _dispatchDescendantDocumentEvents(
         event: string,

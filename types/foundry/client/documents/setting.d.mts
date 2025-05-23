@@ -1,5 +1,5 @@
 import SettingsConfig from "@client/applications/settings/config.mjs";
-import { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
+import { DatabaseCreateCallbackOptions, DatabaseUpdateCallbackOptions } from "@common/abstract/_types.mjs";
 import { BaseSetting } from "./_module.mjs";
 import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
 
@@ -21,11 +21,11 @@ export default class Setting extends ClientBaseSetting {
 
     protected override _initialize(options?: object): void;
 
-    protected override _onCreate(data: this["_source"], options: DatabaseCreateOperation<null>, userId: string): void;
+    protected override _onCreate(data: this["_source"], options: DatabaseCreateCallbackOptions, userId: string): void;
 
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DatabaseUpdateOperation<null>,
+        options: DatabaseUpdateCallbackOptions,
         userId: string,
     ): void;
 
