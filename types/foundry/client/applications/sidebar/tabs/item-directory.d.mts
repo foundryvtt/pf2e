@@ -6,7 +6,7 @@ import DocumentDirectory, { DocumentDirectoryConfiguration } from "../document-d
  * The World Item directory listing.
  */
 export default class ItemDirectory<TDocument extends Item<null> = Item<null>> extends DocumentDirectory<TDocument> {
-    static override DEFAULT_OPTIONS: Partial<DocumentDirectoryConfiguration>;
+    static override DEFAULT_OPTIONS: DeepPartial<DocumentDirectoryConfiguration>;
 
     static override tabName: "item";
 
