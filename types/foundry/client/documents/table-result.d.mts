@@ -1,5 +1,5 @@
-import { DatabaseUpdateOperation } from "@common/abstract/_module.mjs";
-import { BaseTableResult, User } from "./_module.mjs";
+import { DatabaseUpdateCallbackOptions } from "@common/abstract/_module.mjs";
+import { BaseTableResult, BaseUser } from "./_module.mjs";
 import { ClientDocument } from "./abstract/client-document.mjs";
 import RollTable from "./roll-table.mjs";
 
@@ -35,8 +35,8 @@ export default class TableResult<
 
     protected override _preUpdate(
         changes: Record<string, unknown>,
-        options: DatabaseUpdateOperation<TParent>,
-        user: User,
+        options: DatabaseUpdateCallbackOptions,
+        user: BaseUser,
     ): Promise<boolean | void>;
 }
 

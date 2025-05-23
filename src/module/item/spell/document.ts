@@ -5,7 +5,11 @@ import type { AttributeString } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { Rolled } from "@client/dice/roll.d.mts";
 import type { DocumentConstructionContext } from "@common/_types.d.mts";
-import type { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
+import type {
+    DatabaseCreateCallbackOptions,
+    DatabaseUpdateCallbackOptions,
+    DatabaseUpdateOperation,
+} from "@common/abstract/_types.d.mts";
 import type { MeasuredTemplateType, RollMode } from "@common/constants.d.mts";
 import type { ItemUUID } from "@common/documents/_module.d.mts";
 import type { ConsumablePF2e } from "@item";
@@ -30,7 +34,6 @@ import {
     processDamageCategoryStacking,
 } from "@module/rules/helpers.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
-import type { UserPF2e } from "@module/user/index.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import { CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
@@ -1106,7 +1109,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         operation: Partial<DatabaseUpdateOperation<TParent>> = {},
     ): Promise<this | undefined> {
         // Redirect the update of override spell variants to the appropriate update method if the spell sheet is currently rendered
-        if (this.original && this.appliedOverlays!.has("override") && this.sheet.rendered) {
+        if (this.original && this.appliedOverlays?.has("override") && this.sheet.rendered) {
             return this.original.overlays.updateOverride(
                 this as SpellPF2e<ActorPF2e>,
                 data,
@@ -1118,8 +1121,8 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     protected override async _preCreate(
         data: this["_source"],
-        operation: DatabaseCreateOperation<TParent>,
-        user: UserPF2e,
+        options: DatabaseCreateCallbackOptions,
+        user: fd.BaseUser,
     ): Promise<boolean | void> {
         if (!this.actor) {
             this._source.system.location = { value: null };
@@ -1135,15 +1138,15 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             this._source.system.traits.traditions = [];
         }
 
-        return super._preCreate(data, operation, user);
+        return super._preCreate(data, options, user);
     }
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        operation: DatabaseUpdateOperation<TParent>,
-        user: UserPF2e,
+        options: DatabaseUpdateCallbackOptions,
+        user: fd.BaseUser,
     ): Promise<boolean | void> {
-        if (!changed.system) return super._preUpdate(changed, operation, user);
+        if (!changed.system) return super._preUpdate(changed, options, user);
 
         // Clean up location
         const newLocation = changed.system.location?.value ?? this._source.system.location.value;
@@ -1232,7 +1235,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             }
         }
 
-        return super._preUpdate(changed, operation, user);
+        return super._preUpdate(changed, options, user);
     }
 }
 

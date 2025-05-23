@@ -1,10 +1,10 @@
 import { DocumentOwnershipLevel, JournalEntryPageFormat } from "@common/constants.mjs";
-import * as abstract from "../abstract/_module.mjs";
+import { Document, DocumentMetadata } from "../abstract/_module.mjs";
 import * as fields from "../data/fields.mjs";
 import { BaseJournalEntry, BaseUser } from "./_module.mjs";
 
 /** The JournalEntryPage document model. */
-export default class BaseJournalEntryPage<TParent extends BaseJournalEntry | null> extends abstract.Document<
+export default class BaseJournalEntryPage<TParent extends BaseJournalEntry | null> extends Document<
     TParent,
     JournalEntryPageSchema
 > {
@@ -12,16 +12,16 @@ export default class BaseJournalEntryPage<TParent extends BaseJournalEntry | nul
 
     static override defineSchema(): JournalEntryPageSchema;
 
-    override getUserLevel(user: BaseUser): DocumentOwnershipLevel | null;
+    override getUserLevel(user: BaseUser): DocumentOwnershipLevel;
 }
 
 export default interface BaseJournalEntryPage<TParent extends BaseJournalEntry | null>
-    extends abstract.Document<TParent, JournalEntryPageSchema>,
+    extends Document<TParent, JournalEntryPageSchema>,
         fields.ModelPropsFromSchema<JournalEntryPageSchema> {
-    get documentName(): (typeof BaseJournalEntryPage)["metadata"]["name"];
+    get documentName(): JournalEntryPageMetadata["name"];
 }
 
-interface JournalEntryPageMetadata extends abstract.DocumentMetadata {
+interface JournalEntryPageMetadata extends DocumentMetadata {
     name: "JournalEntryPage";
     collection: "pages";
     indexed: true;

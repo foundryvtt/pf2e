@@ -1,10 +1,15 @@
 import { ImageFilePath, VideoFilePath } from "@common/constants.mjs";
 import { DocumentConstructionContext } from "../_types.mjs";
-import * as abstract from "../abstract/_module.mjs";
-import { DatabaseCreateOperation, DatabaseUpdateOperation } from "../abstract/_types.mjs";
+import {
+    DatabaseCreateCallbackOptions,
+    DatabaseUpdateCallbackOptions,
+    Document,
+    DocumentMetadata,
+    EmbeddedCollection,
+} from "../abstract/_module.mjs";
 import * as data from "../data/data.mjs";
 import * as fields from "../data/fields.mjs";
-import * as documents from "./_module.mjs";
+import { ActorUUID, BaseActiveEffect, BaseFolder, BaseItem, BaseToken, BaseUser, ItemSource } from "./_module.mjs";
 
 /**
  * The Document definition for an Actor.
@@ -14,9 +19,10 @@ import * as documents from "./_module.mjs";
  * @param data    Initial data from which to construct the Actor
  * @param context Construction context options
  */
-export default class BaseActor<
-    TParent extends documents.BaseToken | null = documents.BaseToken | null,
-> extends abstract.Document<TParent, ActorSchema> {
+export default class BaseActor<TParent extends BaseToken | null = BaseToken | null> extends Document<
+    TParent,
+    ActorSchema
+> {
     /* -------------------------------------------- */
     /*  Model Configuration                         */
     /* -------------------------------------------- */
@@ -46,35 +52,35 @@ export default class BaseActor<
         options?: DocumentConstructionContext<TParent>,
     ): this["_source"];
 
-    static override canUserCreate(user: documents.BaseUser): boolean;
+    static override canUserCreate(user: BaseUser): boolean;
 
     protected override _preCreate(
         data: this["_source"],
-        options: DatabaseCreateOperation<TParent>,
-        user: documents.BaseUser,
+        options: DatabaseCreateCallbackOptions,
+        user: BaseUser,
     ): Promise<boolean | void>;
 
     protected override _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DatabaseUpdateOperation<TParent>,
-        user: documents.BaseUser,
+        options: DatabaseUpdateCallbackOptions,
+        user: BaseUser,
     ): Promise<boolean | void>;
 }
 
-export default interface BaseActor<TParent extends documents.BaseToken | null = documents.BaseToken | null>
-    extends abstract.Document<TParent, ActorSchema>,
+export default interface BaseActor<TParent extends BaseToken | null = BaseToken | null>
+    extends Document<TParent, ActorSchema>,
         fields.ModelPropsFromSchema<ActorSchema> {
-    readonly items: abstract.EmbeddedCollection<documents.BaseItem<this>>;
-    readonly effects: abstract.EmbeddedCollection<documents.BaseActiveEffect<this>>;
+    readonly items: EmbeddedCollection<BaseItem<this>>;
+    readonly effects: EmbeddedCollection<BaseActiveEffect<this>>;
 
     prototypeToken: data.PrototypeToken<this>;
 
     get documentName(): ActorMetadata["name"];
 
-    get folder(): documents.BaseFolder | null;
+    get folder(): BaseFolder | null;
 }
 
-export interface ActorMetadata extends abstract.DocumentMetadata {
+export interface ActorMetadata extends DocumentMetadata {
     name: "Actor";
     collection: "actors";
     indexed: true;
@@ -87,7 +93,7 @@ export interface ActorMetadata extends abstract.DocumentMetadata {
 type ActorSchema<
     TType extends string = string,
     TSystemSource extends object = object,
-    TItemSource extends documents.ItemSource = documents.ItemSource,
+    TItemSource extends ItemSource = ItemSource,
 > = {
     /** The _id which uniquely identifies this Actor document */
     _id: fields.DocumentIdField;
@@ -102,11 +108,11 @@ type ActorSchema<
     /** Default Token settings which are used for Tokens created from this Actor */
     prototypeToken: fields.EmbeddedDataField<data.PrototypeToken<BaseActor>>;
     /** A Collection of Item embedded Documents */
-    items: fields.EmbeddedCollectionField<documents.BaseItem<BaseActor<documents.BaseToken | null>>, TItemSource[]>;
+    items: fields.EmbeddedCollectionField<BaseItem<BaseActor<BaseToken | null>>, TItemSource[]>;
     /** A Collection of ActiveEffect embedded Documents */
-    effects: fields.EmbeddedCollectionField<documents.BaseActiveEffect<BaseActor<documents.BaseToken | null>>>;
+    effects: fields.EmbeddedCollectionField<BaseActiveEffect<BaseActor<BaseToken | null>>>;
     /** The _id of a Folder which contains this Actor */
-    folder: fields.ForeignDocumentField<documents.BaseFolder>;
+    folder: fields.ForeignDocumentField<BaseFolder>;
     /** The numeric sort value which orders this Actor relative to its siblings */
     sort: fields.IntegerSortField;
     /** An object which configures ownership of this Actor */
@@ -114,7 +120,7 @@ type ActorSchema<
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
     /** An object of creation and access information. */
-    _stats: fields.DocumentStatsField<documents.ActorUUID>;
+    _stats: fields.DocumentStatsField<ActorUUID>;
 };
 
 export type ActorSource<

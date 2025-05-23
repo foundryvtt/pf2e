@@ -4,11 +4,11 @@ import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { SIZE_LINKABLE_ACTOR_TYPES } from "@actor/values.ts";
 import type { TrackedAttributesDescription } from "@client/_types.d.mts";
 import type { TokenResourceData } from "@client/canvas/placeables/token.d.mts";
-import type { TokenUpdateOperation } from "@client/documents/token.d.mts";
+import type { TokenUpdateCallbackOptions } from "@client/documents/token.d.mts";
 import type { Point } from "@common/_types.d.mts";
 import type {
-    DatabaseCreateOperation,
-    DatabaseDeleteOperation,
+    DatabaseCreateCallbackOptions,
+    DatabaseDeleteCallbackOptions,
     DatabaseOperation,
 } from "@common/abstract/_types.d.mts";
 import type Document from "@common/abstract/document.d.mts";
@@ -341,8 +341,8 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     /** Ensure that actors that don't allow synthetics are linked */
     protected override _preCreate(
         data: this["_source"],
-        options: DatabaseCreateOperation<TParent>,
-        user: User,
+        options: DatabaseCreateCallbackOptions,
+        user: fd.BaseUser,
     ): Promise<boolean | void> {
         if (this.actor?.allowSynthetics === false && data.actorLink === false) {
             this._source.actorLink = true;
@@ -353,8 +353,8 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     /** Ensure that actors that don't allow synthetics stay linked */
     protected override _preUpdate(
         data: Record<string, unknown>,
-        options: TokenUpdateOperation<TParent>,
-        user: User,
+        options: TokenUpdateCallbackOptions,
+        user: fd.BaseUser,
     ): Promise<boolean | void> {
         if (this.actor?.allowSynthetics === false && (data.actorLink ?? this.actorLink) === false) {
             data.actorLink = true;
@@ -466,11 +466,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             this.#lastAnimation = R.isDeepEqual(animation, this.#lastAnimation ?? {})
                 ? null
                 : (tokenOverrides.animation ?? null);
-            this.object?._onUpdate(
-                tokenChanges,
-                { action: "update", parent: this.scene, broadcast: false, updates: [], animation },
-                game.user.id,
-            );
+            this.object?._onUpdate(tokenChanges, { broadcast: false, updates: [], animation }, game.user.id);
         }
 
         // Assess the full diff using `diffObject`: additions, removals, and changes
@@ -486,12 +482,8 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     /* -------------------------------------------- */
 
     /** Toggle token hiding if this token's actor is a loot actor */
-    protected override _onCreate(
-        data: this["_source"],
-        operation: DatabaseCreateOperation<TParent>,
-        userId: string,
-    ): void {
-        super._onCreate(data, operation, userId);
+    protected override _onCreate(data: this["_source"], options: DatabaseCreateCallbackOptions, userId: string): void {
+        super._onCreate(data, options, userId);
         if (game.user.id === userId && this.actor?.isOfType("loot")) {
             this.actor.toggleTokenHiding();
         }
@@ -499,7 +491,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        operation: TokenUpdateOperation<TParent>,
+        options: TokenUpdateCallbackOptions,
         userId: string,
     ): void {
         // Possibly re-render encounter tracker if token's `displayName` property has changed
@@ -513,7 +505,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             this.object.release();
         }
 
-        return super._onUpdate(changed, operation, userId);
+        return super._onUpdate(changed, options, userId);
     }
 
     protected override _onRelatedUpdate(
@@ -543,8 +535,8 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         }
     }
 
-    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void {
-        super._onDelete(operation, userId);
+    protected override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void {
+        super._onDelete(options, userId);
         if (!this.actor) return;
 
         if (this.isLinked) {
@@ -561,7 +553,6 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
 interface TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends TokenDocument<TParent> {
     flags: TokenFlagsPF2e;
-    regions: Set<RegionDocumentPF2e<TParent>> | null;
     get actor(): ActorPF2e<this | null> | null;
     get combatant(): CombatantPF2e<EncounterPF2e, this> | null;
     get object(): TokenPF2e<this> | null;

@@ -1,6 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import type UserTargets from "@client/canvas/placeables/tokens/targets.d.mts";
-import type { DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
+import type { DatabaseUpdateCallbackOptions } from "@common/abstract/_types.d.mts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene";
 import * as R from "remeda";
@@ -52,10 +52,10 @@ class UserPF2e extends User {
 
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        operation: DatabaseUpdateOperation<null>,
+        options: DatabaseUpdateCallbackOptions,
         userId: string,
     ): void {
-        super._onUpdate(changed, operation, userId);
+        super._onUpdate(changed, options, userId);
         if (game.user.id !== userId) return;
 
         const keys = Object.keys(fu.flattenObject(changed));

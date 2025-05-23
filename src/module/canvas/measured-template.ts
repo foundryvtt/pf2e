@@ -195,14 +195,14 @@ class MeasuredTemplatePF2e<
     }
 }
 
-interface PointCollision extends Point {
-    collision?: boolean;
-}
-
 interface MeasuredTemplatePF2e<
     TDocument extends MeasuredTemplateDocumentPF2e<ScenePF2e | null> = MeasuredTemplateDocumentPF2e<ScenePF2e | null>,
 > extends fc.placeables.MeasuredTemplate<TDocument> {
     get layer(): TemplateLayerPF2e<this>;
+}
+
+interface PointCollision extends Point {
+    collision?: boolean;
 }
 
 export { MeasuredTemplatePF2e };

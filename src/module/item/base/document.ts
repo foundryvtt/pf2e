@@ -6,9 +6,11 @@ import type { DropCanvasData } from "@client/helpers/hooks.d.mts";
 import type { DocumentConstructionContext } from "@common/_types.d.mts";
 import type {
     DatabaseAction,
+    DatabaseCreateCallbackOptions,
     DatabaseCreateOperation,
+    DatabaseDeleteCallbackOptions,
     DatabaseDeleteOperation,
-    DatabaseUpdateOperation,
+    DatabaseUpdateCallbackOptions,
     Document,
 } from "@common/abstract/_module.d.mts";
 import type { ImageFilePath, RollMode } from "@common/constants.d.mts";
@@ -23,7 +25,6 @@ import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource, RuleElements } from "@module/rules/index.ts";
 import { processGrantDeletions } from "@module/rules/rule-element/grant-item/helpers.ts";
 import { eventToRollMode } from "@module/sheet/helpers.ts";
-import type { UserPF2e } from "@module/user/document.ts";
 import { type EnrichmentOptionsPF2e, type RollDataPF2e, TextEditorPF2e } from "@system/text-editor.ts";
 import {
     ErrorPF2e,
@@ -573,9 +574,9 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     ): Promise<T | null>;
     static override async createDialog(
         data: { folder?: string } = {},
-        createOptions?: DatabaseCreateOperation<ItemPF2e>,
+        createOptions?: Partial<DatabaseCreateOperation<Actor | null>>,
         options: {
-            parent?: ActorPF2e | null;
+            parent?: Actor | null;
             pack?: Collection<string, ItemPF2e<null>> | null;
             types?: string[];
         } & Partial<DialogV2Configuration> = {},
@@ -817,13 +818,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     protected override async _preCreate(
         data: this["_source"],
-        options: DatabaseCreateOperation<TParent>,
+        options: DatabaseCreateCallbackOptions,
         user: fd.BaseUser,
-    ): Promise<boolean | void>;
-    protected override async _preCreate(
-        data: this["_source"],
-        options: DatabaseCreateOperation<TParent>,
-        user: UserPF2e,
     ): Promise<boolean | void> {
         // If this item is of a certain type and is being added to a PC, change current HP along with any change to max
         if (this.actor?.isOfType("character") && this.isOfType("ancestry", "background", "class", "feat", "heritage")) {
@@ -854,13 +850,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /** Keep `TextEditor` and anything else up to no good from setting this item's description to `null` */
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DatabaseUpdateOperation<TParent>,
+        options: DatabaseUpdateCallbackOptions,
         user: fd.BaseUser,
-    ): Promise<boolean | void>;
-    protected override async _preUpdate(
-        changed: DeepPartial<this["_source"]>,
-        options: DatabaseUpdateOperation<TParent>,
-        user: UserPF2e,
     ): Promise<boolean | void> {
         if (changed.system?.description?.value === null) {
             changed.system.description.value = "";
@@ -899,8 +890,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     protected override async _preDelete(
-        options: DatabaseDeleteOperation<TParent>,
-        user: UserPF2e,
+        options: DatabaseDeleteCallbackOptions,
+        user: fd.BaseUser,
     ): Promise<boolean | void> {
         const result = await super._preDelete(options, user);
         if (result === false || (await this.#updateTokenSizes(this._source, "delete")) === false) return false;
@@ -974,12 +965,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /** Call onCreate rule-element hooks */
-    protected override _onCreate(
-        data: ItemSourcePF2e,
-        operation: DatabaseCreateOperation<TParent>,
-        userId: string,
-    ): void {
-        super._onCreate(data, operation, userId);
+    protected override _onCreate(data: ItemSourcePF2e, options: DatabaseCreateCallbackOptions, userId: string): void {
+        super._onCreate(data, options, userId);
         if (!(this.actor && game.user.id === userId)) return;
 
         this.actor.reset();
@@ -997,18 +984,18 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /** Refresh the Item Directory if this item isn't embedded */
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        operation: DatabaseUpdateOperation<TParent>,
+        options: DatabaseUpdateCallbackOptions,
         userId: string,
     ): void {
-        super._onUpdate(data, operation, userId);
+        super._onUpdate(data, options, userId);
         if (game.ready && game.items.get(this.id) === this) {
             ui.items.render();
         }
     }
 
     /** Call onDelete rule-element hooks */
-    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void {
-        super._onDelete(operation, userId);
+    protected override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void {
+        super._onDelete(options, userId);
         if (!(this.actor && game.user.id === userId)) return;
 
         if (!(this.actor.isOfType("creature") && this.canUserModify(game.user, "update"))) return;
@@ -1077,8 +1064,6 @@ interface ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
     flags: ItemFlagsPF2e;
     readonly _source: ItemSourcePF2e;
     system: ItemSystemData;
-
-    _sheet: ItemSheetPF2e<this> | null;
 
     get sheet(): ItemSheetPF2e<this>;
 

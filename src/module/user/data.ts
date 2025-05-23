@@ -1,3 +1,4 @@
+import type { DocumentFlags } from "@common/data/_module.d.mts";
 import { UserSettingsPF2e } from "./document.ts";
 
 type UserSourcePF2e = Omit<foundry.documents.UserSource, "flags"> & {

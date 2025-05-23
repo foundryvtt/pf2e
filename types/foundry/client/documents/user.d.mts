@@ -1,4 +1,4 @@
-import { DatabaseDeleteOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
+import { DatabaseDeleteCallbackOptions, DatabaseUpdateCallbackOptions } from "@common/abstract/_types.mjs";
 import { UserPermission } from "@common/constants.mjs";
 import Token from "../canvas/placeables/token.mjs";
 import UserTargets from "../canvas/placeables/tokens/targets.mjs";
@@ -135,12 +135,12 @@ export default class User extends ClientDocumentMixin(BaseUser) {
     /* -------------------------------------------- */
 
     protected override _onUpdate(
-        changed: DeepPartial<foundry.documents.UserSource>,
-        options: DatabaseUpdateOperation<null>,
+        changed: DeepPartial<this["_source"]>,
+        options: DatabaseUpdateCallbackOptions,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DatabaseDeleteOperation<null>, userId: string): void;
+    protected override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void;
 }
 
 export default interface User {

@@ -1,8 +1,12 @@
-import { DatabaseCreateOperation, DatabaseDeleteOperation } from "@common/abstract/_types.mjs";
+import {
+    DatabaseCreateCallbackOptions,
+    DatabaseCreateOperation,
+    DatabaseDeleteOperation,
+} from "@common/abstract/_types.mjs";
 import Document from "@common/abstract/document.mjs";
 import { DocumentSheetV1Options } from "../appv1/api/document-sheet-v1.mjs";
 import ItemSheet from "../appv1/sheets/item-sheet.mjs";
-import { Actor, BaseItem, ItemUUID, User } from "./_module.mjs";
+import { Actor, BaseItem, BaseUser, ItemUUID } from "./_module.mjs";
 import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
 
 interface ClientBaseItemStatic extends Omit<typeof BaseItem, "new">, ClientDocumentStatic {}
@@ -19,7 +23,7 @@ declare interface ClientBaseItem<TParent extends Actor | null> extends InstanceT
  * @see {@link foundry.documents.collections.Items} The world-level collection of Item documents
  * @see {@link foundry.applications.sheets.ItemSheetV2} The Item configuration application
  */
-export default class Item<TParent extends Actor | null = Actor | null> extends ClientBaseItem<TParent> {
+declare class Item<TParent extends Actor | null = Actor | null> extends ClientBaseItem<TParent> {
     /** A convenience alias of Item#parent which is more semantically intuitive */
     get actor(): TParent;
 
@@ -48,26 +52,32 @@ export default class Item<TParent extends Actor | null = Actor | null> extends C
 
     protected override _preCreate(
         data: this["_source"],
-        options: DatabaseCreateOperation<TParent>,
-        user: User,
+        options: DatabaseCreateCallbackOptions,
+        user: BaseUser,
     ): Promise<boolean | void>;
 
-    protected static override _onCreateOperation<TDocument extends Document>(
+    static override _onCreateOperation<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
         items: TDocument[],
         context: DatabaseCreateOperation<TDocument["parent"]>,
     ): Promise<void>;
 
-    protected static override _onDeleteOperation(
+    static override _onDeleteOperation(
         documents: Document[],
         operation: DatabaseDeleteOperation<Document | null>,
-        user: User,
+        user: BaseUser,
     ): Promise<void>;
 }
 
-export default interface Item<TParent extends Actor | null = Actor | null> extends ClientBaseItem<TParent> {
+declare interface Item<TParent extends Actor | null = Actor | null> extends ClientBaseItem<TParent> {
     get uuid(): ItemUUID;
     get sheet(): ItemSheet<this, DocumentSheetV1Options>;
 }
+
+declare namespace Item {
+    const implementation: typeof Item;
+}
+
+export default Item;
 
 export {};

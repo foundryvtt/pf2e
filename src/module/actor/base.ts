@@ -12,7 +12,7 @@ import type { ActorUUID } from "@client/documents/_module.d.mts";
 import type { DocumentConstructionContext } from "@common/_types.d.mts";
 import type {
     DatabaseCreateOperation,
-    DatabaseDeleteOperation,
+    DatabaseDeleteCallbackOptions,
     DatabaseUpdateOperation,
     Document,
 } from "@common/abstract/_module.d.mts";
@@ -98,7 +98,6 @@ import {
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
- * @category Actor
  */
 class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends Actor<TParent> {
     /** A UUIDv5 hash digest of the foundry UUID */
@@ -310,17 +309,19 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** Add effect icons from effect items and rule elements */
-    override get temporaryEffects(): ActiveEffectPF2e<this>[] {
+    override get temporaryEffects(): fd.ActiveEffect<Actor | Item>[] {
         const fromConditions = this.conditions.map((c) => ActiveEffectPF2e.fromEffect(c));
         const fromEffects = this.itemTypes.effect
             .filter((e) => e.system.tokenIcon?.show && (e.isIdentified || game.user.isGM))
             .map((e) => ActiveEffectPF2e.fromEffect(e));
-        const temporaryEffects = super.temporaryEffects as ActiveEffectPF2e<this>[];
+        const allEffects: fd.ActiveEffect<Actor | Item>[] = [
+            super.temporaryEffects,
+            fromConditions,
+            fromEffects,
+            this.synthetics.tokenEffectIcons,
+        ].flat();
 
-        return R.uniqueBy(
-            [temporaryEffects, fromConditions, fromEffects, this.synthetics.tokenEffectIcons].flat(),
-            (e) => e.img,
-        );
+        return R.uniqueBy(allEffects, (e) => e.img);
     }
 
     /** A means of checking this actor's type without risk of circular import references */
@@ -1482,7 +1483,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** Can a user loot this actor? Same as update modification permission but overridable by subclasses */
-    isLootableBy(user: UserPF2e): boolean {
+    isLootableBy(user: User): boolean {
         return this.canUserModify(user, "update");
     }
 
@@ -1802,7 +1803,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         parent: P,
         collection: string,
         changes: Record<string, unknown>[],
-        options: ActorDiffDatabaseUpdateOperation<P>,
+        options: DatabaseUpdateOperation<P> & { previous?: object },
         userId: string,
     ): void {
         super._preUpdateDescendantDocuments(parent, collection, changes, options, userId);
@@ -1820,16 +1821,16 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         collection: string,
         documents: Document<P>[],
         changes: Record<string, unknown>[],
-        options: ActorDiffDatabaseUpdateOperation<P>,
+        options: DatabaseUpdateOperation<P> & { previous?: object },
         userId: string,
     ): void {
         super._onUpdateDescendantDocuments(parent, collection, documents, changes, options, userId);
 
-        if (!(parent === this && collection === "items")) return;
+        if (this !== parent || collection !== "items") return;
 
         // Ensure the items being updated are all permanent character building options.
         // These updates should not occur due to temporary changes from something like drained
-        const items = documents.filter((d): d is ItemPF2e => d instanceof ItemPF2e);
+        const items = documents.filter((d): d is ItemPF2e<this> => d instanceof ItemPF2e);
         if (
             this?.isOfType("character") &&
             items.every((d) => d.isOfType("ancestry", "background", "class", "feat", "heritage"))
@@ -1863,39 +1864,27 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
-    protected override _applyDefaultTokenSettings(
-        data: this["_source"],
-        options?: { fromCompendium?: boolean },
-    ): DeepPartial<this["_source"]> {
-        const diff = super._applyDefaultTokenSettings(data, options);
-        if (this._source.prototypeToken.texture.src === CONST.DEFAULT_TOKEN) {
-            this._source.prototypeToken.texture.src = ActorPF2e.getDefaultArtwork(data).texture.src;
-        }
-
-        return diff;
-    }
-
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        operation: ActorUpdateOperation<TParent>,
-        user: UserPF2e,
+        options: ActorUpdateCallbackOptions,
+        user: fd.BaseUser,
     ): Promise<boolean | void> {
-        const result = await super._preUpdate(changed, operation, user);
+        const result = await super._preUpdate(changed, options, user);
         if (result === false) return false;
 
-        const isFullReplace = !((operation.diff ?? true) && (operation.recursive ?? true));
+        const isFullReplace = !((options.diff ?? true) && (options.recursive ?? true));
         if (isFullReplace) return result;
 
-        this.#prepareDamageBroadcast(changed, operation);
+        this.#prepareDamageBroadcast(changed, options);
         return result;
     }
 
     /** Always announce HP changes for player-owned actors as floaty text (via `damageTaken` option) */
-    #prepareDamageBroadcast(changed: DeepPartial<this["_source"]>, operation: ActorUpdateOperation<TParent>): void {
+    #prepareDamageBroadcast(changed: DeepPartial<this["_source"]>, options: ActorUpdateCallbackOptions): void {
         const currentHP = this._source.system.attributes?.hp?.value;
         const updatedHP = changed.system?.attributes?.hp?.value ?? currentHP;
         if (
-            !operation.damageTaken &&
+            !options.damageTaken &&
             this.hasPlayerOwner &&
             currentHP &&
             typeof updatedHP === "number" &&
@@ -1904,22 +1893,22 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             const damageTaken = -1 * (updatedHP - currentHP);
             const currentLevel = this._source.system.details.level?.value;
             const updatedLevel = changed.system?.details?.level?.value ?? currentLevel;
-            if (damageTaken && currentLevel === updatedLevel) operation.damageTaken = damageTaken;
+            if (damageTaken && currentLevel === updatedLevel) options.damageTaken = damageTaken;
         }
     }
 
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        operation: ActorUpdateOperation<TParent>,
+        options: ActorUpdateCallbackOptions,
         userId: string,
     ): void {
-        super._onUpdate(changed, operation, userId);
+        super._onUpdate(changed, options, userId);
         const hideFromUser =
             !this.hasPlayerOwner && !game.user.isGM && game.settings.get("pf2e", "metagame_secretDamage");
-        if (operation.damageTaken && !hideFromUser) {
+        if (options.damageTaken && !hideFromUser) {
             const tokens = this.getActiveTokens();
             for (const token of tokens) {
-                token.showFloatyText(-1 * operation.damageTaken);
+                token.showFloatyText(-1 * options.damageTaken);
             }
         }
 
@@ -1947,11 +1936,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** Unregister all effects possessed by this actor */
-    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void {
+    protected override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void {
         for (const effect of this.itemTypes.effect) {
             game.pf2e.effectTracker.unregister(effect);
         }
-        super._onDelete(operation, userId);
+        super._onDelete(options, userId);
     }
 }
 
@@ -2030,7 +2019,11 @@ interface ActorUpdateOperation<TParent extends TokenDocumentPF2e | null> extends
     damageTaken?: number;
     finePowder?: boolean;
     damageUndo?: boolean;
+    previous?: { maxHitPoints?: number };
 }
+
+interface ActorUpdateCallbackOptions
+    extends Omit<ActorUpdateOperation<null>, "action" | "pack" | "parent" | "restoreDelta" | "noHook" | "updates"> {}
 
 interface EmbeddedItemUpdateOperation<TParent extends ActorPF2e> extends DatabaseUpdateOperation<TParent> {
     checkHP?: boolean;
@@ -2057,14 +2050,5 @@ const ActorProxyPF2e = new Proxy(ActorPF2e, {
     },
 });
 
-/**
- * An extension of DatabaseUpdateOperation to pass on system specific data between phases.
- * While it is intended to be used for actors, descendant document updates accept any document type.
- * Make sure to check that its an ActorPF2e.
- */
-interface ActorDiffDatabaseUpdateOperation<TParent extends Document | null> extends DatabaseUpdateOperation<TParent> {
-    previous?: { maxHitPoints?: number };
-}
-
 export { ActorPF2e, ActorProxyPF2e };
-export type { ActorUpdateOperation, HitPointsSummary };
+export type { ActorUpdateCallbackOptions, ActorUpdateOperation, HitPointsSummary };

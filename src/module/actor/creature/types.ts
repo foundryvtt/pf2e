@@ -1,4 +1,4 @@
-import type { ActorPF2e, ActorUpdateOperation } from "@actor/base.ts";
+import type { ActorPF2e, ActorUpdateCallbackOptions, ActorUpdateOperation } from "@actor/base.ts";
 import type { CREATURE_ACTOR_TYPES } from "@actor/values.ts";
 import type { AbilityItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
 import { LabeledValueAndMax } from "@module/data.ts";
@@ -39,6 +39,10 @@ interface CreatureUpdateOperation<TParent extends TokenDocumentPF2e | null> exte
     allowHPOverage?: boolean;
 }
 
+interface CreatureUpdateCallbackOptions extends ActorUpdateCallbackOptions {
+    allowHPOverage?: boolean;
+}
+
 interface ResourceData extends LabeledValueAndMax {
     slug: string;
 }
@@ -48,6 +52,7 @@ export type {
     CreatureActorType,
     CreatureTrait,
     CreatureType,
+    CreatureUpdateCallbackOptions,
     CreatureUpdateOperation,
     GetReachParameters,
     Language,

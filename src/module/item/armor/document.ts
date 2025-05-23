@@ -1,10 +1,9 @@
 import type { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
-import type { DatabaseUpdateOperation } from "@common/abstract/_module.d.mts";
+import type { DatabaseUpdateCallbackOptions } from "@common/abstract/_module.d.mts";
 import type { RawItemChatData } from "@item/base/data/index.ts";
 import { PhysicalItemPF2e, getPropertyRuneSlots } from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
-import type { UserPF2e } from "@module/user/document.ts";
 import type { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, setHasElement, signedInteger, sluggify } from "@util";
 import * as R from "remeda";
@@ -173,10 +172,10 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
     /** Ensure correct shield/actual-armor usage */
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        operation: DatabaseUpdateOperation<TParent>,
-        user: UserPF2e,
+        options: DatabaseUpdateCallbackOptions,
+        user: fd.BaseUser,
     ): Promise<boolean | void> {
-        if (!changed.system) return super._preUpdate(changed, operation, user);
+        if (!changed.system) return super._preUpdate(changed, options, user);
 
         if (changed.system.acBonus !== undefined) {
             const integerValue = Math.floor(Number(changed.system.acBonus)) || 0;
@@ -198,7 +197,7 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
             changed.system.speedPenalty = Math.min(0, integerValue);
         }
 
-        return super._preUpdate(changed, operation, user);
+        return super._preUpdate(changed, options, user);
     }
 }
 

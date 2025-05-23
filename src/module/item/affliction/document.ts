@@ -1,12 +1,11 @@
 import { ActorPF2e } from "@actor";
 import type { DocumentConstructionContext } from "@common/_types.d.mts";
-import type { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
+import type { DatabaseCreateCallbackOptions, DatabaseUpdateCallbackOptions } from "@common/abstract/_types.d.mts";
 import { ConditionPF2e, ItemPF2e } from "@item";
 import { calculateRemainingDuration } from "@item/abstract-effect/helpers.ts";
 import { AbstractEffectPF2e, DurationData, EffectBadgeCounter } from "@item/abstract-effect/index.ts";
 import { DURATION_UNITS } from "@item/abstract-effect/values.ts";
 import { ConditionSlug } from "@item/condition/types.ts";
-import { UserPF2e } from "@module/user/index.ts";
 import { ConditionManager } from "@system/conditions/manager.ts";
 import { createDamageFormula, parseTermsFromSimpleFormula } from "@system/damage/formula.ts";
 import { AfflictionDamageTemplate, BaseDamageData, DamageDamageContext, DamagePF2e } from "@system/damage/index.ts";
@@ -238,8 +237,8 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     /** Set the start time and initiative roll of a newly created effect */
     protected override async _preCreate(
         data: this["_source"],
-        operation: DatabaseCreateOperation<TParent>,
-        user: UserPF2e,
+        options: DatabaseCreateCallbackOptions,
+        user: fd.BaseUser,
     ): Promise<boolean | void> {
         if (this.isOwned) {
             const initiative = this.origin?.combatant?.initiative ?? game.combat?.combatant?.initiative ?? null;
@@ -249,28 +248,23 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             this.updateSource({ "system.status": undefined });
         }
 
-        return super._preCreate(data, operation, user);
+        return super._preCreate(data, options, user);
     }
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        operation: DatabaseUpdateOperation<TParent>,
-        user: UserPF2e,
+        options: DatabaseUpdateCallbackOptions,
+        user: fd.BaseUser,
     ): Promise<boolean | void> {
         const duration = changed.system?.duration;
         if (typeof duration?.unit === "string" && !["unlimited", "encounter"].includes(duration.unit)) {
             if (duration.value === -1) duration.value = 1;
         }
-
-        return super._preUpdate(changed, operation, user);
+        return super._preUpdate(changed, options, user);
     }
 
-    protected override _onCreate(
-        data: AfflictionSource,
-        operation: DatabaseCreateOperation<TParent>,
-        userId: string,
-    ): void {
-        super._onCreate(data, operation, userId);
+    protected override _onCreate(data: AfflictionSource, options: DatabaseCreateCallbackOptions, userId: string): void {
+        super._onCreate(data, options, userId);
         if (game.user === this.actor?.primaryUpdater) {
             this.handleStageChange();
         }
@@ -278,10 +272,10 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
 
     override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        operation: DatabaseUpdateOperation<TParent>,
+        options: DatabaseUpdateCallbackOptions,
         userId: string,
     ): void {
-        super._onUpdate(changed, operation, userId);
+        super._onUpdate(changed, options, userId);
 
         // If the stage changed, perform stage change events
         if (changed.system?.status?.stage && game.user === this.actor?.primaryUpdater) {

@@ -1,11 +1,32 @@
 import { SceneDimensions } from "@client/_types.mjs";
 import { TokenAnimationOptions } from "@client/canvas/placeables/token.mjs";
-import { DatabaseCreateOperation, DatabaseDeleteOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
+import {
+    DatabaseCreateCallbackOptions,
+    DatabaseCreateOperation,
+    DatabaseDeleteCallbackOptions,
+    DatabaseUpdateCallbackOptions,
+    DatabaseUpdateOperation,
+} from "@common/abstract/_types.mjs";
 import Document from "@common/abstract/document.mjs";
+import EmbeddedCollection from "@common/abstract/embedded-collection.mjs";
 import { ImageFilePath } from "@common/constants.mjs";
-import { BaseScene, NoteSource, RegionSource, TokenSource } from "@common/documents/_module.mjs";
 import SceneConfig from "../applications/sheets/scene-config.mjs";
-import { User } from "./_module.mjs";
+import {
+    AmbientLightDocument,
+    AmbientSoundDocument,
+    BaseScene,
+    BaseUser,
+    DrawingDocument,
+    MeasuredTemplateDocument,
+    NoteDocument,
+    NoteSource,
+    RegionDocument,
+    RegionSource,
+    TileDocument,
+    TokenDocument,
+    TokenSource,
+    WallDocument,
+} from "./_module.mjs";
 import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
 import CompendiumCollection from "./collections/compendium-collection.mjs";
 
@@ -52,12 +73,7 @@ export default class Scene extends ClientBaseScene {
      */
     activate(): Promise<this>;
 
-    override clone(
-        data: Record<string, unknown> | undefined,
-        context: DocumentCloneContext & { save: true },
-    ): Promise<this>;
-    override clone(data?: Record<string, unknown>, context?: DocumentCloneContext & { save?: false }): this;
-    override clone(data?: Record<string, unknown>, context?: DocumentCloneContext): this | Promise<this>;
+    override clone(data?: Record<string, unknown>, context?: DocumentCloneContext): this;
 
     /** Set this scene as the current view */
     view(): Promise<this>;
@@ -73,23 +89,23 @@ export default class Scene extends ClientBaseScene {
 
     protected override _preCreate(
         data: this["_source"],
-        operation: DatabaseCreateOperation<null>,
-        user: User,
+        options: DatabaseCreateCallbackOptions,
+        user: BaseUser,
     ): Promise<boolean | void>;
 
-    protected override _onCreate(data: this["_source"], operation: DatabaseCreateOperation<null>, userId: string): void;
+    protected override _onCreate(data: this["_source"], options: DatabaseCreateCallbackOptions, userId: string): void;
 
     protected override _preUpdate(
         data: Record<string, unknown>,
-        operation: SceneUpdateOperation,
-        user: User,
+        options: SceneUpdateOptions,
+        user: BaseUser,
     ): Promise<boolean | void>;
 
-    override _onUpdate(changed: DeepPartial<this["_source"]>, options: SceneUpdateOperation, userId: string): void;
+    override _onUpdate(changed: DeepPartial<this["_source"]>, options: SceneUpdateOptions, userId: string): void;
 
-    protected override _preDelete(options: DatabaseDeleteOperation<null>, user: User): Promise<boolean | void>;
+    protected override _preDelete(options: DatabaseDeleteCallbackOptions, user: BaseUser): Promise<boolean | void>;
 
-    protected override _onDelete(options: DatabaseDeleteOperation<null>, userId: string): void;
+    protected override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void;
 
     /**
      * Handle Scene activation workflow if the active state is changed to true
@@ -126,7 +142,7 @@ export default class Scene extends ClientBaseScene {
     /*  Importing and Exporting                     */
     /* -------------------------------------------- */
 
-    override toCompendium(pack: CompendiumCollection<this>): this["_source"];
+    override toCompendium(pack: CompendiumCollection): this["_source"];
 
     /**
          * Create a 300px by 100px thumbnail image for this scene background
@@ -148,21 +164,21 @@ export default class Scene extends ClientBaseScene {
 }
 
 export default interface Scene extends ClientBaseScene {
-    // readonly drawings: EmbeddedCollection<DrawingDocument<this>>;
-    // readonly lights: EmbeddedCollection<AmbientLightDocument<this>>;
-    // readonly notes: EmbeddedCollection<NoteDocument<this>>;
-    // readonly regions: EmbeddedCollection<RegionDocument<this>>;
-    // readonly sounds: EmbeddedCollection<AmbientSoundDocument<this>>;
-    // readonly templates: EmbeddedCollection<MeasuredTemplateDocument<this>>;
-    // readonly tokens: EmbeddedCollection<TokenDocument<this>>;
-    // readonly tiles: EmbeddedCollection<TileDocument<this>>;
-    // readonly walls: EmbeddedCollection<WallDocument<this>>;
+    readonly drawings: EmbeddedCollection<DrawingDocument<this>>;
+    readonly lights: EmbeddedCollection<AmbientLightDocument<this>>;
+    readonly notes: EmbeddedCollection<NoteDocument<this>>;
+    readonly regions: EmbeddedCollection<RegionDocument<this>>;
+    readonly sounds: EmbeddedCollection<AmbientSoundDocument<this>>;
+    readonly templates: EmbeddedCollection<MeasuredTemplateDocument<this>>;
+    readonly tokens: EmbeddedCollection<TokenDocument<this>>;
+    readonly tiles: EmbeddedCollection<TileDocument<this>>;
+    readonly walls: EmbeddedCollection<WallDocument<this>>;
 
-    _sheet: SceneConfig<this> | null;
+    get sheet(): SceneConfig<this> | null;
 
     getEmbeddedCollection(embeddedName: "Token"): this["tokens"];
 
-    update(data: Record<string, unknown>, options?: Partial<SceneUpdateOperation>): Promise<this>;
+    update(data: Record<string, unknown>, options?: Partial<SceneUpdateOptions>): Promise<this>;
 
     createEmbeddedDocuments(
         embeddedName: "Note",
@@ -257,7 +273,7 @@ export default interface Scene extends ClientBaseScene {
     >;
 }
 
-export interface SceneUpdateOperation extends DatabaseUpdateOperation<null> {
+export interface SceneUpdateOptions extends DatabaseUpdateCallbackOptions {
     animateDarkness?: number;
 }
 

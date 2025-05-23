@@ -2,8 +2,10 @@ import type { ActorPF2e } from "@actor";
 import type { ItemUUID } from "@client/documents/_module.d.mts";
 import type { DocumentConstructionContext } from "@common/_types.d.mts";
 import type {
-    DatabaseCreateOperation,
+    DatabaseCreateCallbackOptions,
+    DatabaseDeleteCallbackOptions,
     DatabaseDeleteOperation,
+    DatabaseUpdateCallbackOptions,
     DatabaseUpdateOperation,
 } from "@common/abstract/_types.d.mts";
 import { ItemPF2e, ItemProxyPF2e, type ContainerPF2e } from "@item";
@@ -12,7 +14,6 @@ import { MystifiedTraits } from "@item/base/data/values.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
 import type { Rarity, Size, ZeroToTwo } from "@module/data.ts";
 import type { EffectSpinoff } from "@module/rules/rule-element/effect-spinoff/spinoff.ts";
-import type { UserPF2e } from "@module/user/document.ts";
 import { ErrorPF2e, isObject, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { getUnidentifiedPlaceholderImage } from "../identification.ts";
@@ -679,7 +680,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             if (updated) {
                 this._onUpdate(
                     data as DeepPartial<this["_source"]>,
-                    { broadcast: false, updates: [], ...operation },
+                    { action: "update", broadcast: false, updates: [], ...operation },
                     game.user.id,
                 );
                 return this;
@@ -695,9 +696,9 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         if (this.parentItem) {
             const parentItem = this.parentItem;
             const newSubitems = parentItem._source.system.subitems?.filter((i) => i._id !== this.id) ?? [];
-            const updated = await parentItem.update({ "system.subitems": newSubitems }, operation);
+            const updated = await parentItem.update({ "system.subitems": newSubitems }, R.omit(operation, ["action"]));
             if (updated) {
-                this._onDelete(operation as DatabaseDeleteOperation<TParent>, game.user.id);
+                this._onDelete(operation satisfies DatabaseDeleteCallbackOptions, game.user.id);
                 return this;
             }
             return undefined;
@@ -713,8 +714,8 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     /** Set to unequipped upon acquiring */
     protected override async _preCreate(
         data: this["_source"],
-        options: DatabaseCreateOperation<TParent>,
-        user: UserPF2e,
+        options: DatabaseCreateCallbackOptions,
+        user: fd.BaseUser,
     ): Promise<boolean | void> {
         if (!this.actor || this._source.system.containerId?.length !== 16) {
             this._source.system.containerId = null;
@@ -733,8 +734,8 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        operation: PhysicalItemUpdateOperation<TParent>,
-        user: UserPF2e,
+        operation: DatabaseUpdateCallbackOptions & { checkHP?: boolean },
+        user: fd.BaseUser,
     ): Promise<boolean | void> {
         if (!changed.system) return super._preUpdate(changed, operation, user);
 
@@ -807,10 +808,6 @@ interface PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> 
 interface PhysicalItemConstructionContext<TParent extends ActorPF2e | null>
     extends DocumentConstructionContext<TParent> {
     parentItem?: PhysicalItemPF2e<TParent>;
-}
-
-interface PhysicalItemUpdateOperation<TParent extends ActorPF2e | null> extends DatabaseUpdateOperation<TParent> {
-    checkHP?: boolean;
 }
 
 export { PhysicalItemPF2e, type PhysicalItemConstructionContext };

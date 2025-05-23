@@ -1,19 +1,24 @@
 import { ActorPF2e, type CreaturePF2e } from "@actor";
+import type { ActorUpdateCallbackOptions } from "@actor/base.ts";
 import { resetActors } from "@actor/helpers.ts";
-import type { DataModelValidationOptions } from "@common/abstract/data.d.mts";
+import type {
+    DatabaseCreateCallbackOptions,
+    DatabaseDeleteCallbackOptions,
+    DataModelValidationOptions,
+} from "@common/abstract/_module.d.mts";
 import type { UserAction } from "@common/constants.d.mts";
-import { ItemType } from "@item/base/data/index.ts";
+import type { ActorUUID } from "@common/documents/_module.d.mts";
+import type { ItemType } from "@item/base/data/index.ts";
 import { RuleElementPF2e } from "@module/rules/index.ts";
-import { RuleElementSchema } from "@module/rules/rule-element/data.ts";
-import type { UserPF2e } from "@module/user/document.ts";
+import type { RuleElementSchema } from "@module/rules/rule-element/data.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import type { Statistic } from "@system/statistic/index.ts";
 import { tupleHasValue } from "@util";
 import * as R from "remeda";
-import { PartySource, PartySystemData } from "./data.ts";
+import type { PartySource, PartySystemData } from "./data.ts";
 import { Kingdom } from "./kingdom/model.ts";
-import { PartySheetRenderOptions } from "./sheet.ts";
-import { PartyCampaign, PartyUpdateOperation } from "./types.ts";
+import type { PartySheetRenderOptions } from "./sheet.ts";
+import { PartyCampaign } from "./types.ts";
 
 class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     override armorClass = null;
@@ -40,7 +45,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** Part members can add and remove items (though system socket shenanigans)  */
-    override canUserModify(user: UserPF2e, action: UserAction): boolean {
+    override canUserModify(user: fd.BaseUser, action: UserAction): boolean {
         return (
             super.canUserModify(user, action) ||
             (action === "update" && this.members.some((m) => m.canUserModify(user, action)))
@@ -212,17 +217,17 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     protected override _preCreate(
         data: this["_source"],
-        options: DatabaseCreateOperation<TParent>,
-        user: UserPF2e,
+        options: DatabaseCreateCallbackOptions,
+        user: fd.BaseUser,
     ): Promise<boolean | void> {
         data.folder = null;
         return super._preCreate(data, options, user);
     }
 
     protected override async _preUpdate(
-        changed: DeepPartial<PartySource>,
-        options: PartyUpdateOperation<TParent>,
-        user: UserPF2e,
+        changed: DeepPartial<this["_source"]>,
+        options: PartyUpdateCallbackOptions,
+        user: fd.BaseUser,
     ): Promise<boolean | void> {
         // Prevent party actors from being dragged to folders
         changed.folder = null;
@@ -247,13 +252,13 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Override to inform creatures when they were booted from a party */
     protected override _onUpdate(
-        changed: DeepPartial<PartySource>,
-        operation: PartyUpdateOperation<TParent>,
+        changed: DeepPartial<this["_source"]>,
+        options: PartyUpdateCallbackOptions,
         userId: string,
     ): void {
-        super._onUpdate(changed, operation, userId);
+        super._onUpdate(changed, options, userId);
 
-        const removedCreatures = (operation.removedMembers ?? [])
+        const removedCreatures = (options.removedMembers ?? [])
             .map((uuid) => fromUuidSync(uuid))
             .filter((a): a is CreaturePF2e => a instanceof ActorPF2e && a.isOfType("creature"));
         for (const actor of removedCreatures) {
@@ -277,8 +282,8 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** Overriden to inform creatures the party is defunct */
-    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void {
-        super._onDelete(operation, userId);
+    protected override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void {
+        super._onDelete(options, userId);
         for (const member of this.members) {
             member.parties.delete(this);
         }
@@ -291,6 +296,10 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 interface PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     readonly _source: PartySource;
     system: PartySystemData;
+}
+
+interface PartyUpdateCallbackOptions extends ActorUpdateCallbackOptions {
+    removedMembers?: string[];
 }
 
 export { PartyPF2e };

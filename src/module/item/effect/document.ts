@@ -1,8 +1,8 @@
 import type { ActorPF2e } from "@actor";
 import type {
-    DatabaseCreateOperation,
-    DatabaseDeleteOperation,
-    DatabaseUpdateOperation,
+    DatabaseCreateCallbackOptions,
+    DatabaseDeleteCallbackOptions,
+    DatabaseUpdateCallbackOptions,
 } from "@common/abstract/_types.d.mts";
 import type { EffectBadge, EffectBadgeFormulaSource, EffectBadgeValueSource } from "@item/abstract-effect/data.ts";
 import { AbstractEffectPF2e } from "@item/abstract-effect/index.ts";
@@ -10,7 +10,6 @@ import { BadgeReevaluationEventType } from "@item/abstract-effect/types.ts";
 import { reduceItemName } from "@item/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import type { RuleElementOptions, RuleElementPF2e } from "@module/rules/index.ts";
-import type { UserPF2e } from "@module/user/index.ts";
 import { ErrorPF2e, sluggify } from "@util";
 import * as R from "remeda";
 import type { EffectFlags, EffectSource, EffectSystemData } from "./data.ts";
@@ -121,8 +120,8 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
     /** Set the start time and initiative roll of a newly created effect */
     protected override async _preCreate(
         data: this["_source"],
-        operation: DatabaseCreateOperation<TParent>,
-        user: UserPF2e,
+        options: DatabaseCreateCallbackOptions,
+        user: fd.BaseUser,
     ): Promise<boolean | void> {
         if (this.isOwned) {
             const initiative = this.origin?.combatant?.initiative ?? game.combat?.combatant?.initiative ?? null;
@@ -135,13 +134,13 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
             this._source.system.badge = await this.#evaluateFormulaBadge(badge);
         }
 
-        return super._preCreate(data, operation, user);
+        return super._preCreate(data, options, user);
     }
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        operation: DatabaseUpdateOperation<TParent>,
-        user: UserPF2e,
+        options: DatabaseUpdateCallbackOptions,
+        user: fd.BaseUser,
     ): Promise<boolean | void> {
         const duration = changed.system?.duration;
         if (duration?.unit === "unlimited") {
@@ -187,14 +186,14 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
             }
         }
 
-        return super._preUpdate(changed, operation, user);
+        return super._preUpdate(changed, options, user);
     }
 
-    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void {
+    protected override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void {
         if (this.actor) {
             game.pf2e.effectTracker.unregister(this as EffectPF2e<ActorPF2e>);
         }
-        super._onDelete(operation, userId);
+        super._onDelete(options, userId);
     }
 
     /** If applicable, reevaluate this effect's badge */
