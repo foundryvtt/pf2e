@@ -1,4 +1,6 @@
 .choice-set-prompt {
+    --border-color-50: color-mix(in srgb, var(--color-form-hint) 50%, transparent);
+
     .content {
         display: flex;
         flex-direction: column;
@@ -28,7 +30,7 @@
             min-width: 18em;
 
             tags {
-                background-color: rgba(0, 0, 0, 0.1);
+                background-color: var(--table-header-bg-color);
                 border-radius: 3px;
                 height: 2rem;
                 width: 100%;
@@ -80,7 +82,8 @@
 
                 a.item-info {
                     align-items: center;
-                    border: 1px solid #b5b3a4;
+                    border: 1px solid var(--border-color-50);
+                    color: var(--color-text-secondary);
                     border-radius: 2px;
                     display: flex;
                     height: var(--font-size-20);
@@ -101,9 +104,9 @@
         }
 
         .drop-zone {
-            border: 1px solid color-mix(in srgb, var(--color-dark-4) 30%, transparent);
+            border: 1px solid var(--border-color-50);
             border-radius: 3px;
-            color: var(--color-dark-2);
+            color: var(--color-text-secondary);
             cursor: default;
             display: flex;
             font-family: var(--font-sans);
@@ -113,7 +116,7 @@
 
             i {
                 align-items: center;
-                border: 1px solid color-mix(in srgb, var(--color-dark-4) 30%, transparent);
+                border: 1px solid var(--border-color-50);
                 border-radius: 2px;
                 display: flex;
                 height: 1.6em;
@@ -127,42 +130,7 @@
             }
 
             span {
-                color: var(--text-dark);
                 flex: 1;
-            }
-        }
-    }
-}
-
-body.theme-dark .choice-set-prompt {
-    .choices {
-        &.select-menu {
-            tags {
-                background-color: var(--color-cool-4);
-            }
-        }
-
-        .choice-buttons {
-            a.item-info {
-                border: 1px solid color-mix(in srgb, var(--color-light-5) 50%, transparent);
-                color: var(--color-light-3);
-
-                &.disabled {
-                    border: 1px solid color-mix(in srgb, var(--color-disabled) 50%, transparent);
-                }
-            }
-        }
-
-        .drop-zone {
-            border: 1px solid color-mix(in srgb, var(--color-light-5) 50%, transparent);
-            color: var(--color-light-3);
-
-            i {
-                border: 1px solid color-mix(in srgb, var(--color-light-5) 50%, transparent);
-            }
-
-            span {
-                color: var(--color-light-3);
             }
         }
     }
