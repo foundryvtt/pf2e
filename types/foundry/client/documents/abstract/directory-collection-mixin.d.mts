@@ -1,10 +1,9 @@
 import Document from "@common/abstract/document.mjs";
 import Collection from "@common/utils/collection.mjs";
-import { Folder, Setting, WorldDocument } from "../_module.mjs";
-import CompendiumCollection from "../collections/compendium-collection.mjs";
+import { Adventure, Folder, Setting, WorldDocument } from "../_module.mjs";
 import DocumentCollection from "./document-collection.mjs";
 
-export type DirectoryMixinEntry = WorldDocument | Setting | CompendiumCollection;
+export type DirectoryMixinEntry = WorldDocument | Setting | Adventure;
 
 /**
  * A mixin which adds directory functionality to a DocumentCollection, such as folders, tree structures, and sorting.
