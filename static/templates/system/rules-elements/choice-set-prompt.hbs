@@ -1,50 +1,48 @@
-<div class="content">
-    <h3>{{localize prompt}}</h3>
-    <div class="choices{{#if selectMenu}} select-menu{{/if}}">
-        {{#if selectMenu}}
-            <div class="choice-buttons">
-                <div class="choice select">
-                    <input data-tagify-select="true" spellcheck="false" />
-                    {{#if containsItems}}
-                        <a
-                            class="item-info disabled"
-                            data-action="view-item"
+<div class="header">{{localize prompt}}</div>
+<div class="choices{{#if selectMenu}} select-menu{{/if}}">
+    {{#if selectMenu}}
+        <div class="choice-buttons">
+            <div class="choice select">
+                <input data-tagify-select="true" spellcheck="false" />
+                {{#if containsItems}}
+                    <button
+                        class="item-info disabled"
+                        data-action="viewItem"
+                        data-value="{{choice.value}}"
+                        data-tooltip="PF2E.UI.RuleElements.ChoiceSet.ViewItem.Disabled"
+                    ><i class="fa-solid fa-fw fa-info-circle"></i></button>
+                {{/if}}
+            </div>
+        </div>
+        {{#> dropZone}}{{/dropZone}}
+        <button type="button" value="" data-action="pick">{{localize "PF2E.UI.RuleElements.ChoiceSet.SaveLabel"}}</button>
+    {{else}}
+        <div class="choice-buttons">
+            {{#each choices as |choice|}}
+                <div class="choice">
+                    <button type="button" value="{{choice.value}}" data-action="pick"{{#if choice.img}} class="with-image"{{/if}}>
+                        {{#if choice.img}}<img src="{{choice.img}}" />{{/if}}
+                        <span>{{choice.label}}</span>
+                    </button>
+                    {{#if choice.hasUUID}}
+                        <button
+                            class="item-info"
+                            data-action="viewItem"
                             data-value="{{choice.value}}"
-                            data-tooltip="PF2E.UI.RuleElements.ChoiceSet.ViewItem.Disabled"
-                        ><i class="fa-solid fa-fw fa-info-circle"></i></a>
+                            data-tooltip="PF2E.UI.RuleElements.ChoiceSet.ViewItem.Tooltip"
+                        ><i class="fa-solid fa-fw fa-info-circle"></i></button>
                     {{/if}}
                 </div>
-            </div>
-            {{#> dropZone}}{{/dropZone}}
-            <button type="button" value="" data-action="pick">{{localize "PF2E.UI.RuleElements.ChoiceSet.SaveLabel"}}</button>
-        {{else}}
-            <div class="choice-buttons">
-                {{#each choices as |choice|}}
-                    <div class="choice">
-                        <button type="button" value="{{choice.value}}" data-action="pick"{{#if choice.img}} class="with-image"{{/if}}>
-                            {{#if choice.img}}<img src="{{choice.img}}" />{{/if}}
-                            <span>{{choice.label}}</span>
-                        </button>
-                        {{#if choice.hasUUID}}
-                            <a
-                                class="item-info"
-                                data-action="view-item"
-                                data-value="{{choice.value}}"
-                                data-tooltip="PF2E.UI.RuleElements.ChoiceSet.ViewItem.Tooltip"
-                            ><i class="fa-solid fa-fw fa-info-circle"></i></a>
-                        {{/if}}
-                    </div>
-                {{/each}}
-            </div>
+            {{/each}}
+        </div>
 
-            {{#if allowNoSelection}}
-                <button type="button" data-action="close">
-                    <span>{{localize "PF2E.UI.RuleElements.ChoiceSet.Decline"}}</span>
-                </button>
-            {{/if}}
-            {{#> dropZone}}{{/dropZone}}
+        {{#if allowNoSelection}}
+            <button type="button" data-action="close">
+                <span>{{localize "PF2E.UI.RuleElements.ChoiceSet.Decline"}}</span>
+            </button>
         {{/if}}
-    </div>
+        {{#> dropZone}}{{/dropZone}}
+    {{/if}}
 </div>
 
 {{#*inline "dropZone"}}

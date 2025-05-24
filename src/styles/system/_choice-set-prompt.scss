@@ -1,13 +1,23 @@
-.app.choice-set-prompt .window-content {
-    h3 {
+.choice-set-prompt {
+    --border-color-50: color-mix(in srgb, var(--color-form-hint) 50%, transparent);
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .header {
         display: flex;
         justify-content: center;
+        font-size: 1.25em;
+        border-bottom: 1px solid var(--color-tabs-border);
     }
 
     button,
     select {
         display: flex;
+        justify-content: flex-start;
         margin: var(--space-4) auto;
+        width: 100%;
     }
 
     .choices {
@@ -18,8 +28,7 @@
             min-width: 18em;
 
             tags {
-                background-color: rgba(0, 0, 0, 0.05);
-                border: 1px solid var(--color-border-light-tertiary);
+                background-color: var(--table-header-bg-color);
                 border-radius: 3px;
                 height: 2rem;
                 width: 100%;
@@ -69,42 +78,39 @@
                     margin-bottom: 0.5rem;
                 }
 
-                a.item-info {
+                button.item-info {
                     align-items: center;
-                    border: 1px solid var(--color-text-light-primary);
-                    border-radius: 2px;
+                    border: 1px solid var(--border-color-50);
                     display: flex;
-                    height: var(--font-size-20);
                     justify-content: center;
-                    min-width: var(--font-size-20);
+                    height: var(--font-size-20);
+                    width: var(--font-size-20);
+                    min-width: unset;
+                    min-height: unset;
 
                     &.disabled {
                         color: var(--color-disabled);
                         cursor: default;
-
-                        &:hover,
-                        &:active {
-                            text-shadow: none;
-                        }
                     }
                 }
             }
         }
 
         .drop-zone {
-            border: 1px solid var(--color-border-light-primary);
+            border: 1px solid var(--border-color-50);
             border-radius: 3px;
-            color: var(--color-text-dark-2);
+            color: var(--color-text-secondary);
             cursor: default;
             display: flex;
-            font-family: var(--font-primary);
+            font-family: var(--font-sans);
             font-size: var(--font-size-14);
             line-height: 1.75rem;
             padding: var(--space-1) var(--space-6);
+            margin: var(--space-4) auto;
 
             i {
                 align-items: center;
-                border: 1px solid var(--color-text-light-4);
+                border: 1px solid var(--border-color-50);
                 border-radius: 2px;
                 display: flex;
                 height: 1.6em;
@@ -118,7 +124,6 @@
             }
 
             span {
-                color: var(--text-dark);
                 flex: 1;
             }
         }

@@ -3,11 +3,12 @@ import type { UserPF2e } from "@module/user/document.ts";
 import { Predicate } from "@system/predication.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll } from "@util";
 import Tagify from "@yaireo/tagify";
-import appv1 = foundry.appv1;
 
 /** Prompt the user to pick from a number of options */
-abstract class PickAThingPrompt<TItem extends ItemPF2e, TThing extends string | number | object> extends appv1.api
-    .Application {
+abstract class PickAThingPrompt<
+    TItem extends ItemPF2e,
+    TThing extends string | number | object,
+> extends fa.api.HandlebarsApplicationMixin(fa.api.ApplicationV2) {
     protected item: TItem;
 
     #resolve?: (value: PickableThing<TThing> | null) => void;
@@ -23,12 +24,26 @@ abstract class PickAThingPrompt<TItem extends ItemPF2e, TThing extends string | 
 
     protected allowNoSelection: boolean;
 
+    static override DEFAULT_OPTIONS: DeepPartial<fa.ApplicationConfiguration> = {
+        classes: ["pick-a-thing-prompt"],
+        window: {
+            resizable: false,
+        },
+        position: {
+            height: "auto",
+            width: "auto",
+        },
+        actions: {
+            pick: PickAThingPrompt.#onClickPick,
+        },
+    };
+
     constructor(data: PickAThingConstructorArgs<TItem, TThing>) {
         super();
         this.item = data.item;
         this.choices = data.choices;
         this.predicate = data.predicate ?? new Predicate();
-        this.options.title = data.title ?? this.item.name;
+        this.options.window.title = data.title ?? this.item.name;
         this.allowNoSelection = data.allowNoSelection ?? false;
     }
 
@@ -36,19 +51,17 @@ abstract class PickAThingPrompt<TItem extends ItemPF2e, TThing extends string | 
         return this.item.actor;
     }
 
-    static override get defaultOptions(): appv1.api.ApplicationV1Options {
-        return {
-            ...super.defaultOptions,
-            classes: ["pick-a-thing-prompt"],
-            resizable: false,
-            height: "auto",
-            width: "auto",
-        };
+    static #onClickPick<TItem extends ItemPF2e, TThing extends string | number | object>(
+        this: PickAThingPrompt<TItem, TThing>,
+        event: PointerEvent,
+    ): void {
+        this.selection = this.getSelection(event) ?? null;
+        this.close();
     }
 
     protected getSelection(event: MouseEvent): PickableThing<TThing> | null {
         const valueElement =
-            htmlClosest(event.target, ".content")?.querySelector<HTMLElement>("tag") ??
+            htmlClosest(event.target, ".window-content")?.querySelector<HTMLElement>("tag") ??
             htmlClosest(event.target, "button[data-action=pick]") ??
             htmlClosest(event.target, ".choice")?.querySelector("button[data-action=pick]");
         const selectedIndex = valueElement?.getAttribute("value");
@@ -66,7 +79,7 @@ abstract class PickAThingPrompt<TItem extends ItemPF2e, TThing extends string | 
         });
     }
 
-    override async getData(): Promise<PromptTemplateData> {
+    override async _prepareContext(): Promise<PromptTemplateData> {
         return {
             item: this.item,
             choices: this.choices.map((c, index) => ({ ...c, value: index })),
@@ -74,17 +87,10 @@ abstract class PickAThingPrompt<TItem extends ItemPF2e, TThing extends string | 
         };
     }
 
-    override activateListeners($html: JQuery): void {
-        const html = $html[0];
+    protected override async _onRender(context: object, options: fa.ApplicationRenderOptions): Promise<void> {
+        await super._onRender(context, options);
 
-        for (const element of htmlQueryAll(html, "a[data-choice], button[data-action=pick]")) {
-            element.addEventListener("click", (event) => {
-                this.selection = this.getSelection(event) ?? null;
-                this.close();
-            });
-        }
-
-        const select = htmlQuery<HTMLInputElement>(html, "input[data-tagify-select]");
+        const select = htmlQuery<HTMLInputElement>(this.element, "input[data-tagify-select]");
         if (!select) return;
 
         this.selectMenu = new Tagify(select, {
@@ -107,13 +113,14 @@ abstract class PickAThingPrompt<TItem extends ItemPF2e, TThing extends string | 
     }
 
     /** Close the dialog, applying the effect with configured target or warning the user that something went wrong. */
-    override async close(options?: { force?: boolean }): Promise<void> {
-        for (const element of htmlQueryAll(this.element[0], "button, select")) {
+    protected override _onClose(options: fa.ApplicationClosingOptions): void {
+        for (const element of htmlQueryAll(this.element, "button, select")) {
             element.style.pointerEvents = "none";
         }
         this.#resolve?.(this.selection);
+        this.selectMenu?.destroy();
 
-        return super.close(options);
+        return super._onClose(options);
     }
 }
 
@@ -142,4 +149,4 @@ interface PromptTemplateData {
 }
 
 export { PickAThingPrompt };
-export type { PickAThingConstructorArgs, PickableThing, PromptTemplateData };
+export type { PickableThing, PickAThingConstructorArgs, PromptTemplateData };

@@ -1,4 +1,3 @@
-import type { ApplicationV1Options } from "@client/appv1/api/application-v1.d.mts";
 import type { PhysicalItemPF2e } from "@item";
 import { PickAThingPrompt, PickableThing } from "@module/apps/pick-a-thing-prompt.ts";
 import { RollNotePF2e } from "@module/notes.ts";
@@ -7,12 +6,9 @@ import { ErrorPF2e } from "@util";
 
 /** A prompt for the user to select an item to receive an attachment */
 class ItemAttacher<TItem extends PhysicalItemPF2e> extends PickAThingPrompt<TItem, PhysicalItemPF2e> {
-    static override get defaultOptions(): ApplicationV1Options {
-        return {
-            ...super.defaultOptions,
-            template: "systems/pf2e/templates/items/item-attacher.hbs",
-        };
-    }
+    static override PARTS: Record<string, fa.api.HandlebarsTemplatePart> = {
+        base: { template: "systems/pf2e/templates/items/item-attacher.hbs", root: true },
+    };
 
     constructor({ item }: { item: TItem }) {
         if (!item.isAttachable) {
@@ -55,9 +51,9 @@ class ItemAttacher<TItem extends PhysicalItemPF2e> extends PickAThingPrompt<TIte
         return super.resolveSelection();
     }
 
-    override activateListeners($html: JQuery<HTMLElement>): void {
-        super.activateListeners($html);
-        const html = $html[0];
+    protected override async _onRender(context: object, options: fa.ApplicationRenderOptions): Promise<void> {
+        await super._onRender(context, options);
+        const html = this.element;
 
         const attachButton = html.querySelector<HTMLButtonElement>("button[data-action=pick]");
         const selectEl = html.querySelector<HTMLSelectElement>("select[data-choices]");
@@ -75,8 +71,7 @@ class ItemAttacher<TItem extends PhysicalItemPF2e> extends PickAThingPrompt<TIte
      * failure.
      */
     async #attach(attachmentTarget: PhysicalItemPF2e): Promise<boolean> {
-        const checkRequested =
-            !!this.element[0]?.querySelector<HTMLInputElement>("input[data-crafting-check]")?.checked;
+        const checkRequested = !!this.element?.querySelector<HTMLInputElement>("input[data-crafting-check]")?.checked;
         if (checkRequested && !(await this.#craftingCheck(attachmentTarget))) return false;
 
         const targetSource = attachmentTarget.toObject();
