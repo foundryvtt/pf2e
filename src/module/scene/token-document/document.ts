@@ -466,7 +466,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             this.#lastAnimation = R.isDeepEqual(animation, this.#lastAnimation ?? {})
                 ? null
                 : (tokenOverrides.animation ?? null);
-            this.object?._onUpdate(tokenChanges, { broadcast: false, updates: [], animation }, game.user.id);
+            this.object?._onUpdate(tokenChanges, { broadcast: false, animation }, game.user.id);
         }
 
         // Assess the full diff using `diffObject`: additions, removals, and changes

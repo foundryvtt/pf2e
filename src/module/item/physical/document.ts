@@ -668,7 +668,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     /** Redirect subitem updates to the parent item */
     override async update(
         data: Record<string, unknown>,
-        operation: Partial<DatabaseUpdateOperation<TParent>> = {},
+        operation: Partial<Omit<DatabaseUpdateOperation<null>, "parent" | "pack">> = {},
     ): Promise<this | undefined> {
         if (this.parentItem) {
             const parentItem = this.parentItem;
@@ -692,7 +692,9 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     }
 
     /** Redirect subitem deletes to parent-item updates */
-    override async delete(operation: Partial<DatabaseDeleteOperation<TParent>> = {}): Promise<this | undefined> {
+    override async delete(
+        operation: Partial<Omit<DatabaseDeleteOperation<null>, "parent" | "pack">> = {},
+    ): Promise<this | undefined> {
         if (this.parentItem) {
             const parentItem = this.parentItem;
             const newSubitems = parentItem._source.system.subitems?.filter((i) => i._id !== this.id) ?? [];

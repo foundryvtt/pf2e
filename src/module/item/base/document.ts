@@ -143,9 +143,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /** Redirect the deletion of any owned items to ActorPF2e#deleteEmbeddedDocuments for a single workflow */
-    override async delete(operation: Partial<DatabaseDeleteOperation<TParent>> = {}): Promise<this | undefined> {
+    override async delete(
+        operation: Partial<Omit<DatabaseDeleteOperation<TParent>, "parent" | "pack">> = {},
+    ): Promise<this | undefined> {
         if (this.actor) {
-            await this.actor.deleteEmbeddedDocuments("Item", [this.id], R.omit(operation, ["parent"]));
+            await this.actor.deleteEmbeddedDocuments("Item", [this.id], operation);
             return this;
         }
 
