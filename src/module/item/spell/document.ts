@@ -1106,7 +1106,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     override async update(
         data: Record<string, unknown>,
-        operation: Partial<DatabaseUpdateOperation<TParent>> = {},
+        operation: Partial<Omit<DatabaseUpdateOperation<null>, "parent" | "pack">> = {},
     ): Promise<this | undefined> {
         // Redirect the update of override spell variants to the appropriate update method if the spell sheet is currently rendered
         if (this.original && this.appliedOverlays?.has("override") && this.sheet.rendered) {

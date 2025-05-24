@@ -353,7 +353,7 @@ export default abstract class Document<
      */
     update(
         data: Record<string, unknown>,
-        operation?: Partial<DatabaseUpdateOperation<TParent>>,
+        operation?: Partial<Omit<DatabaseUpdateOperation<null>, "parent" | "pack">>,
     ): Promise<this | undefined>;
 
     /**
@@ -362,7 +362,7 @@ export default abstract class Document<
      * @param operation Options which customize the deletion workflow
      * @return The deleted Document
      */
-    delete(operation?: Partial<DatabaseDeleteOperation<TParent>>): Promise<this | undefined>;
+    delete(operation?: Partial<Omit<DatabaseDeleteOperation<null>, "parent" | "pack">>): Promise<this | undefined>;
 
     /**
      * Get a World-level Document of this type by its id.
