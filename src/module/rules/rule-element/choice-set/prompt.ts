@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import type { ApplicationV1Options } from "@client/appv1/api/application-v1.d.mts";
+import type { HandlebarsRenderOptions } from "@client/applications/api/handlebars-application.d.mts";
 import { ItemPF2e } from "@item";
 import {
     PickableThing,
@@ -9,7 +9,7 @@ import {
 } from "@module/apps/pick-a-thing-prompt.ts";
 import type { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import type { Predicate } from "@system/predication.ts";
-import { createHTMLElement, ErrorPF2e, htmlQuery, htmlQueryAll, sluggify } from "@util";
+import { createHTMLElement, ErrorPF2e, htmlQuery, sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 
 /** Prompt the user for a selection among a set of options */
@@ -31,18 +31,35 @@ class ChoiceSetPrompt extends PickAThingPrompt<ItemPF2e<ActorPF2e>, string | num
         this.allowedDrops = this.containsItems ? data.allowedDrops : null;
     }
 
-    static override get defaultOptions(): ApplicationV1Options {
-        return {
-            ...super.defaultOptions,
-            classes: ["choice-set-prompt"],
-            dragDrop: [{ dropSelector: ".drop-zone" }],
-            template: "systems/pf2e/templates/system/rules-elements/choice-set-prompt.hbs",
-        };
+    static override DEFAULT_OPTIONS: DeepPartial<fa.ApplicationConfiguration> = {
+        window: {
+            contentClasses: ["choice-set-prompt"],
+        },
+        actions: {
+            close: ChoiceSetPrompt.#onClickClose,
+            viewItem: ChoiceSetPrompt.#onClickViewItem,
+        },
+    };
+
+    static override PARTS: Record<string, fa.api.HandlebarsTemplatePart> = {
+        base: { template: "systems/pf2e/templates/system/rules-elements/choice-set-prompt.hbs", root: true },
+    };
+
+    static #onClickClose(this: ChoiceSetPrompt): void {
+        this.close();
     }
 
-    override async getData(): Promise<ChoiceSetTemplateData> {
+    static async #onClickViewItem(this: ChoiceSetPrompt, event: PointerEvent): Promise<void> {
+        if (!this.containsItems) return;
+        const choice = this.getSelection(event);
+        if (!choice || !UUIDUtils.isItemUUID(choice.value)) return;
+        const item = await fromUuid(choice.value);
+        item?.sheet.render(true);
+    }
+
+    override async _prepareContext(): Promise<ChoiceSetTemplateData> {
         return {
-            ...(await super.getData()),
+            ...(await super._prepareContext()),
             choices: this.choices.map((c, index) => ({
                 ...c,
                 value: index,
@@ -56,61 +73,42 @@ class ChoiceSetPrompt extends PickAThingPrompt<ItemPF2e<ActorPF2e>, string | num
         };
     }
 
-    override activateListeners($html: JQuery): void {
-        super.activateListeners($html);
-        const html = $html[0];
+    protected override async _onRender(context: object, options: HandlebarsRenderOptions): Promise<void> {
+        await super._onRender(context, options);
+        const html = this.element;
 
-        htmlQuery(html, "button[data-action=close]")?.addEventListener("click", () => {
-            this.close();
-        });
+        if (this.selectMenu) {
+            const button = htmlQuery(html, "button[data-action=viewItem]");
+            if (!button) return;
+            const updateButton = (disable: boolean, value = ""): void => {
+                button.dataset.value = value;
+                button.classList.toggle("disabled", disable);
+                button.dataset.tooltip = game.i18n.localize(
+                    disable
+                        ? "PF2E.UI.RuleElements.ChoiceSet.ViewItem.Disabled"
+                        : "PF2E.UI.RuleElements.ChoiceSet.ViewItem.Tooltip",
+                );
+            };
 
-        const renderItemSheet = async (choice: ChoiceSetChoice | null): Promise<void> => {
-            if (!choice || !UUIDUtils.isItemUUID(choice.value)) return;
-            const item = await fromUuid(choice.value);
-            item?.sheet.render(true);
-        };
-
-        if (this.containsItems) {
-            if (this.selectMenu) {
-                const itemInfoAnchor = htmlQuery(html, "a[data-action=view-item]");
-                if (!itemInfoAnchor) return;
-
-                const updateAnchor = (disable: boolean, value = ""): void => {
-                    itemInfoAnchor.dataset.value = value;
-                    itemInfoAnchor.classList.toggle("disabled", disable);
-                    itemInfoAnchor.dataset.tooltip = game.i18n.localize(
-                        disable
-                            ? "PF2E.UI.RuleElements.ChoiceSet.ViewItem.Disabled"
-                            : "PF2E.UI.RuleElements.ChoiceSet.ViewItem.Tooltip",
-                    );
-                };
-
-                itemInfoAnchor.addEventListener("click", (event) => {
-                    renderItemSheet(this.getSelection(event));
-                });
-
-                this.selectMenu.on("change", (event) => {
-                    const data = event.detail.tagify.value.at(0);
-                    if (!data) {
-                        return updateAnchor(true);
-                    }
-                    const index = Number(data.value);
-                    if (!isNaN(index)) {
-                        const choice = this.choices.at(index);
-                        if (UUIDUtils.isItemUUID(choice?.value)) {
-                            updateAnchor(false, data.value);
-                        } else {
-                            updateAnchor(true);
-                        }
-                    }
-                });
-            } else {
-                for (const anchor of htmlQueryAll(html, "a[data-action=view-item]")) {
-                    anchor.addEventListener("click", (event) => {
-                        renderItemSheet(this.getSelection(event));
-                    });
+            this.selectMenu.on("change", (event) => {
+                const data = event.detail.tagify.value.at(0);
+                if (!data) {
+                    return updateButton(true);
                 }
-            }
+                const index = Number(data.value);
+                if (!isNaN(index)) {
+                    const choice = this.choices.at(index);
+                    if (UUIDUtils.isItemUUID(choice?.value)) {
+                        updateButton(false, data.value);
+                    } else {
+                        updateButton(true);
+                    }
+                }
+            });
+        }
+
+        if (this.allowedDrops) {
+            htmlQuery(html, ".drop-zone")?.addEventListener("drop", this._onDrop.bind(this));
         }
     }
 
@@ -129,26 +127,28 @@ class ChoiceSetPrompt extends PickAThingPrompt<ItemPF2e<ActorPF2e>, string | num
                     item: this.item.name,
                 }),
             );
-            this.close({ force: true });
+            this.close();
             return null;
         }
 
         return super.resolveSelection();
     }
 
-    override async close(options?: { force?: boolean }): Promise<void> {
+    protected override _onClose(options: fa.ApplicationClosingOptions): void {
         if (this.choices.length > 0 && !this.selection && !this.allowNoSelection) {
             ui.notifications.warn(
                 game.i18n.format("PF2E.UI.RuleElements.Prompt.NoSelectionMade", { item: this.item.name }),
             );
         }
 
-        return super.close(options);
+        return super._onClose(options);
     }
 
     /** Handle a dropped homebrew item */
-    protected override async _onDrop(event: DragEvent): Promise<void> {
+    protected async _onDrop(event: DragEvent): Promise<void> {
         event.preventDefault();
+        if (!this.actor.isOwner) return;
+
         const dataString = event.dataTransfer?.getData("text/plain");
         const dropData: DropCanvasItemDataPF2e | undefined = JSON.parse(dataString ?? "");
         if (dropData?.type !== "Item") {
@@ -217,10 +217,6 @@ class ChoiceSetPrompt extends PickAThingPrompt<ItemPF2e<ActorPF2e>, string | num
 
             dropZone?.replaceWith(newButton);
         }
-    }
-
-    protected override _canDragDrop(): boolean {
-        return this.actor.isOwner;
     }
 }
 
