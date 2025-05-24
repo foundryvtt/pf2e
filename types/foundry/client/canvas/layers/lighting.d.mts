@@ -38,7 +38,7 @@ export default class LightingLayer<TObject extends AmbientLight = AmbientLight> 
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    protected override _canDragLeftStart(user: User, event: PlaceablesLayerPointerEvent<TObject>): boolean;
+    protected override _canDragLeftStart(user: User, event: PlaceablesLayerPointerEvent<PIXI.Container>): boolean;
 
     protected override _onDragLeftStart(event: PlaceablesLayerPointerEvent<TObject>): void;
 
