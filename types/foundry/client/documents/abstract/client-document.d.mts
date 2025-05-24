@@ -150,7 +150,7 @@ export class ClientDocument<TParent extends Document | null = Document | null> e
 
     /**
      * Construct a UUID relative to another document.
-     * @param {ClientDocument} relative  The document to compare against.
+     * @param relative The document to compare against.
      */
     getRelativeUUID(relative?: ClientDocument): string;
 

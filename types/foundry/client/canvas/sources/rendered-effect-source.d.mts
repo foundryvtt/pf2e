@@ -3,25 +3,71 @@ import { PointSourceMesh } from "../containers/_module.mjs";
 import { PlaceableObject } from "../placeables/_module.mjs";
 import { AbstractBaseShader, AdaptiveLightingShader } from "../rendering/shaders/_module.mjs";
 import type BaseEffectSource from "./base-effect-source.mjs";
-import type { BaseEffectSourceOptions } from "./base-effect-source.mjs";
+import type { BaseEffectSourceData } from "./base-effect-source.mjs";
 
-/* eslint-disable @typescript-eslint/no-unsafe-function-type */
+interface RenderedEffectSourceData extends BaseEffectSourceData {
+    /** A color applied to the rendered effect */
+    color: number | null;
+    /** An integer seed to synchronize (or de-synchronize) animations */
+    seed: number | null;
+    /** Is this source a temporary preview? */
+    preview: boolean;
+}
+
+interface RenderedPointSourceAnimationConfig {
+    /** The human-readable (localized) label for the animation */
+    label?: string;
+    /** The animation function that runs every frame */
+    animation?: Function;
+    /** A custom illumination shader used by this animation */
+    illuminationShader?: PIXI.Shader;
+    /** A custom coloration shader used by this animation */
+    colorationShader?: PIXI.Shader;
+    /** A custom background shader used by this animation */
+    backgroundShader?: PIXI.Shader;
+    /** A custom darkness shader used by this animation */
+    darknessShader?: PIXI.Shader;
+    /** The animation seed */
+    seed?: number;
+    /** The animation time */
+    time?: number;
+}
+
+interface RenderedEffectLayerConfig {
+    defaultShader: AdaptiveLightingShader;
+    blendMode: PIXI.BLEND_MODES;
+}
+
+interface RenderedEffectSourceLayer {
+    /** Is this layer actively rendered? */
+    active: boolean;
+    /** Do uniforms need to be reset? */
+    reset: boolean;
+    /** Is this layer temporarily suppressed? */
+    suppressed: boolean;
+    /** The rendered mesh for this layer */
+    mesh: PointSourceMesh;
+    /** The shader instance used for the layer */
+    shader: PIXI.Shader;
+}
 
 /**
  * An abstract class which extends the base PointSource to provide common functionality for rendering.
  * This class is extended by both the LightSource and VisionSource subclasses.
  */
-export default class RenderedEffectSource extends BaseEffectSource {
+export default abstract class RenderedEffectSource<
+    TObject extends PlaceableObject | null,
+> extends BaseEffectSource<TObject> {
     /** Keys of the data object which require shaders to be re-initialized. */
-    protected static _initializeShaderKeys: string[];
+    static _initializeShaderKeys: string[];
 
     /** Keys of the data object which require uniforms to be refreshed. */
-    protected static _refreshUniformsKeys: string[];
+    static _refreshUniformsKeys: string[];
 
     /**
      * Layers handled by this rendered source.
      */
-    protected static get _layers(): Record<string, RenderedEffectLayerConfig>;
+    static get _layers(): Record<string, RenderedEffectLayerConfig>;
 
     /** The offset in pixels applied to create soft edges. */
     static EDGE_OFFSET: number;
@@ -68,7 +114,14 @@ export default class RenderedEffectSource extends BaseEffectSource {
     /*  Rendered Source Initialization              */
     /* -------------------------------------------- */
 
-    protected override _initialize(data: object): void;
+    protected override _initialize(data: Partial<BaseEffectSourceData>): void;
+
+    /* -------------------------------------------- */
+
+    /**
+     * Decide whether to render soft edges with a blur.
+     */
+    protected _initializeSoftEdges(): void;
 
     protected override _configure(changes: object): void;
 
@@ -94,6 +147,12 @@ export default class RenderedEffectSource extends BaseEffectSource {
     /* -------------------------------------------- */
     /*  Rendered Source Canvas Rendering            */
     /* -------------------------------------------- */
+
+    /**
+     * Create the geometry for the source shape that is used in shaders and compute its bounds for culling purpose.
+     * Triangulate the form and create buffers.
+     */
+    protected abstract _updateGeometry(): void;
 
     /** Render the containers used to represent this light source within the LightingLayer */
     drawMeshes(): Record<"background" | "coloration" | "illumination", PIXI.Mesh>;
@@ -154,50 +213,4 @@ export default class RenderedEffectSource extends BaseEffectSource {
 
     /** Get corrected color according to level, dim color, bright color and background color. */
     static getCorrectedColor(level: number, colorDim: Color, colorBright: Color, colorBackground?: Color): Color;
-}
-
-interface RenderedEffectSourceData extends BaseEffectSourceOptions<PlaceableObject> {
-    /** A color applied to the rendered effect */
-    color: number | null;
-    /** An integer seed to synchronize (or de-synchronize) animations */
-    seed: number | null;
-    /** Is this source a temporary preview? */
-    preview: boolean;
-}
-
-interface RenderedPointSourceAnimationConfig {
-    /** The human-readable (localized) label for the animation */
-    label?: string;
-    /** The animation function that runs every frame */
-    animation?: Function;
-    /** A custom illumination shader used by this animation */
-    illuminationShader?: PIXI.Shader;
-    /** A custom coloration shader used by this animation */
-    colorationShader?: PIXI.Shader;
-    /** A custom background shader used by this animation */
-    backgroundShader?: PIXI.Shader;
-    /** A custom darkness shader used by this animation */
-    darknessShader?: PIXI.Shader;
-    /** The animation seed */
-    seed?: number;
-    /** The animation time */
-    time?: number;
-}
-
-interface RenderedEffectLayerConfig {
-    defaultShader: AdaptiveLightingShader;
-    blendMode: PIXI.BLEND_MODES;
-}
-
-interface RenderedEffectSourceLayer {
-    /** Is this layer actively rendered? */
-    active: boolean;
-    /** Do uniforms need to be reset? */
-    reset: boolean;
-    /** Is this layer temporarily suppressed? */
-    suppressed: boolean;
-    /** The rendered mesh for this layer */
-    mesh: PointSourceMesh;
-    /** The shader instance used for the layer */
-    shader: PIXI.Shader;
 }

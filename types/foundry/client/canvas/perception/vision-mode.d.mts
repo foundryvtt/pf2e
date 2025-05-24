@@ -56,13 +56,13 @@ export default class VisionMode extends DataModel<null, VisionModeSchema> {
      * Special activation handling that could be implemented by VisionMode subclasses
      * @param source   Activate this VisionMode for a specific source
      */
-    _activate(source: PointVisionSource): void;
+    _activate(source: PointVisionSource<Token>): void;
 
     /**
      * Special deactivation handling that could be implemented by VisionMode subclasses
      * @param source   Deactivate this VisionMode for a specific source
      */
-    protected _deactivate(source: PointVisionSource): void;
+    protected _deactivate(source: PointVisionSource<Token>): void;
 
     /**
      * Special handling which is needed when this Vision Mode is activated for a VisionSource.

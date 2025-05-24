@@ -2,7 +2,7 @@ import { ElevatedPoint } from "@common/_types.mjs";
 import Collection from "@common/utils/collection.mjs";
 import PlaceableObject from "../placeables/placeable-object.mjs";
 
-export interface BaseEffectSourceOptions<TObject extends PlaceableObject> {
+export interface BaseEffectSourceOptions<TObject extends PlaceableObject | null> {
     /** An optional PlaceableObject which is responsible for this source */
     object?: TObject;
     /** A unique ID for this source. This will be set automatically if an object is provided, otherwise is required. */
@@ -33,10 +33,10 @@ export interface BaseEffectSourceData {
  * source.destroy();                         // Destroy the point source
  * ```
  */
-export default abstract class BaseEffectSource<TObject extends PlaceableObject = PlaceableObject> {
+export default abstract class BaseEffectSource<TObject extends PlaceableObject | null = PlaceableObject | null> {
     /**
      * An effect source is constructed by providing configuration options.
-     * @param [options]  Options which modify the base effect source instance
+     * @param options Options which modify the base effect source instance
      */
     constructor(options?: BaseEffectSourceOptions<TObject>);
 
@@ -44,7 +44,10 @@ export default abstract class BaseEffectSource<TObject extends PlaceableObject =
 
     static effectsCollection: string;
 
-    static defaulBaseEffectSourceData: BaseEffectSourceData;
+    /**
+     * Effect source default data.
+     */
+    static defaultData: BaseEffectSourceData;
 
     /* -------------------------------------------- */
     /*  Source Data                                 */
