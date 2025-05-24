@@ -1,7 +1,8 @@
 import { ElevatedPoint } from "@common/_types.mjs";
 import { PointSourcePolygonConfig } from "../geometry/_module.mjs";
 import Edge from "../geometry/edges/edge.mjs";
-import BaseEffectSource, { BaseEffectSourceOptions } from "./base-effect-source.mjs";
+import { PlaceableObject } from "../placeables/_module.mjs";
+import BaseEffectSource, { BaseEffectSourceData, BaseEffectSourceOptions } from "./base-effect-source.mjs";
 
 export interface PointEffectSourceData {
     /** The radius of the source */
@@ -24,15 +25,18 @@ export interface PointEffectSourceData {
  * @param BaseSource  The base source class to extend
  * @mixin
  */
-export default function PointEffectSourceMixin<TBase extends typeof BaseEffectSource>(
+export default function PointEffectSourceMixin<
+    TObject extends PlaceableObject<any>,
+    TBase extends typeof BaseEffectSource<TObject>,
+>(
     BaseSource: TBase,
-): TBase & {
-    defaultData: BaseEffectSourceOptions;
+): {
+    defaultData: BaseEffectSourceOptions<TObject>;
     new (...args: any[]): PointEffectSource & InstanceType<TBase>;
-};
+} & TBase;
 
 export class PointEffectSource {
-    static defaultData: BaseEffectSourceOptions;
+    static defaultData: BaseEffectSourceData;
 
     /**
      * The Edge instances added by this source.

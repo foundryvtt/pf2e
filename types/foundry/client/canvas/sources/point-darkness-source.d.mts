@@ -3,25 +3,34 @@ import { Point } from "@common/_types.mjs";
 import { LightingLevel } from "@common/constants.mjs";
 import { PointSourceMesh } from "../containers/_module.mjs";
 import { PointSourcePolygonConfig } from "../geometry/_types.mjs";
+import AmbientLight from "../placeables/light.mjs";
 import BaseLightSource from "./base-light-source.mjs";
-import PointEffectSourceMixin from "./point-effect-source.mjs";
+import { PointEffectSource } from "./point-effect-source.mjs";
 import { RenderedEffectLayerConfig } from "./rendered-effect-source.mjs";
+
+declare const PointEffectBaseLightSource: {
+    new <TObject extends AmbientLight>(...args: any): BaseLightSource<TObject> & PointEffectSource;
+} & Omit<typeof BaseLightSource, "new"> &
+    typeof PointEffectSource;
+
+interface PointEffectBaseLightSource<TObject extends AmbientLight>
+    extends InstanceType<typeof PointEffectBaseLightSource<TObject>> {}
 
 /**
  * A specialized subclass of the BaseLightSource which renders a source of darkness as a point-based effect.
  */
-export default class PointDarknessSource extends PointEffectSourceMixin(BaseLightSource) {
+export default class PointDarknessSource<TObject extends AmbientLight> extends PointEffectBaseLightSource<TObject> {
     static override sourceType: "darkness";
 
     static override effectsCollection: "darknessSources";
 
-    protected static override _dimLightingLevel: LightingLevel;
+    static override _dimLightingLevel: LightingLevel;
 
-    protected static override _brightLightingLevel: LightingLevel;
+    static override _brightLightingLevel: LightingLevel;
 
     static override get ANIMATIONS(): LightSourceAnimationConfig;
 
-    protected static override get _layers(): Record<string, RenderedEffectLayerConfig>;
+    static override get _layers(): Record<string, RenderedEffectLayerConfig>;
 
     /**
      * The optional geometric shape is solely utilized for visual representation regarding darkness sources.
@@ -75,3 +84,5 @@ export default class PointDarknessSource extends PointEffectSourceMixin(BaseLigh
      */
     protected _updateDarknessUniforms(): void;
 }
+
+export {};
