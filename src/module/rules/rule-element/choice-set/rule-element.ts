@@ -315,7 +315,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
             }
         }
 
-        if (choicesAreUUIDs || (R.isObjectType(this.choices) && "query" in this.choices)) {
+        if (choicesAreUUIDs || !!this.allowedDrops || (R.isObjectType(this.choices) && "query" in this.choices)) {
             this.containsItems = true;
         }
 
