@@ -11,7 +11,5 @@ export default class VisionMaskFilter extends AbstractBaseMaskFilter {
      * Overridden as an alias for canvas.visibility.visible.
      * This property cannot be set.
      */
-    get enabled(): boolean;
-
-    set enabled(value);
+    readonly enabled: boolean;
 }

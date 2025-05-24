@@ -2,7 +2,9 @@ import { TokenConstrainMovementPathOptions } from "@client/_module.mjs";
 import TokenConfig from "@client/applications/sheets/token/token-config.mjs";
 import { DocumentConstructionContext, ElevatedPoint, TokenDimensions, TokenPosition } from "@common/_types.mjs";
 import {
+    DatabaseCreateCallbackOptions,
     DatabaseCreateOperation,
+    DatabaseDeleteCallbackOptions,
     DatabaseDeleteOperation,
     DatabaseOperation,
     DatabaseUpdateCallbackOptions,
@@ -104,7 +106,7 @@ export default class TokenDocument<TParent extends Scene | null = Scene | null> 
     /**
      * Return a reference to a Combatant that represents this Token, if one is present in the current encounter.
      */
-    get combatant(): Combatant | null;
+    get combatant(): Combatant<Combat> | null;
 
     /**
      * An indicator for whether this Token is currently involved in the active combat encounter.
@@ -348,11 +350,7 @@ export default class TokenDocument<TParent extends Scene | null = Scene | null> 
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
-    protected override _onCreate(
-        data: this["_source"],
-        options: DatabaseCreateOperation<TParent>,
-        userId: string,
-    ): void;
+    protected override _onCreate(data: this["_source"], options: DatabaseCreateCallbackOptions, userId: string): void;
 
     protected override _preUpdate(
         data: Record<string, unknown>,
@@ -366,7 +364,7 @@ export default class TokenDocument<TParent extends Scene | null = Scene | null> 
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DatabaseDeleteOperation<TParent>, userId: string): void;
+    protected override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void;
 
     /**
      * Identify the Regions the Token currently is or is going to be in after the changes are applied.
@@ -663,6 +661,6 @@ export interface TokenUpdateOperation<TParent extends Scene | null> extends Data
 }
 
 export interface TokenUpdateCallbackOptions
-    extends Omit<DatabaseUpdateOperation<null>, "action" | "pack" | "parent" | "restoreDelta" | "noHook" | "updates"> {}
+    extends Omit<TokenUpdateOperation<null>, "action" | "pack" | "parent" | "restoreDelta" | "noHook" | "updates"> {}
 
 export {};

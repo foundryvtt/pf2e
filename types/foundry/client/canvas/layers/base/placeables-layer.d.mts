@@ -373,7 +373,7 @@ export default class PlaceablesLayer<TObject extends PlaceableObject = Placeable
 
     protected override _onClickLeft(event: PlaceablesLayerPointerEvent<TObject>): void;
 
-    protected override _canDragLeftStart(user: User, event: PlaceablesLayerPointerEvent<TObject>): boolean;
+    protected override _canDragLeftStart(user: User, event: PlaceablesLayerPointerEvent<PIXI.Container>): boolean;
 
     protected override _onDragLeftStart(event: PlaceablesLayerPointerEvent<TObject>): void;
 
@@ -410,15 +410,15 @@ export default class PlaceablesLayer<TObject extends PlaceableObject = Placeable
     protected override _onPasteKey(event: KeyboardEvent): boolean;
 }
 
-export interface PlaceablesLayerEvent<TObject extends PlaceableObject> extends PIXI.FederatedEvent {
+export interface PlaceablesLayerEvent<TObject extends PIXI.Container> extends PIXI.FederatedEvent {
     interactionData: PlaceableInteractionData<TObject>;
 }
 
-export interface PlaceablesLayerPointerEvent<TObject extends PlaceableObject> extends PIXI.FederatedPointerEvent {
+export interface PlaceablesLayerPointerEvent<TObject extends PIXI.Container> extends PIXI.FederatedPointerEvent {
     interactionData: PlaceableInteractionData<TObject>;
 }
 
-export interface PlaceableInteractionData<TObject extends PlaceableObject> {
+export interface PlaceableInteractionData<TObject extends PIXI.Container> {
     clearPreviewContainer: boolean;
     preview?: TObject | null;
     clones?: TObject[];

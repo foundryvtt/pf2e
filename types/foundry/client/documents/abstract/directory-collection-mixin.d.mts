@@ -1,6 +1,7 @@
 import Document from "@common/abstract/document.mjs";
 import Collection from "@common/utils/collection.mjs";
 import { Adventure, Folder, Setting, WorldDocument } from "../_module.mjs";
+import CompendiumCollection from "../collections/compendium-collection.mjs";
 import DocumentCollection from "./document-collection.mjs";
 
 export type DirectoryMixinEntry = WorldDocument | Setting | Adventure;
@@ -44,7 +45,7 @@ export declare abstract class DirectoryCollection<
     /**
      * Return a reference to list of entries which are visible to the User in this tree
      */
-    protected _getVisibleTreeContents(): TEntry[];
+    protected _getVisibleTreeContents(): TEntry[] | CompendiumCollection[];
 
     /** Initialize the tree by categorizing folders and entries into a hierarchical tree structure. */
     initializeTree(): void;
