@@ -59,7 +59,24 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
             this.collection.filter((a): a is PartyPF2e<null> => a.isOfType("party") && a !== activeParty),
             (p) => p.sort,
         );
-        return Object.assign(partContext, { activeParty, parties, extraFolders: this.#extraFolders });
+        return Object.assign(partContext, {
+            activeParty: this.#createPartyContext(activeParty),
+            parties: parties.map((p) => this.#createPartyContext(p)),
+            extraFolders: this.#extraFolders,
+        });
+    }
+
+    /**
+     * Creates context data for the party, only including members that exist in the actor world collection.
+     * It is possible for re-renders to occur before the party is reset, causing stale data to render.
+     */
+    #createPartyContext(party: PartyPF2e | null): PartyContext | null {
+        if (!party) return null;
+
+        return {
+            ...R.pick(party, ["id", "name", "img", "active"]),
+            members: party.members.filter((m) => game.actors.has(m.id)),
+        };
     }
 
     protected override async _prepareFooterContext(
@@ -278,6 +295,10 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
 
 interface ActorSidebarDropData extends DropCanvasData<"actor", ActorPF2e> {
     fromParty?: string;
+}
+
+interface PartyContext extends Pick<PartyPF2e, "id" | "name" | "img" | "active"> {
+    members: CreaturePF2e[];
 }
 
 export { ActorDirectoryPF2e };
