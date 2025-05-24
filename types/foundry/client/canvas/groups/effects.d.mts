@@ -53,7 +53,7 @@ export default class EffectsCanvasGroup extends CanvasGroupMixin(PIXI.Container)
     initializeLightSources(): void;
 
     /** Update the global light source which provide global illumination to the Scene. */
-    protected _updateGlobalLightSource(): PointLightSource<null>;
+    protected _updateGlobalLightSource(): GlobalLightSource;
 
     /** Refresh the state and uniforms of all LightSource objects. */
     refreshLightSources(): void;

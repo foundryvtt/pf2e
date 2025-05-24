@@ -2,6 +2,7 @@ import { PointVisionSource } from "@client/canvas/sources/_module.mjs";
 import { Point } from "@common/_types.mjs";
 import { CanvasVisibilityTestConfiguration, CanvasVisibilityTextureConfiguration } from "../../_types.mjs";
 import { CanvasVisionContainer } from "../layers/_types.mjs";
+import { AmbientLight, Token } from "../placeables/_module.mjs";
 import CanvasGroupMixin from "./canvas-group-mixin.mjs";
 
 /**
@@ -36,7 +37,7 @@ export default class CanvasVisibility extends CanvasGroupMixin(PIXI.Container) {
     /**
      * The active vision source data object
      */
-    visionModeData: { source: PointVisionSource | null; activeLightingOptions: object };
+    visionModeData: { source: PointVisionSource<AmbientLight | Token> | null; activeLightingOptions: object };
 
     /**
      * Define whether each lighting layer is enabled, required, or disabled by this vision mode.

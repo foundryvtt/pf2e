@@ -10,7 +10,7 @@ export interface AmbientSoundPlaybackConfig {
     /** The Sound node which should be controlled for playback */
     sound: Sound;
     /** The SoundSource which defines the area of effect for the sound */
-    source: PointSoundSource;
+    source: PointSoundSource<AmbientSound>;
     /** An AmbientSound object responsible for the sound, or undefined */
     object?: AmbientSound;
     /** The coordinates of the closest listener or undefined if there is none */

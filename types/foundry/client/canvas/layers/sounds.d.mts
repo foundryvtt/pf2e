@@ -25,7 +25,7 @@ export default class SoundsLayer<TObject extends AmbientSound = AmbientSound> ex
     livePreview: boolean;
 
     /** A mapping of ambient audio sources which are active within the rendered Scene */
-    sources: Collection<string, PointSoundSource>;
+    sources: Collection<string, PointSoundSource<TObject>>;
 
     static override get layerOptions(): PlaceablesLayerOptions;
 
