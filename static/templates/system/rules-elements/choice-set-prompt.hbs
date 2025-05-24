@@ -5,12 +5,12 @@
             <div class="choice select">
                 <input data-tagify-select="true" spellcheck="false" />
                 {{#if containsItems}}
-                    <a
+                    <button
                         class="item-info disabled"
-                        data-action="view-item"
+                        data-action="viewItem"
                         data-value="{{choice.value}}"
                         data-tooltip="PF2E.UI.RuleElements.ChoiceSet.ViewItem.Disabled"
-                    ><i class="fa-solid fa-fw fa-info-circle"></i></a>
+                    ><i class="fa-solid fa-fw fa-info-circle"></i></button>
                 {{/if}}
             </div>
         </div>
@@ -25,12 +25,12 @@
                         <span>{{choice.label}}</span>
                     </button>
                     {{#if choice.hasUUID}}
-                        <a
+                        <button
                             class="item-info"
-                            data-action="view-item"
+                            data-action="viewItem"
                             data-value="{{choice.value}}"
                             data-tooltip="PF2E.UI.RuleElements.ChoiceSet.ViewItem.Tooltip"
-                        ><i class="fa-solid fa-fw fa-info-circle"></i></a>
+                        ><i class="fa-solid fa-fw fa-info-circle"></i></button>
                     {{/if}}
                 </div>
             {{/each}}

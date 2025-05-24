@@ -33,6 +33,9 @@ abstract class PickAThingPrompt<
             height: "auto",
             width: "auto",
         },
+        actions: {
+            pick: PickAThingPrompt.#onClickPick,
+        },
     };
 
     constructor(data: PickAThingConstructorArgs<TItem, TThing>) {
@@ -48,9 +51,17 @@ abstract class PickAThingPrompt<
         return this.item.actor;
     }
 
+    static #onClickPick<TItem extends ItemPF2e, TThing extends string | number | object>(
+        this: PickAThingPrompt<TItem, TThing>,
+        event: PointerEvent,
+    ): void {
+        this.selection = this.getSelection(event) ?? null;
+        this.close();
+    }
+
     protected getSelection(event: MouseEvent): PickableThing<TThing> | null {
         const valueElement =
-            htmlClosest(event.target, ".content")?.querySelector<HTMLElement>("tag") ??
+            htmlClosest(event.target, ".window-content")?.querySelector<HTMLElement>("tag") ??
             htmlClosest(event.target, "button[data-action=pick]") ??
             htmlClosest(event.target, ".choice")?.querySelector("button[data-action=pick]");
         const selectedIndex = valueElement?.getAttribute("value");
@@ -78,13 +89,6 @@ abstract class PickAThingPrompt<
 
     protected override async _onRender(context: object, options: fa.ApplicationRenderOptions): Promise<void> {
         await super._onRender(context, options);
-
-        for (const element of htmlQueryAll(this.element, "a[data-choice], button[data-action=pick]")) {
-            element.addEventListener("click", (event) => {
-                this.selection = this.getSelection(event) ?? null;
-                this.close();
-            });
-        }
 
         const select = htmlQuery<HTMLInputElement>(this.element, "input[data-tagify-select]");
         if (!select) return;

@@ -78,24 +78,19 @@
                     margin-bottom: 0.5rem;
                 }
 
-                a.item-info {
+                button.item-info {
                     align-items: center;
                     border: 1px solid var(--border-color-50);
-                    color: var(--color-text-secondary);
-                    border-radius: 2px;
                     display: flex;
-                    height: var(--font-size-20);
                     justify-content: center;
-                    min-width: var(--font-size-20);
+                    height: var(--font-size-20);
+                    width: var(--font-size-20);
+                    min-width: unset;
+                    min-height: unset;
 
                     &.disabled {
                         color: var(--color-disabled);
                         cursor: default;
-
-                        &:hover,
-                        &:active {
-                            text-shadow: none;
-                        }
                     }
                 }
             }
@@ -111,6 +106,7 @@
             font-size: var(--font-size-14);
             line-height: 1.75rem;
             padding: var(--space-1) var(--space-6);
+            margin: var(--space-4) auto;
 
             i {
                 align-items: center;
