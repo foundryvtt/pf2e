@@ -104,7 +104,7 @@ export default class DetectionMode extends foundry.abstract.DataModel<null, Dete
      * @returns                       Is the point within the vision angle?
      */
     protected _testAngle(
-        visionSource: PointVisionSource,
+        visionSource: PointVisionSource<Token>,
         mode: TokenDetectionMode,
         target: PlaceableObject,
         test: CanvasVisibilityTest,

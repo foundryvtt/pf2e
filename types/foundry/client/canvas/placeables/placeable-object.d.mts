@@ -33,7 +33,7 @@ export default abstract class PlaceableObject<
     document: TDocument;
 
     /** A control icon for interacting with the object */
-    controlIcon: ControlIcon;
+    controlIcon: ControlIcon | null;
 
     /** A mouse interaction manager instance which handles mouse workflows related to this object. */
     mouseInteractionManager: MouseInteractionManager;

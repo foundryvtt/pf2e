@@ -12,6 +12,7 @@ import { PlaceablesLayerPointerEvent } from "../layers/base/placeables-layer.mjs
 import PrimarySpriteMesh from "../primary/primary-sprite-mesh.mjs";
 import { TextureTransitionType } from "../rendering/filters/transition.mjs";
 import { PointLightSource, PointVisionSource, VisionSourceData } from "../sources/_module.mjs";
+import { LightSourceData } from "../sources/base-light-source.mjs";
 import PlaceableObject, { PlaceableShape } from "./placeable-object.mjs";
 import Region, { RegionMovementSegment, RegionMovementWaypoint } from "./region.mjs";
 import { BaseTokenRuler } from "./tokens/_module.mjs";
@@ -119,13 +120,13 @@ export default class Token<TDocument extends TokenDocument = TokenDocument> exte
      * A reference to the VisionSource object which defines this vision source area of effect.
      * This is undefined if the Token does not provide an active source of vision.
      */
-    vision: PointVisionSource | undefined;
+    vision: PointVisionSource<this> | undefined;
 
     /**
      * A reference to the LightSource object which defines this light source area of effect.
      * This is undefined if the Token does not provide an active source of light.
      */
-    light: PointLightSource;
+    light: PointLightSource<this>;
 
     /** The current animations of this Token. */
     get animationContexts(): Map<string, TokenAnimationContext>;

@@ -4,63 +4,90 @@ import {
     DatabaseDeleteCallbackOptions,
     DatabaseUpdateCallbackOptions,
 } from "@common/abstract/_types.mjs";
+import { LightData } from "@common/data/_module.mjs";
 import { ControlIcon } from "../containers/_module.mjs";
+import { RenderFlag } from "../interaction/_types.mjs";
 import { LightingLayer } from "../layers/_module.mjs";
 import { PointDarknessSource, PointLightSource } from "../sources/_module.mjs";
+import { LightSourceData } from "../sources/base-light-source.mjs";
 import PlaceableObject from "./placeable-object.mjs";
 
 export default class AmbientLight<
     TDocument extends AmbientLightDocument<Scene | null> = AmbientLightDocument<Scene | null>,
 > extends PlaceableObject<TDocument> {
-    constructor(document: TDocument);
+    static override embeddedName: "AmbientLight";
 
-    /** The area that is affected by this light */
+    static override RENDER_FLAGS: Record<string, Partial<RenderFlag>>;
+
+    /**
+     * The area that is affected by this light
+     */
     field: PIXI.Graphics;
 
     /**
      * A reference to the PointSource object which defines this light or darkness area of effect.
      * This is undefined if the AmbientLight does not provide an active source of light.
      */
-    lightSource?: PointDarknessSource<this> | PointLightSource<this>;
-
-    /** A reference to the ControlIcon used to configure this light */
-    controlIcon: ControlIcon;
-
-    static override embeddedName: "AmbientLight";
+    lightSource: PointDarknessSource<this> | PointLightSource<this> | undefined;
 
     override get bounds(): PIXI.Rectangle;
 
-    /** A convenience accessor to the LightData configuration object */
-    get config(): TDocument["config"];
+    /**
+     * A convenience accessor to the LightData configuration object
+     */
+    get config(): LightData<TDocument>;
 
-    /** Test whether a specific AmbientLight source provides global illumination */
+    /**
+     * Test whether a specific AmbientLight source provides global illumination
+     */
     get global(): boolean;
 
-    /** The maximum radius in pixels of the light field */
+    /**
+     * The maximum radius in pixels of the light field
+     */
     get radius(): number;
 
-    /** Get the pixel radius of dim light emitted by this light source */
+    /**
+     * Get the pixel radius of dim light emitted by this light source
+     */
     get dimRadius(): number;
 
-    /** Get the pixel radius of bright light emitted by this light source */
+    /**
+     * Get the pixel radius of bright light emitted by this light source
+     */
     get brightRadius(): number;
 
-    /** Is this ambient light is currently visible based on its hidden state and the darkness level of the Scene? */
+    /**
+     * Is this Ambient Light currently visible? By default, true only if the source actively emits light or darkness.
+     */
     get isVisible(): boolean;
 
-    /** Check if the point source is a LightSource instance */
+    /**
+     * Check if the point source is a LightSource instance
+     */
     get isLightSource(): boolean;
 
-    /** Check if the point source is a DarknessSource instance */
+    /**
+     * Check if the point source is a DarknessSource instance
+     */
     get isDarknessSource(): boolean;
 
-    /** Does this Ambient Light actively emit darkness light given its properties and the current darkness level of the Scene?  */
+    /**
+     * Does this Ambient Light actively emit darkness light given
+     * its properties and the current darkness level of the Scene?
+     */
     get emitsDarkness(): boolean;
 
     /**
-     * Does this Ambient Light actively emit light given its properties and the current darkness level of the Scene?
+     * Does this Ambient Light actively emit positive light given
+     * its properties and the current darkness level of the Scene?
      */
     get emitsLight(): boolean;
+
+    /**
+     * Is the source of this Ambient Light disabled?
+     */
+    protected _isLightSourceDisabled(): boolean;
 
     /* -------------------------------------------- */
     /* Rendering                                    */

@@ -8,6 +8,7 @@ import { AVSettingsData } from "./av/settings.mjs";
 import { CanvasAnimationData, CanvasAnimationEasingFunction } from "./canvas/animation/_types.mjs";
 import { Ray } from "./canvas/geometry/_module.mjs";
 import { PingData } from "./canvas/interaction/_types.mjs";
+import AmbientLight from "./canvas/placeables/light.mjs";
 import Token, { TokenShape } from "./canvas/placeables/token.mjs";
 import PointVisionSource from "./canvas/sources/point-vision-source.mjs";
 import Roll from "./dice/roll.mjs";
@@ -1077,7 +1078,7 @@ export interface CanvasViewPosition {
 
 export interface CanvasVisibilityTest {
     point: ElevatedPoint;
-    los: Map<PointVisionSource, boolean>;
+    los: Map<PointVisionSource<Token | AmbientLight>, boolean>;
 }
 
 export interface CanvasVisibilityTestConfiguration {
