@@ -1,0 +1,56 @@
+{
+    "_id": "6vodhSeI3ClMfOGd",
+    "img": "systems/pf2e/icons/spells/glibness.webp",
+    "name": "Spell Effect: Honeyed Words",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Honeyed Words]</p>\n<p>You gain a +4 status bonus to Deception checks to Lie, and you add your level even if untrained.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:lie"
+                ],
+                "selector": "deception",
+                "type": "status",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:lie"
+                ],
+                "selector": "deception",
+                "slug": "honeyed-words-proficiency",
+                "type": "proficiency",
+                "value": "@actor.level"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
