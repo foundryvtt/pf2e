@@ -808,7 +808,11 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         if (spellcasting?.statistic) {
             // Eventually we need to figure out a way to request a tradition if the ability doesn't provide one
             const tradition = spellcasting.tradition ?? this.traditions.first() ?? "arcane";
-            flags.casting = { id: spellcasting.id, tradition };
+            flags.casting = {
+                // When casting from a chat message, we need to pull the resolved casting ability, not the temp one
+                id: spellcasting.original?.id ?? spellcasting.id,
+                tradition,
+            };
             if (this.parentItem) {
                 flags.casting.embeddedSpell = this.toObject();
             }
