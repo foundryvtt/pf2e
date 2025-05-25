@@ -1,4 +1,5 @@
-import { ErrorPF2e, htmlQuery, htmlQueryAll, ordinalString, tupleHasValue } from "@util";
+import type { HandlebarsTemplatePart } from "@client/applications/api/handlebars-application.d.mts";
+import { ErrorPF2e, htmlQuery, ordinalString, tupleHasValue } from "@util";
 import { DateTime } from "luxon";
 import * as R from "remeda";
 import { animateDarkness } from "./animate-darkness.ts";
@@ -8,19 +9,56 @@ interface WorldClockData {
     date: string;
     time: string;
     options?: object;
-    user: User;
+    user: typeof game.user;
     sign: "+" | "-";
 }
 
-export class WorldClock extends fav1.api.Application {
+export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.ApplicationV2) {
+    static override DEFAULT_OPTIONS: DeepPartial<fa.ApplicationConfiguration> = {
+        id: "world-clock",
+        position: {
+            width: 400,
+        },
+        window: {
+            title: "PF2E.WorldClock.Title",
+            controls: [
+                {
+                    action: "openSettings",
+                    icon: "fa-solid fa-gear",
+                    label: "PF2E.SETTINGS.Settings",
+                    visible: false,
+                },
+            ],
+        },
+        actions: {
+            advanceTime: WorldClock.#onAdvanceTimeClick,
+            advanceOrRetract: WorldClock.#onAdvanceOrRetractClick,
+            openSettings: () => {
+                const menu = game.settings.menus.get("pf2e.worldClock");
+                if (!menu) throw ErrorPF2e("PF2e System | World Clock Settings application not found");
+                const app = new menu.type();
+                app.render(true);
+            },
+        },
+    };
+
+    static override PARTS: Record<string, HandlebarsTemplatePart> = {
+        base: { template: "systems/pf2e/templates/system/world-clock.hbs", root: true },
+    };
+
     /** Is the ctrl key currently held down? */
-    private ctrlKeyDown = false;
+    #ctrlKeyDown = false;
 
     readonly animateDarkness = animateDarkness;
+
+    /** `#controlKeyHandlerFunction` bound to this instance to allow removal of the listeners. */
+    #controlKeyHandler: (event: KeyboardEvent) => void;
 
     constructor() {
         super();
         this.#initialize();
+        // Bind the handler function to this instance
+        this.#controlKeyHandler = this.#controlKeyHandlerFunction.bind(this);
     }
 
     /** Setting: the date theme (Imperial Calendar not yet supported) */
@@ -56,15 +94,6 @@ export class WorldClock extends fav1.api.Application {
     /** The current date and time of the game world */
     get worldTime(): DateTime {
         return this.worldCreatedOn.plus({ seconds: game.time.worldTime });
-    }
-
-    static override get defaultOptions(): fav1.api.ApplicationV1Options {
-        return fu.mergeObject(super.defaultOptions, {
-            id: "world-clock",
-            width: 400,
-            template: "systems/pf2e/templates/system/world-clock.hbs",
-            title: "PF2E.WorldClock.Title",
-        });
     }
 
     /** The era in the game */
@@ -114,6 +143,22 @@ export class WorldClock extends fav1.api.Application {
         }
     }
 
+    static #onAdvanceTimeClick(this: WorldClock, _event: PointerEvent, button: HTMLButtonElement): void {
+        const advanceTime = button.dataset.advanceTime ?? "0";
+        const advanceMode = button.dataset.advanceMode ?? "+";
+        const increment = WorldClock.calculateIncrement(this.worldTime, advanceTime, advanceMode);
+        if (increment !== 0) game.time.advance(increment);
+    }
+
+    static #onAdvanceOrRetractClick(this: WorldClock, _event: PointerEvent, button: HTMLButtonElement): void {
+        const html = this.element;
+        const value = htmlQuery<HTMLInputElement>(html, "input[type=number][name=diff-value]")?.value;
+        const unit = htmlQuery<HTMLSelectElement>(html, "select[name=diff-unit]")?.value;
+        const advanceOrRetract = button.name === "advance" ? 1 : -1;
+        const increment = advanceOrRetract * Number(value) * Number(unit);
+        game.time.advance(increment);
+    }
+
     #initialize() {
         /* Save world creation date/time if equal to default (i.e., server time at first retrieval of the setting) */
         const setting = game.pf2e.settings.worldClock;
@@ -124,7 +169,7 @@ export class WorldClock extends fav1.api.Application {
         }
     }
 
-    override getData(options?: fav1.api.ApplicationV1Options): WorldClockData {
+    protected override async _prepareContext(options: fa.ApplicationRenderOptions): Promise<WorldClockData> {
         const date =
             this.dateTheme === "CE"
                 ? this.worldTime.toLocaleString(DateTime.DATE_HUGE)
@@ -140,29 +185,19 @@ export class WorldClock extends fav1.api.Application {
             this.timeConvention === 24
                 ? this.worldTime.toFormat("HH:mm:ss")
                 : this.worldTime.toLocaleString(DateTime.TIME_WITH_SECONDS);
-        const sign = this.ctrlKeyDown ? "-" : "+";
+        const sign = this.#ctrlKeyDown ? "-" : "+";
 
         return { date, time, options, user: game.user, sign };
     }
 
-    protected override _getHeaderButtons(): fav1.api.ApplicationV1HeaderButton[] {
-        const settingsButton: fav1.api.ApplicationV1HeaderButton[] = game.user.isGM
-            ? [
-                  {
-                      label: "PF2E.SETTINGS.Settings",
-                      class: "configure-settings",
-                      icon: "fa-solid fa-gear",
-                      onclick: (): void => {
-                          const menu = game.settings.menus.get("pf2e.worldClock");
-                          if (!menu) throw ErrorPF2e("PF2e System | World Clock Settings application not found");
-                          const app = new menu.type();
-                          app.render(true);
-                      },
-                  },
-              ]
-            : [];
-
-        return settingsButton.concat(...super._getHeaderButtons());
+    protected override _getHeaderControls(): fa.ApplicationHeaderControlsEntry[] {
+        const controls = super._getHeaderControls();
+        for (const control of controls) {
+            if (control.action === "openSettings" && game.user.isGM) {
+                control.visible = true;
+            }
+        }
+        return controls;
     }
 
     private static calculateIncrement(wordTime: DateTime, interval: string, intervalMode: string): number {
@@ -184,72 +219,55 @@ export class WorldClock extends fav1.api.Application {
     }
 
     /** Advance the world time by a static or input value */
-    override activateListeners($html: JQuery): void {
-        super.activateListeners($html);
-        const html = $html[0];
+    protected override async _onRender(context: WorldClockData, options: fa.ApplicationRenderOptions): Promise<void> {
+        await super._onRender(context, options);
 
-        for (const button of htmlQueryAll(html, "button[data-advance-time]")) {
-            button.addEventListener("click", () => {
-                const advanceTime = button.dataset.advanceTime ?? "0";
-                const advanceMode = button.dataset.advanceMode ?? "+";
-                const increment = WorldClock.calculateIncrement(this.worldTime, advanceTime, advanceMode);
-                if (increment !== 0) game.time.advance(increment);
-            });
-        }
+        document.removeEventListener("keydown", this.#controlKeyHandler);
+        document.addEventListener("keydown", this.#controlKeyHandler);
 
-        for (const button of htmlQueryAll<HTMLButtonElement>(html, "button[name=advance], button[name=retract]")) {
-            button.addEventListener("click", () => {
-                const value = htmlQuery<HTMLInputElement>(html, "input[type=number][name=diff-value]")?.value;
-                const unit = htmlQuery<HTMLSelectElement>(html, "select[name=diff-unit]")?.value;
-                const advanceOrRetract = button.name === "advance" ? 1 : -1;
-                const increment = advanceOrRetract * Number(value) * Number(unit);
-                game.time.advance(increment);
-            });
-        }
-
-        for (const eventName of ["keydown.pf2e.world-clock", "keyup.pf2e.world-clock"]) {
-            $(document).off(eventName);
-            $(document).on(eventName, (event) => {
-                const { originalEvent } = event;
-                if (!(originalEvent instanceof KeyboardEvent)) return;
-                const CONTROL_KEY_STRING = fh.interaction.KeyboardManager.CONTROL_KEY_STRING;
-                const ctrlKeys = CONTROL_KEY_STRING === "⌘" ? ["Control", "Meta"] : ["Control"];
-                if (originalEvent.repeat || !ctrlKeys.includes(originalEvent.key)) return;
-                const eventKey = CONTROL_KEY_STRING === "⌘" ? event.metaKey : event.ctrlKey;
-                if (!(eventKey || this.ctrlKeyDown)) return;
-
-                const retractTime = (this.ctrlKeyDown = event.type === "keydown");
-
-                const { Advance, Retract, TimeOfDay } = CONFIG.PF2E.worldClock.Button;
-                const advanceButtons = Array.from(
-                    $html.get(0)?.querySelectorAll<HTMLButtonElement>("button[data-advance-time]") ?? [],
-                );
-
-                for (const button of advanceButtons) {
-                    const { advanceMode, advanceTime } = button.dataset;
-                    const nextMode = advanceMode === "+" ? "-" : "+";
-                    button.dataset.advanceMode = nextMode;
-
-                    const sign = button.querySelector(".sign");
-                    if (sign) sign.innerHTML = nextMode;
-
-                    if (tupleHasValue(["dawn", "noon", "dusk", "midnight"] as const, advanceTime)) {
-                        const timeOfDayKeys = nextMode === "+" ? TimeOfDay.Advance : TimeOfDay.Retract;
-                        button.title = timeOfDayKeys[advanceTime.titleCase() as keyof typeof timeOfDayKeys];
-                    }
-                }
-
-                $html
-                    .find("button[name=advance], button[name=retract]")
-                    .attr("name", retractTime ? "retract" : "advance")
-                    .text(game.i18n.localize(retractTime ? Retract : Advance));
-            });
-        }
+        document.removeEventListener("keyup", this.#controlKeyHandler);
+        document.addEventListener("keyup", this.#controlKeyHandler);
     }
 
-    override async close(options?: { force?: boolean }): Promise<void> {
-        $(document).off("keydown.pf2e.world-clock").off("keyup.pf2e.world-clock");
-        return super.close(options);
+    protected override async _onClose(options: fa.ApplicationClosingOptions): Promise<void> {
+        document.removeEventListener("keydown", this.#controlKeyHandler);
+        document.removeEventListener("keyup", this.#controlKeyHandler);
+
+        return super._onClose(options);
+    }
+
+    #controlKeyHandlerFunction(event: KeyboardEvent): void {
+        const html = this.element;
+        const CONTROL_KEY_STRING = fh.interaction.KeyboardManager.CONTROL_KEY_STRING;
+        const ctrlKeys = CONTROL_KEY_STRING === "⌘" ? ["Control", "Meta"] : ["Control"];
+        if (event.repeat || !ctrlKeys.includes(event.key)) return;
+        const eventKey = CONTROL_KEY_STRING === "⌘" ? event.metaKey : event.ctrlKey;
+        if (!(eventKey || this.#ctrlKeyDown)) return;
+
+        const retractTime = (this.#ctrlKeyDown = event.type === "keydown");
+
+        const { Advance, Retract, TimeOfDay } = CONFIG.PF2E.worldClock.Button;
+        const advanceButtons = Array.from(html.querySelectorAll<HTMLButtonElement>("button[data-advance-time]") ?? []);
+
+        for (const button of advanceButtons) {
+            const { advanceMode, advanceTime } = button.dataset;
+            const nextMode = advanceMode === "+" ? "-" : "+";
+            button.dataset.advanceMode = nextMode;
+
+            const sign = button.querySelector(".sign");
+            if (sign) sign.innerHTML = nextMode;
+
+            if (tupleHasValue(["dawn", "noon", "dusk", "midnight"] as const, advanceTime)) {
+                const timeOfDayKeys = nextMode === "+" ? TimeOfDay.Advance : TimeOfDay.Retract;
+                button.title = timeOfDayKeys[advanceTime.titleCase() as keyof typeof timeOfDayKeys];
+            }
+        }
+
+        const advanceOrRetract = html.querySelector<HTMLButtonElement>("button[name=advance], button[name=retract]");
+        if (advanceOrRetract) {
+            advanceOrRetract.name = retractTime ? "retract" : "advance";
+            advanceOrRetract.innerText = game.i18n.localize(retractTime ? Retract : Advance);
+        }
     }
 
     /** Create a message informing the user that scene darkness is synced to world time */
