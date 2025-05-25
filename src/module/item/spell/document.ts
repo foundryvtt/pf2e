@@ -444,6 +444,16 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     /**
+     * Returns the base un-variant form of this spell with specific preservations, otherwise returns this.
+     * The linked spellcasting feature as well as the castRank are preserved when retrieving this variant.
+     */
+    loadBaseVariant(): SpellPF2e {
+        const entryId = this.spellcasting?.id;
+        const castRank = this.system.location.heightenedLevel;
+        return this.original?.loadVariant({ entryId, castRank }) ?? this.original ?? this;
+    }
+
+    /**
      * Loads an alternative version of this spell, called a variant.
      * The variant is created via the application of one or more overlays based on parameters.
      * This handles heightening as well as alternative cast modes of spells.
