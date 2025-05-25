@@ -1,4 +1,7 @@
-import type { HandlebarsTemplatePart } from "@client/applications/api/handlebars-application.d.mts";
+import type {
+    HandlebarsRenderOptions,
+    HandlebarsTemplatePart,
+} from "@client/applications/api/handlebars-application.d.mts";
 import { ErrorPF2e, htmlQuery, ordinalString, tupleHasValue } from "@util";
 import { DateTime } from "luxon";
 import * as R from "remeda";
@@ -9,7 +12,7 @@ interface WorldClockData {
     date: string;
     time: string;
     options?: object;
-    user: typeof game.user;
+    user: User;
     sign: "+" | "-";
 }
 
@@ -21,18 +24,10 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
         },
         window: {
             title: "PF2E.WorldClock.Title",
-            controls: [
-                {
-                    action: "openSettings",
-                    icon: "fa-solid fa-gear",
-                    label: "PF2E.SETTINGS.Settings",
-                    visible: false,
-                },
-            ],
         },
         actions: {
-            advanceTime: WorldClock.#onAdvanceTimeClick,
-            advanceOrRetract: WorldClock.#onAdvanceOrRetractClick,
+            advanceTime: WorldClock.#onClickAdvanceTime,
+            advanceOrRetract: WorldClock.#onClickAdvanceOrRetract,
             openSettings: () => {
                 const menu = game.settings.menus.get("pf2e.worldClock");
                 if (!menu) throw ErrorPF2e("PF2e System | World Clock Settings application not found");
@@ -51,14 +46,14 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
 
     readonly animateDarkness = animateDarkness;
 
-    /** `#controlKeyHandlerFunction` bound to this instance to allow removal of the listeners. */
     #controlKeyHandler: (event: KeyboardEvent) => void;
 
     constructor() {
         super();
         this.#initialize();
-        // Bind the handler function to this instance
-        this.#controlKeyHandler = this.#controlKeyHandlerFunction.bind(this);
+        // Binding in addEventListener makes the function anonymous and stops removeEventListener
+        // from working. Bind it once and use the reference for the listeners.
+        this.#controlKeyHandler = this.#controlKeyHandlerMethod.bind(this);
     }
 
     /** Setting: the date theme (Imperial Calendar not yet supported) */
@@ -143,14 +138,14 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
         }
     }
 
-    static #onAdvanceTimeClick(this: WorldClock, _event: PointerEvent, button: HTMLButtonElement): void {
+    static #onClickAdvanceTime(this: WorldClock, _event: PointerEvent, button: HTMLButtonElement): void {
         const advanceTime = button.dataset.advanceTime ?? "0";
         const advanceMode = button.dataset.advanceMode ?? "+";
-        const increment = WorldClock.calculateIncrement(this.worldTime, advanceTime, advanceMode);
+        const increment = WorldClock.#calculateIncrement(this.worldTime, advanceTime, advanceMode);
         if (increment !== 0) game.time.advance(increment);
     }
 
-    static #onAdvanceOrRetractClick(this: WorldClock, _event: PointerEvent, button: HTMLButtonElement): void {
+    static #onClickAdvanceOrRetract(this: WorldClock, _event: PointerEvent, button: HTMLButtonElement): void {
         const html = this.element;
         const value = htmlQuery<HTMLInputElement>(html, "input[type=number][name=diff-value]")?.value;
         const unit = htmlQuery<HTMLSelectElement>(html, "select[name=diff-unit]")?.value;
@@ -169,7 +164,7 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
         }
     }
 
-    protected override async _prepareContext(options: fa.ApplicationRenderOptions): Promise<WorldClockData> {
+    protected override async _prepareContext(options: HandlebarsRenderOptions): Promise<WorldClockData> {
         const date =
             this.dateTheme === "CE"
                 ? this.worldTime.toLocaleString(DateTime.DATE_HUGE)
@@ -192,15 +187,16 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
 
     protected override _getHeaderControls(): fa.ApplicationHeaderControlsEntry[] {
         const controls = super._getHeaderControls();
-        for (const control of controls) {
-            if (control.action === "openSettings" && game.user.isGM) {
-                control.visible = true;
-            }
-        }
+        controls.push({
+            action: "openSettings",
+            icon: "fa-solid fa-gear",
+            label: "PF2E.SETTINGS.Settings",
+            visible: game.user.isGM,
+        });
         return controls;
     }
 
-    private static calculateIncrement(wordTime: DateTime, interval: string, intervalMode: string): number {
+    static #calculateIncrement(wordTime: DateTime, interval: string, intervalMode: string): number {
         const mode = intervalMode === "+" ? TimeChangeMode.ADVANCE : TimeChangeMode.RETRACT;
         switch (interval) {
             case "dawn":
@@ -219,7 +215,7 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
     }
 
     /** Advance the world time by a static or input value */
-    protected override async _onRender(context: WorldClockData, options: fa.ApplicationRenderOptions): Promise<void> {
+    protected override async _onRender(context: WorldClockData, options: HandlebarsRenderOptions): Promise<void> {
         await super._onRender(context, options);
 
         document.removeEventListener("keydown", this.#controlKeyHandler);
@@ -236,11 +232,11 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
         return super._onClose(options);
     }
 
-    #controlKeyHandlerFunction(event: KeyboardEvent): void {
+    #controlKeyHandlerMethod(event: KeyboardEvent): void {
         const html = this.element;
         const CONTROL_KEY_STRING = fh.interaction.KeyboardManager.CONTROL_KEY_STRING;
-        const ctrlKeys = CONTROL_KEY_STRING === "⌘" ? ["Control", "Meta"] : ["Control"];
-        if (event.repeat || !ctrlKeys.includes(event.key)) return;
+        const ctrlKey = CONTROL_KEY_STRING === "⌘" ? "Meta" : "Control";
+        if (event.repeat || ctrlKey !== event.key) return;
         const eventKey = CONTROL_KEY_STRING === "⌘" ? event.metaKey : event.ctrlKey;
         if (!(eventKey || this.#ctrlKeyDown)) return;
 

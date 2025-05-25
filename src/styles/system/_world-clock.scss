@@ -2,14 +2,10 @@
     section.window-content {
         font-size: 1rem;
 
-        h1 {
+        .header {
             font-family: var(--font-sans);
-            font-size: inherit;
-            line-height: inherit;
-            font-weight: normal;
             text-align: center;
             border-bottom: 2px solid var(--color-tabs-border);
-            margin-bottom: unset;
         }
 
         .input-grid {
@@ -40,28 +36,9 @@
                 width: 100%;
 
                 i {
-                    mask-size: cover;
-                    background-color: var(--color-text-secondary);
-                    height: 1.5em;
-                    width: 1.5em;
-
-                    &.sunrise {
-                        mask-image: url(systems/pf2e/icons/mdi/sunrise.svg);
-                    }
-
-                    &.sunny {
-                        mask-image: url(systems/pf2e/icons/mdi/sunny.svg);
-                    }
-
-                    &.sunset {
-                        mask-image: url(systems/pf2e/icons/mdi/sunset.svg);
-                    }
-
-                    &.night {
-                        mask-image: url(systems/pf2e/icons/mdi/night.svg);
-                        height: 1.05rem;
-                        width: 1.05rem;
-                    }
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                 }
             }
 
