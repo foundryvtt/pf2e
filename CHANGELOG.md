@@ -1,3 +1,20 @@
+## 6.12.3
+
+### Bugfixes
+
+- (Supe) Fix rolling spell damage from the final scroll
+- (Supe) Fix changing to a different variant for spells such as Heal from scrolls and wands
+
+### Data Updates
+
+- (Ambrose) Update automation for Marilith's Focused Assault
+- (Dire Weasel) Add spell effect for Honeyed Words
+- (Dire Weasel) Brush up some NPC Core actors
+- (Dire Weasel) Brush up Void Pit
+- (Dire Weasel) Fix some spell areas to be cylinder
+- (kromko) Fix few RE localization keys
+- (Mecha Maya) Modify hold breath Air Remaining Effect duration to be upgradeable by feats
+
 ## 6.12.2
 
 ### Bugfixes
