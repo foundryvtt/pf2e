@@ -46,14 +46,44 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
 
     readonly animateDarkness = animateDarkness;
 
-    #controlKeyHandler: (event: KeyboardEvent) => void;
+    /** This needs to be an arrow function to allow `removeEventListener` to work */
+    #controlKeyHandler = (event: KeyboardEvent): void => {
+        const html = this.element;
+        const CONTROL_KEY_STRING = fh.interaction.KeyboardManager.CONTROL_KEY_STRING;
+        const ctrlKey = CONTROL_KEY_STRING === "⌘" ? "Meta" : "Control";
+        if (event.repeat || ctrlKey !== event.key) return;
+        const eventKey = CONTROL_KEY_STRING === "⌘" ? event.metaKey : event.ctrlKey;
+        if (!(eventKey || this.#ctrlKeyDown)) return;
+
+        const retractTime = (this.#ctrlKeyDown = event.type === "keydown");
+
+        const { Advance, Retract, TimeOfDay } = CONFIG.PF2E.worldClock.Button;
+        const advanceButtons = Array.from(html.querySelectorAll<HTMLButtonElement>("button[data-advance-time]") ?? []);
+
+        for (const button of advanceButtons) {
+            const { advanceMode, advanceTime } = button.dataset;
+            const nextMode = advanceMode === "+" ? "-" : "+";
+            button.dataset.advanceMode = nextMode;
+
+            const sign = button.querySelector(".sign");
+            if (sign) sign.innerHTML = nextMode;
+
+            if (tupleHasValue(["dawn", "noon", "dusk", "midnight"] as const, advanceTime)) {
+                const timeOfDayKeys = nextMode === "+" ? TimeOfDay.Advance : TimeOfDay.Retract;
+                button.title = timeOfDayKeys[advanceTime.titleCase() as keyof typeof timeOfDayKeys];
+            }
+        }
+
+        const advanceOrRetract = html.querySelector<HTMLButtonElement>("button[name=advance], button[name=retract]");
+        if (advanceOrRetract) {
+            advanceOrRetract.name = retractTime ? "retract" : "advance";
+            advanceOrRetract.innerText = game.i18n.localize(retractTime ? Retract : Advance);
+        }
+    };
 
     constructor() {
         super();
         this.#initialize();
-        // Binding in addEventListener makes the function anonymous and stops removeEventListener
-        // from working. Bind it once and use the reference for the listeners.
-        this.#controlKeyHandler = this.#controlKeyHandlerMethod.bind(this);
     }
 
     /** Setting: the date theme (Imperial Calendar not yet supported) */
@@ -230,40 +260,6 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
         document.removeEventListener("keyup", this.#controlKeyHandler);
 
         return super._onClose(options);
-    }
-
-    #controlKeyHandlerMethod(event: KeyboardEvent): void {
-        const html = this.element;
-        const CONTROL_KEY_STRING = fh.interaction.KeyboardManager.CONTROL_KEY_STRING;
-        const ctrlKey = CONTROL_KEY_STRING === "⌘" ? "Meta" : "Control";
-        if (event.repeat || ctrlKey !== event.key) return;
-        const eventKey = CONTROL_KEY_STRING === "⌘" ? event.metaKey : event.ctrlKey;
-        if (!(eventKey || this.#ctrlKeyDown)) return;
-
-        const retractTime = (this.#ctrlKeyDown = event.type === "keydown");
-
-        const { Advance, Retract, TimeOfDay } = CONFIG.PF2E.worldClock.Button;
-        const advanceButtons = Array.from(html.querySelectorAll<HTMLButtonElement>("button[data-advance-time]") ?? []);
-
-        for (const button of advanceButtons) {
-            const { advanceMode, advanceTime } = button.dataset;
-            const nextMode = advanceMode === "+" ? "-" : "+";
-            button.dataset.advanceMode = nextMode;
-
-            const sign = button.querySelector(".sign");
-            if (sign) sign.innerHTML = nextMode;
-
-            if (tupleHasValue(["dawn", "noon", "dusk", "midnight"] as const, advanceTime)) {
-                const timeOfDayKeys = nextMode === "+" ? TimeOfDay.Advance : TimeOfDay.Retract;
-                button.title = timeOfDayKeys[advanceTime.titleCase() as keyof typeof timeOfDayKeys];
-            }
-        }
-
-        const advanceOrRetract = html.querySelector<HTMLButtonElement>("button[name=advance], button[name=retract]");
-        if (advanceOrRetract) {
-            advanceOrRetract.name = retractTime ? "retract" : "advance";
-            advanceOrRetract.innerText = game.i18n.localize(retractTime ? Retract : Advance);
-        }
     }
 
     /** Create a message informing the user that scene darkness is synced to world time */
