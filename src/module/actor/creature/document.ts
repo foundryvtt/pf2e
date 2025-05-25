@@ -275,6 +275,7 @@ abstract class CreaturePF2e<
                     actor: this,
                     statistic: ability.statistic,
                     tradition: ability.tradition ?? spell.traditions.first() ?? null,
+                    original: ability,
                     castPredicate: new Predicate([`item:id:${consumable.id}`, `spell:id:${spell.id}`]),
                 });
                 spell.system.location.value = itemCasting.id;

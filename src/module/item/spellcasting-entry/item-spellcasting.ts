@@ -21,15 +21,26 @@ class ItemSpellcasting<TActor extends CreaturePF2e = CreaturePF2e> implements Sp
 
     tradition: MagicTradition | null;
 
+    original: SpellcastingEntry<TActor> | null;
+
     /** A predicate to test against a physical item to determine whether its contained spell can be cast */
     castPredicate: Predicate;
 
-    constructor({ id, name, actor, statistic, tradition, castPredicate }: ItemsSpellcastingConstructorParams<TActor>) {
+    constructor({
+        id,
+        name,
+        actor,
+        statistic,
+        tradition,
+        original,
+        castPredicate,
+    }: ItemsSpellcastingConstructorParams<TActor>) {
         this.id = id;
         this.name = name;
         this.actor = actor;
         this.statistic = statistic;
         this.tradition = tradition ?? null;
+        this.original = original ?? null;
         this.castPredicate = castPredicate;
     }
 
@@ -106,6 +117,7 @@ interface ItemsSpellcastingConstructorParams<TActor extends CreaturePF2e> {
     statistic: Statistic;
     tradition?: Maybe<MagicTradition>;
     castPredicate: Predicate;
+    original?: SpellcastingEntry<TActor>;
 }
 
 export { ItemSpellcasting };
