@@ -138,9 +138,8 @@ class ChatCards {
                             }
                         }
                     } else if (spell) {
-                        const originalSpell = spell?.original ?? spell;
-                        const data = { castRank };
-                        const restoredMessage = await originalSpell.toMessage(null, { data, create: false });
+                        const originalSpell = spell.loadBaseVariant();
+                        const restoredMessage = await originalSpell.toMessage(null, { create: false });
                         if (restoredMessage) {
                             const whisper = message._source.whisper;
                             const changes = restoredMessage.clone({ whisper }).toObject();
