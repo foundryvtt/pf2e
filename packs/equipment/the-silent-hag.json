@@ -33,7 +33,58 @@
             "title": "Pathfinder #190: The Choosing"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+            "alwaysActive": true,
+            "key": "RollOption",
+            "label": "Silent Hag Bonus",
+            "option": "silent-hag-bonus",
+            "suboptions": [
+              {
+                "label": "Arcana",
+                "value": "arcana"
+              },
+              {
+                "label": "Religion",
+                "value": "religion"
+              },
+              {
+                "label": "Nature",
+                "value": "nature"
+              },
+              {
+                "label": "Occult",
+                "value": "occultism"
+              }
+            ],
+            "toggleable": true,
+            "value": true,
+            "selection": "arcana"
+          },
+          {
+            "key": "FlatModifier",
+            "label": "The Silent Hag",
+            "selector": "{item|flags.pf2e.rulesSelections.silentHagBonus}",
+            "value": {
+              "brackets": [
+                {
+                  "end": 16,
+                  "value": 2
+                },
+                {
+                  "start": 17,
+                  "value": 3
+                }
+              ],
+              "field": "actor|level"
+            },
+            "predicate": [
+              "action:recall-knowledge"
+            ],
+            "type": "item"
+          }
+
+        ],
         "size": "med",
         "traits": {
             "rarity": "unique",
