@@ -1,3 +1,15 @@
+## 6.12.4
+
+### System Improvements
+
+- (Supe) Skip rolling persistent damage for dead actors
+- (Supe) Fix ActiveEffect does not exist error when healing dead actors
+
+### Data Updates
+
+- (Micatron) Add Recall Knowledge bonus to The Silent Hag
+- (TMun) Fix levaloch for PFS 6-17
+
 ## 6.12.3
 
 ### Bugfixes
