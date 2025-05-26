@@ -57,31 +57,17 @@
                 "value": "occultism"
               }
             ],
-            "toggleable": true,
-            "value": true,
-            "selection": "arcana"
+            "toggleable": true
           },
           {
-            "key": "FlatModifier",
-            "label": "The Silent Hag",
-            "selector": "{item|flags.pf2e.rulesSelections.silentHagBonus}",
-            "value": {
-              "brackets": [
-                {
-                  "end": 16,
-                  "value": 2
-                },
-                {
-                  "start": 17,
-                  "value": 3
-                }
+              "key": "FlatModifier",
+              "label": "The Silent Hag",
+              "selector": "{item|flags.pf2e.rulesSelections.silentHagBonus}",
+              "value": "ternary(gte(@actor.level, 17), 3, 2)",
+              "predicate": [
+                  "action:recall-knowledge"
               ],
-              "field": "actor|level"
-            },
-            "predicate": [
-              "action:recall-knowledge"
-            ],
-            "type": "item"
+              "type": "item"
           }
 
         ],
