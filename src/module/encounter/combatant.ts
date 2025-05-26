@@ -144,10 +144,12 @@ class CombatantPF2e<
         const { actor, encounter } = this;
         if (!encounter || !actor) return;
 
-        // Run condition end of turn effects
-        const activeConditions = actor.conditions.active;
-        for (const condition of activeConditions) {
-            await condition.onEndTurn({ token: this.token });
+        // Run condition end of turn effects, unless the actor is dead
+        if (!actor.isDead) {
+            const activeConditions = actor.conditions.active;
+            for (const condition of activeConditions) {
+                await condition.onEndTurn({ token: this.token });
+            }
         }
 
         // Effect changes on turn start/end
