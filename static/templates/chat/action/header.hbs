@@ -1,9 +1,13 @@
 <h4 class="action">
-    <strong>{{localize title}}</strong>
-    {{#if glyph}}<span class="action-glyph">{{glyph}}</span>{{/if}}
-    {{#if subtitle}}
-        <span class="subtitle degree-of-success">
-            (<span{{#if outcome}} class="{{outcome}}"{{/if}}>{{localize subtitle}}</span>)
-        </span>
+    {{#if simpleTitle}}
+        <strong>{{localize title}}</strong>
+    {{else}}
+        <strong>{{localize title}}</strong>
+        {{#if glyph}}<span class="action-glyph">{{glyph}}</span>{{/if}}
+        {{#if subtitle}}
+            <span class="subtitle degree-of-success">
+                (<span{{#if outcome}} class="{{outcome}}"{{/if}}>{{localize subtitle}}</span>)
+            </span>
+        {{/if}}
     {{/if}}
 </h4>

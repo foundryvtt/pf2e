@@ -60,6 +60,7 @@ interface SimpleRollActionCheckOptions<TItem extends ItemPF2e<ActorPF2e>> {
     actors: ActorPF2e | ActorPF2e[] | undefined;
     actionGlyph: ActionGlyph | undefined;
     title: string;
+    simpleTitle?: boolean;
     checkContext: (
         context: CheckContextOptions<TItem>,
     ) => Promise<CheckMacroContext<TItem>> | CheckMacroContext<TItem> | undefined;
