@@ -240,7 +240,7 @@ export default abstract class Document<
      */
     static createDocuments<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
-        data?: (TDocument | PreCreate<TDocument["_source"]>)[],
+        data?: (TDocument | DeepPartial<TDocument["_source"]>)[],
         operation?: Partial<DatabaseCreateOperation<TDocument["parent"]>>,
     ): Promise<TDocument[]>;
 

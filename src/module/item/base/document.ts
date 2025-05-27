@@ -612,13 +612,13 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     static override async createDocuments<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
-        data?: (TDocument | PreCreate<TDocument["_source"]>)[],
+        data?: (TDocument | DeepPartial<TDocument["_source"]>)[],
         operation?: Partial<DatabaseCreateOperation<TDocument["parent"]>>,
     ): Promise<TDocument[]>;
     static override async createDocuments(
         data: (ItemPF2e | PreCreate<ItemSourcePF2e>)[] = [],
         operation: Partial<DatabaseCreateOperation<ActorPF2e | null>> = {},
-    ): Promise<Document[]> {
+    ): Promise<Item[]> {
         // Convert all `ItemPF2e`s to source objects
         const sources: PreCreate<ItemSourcePF2e>[] = data.map(
             (d): PreCreate<ItemSourcePF2e> => (d instanceof ItemPF2e ? d.toObject() : d),

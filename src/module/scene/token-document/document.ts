@@ -122,7 +122,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         return regions
             .map((r) =>
                 r.behaviors.filter(
-                    (b): b is EnvironmentFeatureRegionBehavior<RegionDocumentPF2e<TParent>> =>
+                    (b): b is EnvironmentFeatureRegionBehavior<RegionDocumentPF2e<NonNullable<TParent>>> =>
                         !b.disabled && b.type === "environmentFeature" && b.system.terrain.difficult > 0,
                 ),
             )
@@ -553,6 +553,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
 interface TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends TokenDocument<TParent> {
     flags: TokenFlagsPF2e;
+    regions: Set<RegionDocumentPF2e<NonNullable<TParent>>>;
     get actor(): ActorPF2e<this | null> | null;
     get combatant(): CombatantPF2e<EncounterPF2e, this> | null;
     get object(): TokenPF2e<this> | null;
