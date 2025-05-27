@@ -630,19 +630,15 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return super.createDialog(data, createOptions, options);
     }
 
-    /**
-     * As of Foundry 0.8: All subclasses of ActorPF2e need to use this factory method rather than having their own
-     * overrides, since Foundry itself will call `ActorPF2e.create` when a new actor is created from the sidebar.
-     */
     static override async createDocuments<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
-        data?: (TDocument | PreCreate<TDocument["_source"]>)[],
+        data?: (TDocument | DeepPartial<TDocument["_source"]>)[],
         operation?: Partial<DatabaseCreateOperation<TDocument["parent"]>>,
     ): Promise<TDocument[]>;
     static override async createDocuments(
         data: (ActorPF2e | PreCreate<ActorSourcePF2e>)[] = [],
         operation: Partial<DatabaseCreateOperation<TokenDocumentPF2e | null>> = {},
-    ): Promise<Actor<TokenDocument<Scene | null> | null>[]> {
+    ): Promise<Actor[]> {
         // Convert all `ActorPF2e`s to source objects
         const sources = data.map((d) => (d instanceof ActorPF2e ? d.toObject() : d));
 
@@ -1803,15 +1799,19 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         parent: P,
         collection: string,
         changes: Record<string, unknown>[],
-        options: DatabaseUpdateOperation<P> & { previous?: object },
+        options: DatabaseUpdateOperation<P>,
+        userId: string,
+    ): void;
+    protected override _preUpdateDescendantDocuments(
+        parent: Document,
+        collection: string,
+        changes: Record<string, unknown>[],
+        options: DatabaseUpdateOperation<Document> & { previous?: object },
         userId: string,
     ): void {
         super._preUpdateDescendantDocuments(parent, collection, changes, options, userId);
-
         if (parent === this && collection === "items") {
-            options.previous = {
-                maxHitPoints: this.hitPoints?.max,
-            };
+            options.previous = { maxHitPoints: this.hitPoints?.max };
         }
     }
 
@@ -1821,11 +1821,18 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         collection: string,
         documents: Document<P>[],
         changes: Record<string, unknown>[],
-        options: DatabaseUpdateOperation<P> & { previous?: object },
+        options: DatabaseUpdateOperation<P>,
+        userId: string,
+    ): void;
+    protected override _onUpdateDescendantDocuments(
+        parent: Document,
+        collection: string,
+        documents: Document<Document>[],
+        changes: Record<string, unknown>[],
+        options: DatabaseUpdateOperation<Document> & { previous?: { maxHitPoints?: number } },
         userId: string,
     ): void {
         super._onUpdateDescendantDocuments(parent, collection, documents, changes, options, userId);
-
         if (this !== parent || collection !== "items") return;
 
         // Ensure the items being updated are all permanent character building options.
