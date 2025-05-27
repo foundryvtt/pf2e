@@ -235,3 +235,4 @@ export { Migration933CraftingAbility } from "./933-crafting-ability.ts";
 export { Migration934MythicCallingCategory } from "./934-mythic-calling-category.ts";
 export { Migration935DeityIconPaths } from "./935-deity-icon-paths.ts";
 export { Migration936MoveWorldClockSettings } from "./936-move-world-created-on.ts";
+export { Migration937RemoveInvalidAuraTraits } from "./937-remove-invalid-aura-traits.ts";
