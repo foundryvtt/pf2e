@@ -1,7 +1,10 @@
 import { ActorPF2e } from "@actor";
 import { SIZE_LINKABLE_ACTOR_TYPES } from "@actor/values.ts";
 import type { ApplicationRenderContext } from "@client/applications/_types.d.mts";
-import type { DocumentSheetConfiguration } from "@client/applications/api/document-sheet.d.mts";
+import type {
+    DocumentSheetConfiguration,
+    DocumentSheetRenderContext,
+} from "@client/applications/api/document-sheet.d.mts";
 import type { HandlebarsRenderOptions } from "@client/applications/api/handlebars-application.d.mts";
 import type FormDataExtended from "@client/applications/ux/form-data-extended.d.mts";
 import type { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/abstract/_types.d.mts";
@@ -229,7 +232,7 @@ interface TokenConfigPF2e extends fa.sheets.TokenConfig {
     get actor(): ActorPF2e | null;
 }
 
-interface TokenConfigContext extends ApplicationRenderContext {
+interface TokenConfigContext extends DocumentSheetRenderContext {
     /** Whether the token can be linked to its actor's size */
     sizeLinkable: boolean;
     linkToSizeTitle: string;
