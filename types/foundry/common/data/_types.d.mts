@@ -7,6 +7,7 @@ import {
     DocumentStatsData,
     MaybeSchemaProp,
     ModelPropFromDataField,
+    SourceFromDataField,
 } from "./fields.mjs";
 import { DataModelValidationFailure } from "./validation-failure.mjs";
 
@@ -321,6 +322,7 @@ interface FilePathFieldOptions<
     wildcard?: boolean;
 }
 
+export type DocumentFlagsSource = SourceFromDataField<DocumentFlagsField>;
 export type DocumentFlags = ModelPropFromDataField<DocumentFlagsField>;
 
 export interface DocumentStats extends DocumentStatsData {}

@@ -5,7 +5,7 @@ import type { InitiativeTraceData } from "@actor/initiative.ts";
 import type { StatisticModifier } from "@actor/modifiers.ts";
 import type { ActorAlliance, AttributeString, SkillSlug } from "@actor/types.ts";
 import type { Rolled } from "@client/dice/roll.d.mts";
-import type { DocumentFlags } from "@common/data/_module.d.mts";
+import type { DocumentFlags, DocumentFlagsSource } from "@common/data/_module.d.mts";
 import type { MeleePF2e, WeaponPF2e } from "@item";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import type { MigrationRecord, Rarity, Size, ValueAndMaybeMax, ZeroToTwo } from "@module/data.ts";
@@ -22,19 +22,20 @@ type BaseActorSourcePF2e<
     TType extends ActorType,
     TSystemSource extends ActorSystemSource = ActorSystemSource,
 > = foundry.documents.ActorSource<TType, TSystemSource, ItemSourcePF2e> & {
-    flags: DeepPartial<ActorFlagsPF2e>;
+    flags: ActorSourceFlagsPF2e;
     prototypeToken: PrototypeTokenSourcePF2e;
 };
 
-type ActorFlagsPF2e = DocumentFlags & {
-    pf2e: {
-        rollOptions: RollOptionFlags;
-        /** IDs of granted items that are tracked */
-        trackedItems: Record<string, string>;
-        hideStowed?: boolean;
-        [key: string]: unknown;
-    };
-};
+type ActorSourceFlagsPF2e = DocumentFlagsSource & { pf2e?: Partial<ActorFlagsPF2eSystemProps> };
+type ActorFlagsPF2e = DocumentFlags & { pf2e: ActorFlagsPF2eSystemProps };
+
+interface ActorFlagsPF2eSystemProps {
+    rollOptions: RollOptionFlags;
+    /** IDs of granted items that are tracked */
+    trackedItems: Record<string, string>;
+    hideStowed?: boolean;
+    [key: string]: unknown;
+}
 
 type ActorSystemSource = {
     details?: ActorDetailsSource;

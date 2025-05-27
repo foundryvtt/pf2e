@@ -4,7 +4,7 @@ import type { DatabaseUpdateCallbackOptions } from "@common/abstract/_types.d.mt
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene";
 import * as R from "remeda";
-import type { UserFlagsPF2e, UserSourcePF2e } from "./data.ts";
+import type { UserFlagsPF2e, UserSettingsPF2e, UserSourcePF2e } from "./data.ts";
 
 class UserPF2e extends User {
     override prepareData(): void {
@@ -76,12 +76,4 @@ interface UserPF2e extends User {
     readonly _source: UserSourcePF2e;
 }
 
-interface UserSettingsPF2e {
-    showEffectPanel: boolean;
-    showCheckDialogs: boolean;
-    showDamageDialogs: boolean;
-    monochromeDarkvision: boolean;
-    searchPackContents: boolean;
-}
-
-export { UserPF2e, type UserSettingsPF2e };
+export { UserPF2e };
