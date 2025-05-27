@@ -6,7 +6,7 @@ import { ActionDefaultOptions } from "@system/action-macros/types.ts";
 import { htmlQuery, signedInteger, tupleHasValue } from "@util";
 import { tagify } from "@util/tags.ts";
 import * as R from "remeda";
-import { getActions, loreSkillsFromActors } from "./helpers.ts";
+import { getActions, getMacros, getVariants, loreSkillsFromActors } from "./helpers.ts";
 
 interface CheckPromptDialogOptions extends ApplicationOptions {
     actors: CharacterPF2e[];
@@ -31,6 +31,8 @@ interface TagifyValue {
 class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
     #actions?: Record<string, string>;
     #lores?: Record<string, string>;
+    #macros?: Record<string, string>;
+    #variants?: Record<string, string>;
 
     static override get defaultOptions(): ApplicationOptions {
         return {
@@ -50,6 +52,8 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
 
     override async getData(): Promise<CheckPromptDialogData> {
         this.#actions = await getActions();
+        this.#macros = getMacros();
+        this.#variants = getVariants();
         this.#lores = loreSkillsFromActors(this.options.actors ?? game.actors.party?.members ?? []);
 
         return {
@@ -81,30 +85,33 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
     override activateListeners($html: JQuery<HTMLElement>): void {
         const html = $html[0];
 
-        // Set up tagify fields
-
-        const skillEl = html.querySelector<HTMLInputElement>("input#check-prompt-skills");
-        const skills = {
+        const skillsAndLoresEl = html.querySelector<HTMLInputElement>("input#check-prompt-skills");
+        const skillsAndLores = {
             ...R.mapValues(CONFIG.PF2E.skills, (s) => s.label),
+            ...(R.isEmpty(this.#lores || {}) ? {} : this.#lores),
             perception: "PF2E.PerceptionLabel",
         };
-        tagify(skillEl, { whitelist: skills });
+        tagify(skillsAndLoresEl, { whitelist: skillsAndLores });
 
         const saveEl = html.querySelector<HTMLInputElement>("input#check-prompt-saves");
         tagify(saveEl, { whitelist: CONFIG.PF2E.saves });
 
-        const loreEl = html.querySelector<HTMLInputElement>("input#check-prompt-lores");
-        const loreOptions = R.isEmpty(this.#lores || {}) ? {} : { whitelist: this.#lores };
-        tagify(loreEl, loreOptions);
-
         const actionEl = html.querySelector<HTMLInputElement>("input#check-prompt-actions");
-        const actionOptions = R.isEmpty(this.#actions || {})
-            ? {}
-            : { whitelist: this.#actions, enforceWhitelist: false };
+        const actionOptions = R.isEmpty(this.#macros || {}) ? {} : { whitelist: this.#macros, maxTags: 1 };
         tagify(actionEl, actionOptions);
+
+        const variantsEl = html.querySelector<HTMLInputElement>("input#check-prompt-variants");
+        const variants = R.isEmpty(this.#variants || {}) ? {} : { whitelist: this.#variants, maxTags: 1 };
+        tagify(variantsEl, variants);
 
         const traitEl = html.querySelector<HTMLInputElement>("input#check-prompt-traits");
         tagify(traitEl, { whitelist: CONFIG.PF2E.actionTraits, enforceWhitelist: false });
+
+        const actionTraitEl = html.querySelector<HTMLInputElement>("input#check-prompt-action-traits");
+        const actionTraits = R.isEmpty(this.#actions || {})
+            ? {}
+            : { whitelist: this.#actions, enforceWhitelist: false };
+        tagify(actionTraitEl, actionTraits);
 
         // Show or hide Roll Options
         html.querySelector("div.form-group a.add-roll-options")?.addEventListener("click", () => {
@@ -126,9 +133,20 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
         const html = this.element[0];
         const types: string[] = [];
         const traits: string[] = [];
+        const actions: string[] = [];
+        const variants: string[] = [];
         const extras: string[] = [];
         const activeSkillSaveTab = htmlQuery(html, "section.check-prompt-content section.tab.active");
         if (activeSkillSaveTab?.dataset.tab === "skills") {
+            // get action tags
+            actions.push(
+                ...this.#htmlQueryTags(html, "input#check-prompt-actions").map((a) =>
+                    a.toLowerCase().replace("action:", "").trim(),
+                ),
+            );
+            variants.push(
+                ...this.#htmlQueryTags(html, "input#check-prompt-variants").map((v) => v.toLowerCase().trim()),
+            );
             // get skill tags
             types.push(...this.#htmlQueryTags(html, "input#check-prompt-skills"));
             // get lore tags
@@ -136,9 +154,8 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
 
             // get trait tags
             traits.push(...this.#htmlQueryTags(html, "input#check-prompt-traits"));
-            // get action tags
             traits.push(
-                ...this.#htmlQueryTags(html, "input#check-prompt-actions").map((a) => this.#formatActionType(a)),
+                ...this.#htmlQueryTags(html, "input#check-prompt-action-traits").map((a) => this.#formatActionType(a)),
             );
 
             if (!!html.querySelector("input#check-prompt-secret:checked") && !traits.includes("secret")) {
@@ -149,12 +166,19 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
             if (htmlQuery(html, "input#check-prompt-basic-save:checked")) extras.push("basic:true");
         }
 
-        if (types.length > 0) {
+        if (types.length > 0 || actions.length > 0) {
             const titleEl = htmlQuery<HTMLInputElement>(html, "input#check-prompt-title");
             const flavor = titleEl?.value ? `<h4 class="action"><strong>${titleEl.value}</strong></h4><hr>` : "";
 
             const dc = this.#getDC(html);
-            const content = types.map((type) => this.#constructCheck(type, dc, traits, extras)).join("");
+            let content: string = "";
+            if (actions.length > 0 && types.length > 0) {
+                content = types.map((type) => this.#constructAction(actions[0], variants[0], dc, type, traits)).join("");
+            } else if (actions.length > 0 && types.length === 0) {
+                content = actions.map((action) => this.#constructAction(action, variants[0], dc, null, traits)).join("");
+            } else {
+                content = types.map((type) => this.#constructCheck(type, dc, traits, extras)).join("");
+            }
 
             ChatMessagePF2e.create({ author: game.user.id, flavor, content });
         }
@@ -212,6 +236,17 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
             .concat(...extras)
             .filter((p) => p);
         return `<p>@Check[${parts.join("|")}]</p>`;
+    }
+
+    #constructAction(action: string, variant: string | null, dc: number | null, statistic: string | null, traits: string[]): string {
+        const parts = [
+            action,
+            variant ? `variant=${variant}` : null,
+            statistic ? `statistic=${statistic}` : null,
+            Number.isInteger(dc) ? `dc=${dc}` : null,
+            traits.length ? `traits=${traits.join(",")}` : null,
+        ];
+        return `[[/act ${parts.join(" ")}]]`;
     }
 }
 
