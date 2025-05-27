@@ -373,7 +373,7 @@ interface ChatMessagePF2e extends ChatMessage {
 declare namespace ChatMessagePF2e {
     function createDocuments<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
-        data?: (TDocument | DeepPartial<TDocument["_source"]>)[],
+        data?: (TDocument | PreCreate<TDocument["_source"]>)[],
         operation?: Partial<MessageCreateOperationPF2e>,
     ): Promise<TDocument[]>;
 
