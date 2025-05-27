@@ -1921,7 +1921,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         // Remove the death overlay if present upon hit points being increased
         // Skip if this is a damage taken operation though, since that already handles this
-        if (!operation.damageTaken) {
+        if (!options.damageTaken) {
             const currentHP = this.hitPoints?.value ?? 0;
             const hpChange = Number(changed.system?.attributes?.hp?.value) || 0;
             if (currentHP > 0 && hpChange > 0 && this.isDead && game.user.id === userId) {
