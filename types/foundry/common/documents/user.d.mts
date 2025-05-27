@@ -90,4 +90,4 @@ type UserSchema<TActor extends BaseActor<null>> = {
     _stats: fields.DocumentStatsField;
 };
 
-export interface UserSource extends fields.SourceFromSchema<UserSchema<BaseActor<null>>> {}
+export type UserSource = fields.SourceFromSchema<UserSchema<BaseActor<null>>>;

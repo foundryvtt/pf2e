@@ -1,14 +1,21 @@
-import type { DocumentFlags } from "@common/data/_module.d.mts";
-import { UserSettingsPF2e } from "./document.ts";
+import type { DocumentFlags, DocumentFlagsSource } from "@common/data/_module.d.mts";
 
-type UserSourcePF2e = Omit<foundry.documents.UserSource, "flags"> & {
-    flags: DeepPartial<UserFlagsPF2e>;
+interface UserSettingsPF2e {
+    showEffectPanel: boolean;
+    showCheckDialogs: boolean;
+    showDamageDialogs: boolean;
+    monochromeDarkvision: boolean;
+    searchPackContents: boolean;
+}
+
+type UserSourcePF2e = foundry.documents.UserSource & {
+    flags: UserSourceFlagsPF2e;
 };
+
+type UserSourceFlagsPF2e = DocumentFlagsSource & { pf2e?: { settings?: Partial<UserSettingsPF2e> } };
 
 type UserFlagsPF2e = DocumentFlags & {
-    pf2e: {
-        settings: UserSettingsPF2e;
-    };
+    pf2e: { settings: UserSettingsPF2e };
 };
 
-export type { UserFlagsPF2e, UserSourcePF2e };
+export type { UserFlagsPF2e, UserSettingsPF2e, UserSourcePF2e };

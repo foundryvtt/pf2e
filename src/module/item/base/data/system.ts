@@ -1,4 +1,4 @@
-import type { DocumentFlags } from "@common/data/_types.d.mts";
+import type { DocumentFlags, DocumentFlagsSource } from "@common/data/_types.d.mts";
 import type * as fields from "@common/data/fields.d.mts";
 import type { MigrationRecord, OneToThree, PublicationData, Rarity } from "@module/data.ts";
 import type { RuleElementSource } from "@module/rules/index.ts";
@@ -51,7 +51,7 @@ type ItemFlagsPF2e = DocumentFlags & {
     };
 };
 
-type ItemSourceFlagsPF2e = DocumentFlags & {
+type ItemSourceFlagsPF2e = DocumentFlagsSource & {
     pf2e?: {
         rulesSelections?: Record<string, string | number | object>;
         itemGrants?: Record<string, ItemGranterSource>;
