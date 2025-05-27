@@ -94,7 +94,7 @@ async function applyDamageFromMessage({
 }: ApplyDamageFromMessageParams): Promise<void> {
     if (promptModifier) return shiftAdjustDamage(message, multiplier, rollIndex);
 
-    const html = htmlQuery(ui.chat.element[0], `li.chat-message[data-message-id="${message.id}"]`);
+    const html = htmlQuery(ui.chat.element, `li.chat-message[data-message-id="${message.id}"]`);
     const tokens = html?.dataset.actorIsTarget && message.token ? [message.token] : game.user.getActiveTokens();
     if (tokens.length === 0) {
         ui.notifications.error("PF2E.ErrorMessage.NoTokenSelected", { localize: true });
