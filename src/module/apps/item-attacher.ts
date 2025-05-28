@@ -29,11 +29,6 @@ class ItemAttacher<TItem extends PhysicalItemPF2e> extends PickAThingPrompt<TIte
         super({ item, choices });
     }
 
-    /** Only allow one of these dialogs to be open. */
-    override get id(): string {
-        return "item-attacher";
-    }
-
     override get title(): string {
         return game.i18n.format("PF2E.Item.Physical.Attach.PromptTitle", { item: this.item.name });
     }
