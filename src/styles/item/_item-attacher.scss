@@ -1,4 +1,4 @@
-#item-attacher .content {
+#item-attacher .window-content {
     @import "../reset";
 
     > * {
@@ -32,10 +32,10 @@
 
         .arrow {
             align-items: center;
-            background: rgba(black, 0.1);
+            background: var(--table-header-bg-color);
             border-radius: 1px;
             bottom: var(--space-8);
-            color: var(--color-text-dark-4);
+            color: var(--color-text-subtle);
             display: flex;
             flex: 1;
             font-size: var(--font-size-16);
@@ -51,7 +51,7 @@
 
             &:after {
                 border: var(--space-12) solid transparent;
-                border-left-color: rgba(black, 0.1);
+                border-left-color: var(--table-header-bg-color);
                 border-radius: 1px;
                 content: "";
                 left: 100%;
@@ -69,9 +69,13 @@
     }
 
     footer {
-        button:disabled {
-            background: rgba(black, 0.1);
-            border-color: transparent;
+        button {
+            width: 100%;
+
+            &:disabled {
+                background: rgba(black, 0.1);
+                border-color: transparent;
+            }
         }
 
         label {
