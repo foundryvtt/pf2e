@@ -1,17 +1,14 @@
-#item-attacher .content {
-    @import "../reset";
-
-    > * {
-        display: flex;
-    }
-
+#item-attacher .window-content {
     .form-group {
         --arrow-width: 3rem;
-        align-items: center;
         flex-wrap: nowrap;
         gap: calc(1.5rem + var(--arrow-width));
         justify-content: space-between;
         position: relative;
+
+        > * {
+            flex: unset;
+        }
 
         .attachment {
             align-items: center;
@@ -32,14 +29,13 @@
 
         .arrow {
             align-items: center;
-            background: rgba(black, 0.1);
+            background: var(--table-header-bg-color);
             border-radius: 1px;
             bottom: var(--space-8);
-            color: var(--color-text-dark-4);
+            color: var(--color-text-subtle);
             display: flex;
-            flex: 1;
             font-size: var(--font-size-16);
-            height: var(--form-field-height);
+            height: 1.5rem;
             justify-content: center;
             left: 2.95rem;
             position: absolute;
@@ -51,7 +47,7 @@
 
             &:after {
                 border: var(--space-12) solid transparent;
-                border-left-color: rgba(black, 0.1);
+                border-left-color: var(--table-header-bg-color);
                 border-radius: 1px;
                 content: "";
                 left: 100%;
@@ -69,9 +65,16 @@
     }
 
     footer {
-        button:disabled {
-            background: rgba(black, 0.1);
-            border-color: transparent;
+        display: flex;
+        gap: 1rem;
+
+        button {
+            width: 100%;
+
+            &:disabled {
+                background: rgba(black, 0.1);
+                border-color: transparent;
+            }
         }
 
         label {
