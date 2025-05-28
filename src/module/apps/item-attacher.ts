@@ -6,6 +6,13 @@ import { ErrorPF2e } from "@util";
 
 /** A prompt for the user to select an item to receive an attachment */
 class ItemAttacher<TItem extends PhysicalItemPF2e> extends PickAThingPrompt<TItem, PhysicalItemPF2e> {
+    static override DEFAULT_OPTIONS: DeepPartial<fa.ApplicationConfiguration> = {
+        id: "item-attacher",
+        window: {
+            contentClasses: ["standard-form"],
+        },
+    };
+
     static override PARTS: Record<string, fa.api.HandlebarsTemplatePart> = {
         base: { template: "systems/pf2e/templates/items/item-attacher.hbs", root: true },
     };
@@ -23,11 +30,6 @@ class ItemAttacher<TItem extends PhysicalItemPF2e> extends PickAThingPrompt<TIte
             .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang));
 
         super({ item, choices });
-    }
-
-    /** Only allow one of these dialogs to be open. */
-    override get id(): string {
-        return "item-attacher";
     }
 
     override get title(): string {
