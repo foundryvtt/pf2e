@@ -34,6 +34,7 @@ interface AbstractEffectSystemData extends Omit<ModelPropsFromSchema<AbstractEff
     duration: DurationData;
     expired?: boolean;
     context?: EffectContextData | null;
+    start?: { value: number; initiative: number | null };
 }
 
 interface EffectContextData {
