@@ -1,17 +1,14 @@
 #item-attacher .window-content {
-    @import "../reset";
-
-    > * {
-        display: flex;
-    }
-
     .form-group {
         --arrow-width: 3rem;
-        align-items: center;
         flex-wrap: nowrap;
         gap: calc(1.5rem + var(--arrow-width));
         justify-content: space-between;
         position: relative;
+
+        > * {
+            flex: unset;
+        }
 
         .attachment {
             align-items: center;
@@ -37,9 +34,8 @@
             bottom: var(--space-8);
             color: var(--color-text-subtle);
             display: flex;
-            flex: 1;
             font-size: var(--font-size-16);
-            height: var(--form-field-height);
+            height: 1.5rem;
             justify-content: center;
             left: 2.95rem;
             position: absolute;
@@ -69,6 +65,9 @@
     }
 
     footer {
+        display: flex;
+        gap: 1rem;
+
         button {
             width: 100%;
 

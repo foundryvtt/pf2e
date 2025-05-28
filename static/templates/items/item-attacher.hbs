@@ -14,12 +14,10 @@
     </select>
 </div>
 
-<hr />
-
 <footer>
     <button type="button" data-action="pick" value="0">{{localize "PF2E.Item.Physical.Attach.Label"}}</button>
     {{#if item.actor.skills.crafting}}
-        <label class="check">
+        <label>
             <input type="checkbox" data-crafting-check {{checked (not user.isGM)}} />
             <span>{{localize "PF2E.Item.Physical.Attach.CraftingCheck"}}</span>
         </label>

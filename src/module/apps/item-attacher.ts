@@ -8,6 +8,9 @@ import { ErrorPF2e } from "@util";
 class ItemAttacher<TItem extends PhysicalItemPF2e> extends PickAThingPrompt<TItem, PhysicalItemPF2e> {
     static override DEFAULT_OPTIONS: DeepPartial<fa.ApplicationConfiguration> = {
         id: "item-attacher",
+        window: {
+            contentClasses: ["standard-form"],
+        },
     };
 
     static override PARTS: Record<string, fa.api.HandlebarsTemplatePart> = {
