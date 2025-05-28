@@ -23,6 +23,7 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
             width: 400,
         },
         window: {
+            contentClasses: ["standard-form"],
             title: "PF2E.WorldClock.Title",
         },
         actions: {

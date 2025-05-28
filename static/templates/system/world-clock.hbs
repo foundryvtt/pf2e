@@ -1,13 +1,16 @@
 <header>{{date}} ({{time}})</header>
 {{#if user.isGM}}
-    <div class="input-grid">
+    <div class="form-group flexrow">
         <button type="button" data-action="advanceTime" data-advance-mode="{{sign}}" data-advance-time="6"><span class="sign">{{sign}}</span>{{localize "PF2E.WorldClock.Button.AddOneRound"}}</button>
         <button type="button" data-action="advanceTime" data-advance-mode="{{sign}}" data-advance-time="60"><span class="sign">{{sign}}</span>{{localize "PF2E.WorldClock.Button.AddOneMinute"}}</button>
         <button type="button" data-action="advanceTime" data-advance-mode="{{sign}}" data-advance-time="600"><span class="sign">{{sign}}</span>{{localize "PF2E.WorldClock.Button.AddTenMinutes"}}</button>
+    </div>
+    <div class="form-group flexrow">
         <button type="button" data-action="advanceTime" data-advance-mode="{{sign}}" data-advance-time="3600"><span class="sign">{{sign}}</span>{{localize "PF2E.WorldClock.Button.AddOneHour"}}</button>
         <button type="button" data-action="advanceTime" data-advance-mode="{{sign}}" data-advance-time="86400"><span class="sign">{{sign}}</span>{{localize "PF2E.WorldClock.Button.AddOneDay"}}</button>
         <button type="button" data-action="advanceTime" data-advance-mode="{{sign}}" data-advance-time="604800"><span class="sign">{{sign}}</span>{{localize "PF2E.WorldClock.Button.AddOneWeek"}}</button>
-        <section class="time-of-day">
+    </div>
+    <div class="form-group flexrow">
             <button type="button" data-tooltip="PF2E.WorldClock.Button.TimeOfDay.Advance.Dawn" data-tooltip-direction="UP" data-action="advanceTime" data-advance-mode="{{sign}}" data-advance-time="dawn">
                 <span class="sign">{{sign}}</span><i class="fa-solid fa-sunrise" inert></i>
             </button>
@@ -20,9 +23,8 @@
             <button type="button" data-tooltip="PF2E.WorldClock.Button.TimeOfDay.Advance.Midnight" data-tooltip-direction="UP" data-action="advanceTime" data-advance-mode="{{sign}}" data-advance-time="midnight">
                 <span class="sign">{{sign}}</span><i class="fa-solid fa-moon-stars" inert></i>
             </button>
-        </section>
     </div>
-    <div class="input-grid">
+    <div class="form-group flexrow time-of-day">
         <input name="diff-value" type="number" required="required" placeholder="{{localize "PF2E.WorldClock.Placeholder"}}">
         <select name="diff-unit">
             <option value="1">{{localize "PF2E.Time.Unit.Seconds"}}</option>
