@@ -2,9 +2,10 @@
     section.window-content {
         font-size: 1rem;
 
-        h1 {
-            font-size: inherit;
+        header {
+            font-family: var(--font-sans);
             text-align: center;
+            border-bottom: 2px solid var(--color-tabs-border);
         }
 
         .input-grid {
@@ -13,6 +14,7 @@
             flex-wrap: wrap;
             font-size: 0.8rem;
             justify-content: space-evenly;
+            margin-top: 1em;
 
             > * {
                 flex-basis: 32%;
@@ -31,10 +33,12 @@
                 font-size: inherit;
                 justify-content: center;
                 margin: 1px;
+                width: 100%;
 
-                img {
-                    border: none;
-                    height: 1.5em;
+                i {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                 }
             }
 
@@ -42,10 +46,6 @@
                 display: flex;
                 flex-basis: 100%;
                 margin: 0 3px;
-
-                img.midnight {
-                    height: 1.05rem;
-                }
             }
         }
     }

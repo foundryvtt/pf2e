@@ -1,40 +1,37 @@
-<section>
-    <h1>{{date}} ({{time}})</h1>
-    {{#if user.isGM}}
-        <div class="input-grid">
-            <button type="button" data-advance-mode="{{sign}}" data-advance-time="6"><span class="sign">{{sign}}</span>{{localize "PF2E.WorldClock.Button.AddOneRound"}}</button>
-            <button type="button" data-advance-mode="{{sign}}" data-advance-time="60"><span class="sign">{{sign}}</span>{{localize "PF2E.WorldClock.Button.AddOneMinute"}}</button>
-            <button type="button" data-advance-mode="{{sign}}" data-advance-time="600"><span class="sign">{{sign}}</span>{{localize "PF2E.WorldClock.Button.AddTenMinutes"}}</button>
-            <button type="button" data-advance-mode="{{sign}}" data-advance-time="3600"><span class="sign">{{sign}}</span>{{localize "PF2E.WorldClock.Button.AddOneHour"}}</button>
-            <button type="button" data-advance-mode="{{sign}}" data-advance-time="86400"><span class="sign">{{sign}}</span>{{localize "PF2E.WorldClock.Button.AddOneDay"}}</button>
-            <button type="button" data-advance-mode="{{sign}}" data-advance-time="604800"><span class="sign">{{sign}}</span>{{localize "PF2E.WorldClock.Button.AddOneWeek"}}</button>
-            <section class="time-of-day">
-                <button type="button" title="{{localize "PF2E.WorldClock.Button.TimeOfDay.Advance.Dawn"}}" data-advance-mode="{{sign}}" data-advance-time="dawn">
-                    <span class="sign">{{sign}}</span><img src="systems/pf2e/icons/mdi/sunrise.svg" />
-                </button>
-                <button type="button" title="{{localize "PF2E.WorldClock.Button.TimeOfDay.Advance.Noon"}}" data-advance-mode="{{sign}}" data-advance-time="noon">
-                    <span class="sign">{{sign}}</span><img src="systems/pf2e/icons/mdi/sunny.svg" />
-                </button>
-                <button type="button" title="{{localize "PF2E.WorldClock.Button.TimeOfDay.Advance.Dusk"}}" data-advance-mode="{{sign}}" data-advance-time="dusk">
-                    <span class="sign">{{sign}}</span><img src="systems/pf2e/icons/mdi/sunset.svg" />
-                </button>
-                <button type="button" title="{{localize "PF2E.WorldClock.Button.TimeOfDay.Advance.Midnight"}}" data-advance-mode="{{sign}}" data-advance-time="midnight">
-                    <span class="sign">{{sign}}</span><img class="midnight" src="systems/pf2e/icons/mdi/night.svg" />
-                </button>
-            </section>
-        </div>
-        <hr>
-        <div class="input-grid">
-            <input name="diff-value" type="number" required="required" placeholder="{{localize "PF2E.WorldClock.Placeholder"}}">
-            <select name="diff-unit">
-                <option value="1">{{localize "PF2E.Time.Unit.Seconds"}}</option>
-                <option value="6">{{localize "PF2E.Time.Unit.Rounds"}}</option>
-                <option value="60">{{localize "PF2E.Time.Unit.Minutes"}}</option>
-                <option value="3600">{{localize "PF2E.Time.Unit.Hours"}}</option>
-                <option value="86400">{{localize "PF2E.Time.Unit.Days"}}</option>
-                <option value="604800">{{localize "PF2E.Time.Unit.Weeks"}}</option>
-            </select>
-            <button type="button" name="advance">{{#if (eq sign "+")}}{{localize "PF2E.WorldClock.Button.Advance"}}{{else}}{{localize "PF2E.WorldClock.Button.Retract"}}{{/if}}</button>
-        </div>
-    {{/if}}
-</section>
+<header>{{date}} ({{time}})</header>
+{{#if user.isGM}}
+    <div class="input-grid">
+        <button type="button" data-action="advanceTime" data-advance-mode="{{sign}}" data-advance-time="6"><span class="sign">{{sign}}</span>{{localize "PF2E.WorldClock.Button.AddOneRound"}}</button>
+        <button type="button" data-action="advanceTime" data-advance-mode="{{sign}}" data-advance-time="60"><span class="sign">{{sign}}</span>{{localize "PF2E.WorldClock.Button.AddOneMinute"}}</button>
+        <button type="button" data-action="advanceTime" data-advance-mode="{{sign}}" data-advance-time="600"><span class="sign">{{sign}}</span>{{localize "PF2E.WorldClock.Button.AddTenMinutes"}}</button>
+        <button type="button" data-action="advanceTime" data-advance-mode="{{sign}}" data-advance-time="3600"><span class="sign">{{sign}}</span>{{localize "PF2E.WorldClock.Button.AddOneHour"}}</button>
+        <button type="button" data-action="advanceTime" data-advance-mode="{{sign}}" data-advance-time="86400"><span class="sign">{{sign}}</span>{{localize "PF2E.WorldClock.Button.AddOneDay"}}</button>
+        <button type="button" data-action="advanceTime" data-advance-mode="{{sign}}" data-advance-time="604800"><span class="sign">{{sign}}</span>{{localize "PF2E.WorldClock.Button.AddOneWeek"}}</button>
+        <section class="time-of-day">
+            <button type="button" data-tooltip="PF2E.WorldClock.Button.TimeOfDay.Advance.Dawn" data-tooltip-direction="UP" data-action="advanceTime" data-advance-mode="{{sign}}" data-advance-time="dawn">
+                <span class="sign">{{sign}}</span><i class="fa-solid fa-sunrise" inert></i>
+            </button>
+            <button type="button" data-tooltip="PF2E.WorldClock.Button.TimeOfDay.Advance.Noon" data-tooltip-direction="UP" data-action="advanceTime" data-advance-mode="{{sign}}" data-advance-time="noon">
+                <span class="sign">{{sign}}</span><i class="fa-solid fa-sun" inert></i>
+            </button>
+            <button type="button" data-tooltip="PF2E.WorldClock.Button.TimeOfDay.Advance.Dusk" data-tooltip-direction="UP" data-action="advanceTime" data-advance-mode="{{sign}}" data-advance-time="dusk">
+                <span class="sign">{{sign}}</span><i class="fa-solid fa-sunset" inert></i>
+            </button>
+            <button type="button" data-tooltip="PF2E.WorldClock.Button.TimeOfDay.Advance.Midnight" data-tooltip-direction="UP" data-action="advanceTime" data-advance-mode="{{sign}}" data-advance-time="midnight">
+                <span class="sign">{{sign}}</span><i class="fa-solid fa-moon-stars" inert></i>
+            </button>
+        </section>
+    </div>
+    <div class="input-grid">
+        <input name="diff-value" type="number" required="required" placeholder="{{localize "PF2E.WorldClock.Placeholder"}}">
+        <select name="diff-unit">
+            <option value="1">{{localize "PF2E.Time.Unit.Seconds"}}</option>
+            <option value="6">{{localize "PF2E.Time.Unit.Rounds"}}</option>
+            <option value="60">{{localize "PF2E.Time.Unit.Minutes"}}</option>
+            <option value="3600">{{localize "PF2E.Time.Unit.Hours"}}</option>
+            <option value="86400">{{localize "PF2E.Time.Unit.Days"}}</option>
+            <option value="604800">{{localize "PF2E.Time.Unit.Weeks"}}</option>
+        </select>
+        <button type="button" data-action="advanceOrRetract" name="advance">{{#if (eq sign "+")}}{{localize "PF2E.WorldClock.Button.Advance"}}{{else}}{{localize "PF2E.WorldClock.Button.Retract"}}{{/if}}</button>
+    </div>
+{{/if}}
