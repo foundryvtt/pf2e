@@ -9,7 +9,7 @@ export function calculateRemainingDuration(
     if (durationData.unit === "encounter") {
         const isExpired = effect.system.expired;
         return { expired: !!isExpired, remaining: isExpired ? 0 : Infinity };
-    } else if (durationData.unit === "unlimited" || !("start" in effect.system)) {
+    } else if (durationData.unit === "unlimited" || !effect.system.start) {
         return { expired: false, remaining: Infinity };
     }
 
