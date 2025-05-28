@@ -1,51 +1,26 @@
 #world-clock {
     section.window-content {
-        font-size: 1rem;
+        gap: 0.2rem;
 
         header {
+            font-size: var(--font-size-16);
             font-family: var(--font-sans);
             text-align: center;
             border-bottom: 2px solid var(--color-tabs-border);
+            margin-bottom: 0.5rem;
         }
 
-        .input-grid {
-            align-items: center;
-            display: flex;
-            flex-wrap: wrap;
-            font-size: 0.8rem;
-            justify-content: space-evenly;
-            margin-top: 1em;
-
-            > * {
-                flex-basis: 32%;
-                height: 1.5rem;
-                line-height: 20px;
-            }
+        .form-group {
+            font-size: var(--font-size-14);
+            gap: 0.2rem;
 
             .sign {
                 font-family: var(--sans-serif-monospace);
                 font-size: inherit;
             }
 
-            button {
-                align-items: center;
-                display: flex;
-                font-size: inherit;
-                justify-content: center;
-                margin: 1px;
-                width: 100%;
-
-                i {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
-            }
-
-            .time-of-day {
-                display: flex;
-                flex-basis: 100%;
-                margin: 0 3px;
+            &.time-of-day {
+                margin-top: 0.5rem;
             }
         }
     }
