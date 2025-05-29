@@ -129,6 +129,10 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         await this.actor?.decreaseCondition(this);
     }
 
+    /**
+     * Runs condition end of turn events on this actor
+     * @todo convert to onEncounterEvent()
+     */
     async onEndTurn(options: { token?: TokenDocumentPF2e | null } = {}): Promise<void> {
         const actor = this.actor;
         const token = options?.token ?? actor?.token;
