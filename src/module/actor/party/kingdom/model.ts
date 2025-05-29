@@ -82,10 +82,10 @@ class Kingdom extends foundry.abstract.DataModel<PartySystemData, KingdomSchema>
         // Do not show kingdom to party members until building starts or it becomes activated.
         if (!(this.active || game.user.isGM) || game.pf2e.settings.campaign.type !== "kingmaker") return [];
 
-        const hoverIcon = this.active === "building" ? "wrench" : !this.active ? "plus" : null;
-        const icon = createHTMLElement("a", {
-            classes: ["create-button"],
-            children: [fontAwesomeIcon("crown"), hoverIcon ? fontAwesomeIcon(hoverIcon) : null].filter(R.isNonNull),
+        const hoverIcon = this.active === "building" ? ["icon-plus", "icon-wrench"] : !this.active ? ["icon-plus"] : [];
+        const icon = createHTMLElement("button", {
+            classes: ["create-button", "icon", ...hoverIcon],
+            children: [fontAwesomeIcon("crown")],
             dataset: {
                 tooltip: game.i18n.localize(
                     `PF2E.Kingmaker.SIDEBAR.${this.active === true ? "OpenSheet" : "CreateKingdom"}`,

@@ -110,6 +110,16 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
 
         await super._onRender(context, options);
 
+        // Inject any additional buttons for specific party implementations
+        for (const party of game.actors.filter((a) => a.isOfType("party"))) {
+            const sidebarButtons = party.campaign?.createSidebarButtons?.() ?? [];
+            if (sidebarButtons.length) {
+                this.element
+                    .querySelector(`li[data-party][data-entry-id="${party.id}"] header .folder-name`)
+                    ?.after(...sidebarButtons);
+            }
+        }
+
         // Strip actor level from actors we lack proper observer permission for
         for (const element of htmlQueryAll(this.element, "li.directory-item.actor")) {
             const actor = game.actors.get(element.dataset.entryId, { strict: true });
