@@ -3,6 +3,7 @@ import type { FeatGroup } from "@actor/character/feats/index.ts";
 import { MODIFIER_TYPES } from "@actor/modifiers.ts";
 import { ActorSheetPF2e, SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import type { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
+import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
 import type { ApplicationV1HeaderButton } from "@client/appv1/api/application-v1.d.mts";
 import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
 import type { DropCanvasData } from "@client/helpers/hooks.d.mts";
@@ -36,6 +37,7 @@ import {
     tupleHasValue,
 } from "@util";
 import { createSortable, createTooltipster } from "@util/destroyables.ts";
+import type { Plugin } from "prosemirror-state";
 import * as R from "remeda";
 import { KingdomBuilder } from "./builder.ts";
 import { calculateKingdomCollectionData } from "./helpers.ts";
@@ -97,7 +99,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             ...options,
             classes: [...options.classes, "kingdom"],
             width: 750,
-            height: 620,
+            height: 630,
             template: "systems/pf2e/templates/actors/party/kingdom/sheet.hbs",
             scrollY: [...options.scrollY, ".tab.active", ".tab.active .content", ".sidebar"],
             tabs: [
@@ -228,7 +230,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     protected override _configureProseMirrorPlugins(
         name: string,
         options: { remove?: boolean },
-    ): Record<string, ProseMirror.Plugin> {
+    ): Record<string, Plugin> {
         const plugins = super._configureProseMirrorPlugins(name, options);
         plugins.menu = foundry.prosemirror.ProseMirrorMenu.build(foundry.prosemirror.defaultSchema, {
             destroyOnSave: options.remove,
@@ -295,7 +297,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         for (const openSheetLink of htmlQueryAll(html, "[data-action=open-sheet]")) {
             const actorUUID = htmlClosest(openSheetLink, "[data-actor-uuid]")?.dataset.actorUuid;
             const actor = fromUuidSync(actorUUID ?? "");
-            openSheetLink.addEventListener("click", () => actor?.sheet.render(true));
+            openSheetLink.addEventListener("click", () => actor?.sheet?.render(true));
         }
 
         for (const button of htmlQueryAll(html, "[data-action=builder]")) {
@@ -329,7 +331,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 for (const clickable of htmlQueryAll(leader, "[data-action=open-sheet]")) {
                     clickable.addEventListener("click", async () => {
                         const actor = await fromUuid(uuid);
-                        actor?.sheet.render(true);
+                        actor?.sheet?.render(true);
                     });
                 }
             }
