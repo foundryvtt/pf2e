@@ -1,4 +1,5 @@
 import type { ActorPF2e } from "@actor";
+import type CompendiumCollection from "@client/documents/collections/compendium-collection.d.mts";
 import type { ItemPF2e } from "@item";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { htmlQuery } from "@util";
