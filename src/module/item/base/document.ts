@@ -1056,7 +1056,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     ): Promise<HTMLCollection> {
         options.relativeTo = this;
         const container = document.createElement("div");
-        container.innerHTML = await TextEditorPF2e.enrichHTML(this.embedHTMLString(config, options), options);
+        container.innerHTML = await TextEditorPF2e.enrichHTML(this.embedHTMLString(config, options), { ...options });
         return container.children;
     }
 }
