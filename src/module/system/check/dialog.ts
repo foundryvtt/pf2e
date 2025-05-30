@@ -128,7 +128,7 @@ export class CheckModifiersDialog extends fav1.api.Application {
                 }
                 this.context.substitutions = this.#resolveSubstitutions().map((s) => R.omit(s, ["toggleable"]));
 
-                this.check.calculateTotal(this.context.options);
+                this.check = this.check.clone(this.context.options);
                 this.render();
             });
         }

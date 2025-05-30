@@ -583,6 +583,21 @@ class StatisticModifier {
 
         this.totalModifier = this._modifiers.filter((m) => m.enabled).reduce((total, m) => total + m.modifier, 0);
     }
+
+    /** Returns a clone of this `StatisticModifier` whith all contained `ModifierPF2e` reset to their intial value.  */
+    clone(rollOptions?: string[] | Set<string>): StatisticModifier {
+        const clone = new StatisticModifier(
+            this.slug,
+            this._modifiers.map((m) => m.clone()),
+            rollOptions,
+        );
+        clone.breakdown = this.breakdown;
+        clone.domains = this.domains;
+        clone.label = this.label;
+        clone.notes = this.notes?.map((n) => n.clone());
+
+        return clone;
+    }
 }
 
 function adjustModifiers(modifiers: ModifierPF2e[], rollOptions: Set<string>): void {
@@ -796,17 +811,17 @@ class DamageDicePF2e {
 interface RawDamageDice extends Required<DamageDiceParameters> {}
 
 export {
+    adjustModifiers,
+    applyStackingRules,
     CheckModifier,
+    createAttributeModifier,
+    createProficiencyModifier,
     DamageDicePF2e,
+    ensureProficiencyOption,
     MODIFIER_TYPES,
     ModifierPF2e,
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
-    adjustModifiers,
-    applyStackingRules,
-    createAttributeModifier,
-    createProficiencyModifier,
-    ensureProficiencyOption,
 };
 
 export type {
