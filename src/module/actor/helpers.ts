@@ -29,13 +29,7 @@ import * as R from "remeda";
 import { AttackTraitHelpers } from "./creature/helpers.ts";
 import type { DamageRollFunction } from "./data/base.ts";
 import type { ActorSourcePF2e } from "./data/index.ts";
-import {
-    CheckModifier,
-    ModifierPF2e,
-    StatisticModifier,
-    adjustModifiers,
-    createAttributeModifier,
-} from "./modifiers.ts";
+import { CheckModifier, ModifierPF2e, StatisticModifier, createAttributeModifier } from "./modifiers.ts";
 import type { NPCStrike } from "./npc/data.ts";
 import { CheckContext } from "./roll-context/check.ts";
 import { DamageContext } from "./roll-context/damage.ts";
@@ -532,7 +526,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
         `${game.i18n.localize("PF2E.WeaponStrikeLabel")} ${signedInteger(strike.totalModifier)}`,
         ...(["map1", "map2"] as const).map((prop) => {
             const modifier = createMapModifier(prop);
-            adjustModifiers([modifier], baseOptions);
+            modifier.applyAdjustments({ rollOptions: baseOptions });
             const penalty = modifier.ignored ? 0 : modifier.value;
             return game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
                 value: signedInteger(strike.totalModifier + penalty),
