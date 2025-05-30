@@ -38,7 +38,11 @@ class TemplateLayerPF2e<TObject extends MeasuredTemplatePF2e = MeasuredTemplateP
         }
 
         const { destination, preview: template, origin } = event.interactionData;
-        if (!template || template.destroyed) return;
+        if (!template || template.destroyed) {
+            return;
+        } else if (template.document.t === "rect") {
+            return super._onDragLeftMove(event);
+        }
 
         const dimensions = canvas.dimensions;
 
