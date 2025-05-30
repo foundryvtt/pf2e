@@ -186,7 +186,6 @@ class ModifierPF2e implements RawModifier {
         this.predicate = new Predicate(params.predicate ?? []);
         this.tags = R.unique(fu.deepClone(params.tags) ?? []);
         this.hideIfDisabled = params.hideIfDisabled ?? false;
-        this.modifier = params.modifier;
 
         this.rule = params.rule ?? null;
         // Prevent upstream from blindly diving into recursion loops
@@ -224,6 +223,41 @@ class ModifierPF2e implements RawModifier {
         return this.modifier === 0 && this.kind === "penalty"
             ? signedInteger(-this.modifier)
             : signedInteger(this.modifier);
+    }
+
+    /** Applies all adjustments to the original value */
+    applyAdjustments({ rollOptions }: { rollOptions: Iterable<string> }): void {
+        this.modifier = this.#originalValue;
+        const allRollOptions = [...rollOptions, ...this.getRollOptions()];
+        const adjustments = this.adjustments.filter((a) => a.test(allRollOptions));
+        if (adjustments.some((a) => a.suppress)) {
+            this.ignored = true;
+            return;
+        }
+
+        type ResolvedAdjustment = { value: number; relabel: string | null };
+        const resolvedAdjustment = adjustments.reduce(
+            (resolved: ResolvedAdjustment, adjustment) => {
+                const newValue = adjustment.getNewValue?.(resolved.value) ?? resolved.value;
+                if (newValue !== resolved.value) {
+                    resolved.value = newValue;
+                    resolved.relabel = adjustment.relabel ?? null;
+                }
+                return resolved;
+            },
+            { value: this.modifier, relabel: null },
+        );
+        this.modifier = resolvedAdjustment.value;
+
+        if (resolvedAdjustment.relabel) {
+            this.label = game.i18n.localize(resolvedAdjustment.relabel);
+        }
+
+        // If applicable, change the damage type of this modifier, using only the final adjustment found
+        this.damageType = adjustments.reduce(
+            (damageType: DamageType | null, adjustment) => adjustment.getDamageType?.(damageType) ?? damageType,
+            this.damageType,
+        );
     }
 
     /**
@@ -587,36 +621,7 @@ class StatisticModifier {
 
 function adjustModifiers(modifiers: ModifierPF2e[], rollOptions: Set<string>): void {
     for (const modifier of [...modifiers].sort((a, b) => Math.abs(b.value) - Math.abs(a.value))) {
-        const allRollOptions = [...rollOptions, ...modifier.getRollOptions()];
-        const adjustments = modifier.adjustments.filter((a) => a.test(allRollOptions));
-        if (adjustments.some((a) => a.suppress)) {
-            modifier.ignored = true;
-            continue;
-        }
-
-        type ResolvedAdjustment = { value: number; relabel: string | null };
-        const resolvedAdjustment = adjustments.reduce(
-            (resolved: ResolvedAdjustment, adjustment) => {
-                const newValue = adjustment.getNewValue?.(resolved.value) ?? resolved.value;
-                if (newValue !== resolved.value) {
-                    resolved.value = newValue;
-                    resolved.relabel = adjustment.relabel ?? null;
-                }
-                return resolved;
-            },
-            { value: modifier.modifier, relabel: null },
-        );
-        modifier.modifier = resolvedAdjustment.value;
-
-        if (resolvedAdjustment.relabel) {
-            modifier.label = game.i18n.localize(resolvedAdjustment.relabel);
-        }
-
-        // If applicable, change the damage type of this modifier, using only the final adjustment found
-        modifier.damageType = adjustments.reduce(
-            (damageType: DamageType | null, adjustment) => adjustment.getDamageType?.(damageType) ?? damageType,
-            modifier.damageType,
-        );
+        modifier.applyAdjustments({ rollOptions });
     }
 }
 
@@ -796,17 +801,17 @@ class DamageDicePF2e {
 interface RawDamageDice extends Required<DamageDiceParameters> {}
 
 export {
+    adjustModifiers,
+    applyStackingRules,
     CheckModifier,
+    createAttributeModifier,
+    createProficiencyModifier,
     DamageDicePF2e,
+    ensureProficiencyOption,
     MODIFIER_TYPES,
     ModifierPF2e,
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
-    adjustModifiers,
-    applyStackingRules,
-    createAttributeModifier,
-    createProficiencyModifier,
-    ensureProficiencyOption,
 };
 
 export type {

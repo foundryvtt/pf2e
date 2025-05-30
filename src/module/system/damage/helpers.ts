@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import { DamageDicePF2e, ModifierPF2e, RawDamageDice, adjustModifiers } from "@actor/modifiers.ts";
+import { DamageDicePF2e, ModifierPF2e, RawDamageDice } from "@actor/modifiers.ts";
 import type { ItemPF2e } from "@item";
 import { WeaponDamage } from "@item/weapon/data.ts";
 import { extractDamageAlterations, extractModifierAdjustments } from "@module/rules/helpers.ts";
@@ -92,7 +92,7 @@ function applyBaseDamageAlterations({ actor, item, base, domains, rollOptions }:
                         damageType: partial.damageType,
                         adjustments: modifierAdjustments,
                     });
-                    adjustModifiers([modifier], rollOptions);
+                    modifier.applyAdjustments({ rollOptions });
                     for (const alteration of damageAlterations) {
                         alteration.applyTo(modifier, { item, test: rollOptions });
                     }
