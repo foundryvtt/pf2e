@@ -157,7 +157,11 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
     /** Include parent item's name and UUID in `DataModel` validation error messages */
     override validate(options: DataModelValidationOptions = {}): boolean {
         try {
-            return super.validate(options);
+            const isValid = super.validate(options);
+            if (isValid && this.validationFailures.fields) {
+                console.warn(`Validation errors on item ${this.item.name} (${this.item.uuid})`);
+            }
+            return isValid;
         } catch (error) {
             if (error instanceof foundry.data.validation.DataModelValidationError) {
                 const message = error.message.replace(
