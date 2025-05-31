@@ -36,6 +36,7 @@ import { Migration933CraftingAbility } from "@module/migration/migrations/933-cr
 import { Migration934MythicCallingCategory } from "@module/migration/migrations/934-mythic-calling-category.ts";
 import { Migration935DeityIconPaths } from "@module/migration/migrations/935-deity-icon-paths.ts";
 import { Migration937RemoveInvalidAuraTraits } from "@module/migration/migrations/937-remove-invalid-aura-traits.ts";
+import { Migration938RenameBroochesAndThroned } from "@module/migration/migrations/938-rename-brooches-and-throned.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -66,6 +67,7 @@ const migrations: MigrationBase[] = [
     new Migration934MythicCallingCategory(),
     new Migration935DeityIconPaths(),
     new Migration937RemoveInvalidAuraTraits(),
+    new Migration938RenameBroochesAndThroned(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), "packs");
