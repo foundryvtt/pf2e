@@ -341,6 +341,8 @@ class DamageInstance extends AbstractDamageRoll {
 
     persistent: boolean;
 
+    splash: boolean;
+
     materials: Set<MaterialDamageEffect>;
 
     critRule: CriticalDoublingRule | null = null;
@@ -351,6 +353,7 @@ class DamageInstance extends AbstractDamageRoll {
         const flavorIdentifiers = flavor.replace(/[^a-z,_-]/g, "").split(",");
         this.type = flavorIdentifiers.find((i): i is DamageType => i in CONFIG.PF2E.damageTypes) ?? "untyped";
         this.persistent = flavorIdentifiers.includes("persistent") || flavorIdentifiers.includes("bleed");
+        this.splash = deepFindTerms(this.head, { flavor: "splash" }).length !== 0;
         this.materials = new Set(
             flavorIdentifiers.filter((i): i is MaterialDamageEffect => i in CONFIG.PF2E.materialDamageEffects),
         );
@@ -485,6 +488,7 @@ class DamageInstance extends AbstractDamageRoll {
                 `damage:type:${this.type}`,
                 typeCategory ? `damage:category:${typeCategory}` : [],
                 this.persistent ? "damage:category:persistent" : [],
+                this.splash ? "damage:component:splash" : [],
                 Array.from(this.materials).map((m) => `damage:material:${m}`),
             ].flat(),
         );
