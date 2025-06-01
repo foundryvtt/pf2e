@@ -237,3 +237,4 @@ export { Migration935DeityIconPaths } from "./935-deity-icon-paths.ts";
 export { Migration936MoveWorldClockSettings } from "./936-move-world-created-on.ts";
 export { Migration937RemoveInvalidAuraTraits } from "./937-remove-invalid-aura-traits.ts";
 export { Migration938RenameBroochesAndThroned } from "./938-rename-brooches-and-throned.ts";
+export { Migration939SetTokenDimensions } from "./939-set-token-dimensions.ts";
