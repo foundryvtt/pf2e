@@ -1,4 +1,5 @@
 import type { ActorPF2e } from "@actor";
+import type { HandlebarsRenderOptions } from "@client/applications/api/handlebars-application.d.mts";
 import { AbstractEffectPF2e, AfflictionPF2e, ConditionPF2e, EffectPF2e } from "@item";
 import { PersistentDamageEditor } from "@item/condition/persistent-damage-editor.ts";
 import { createTooltipListener } from "@module/sheet/helpers.ts";
@@ -141,8 +142,67 @@ export class EffectsPanel extends fa.api.HandlebarsApplicationMixin(fa.api.Appli
         );
     }
 
+    protected override async _onFirstRender(
+        context: EffectsPanelViewData,
+        options: HandlebarsRenderOptions,
+    ): Promise<void> {
+        // Add tooltip listener for effects panel entries
+        // The uiConfig setting doesn't handle browser default, so we poach the interface theme from the DOM
+        // If we don't include the application class, theme-dark has errors
+        const interfaceElement = document.querySelector("#interface");
+        const themeClass =
+            [...(interfaceElement?.classList.values() ?? [])].find((c) => c.startsWith("theme-")) ?? "theme-dark";
+        createTooltipListener(this.element, {
+            selector: ".effect-item[data-item-id]",
+            locked: true,
+            direction: "LEFT",
+            cssClass: `pf2e effect-info application themed ${themeClass}`,
+            align: "top",
+            render: async (effectEl) => {
+                const actor = this.#actor;
+                const itemId = effectEl.dataset.itemId ?? "";
+                const effect = actor?.conditions.get(itemId) ?? actor?.items.get(itemId);
+                if (!actor || !effect) return null;
+
+                const viewData = (await this.#getViewData([effect]))[0];
+                if (!viewData) throw ErrorPF2e("Error creating view data for effect");
+
+                const content = createHTMLElement("div", {
+                    innerHTML: await fa.handlebars.renderTemplate(
+                        "systems/pf2e/templates/system/effects/tooltip.hbs",
+                        viewData,
+                    ),
+                }).firstElementChild;
+                if (!(content instanceof HTMLElement)) return null;
+
+                content.querySelector("[data-action=recover-persistent-damage]")?.addEventListener("click", () => {
+                    if (effect.isOfType("condition")) {
+                        effect.rollRecovery();
+                    }
+                });
+
+                content.querySelector("[data-action=edit]")?.addEventListener("click", () => {
+                    if (effect.isOfType("condition") && effect.slug === "persistent-damage") {
+                        new PersistentDamageEditor({ actor, selectedItemId: effect.id }).render({ force: true });
+                    } else {
+                        effect.sheet.render(true);
+                    }
+                });
+
+                // Send effect to chat
+                content.querySelector("[data-action=send-to-chat]")?.addEventListener("click", () => {
+                    effect.toMessage();
+                });
+
+                return content;
+            },
+        });
+
+        return super._onFirstRender(context, options);
+    }
+
     /** Move the panel to the right interface column. */
-    override async _onRender(context: object, options: fa.ApplicationRenderOptions): Promise<void> {
+    override async _onRender(context: object, options: HandlebarsRenderOptions): Promise<void> {
         await super._onRender(context, options);
         const html = this.element;
         if (options?.force) {
@@ -198,58 +258,6 @@ export class EffectsPanel extends fa.api.HandlebarsApplicationMixin(fa.api.Appli
                 textElement.style.display = "inline";
             }
         }
-
-        // Add tooltip listener for effects panel entries
-        // The uiConfig setting doesn't handle browser default, so we poach the interface theme from the DOM
-        // If we don't include the application class, theme-dark has errors
-        const interfaceElement = document.querySelector("#interface");
-        const themeClass =
-            [...(interfaceElement?.classList.values() ?? [])].find((c) => c.startsWith("theme-")) ?? "theme-dark";
-        createTooltipListener(html, {
-            selector: ".effect-item[data-item-id]",
-            locked: true,
-            direction: "LEFT",
-            cssClass: `pf2e effect-info application themed ${themeClass}`,
-            align: "top",
-            render: async (effectEl) => {
-                const actor = this.#actor;
-                const itemId = effectEl.dataset.itemId ?? "";
-                const effect = actor?.conditions.get(itemId) ?? actor?.items.get(itemId);
-                if (!actor || !effect) return null;
-
-                const viewData = (await this.#getViewData([effect]))[0];
-                if (!viewData) throw ErrorPF2e("Error creating view data for effect");
-
-                const content = createHTMLElement("div", {
-                    innerHTML: await fa.handlebars.renderTemplate(
-                        "systems/pf2e/templates/system/effects/tooltip.hbs",
-                        viewData,
-                    ),
-                }).firstElementChild;
-                if (!(content instanceof HTMLElement)) return null;
-
-                content.querySelector("[data-action=recover-persistent-damage]")?.addEventListener("click", () => {
-                    if (effect.isOfType("condition")) {
-                        effect.rollRecovery();
-                    }
-                });
-
-                content.querySelector("[data-action=edit]")?.addEventListener("click", () => {
-                    if (effect.isOfType("condition") && effect.slug === "persistent-damage") {
-                        new PersistentDamageEditor({ actor, selectedItemId: effect.id }).render({ force: true });
-                    } else {
-                        effect.sheet.render(true);
-                    }
-                });
-
-                // Send effect to chat
-                content.querySelector("[data-action=send-to-chat]")?.addEventListener("click", () => {
-                    effect.toMessage();
-                });
-
-                return content;
-            },
-        });
     }
 }
 
