@@ -14,7 +14,7 @@ export class Migration939SetTokenDimensions extends MigrationBase {
         const actorSize = actor?.system.traits?.size;
         if (!(actorSize instanceof ActorSizePF2e)) return;
         const { width, length: height } = actorSize;
-        source.width = width;
-        source.height = height;
+        source.width = width / 5;
+        source.height = height / 5;
     }
 }
