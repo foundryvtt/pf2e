@@ -177,7 +177,7 @@ function createTooltipListener(
         render: (element: HTMLElement) => Promise<HTMLElement | null>;
     },
 ): void {
-    const tooltipOptions = R.pick(options, ["cssClass", "direction", "locked"]);
+    const tooltipOptions = R.pick(options, ["direction", "locked"]);
 
     element.addEventListener(
         "pointerenter",
@@ -190,14 +190,13 @@ function createTooltipListener(
             if (options.locked) {
                 game.tooltip.dismissLockedTooltips();
             }
-            if (options.themeGroup) {
-                const parts = tooltipOptions.cssClass?.split(" ") ?? [];
-                // Remove current theme if present
-                parts.findSplice((c) => c === "theme-dark" || c === "theme-light");
-                parts.push(getCurrentTheme(options.themeGroup));
-                tooltipOptions.cssClass = parts.join(" ");
-            }
-            game.tooltip.activate(target, { html, ...tooltipOptions });
+            game.tooltip.activate(target, {
+                html,
+                ...tooltipOptions,
+                cssClass: options.themeGroup
+                    ? `${(options.cssClass ?? "").trim()} ${getCurrentTheme(options.themeGroup)}`.trim()
+                    : options.cssClass,
+            });
 
             // A very crude implementation only designed for align top. Make it more flexible if we need to later
             if (options.align === "top") {
