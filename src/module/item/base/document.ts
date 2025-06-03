@@ -21,6 +21,7 @@ import type { ItemOriginFlag } from "@module/chat-message/data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { preImportJSON } from "@module/doc-helpers.ts";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
+import { Migration901ReorganizeBulkData } from "@module/migration/migrations/901-reorganize-bulk-data.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource, RuleElements } from "@module/rules/index.ts";
 import { processGrantDeletions } from "@module/rules/rule-element/grant-item/helpers.ts";
@@ -812,6 +813,31 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
 
         return super.deleteDocuments(ids, operation);
+    }
+
+    /**
+     * Temporary migration to allow certain data models to work despite more recent migrations.
+     * @todo complete data models and create new migration framework
+     */
+    static override migrateData<T extends foundry.abstract.DataModel>(
+        this: ConstructorOf<T>,
+        source: ItemSourcePF2e,
+    ): T["_source"] {
+        const itemType = String(source.type);
+        const hasTypeDataModel = itemType in CONFIG.Item.dataModels;
+        if (!hasTypeDataModel) return super.migrateData(source);
+
+        const legacyVersion = R.isPlainObject(source.system.schema)
+            ? Number(source.system.schema.version) || null
+            : null;
+        const version = Number(source.system._migration?.version) || legacyVersion;
+        if (version && version < 0.901 && itemIsOfType(source, "physical")) {
+            const migration = new Migration901ReorganizeBulkData();
+            migration.updateItem(source);
+            source = fu.applySpecialKeys(source);
+        }
+
+        return super.migrateData(source);
     }
 
     /* -------------------------------------------- */

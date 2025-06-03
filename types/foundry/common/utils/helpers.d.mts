@@ -143,6 +143,13 @@ export function diffObject<T extends Record<string, unknown> = Record<string, un
 ): T;
 
 /**
+ * Recurse through an object, applying all special keys.
+ * Deletion keys ("-=") are removed.
+ * Forced replacement keys ("==") are assigned.
+ */
+export function applySpecialKeys<T>(obj: T): T;
+
+/**
  * Test if two objects contain the same enumerable keys and values.
  * @param a  The first object.
  * @param b  The second object.

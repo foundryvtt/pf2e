@@ -1,4 +1,5 @@
 import { SkillSlug } from "@actor/types.ts";
+import type { ImageFilePath } from "@common/constants.d.mts";
 import { Rarity } from "@module/data.ts";
 import { setHasElement } from "@util";
 import { adjustDCByRarity, calculateDC, DCOptions } from "../dc.ts";
@@ -73,7 +74,7 @@ function getItemIdentificationDCs(
     }
 }
 
-function getUnidentifiedPlaceholderImage(item: PhysicalItemPF2e): string {
+function getUnidentifiedPlaceholderImage(item: PhysicalItemPF2e): ImageFilePath {
     const iconName = ((): string => {
         if (item.isOfType("weapon")) {
             const { traits } = item;
