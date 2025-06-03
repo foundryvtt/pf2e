@@ -70,7 +70,7 @@ interface PhysicalSystemData extends Omit<PhysicalSystemSource, "description">, 
     temporary: boolean;
     identification: IdentificationData;
     usage: UsageDetails;
-    stackGroup: string | null;
+    stackGroup?: string | null;
 }
 
 type Investable<TData extends PhysicalSystemData | PhysicalSystemSource> = TData & {
@@ -93,7 +93,7 @@ type IdentificationStatus = "identified" | "unidentified";
 
 interface MystifiedData {
     name: string;
-    img: ImageFilePath;
+    img: ImageFilePath | null;
     data: {
         description: {
             value: string;
