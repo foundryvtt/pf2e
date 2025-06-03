@@ -51,7 +51,6 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             dying: {
                 maxed: actor.attributes.dying.value >= actor.attributes.dying.max,
                 remainingDying: Math.max(actor.attributes.dying.max - actor.attributes.dying.value),
-                remainingWounded: Math.max(actor.attributes.wounded.max - actor.attributes.wounded.value),
             },
             specialResources: Object.values(this.actor.synthetics.resources).map((r) =>
                 R.pick(r, ["slug", "label", "value", "max"]),
@@ -513,7 +512,6 @@ interface CreatureSheetData<TActor extends CreaturePF2e> extends ActorSheetDataP
     dying: {
         maxed: boolean;
         remainingDying: number;
-        remainingWounded: number;
     };
     specialResources: ResourceData[];
 }

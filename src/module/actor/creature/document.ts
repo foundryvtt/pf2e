@@ -341,7 +341,7 @@ abstract class CreaturePF2e<
 
         attributes.doomed = { value: 0, max: 3 };
         attributes.dying = { value: 0, max: 4, recoveryDC: 10 };
-        attributes.wounded = { value: 0, max: 3 };
+        attributes.wounded = { value: 0 };
 
         // Set IWR guaranteed by traits
         setImmunitiesFromTraits(this);
@@ -436,17 +436,20 @@ abstract class CreaturePF2e<
         rollOptions.all[`self:size:${sizeSlug}`] = true;
 
         // Handle caps derived from dying
-        attributes.wounded.max = Math.max(0, attributes.dying.max - 1);
         attributes.doomed.max = attributes.dying.max;
 
         // Set dying, doomed, and wounded statuses according to embedded conditions
-        for (const conditionSlug of ["doomed", "wounded", "dying"] as const) {
+        for (const conditionSlug of ["doomed", "dying"] as const) {
             const condition = this.conditions.bySlug(conditionSlug, { active: true }).at(0);
             const status = attributes[conditionSlug];
             if (conditionSlug === "dying") {
                 status.max -= attributes.doomed.value;
             }
             status.value = Math.min(condition?.value ?? 0, status.max);
+        }
+        const woundedconditionslug = this.conditions.bySlug("wounded", { active: true }).at(0);
+        if (woundedconditionslug !== null && woundedconditionslug !== undefined) {
+            attributes.wounded.value = Math.min(woundedconditionslug.value ?? 0);
         }
 
         // Clamp certain core resources
