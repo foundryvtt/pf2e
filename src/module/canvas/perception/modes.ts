@@ -73,7 +73,6 @@ class HearingDetectionMode extends fc.perception.DetectionMode {
     static override getDetectionFilter(): fc.rendering.filters.OutlineOverlayFilter {
         const filter = (this._detectionFilter ??= fc.rendering.filters.OutlineOverlayFilter.create({
             wave: true,
-            knockout: false,
         }));
         filter.thickness = 1;
         return filter;
