@@ -199,7 +199,11 @@ class SingleCheckActionVariant extends BaseActionVariant {
                     ...statistic.modifiers,
                     ...this.modifiers.map((modifier) => new ModifierPF2e(modifier)),
                 ];
-                const modifier = new StatisticModifier(args.slug, modifiers, args.rollOptions);
+                const modifier = new StatisticModifier(
+                    args.slug,
+                    modifiers,
+                    new Set(args.rollOptions).union(statistic.dc.options),
+                );
                 return { label: statistic.label, modifier: modifier.totalModifier, slug: args.slug };
             }
         } else {
