@@ -21,7 +21,7 @@ export class Migration855ApexEquipmentSystemData extends MigrationBase {
             .shift();
 
         if (setHasElement(ATTRIBUTE_ABBREVIATIONS, apexAttribute)) {
-            source.system.apex ??= { attribute: apexAttribute };
+            source.system.apex ??= { attribute: apexAttribute, selected: false };
             source.system.rules = source.system.rules.filter((r) => !isApexRE(r));
         }
     }
