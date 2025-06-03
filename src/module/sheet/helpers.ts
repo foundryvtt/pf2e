@@ -171,6 +171,7 @@ function createTooltipListener(
         /** If given, the tooltip will spawn on elements that match this selector */
         selector?: string;
         locked?: boolean;
+        themeGroup?: "applications" | "interface";
         direction?: TooltipDirection;
         cssClass?: string;
         render: (element: HTMLElement) => Promise<HTMLElement | null>;
@@ -189,6 +190,13 @@ function createTooltipListener(
             if (options.locked) {
                 game.tooltip.dismissLockedTooltips();
             }
+            if (options.themeGroup) {
+                const parts = tooltipOptions.cssClass?.split(" ") ?? [];
+                // Remove current theme if present
+                parts.findSplice((c) => c === "theme-dark" || c === "theme-light");
+                parts.push(getCurrentTheme(options.themeGroup));
+                tooltipOptions.cssClass = parts.join(" ");
+            }
             game.tooltip.activate(target, { html, ...tooltipOptions });
 
             // A very crude implementation only designed for align top. Make it more flexible if we need to later
@@ -204,6 +212,13 @@ function createTooltipListener(
         },
         true,
     );
+}
+
+/** Returns the currently active color scheme as `theme-dark` or `theme-light` */
+function getCurrentTheme(group: "applications" | "interface"): string {
+    const setting = game.settings.get("core", "uiConfig").colorScheme[group];
+    const browserDefault = window.matchMedia("(prefers-color-scheme: dark)").matches ? "theme-dark" : "theme-light";
+    return setting ? `theme-${setting}` : browserDefault;
 }
 
 interface SheetOption {
