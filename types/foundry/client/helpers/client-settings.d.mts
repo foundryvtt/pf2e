@@ -113,6 +113,7 @@ export default class ClientSettings {
     get(module: "core", key: "fontSize"): number;
     get(module: "core", key: "noCanvas"): boolean;
     get(module: "core", key: "rollMode"): RollMode;
+    get(module: "core", key: "uiConfig"): { colorScheme: { applications: string; interface: string } };
     get(module: string, key: string): unknown;
 
     /**

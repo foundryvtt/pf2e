@@ -147,16 +147,12 @@ export class EffectsPanel extends fa.api.HandlebarsApplicationMixin(fa.api.Appli
         options: HandlebarsRenderOptions,
     ): Promise<void> {
         // Add tooltip listener for effects panel entries
-        // The uiConfig setting doesn't handle browser default, so we poach the interface theme from the DOM
-        // If we don't include the application class, theme-dark has errors
-        const interfaceElement = document.querySelector("#interface");
-        const themeClass =
-            [...(interfaceElement?.classList.values() ?? [])].find((c) => c.startsWith("theme-")) ?? "theme-dark";
         createTooltipListener(this.element, {
             selector: ".effect-item[data-item-id]",
             locked: true,
             direction: "LEFT",
-            cssClass: `pf2e effect-info application themed ${themeClass}`,
+            cssClass: `pf2e effect-info application themed`,
+            themeGroup: "interface",
             align: "top",
             render: async (effectEl) => {
                 const actor = this.#actor;
