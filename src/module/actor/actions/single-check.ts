@@ -140,9 +140,11 @@ class SingleCheckActionVariant extends BaseActionVariant {
             .map((note) => new RollNotePF2e(note));
         const rollOptions = this.rollOptions.concat(options.rollOptions ?? []);
         const slug = options.statistic?.trim() || (Array.isArray(this.statistic) ? this.statistic[0] : this.statistic);
-        const title = this.name
-            ? `${game.i18n.localize(this.#action.name)} - ${game.i18n.localize(this.name)}`
-            : game.i18n.localize(this.#action.name);
+        const title =
+            options.title ??
+            (this.name
+                ? `${game.i18n.localize(this.#action.name)} - ${game.i18n.localize(this.name)}`
+                : game.i18n.localize(this.#action.name));
         const difficultyClass = Number.isNumeric(options.difficultyClass)
             ? { value: Number(options.difficultyClass) }
             : isValidDifficultyClass(options.difficultyClass)
@@ -153,6 +155,7 @@ class SingleCheckActionVariant extends BaseActionVariant {
         await ActionMacroHelpers.simpleRollActionCheck({
             actors: options.actors,
             title,
+            simpleTitle: options.simpleTitle,
             actionGlyph: getActionGlyph(this.cost ?? null) as ActionGlyph,
             callback: (result) => results.push(result),
             checkContext: (opts) => this.checkContext(opts, { modifiers, rollOptions, slug }),

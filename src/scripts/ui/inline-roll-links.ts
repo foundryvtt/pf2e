@@ -95,8 +95,20 @@ export class InlineRollLinks {
     }
 
     static #onClickInlineAction(event: MouseEvent, link: HTMLAnchorElement | HTMLSpanElement): void {
-        const { pf2Action, pf2Glyph, pf2Variant, pf2Dc, pf2ShowDc, pf2Skill, pf2Options, pf2Traits } = link.dataset;
+        const {
+            pf2Action,
+            pf2Glyph,
+            pf2Variant,
+            pf2Dc,
+            pf2ShowDc,
+            pf2Skill,
+            pf2Options,
+            pf2Traits,
+            pf2Title,
+            pf2SimpleTitle,
+        } = link.dataset;
 
+        const title = pf2Title?.replaceAll("-", " ") ?? undefined;
         const slug = sluggify(pf2Action ?? "");
         const visibility = pf2ShowDc ?? "all";
         const difficultyClass = Number.isNumeric(pf2Dc)
@@ -110,7 +122,16 @@ export class InlineRollLinks {
         if (slug && game.pf2e.actions.has(slug)) {
             game.pf2e.actions
                 .get(slug)
-                ?.use({ event, variant: pf2Variant, difficultyClass, rollOptions, statistic: pf2Skill, traits })
+                ?.use({
+                    event,
+                    variant: pf2Variant,
+                    title,
+                    simpleTitle: Boolean(pf2SimpleTitle),
+                    difficultyClass,
+                    rollOptions,
+                    statistic: pf2Skill,
+                    traits,
+                })
                 .catch((reason: string) => ui.notifications.warn(reason));
         } else {
             const action = game.pf2e.actions[pf2Action ? sluggify(pf2Action, { camel: "dromedary" }) : ""];
@@ -123,6 +144,8 @@ export class InlineRollLinks {
                     rollOptions,
                     skill: pf2Skill,
                     traits,
+                    title,
+                    simpleTitle: Boolean(pf2SimpleTitle),
                 });
             } else {
                 console.warn(`PF2e System | Skip executing unknown action '${pf2Action}'`);
@@ -131,7 +154,8 @@ export class InlineRollLinks {
     }
 
     static async #onClickInlineCheck(event: MouseEvent, link: HTMLAnchorElement | HTMLSpanElement): Promise<void> {
-        const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2Adjustment, pf2Roller, pf2RollOptions } = link.dataset;
+        const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2ActionLabel, pf2Adjustment, pf2Roller, pf2RollOptions } =
+            link.dataset;
         const against = link.dataset.against || link.dataset.pf2Defense; // pf2Defense is only checked for backwards compat
         const overrideTraits = "overrideTraits" in link.dataset;
         const targetOwner = "targetOwner" in link.dataset;
@@ -286,6 +310,7 @@ export class InlineRollLinks {
                 target: dc?.statistic ? targetActor : null,
                 item,
                 traits: abilityTraits,
+                title: pf2ActionLabel,
             };
 
             // Use a special header for checks against defenses
