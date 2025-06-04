@@ -1,0 +1,119 @@
+{
+    "_id": "ts5z3xR9j48Cic5H",
+    "img": "icons/weapons/daggers/dagger-magical-glowing-blue.webp",
+    "name": "Spectral Dagger",
+    "system": {
+        "baseItem": "dagger",
+        "bonus": {
+            "value": 0
+        },
+        "bulk": {
+            "value": 0.1
+        },
+        "category": "simple",
+        "containerId": null,
+        "damage": {
+            "damageType": "slashing",
+            "dice": 1,
+            "die": "d6"
+        },
+        "description": {
+            "value": ""
+        },
+        "group": "knife",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 0
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {}
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Shining Kingdoms"
+        },
+        "quantity": 1,
+        "range": null,
+        "reload": {
+            "value": null
+        },
+        "rules": [
+            {
+                "critical": false,
+                "damageType": "spirit",
+                "key": "FlatModifier",
+                "predicate": [
+                    "check:outcome:success"
+                ],
+                "selector": "spectral-dagger-damage",
+                "value": 1
+            },
+            {
+                "critical": false,
+                "damageType": "spirit",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "check:outcome:critical-success"
+                ],
+                "selector": "spectral-dagger-damage"
+            },
+            {
+                "category": "persistent",
+                "critical": false,
+                "damageType": "spirit",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "check:outcome:critical-success",
+                    "feat:soul-bleed"
+                ],
+                "selector": "spectral-dagger-damage"
+            },
+            {
+                "key": "Note",
+                "selector": "{item|name}",
+                "text": "",
+                "title": "spectral-dagger-damage"
+            }
+        ],
+        "runes": {
+            "potency": 1,
+            "property": [
+                "ghostTouch"
+            ],
+            "striking": 0
+        },
+        "size": "med",
+        "splashDamage": {
+            "value": 0
+        },
+        "traits": {
+            "rarity": "unique",
+            "value": [
+                "agile",
+                "finesse",
+                "thrown-10",
+                "versatile-s"
+            ]
+        },
+        "usage": {
+            "canBeAmmo": false,
+            "value": "held-in-one-hand"
+        }
+    },
+    "type": "weapon"
+}

@@ -1,0 +1,66 @@
+{
+    "_id": "UPgxAYArllEBcuGS",
+    "folder": "3gIKQZf49LM55dii",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Stalwart Song",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> You're about to attempt a saving throw against a fear effect.</p>\n<p><strong>Requirements</strong> You're in Tenacious Stance.</p><hr /><p>As a stalwart defender, you rely on your martial training and your tried-and-true armor to face any danger without flinching. Your mountain-like resilience and courage draw strength from the centuries-old traditions of dwarven song. You bring to mind—and possibly give voice to—a cherished dwarven song of inspiring heroism, granting you a +2 circumstance bonus to the saving throw.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Stalwart Defender Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Shining Kingdoms"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "stalwart-song",
+                "predicate": [
+                    "self:effect:tenacious-stance"
+                ],
+                "toggleable": true
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "stalwart-song",
+                    "fear"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

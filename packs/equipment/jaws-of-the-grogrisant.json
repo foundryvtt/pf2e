@@ -1,0 +1,75 @@
+{
+    "_id": "vg4p0cHrZf14VXGz",
+    "img": "icons/equipment/head/crown-thorns-gold.webp",
+    "name": "Jaws of the Grogrisant",
+    "system": {
+        "apex": {
+            "attribute": "wis"
+        },
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>The teeth that fell off the Mantle of the Grogrisant were given to the scholars of Houses Fahlspar, Lotheed, Nicodemius, and Zespire, who—after much heated discussion—created this regal circlet. You gain a +3 item bonus to Diplomacy and Intimidation skill checks and @UUID[Compendium.pf2e.actionspf2e.Item.Sense Motive] checks against creatures that have the primal trait. When you invest in the headband, you either increase your Wisdom modifier by 1 or increase it to +4, whichever would give you a higher value.</p>\n<p><strong>Activate—Primal Empathy</strong> <span class=\"action-glyph\">2</span> (concentrate, mental)</p>\n<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> You gain the ability to communicate with nature as if you were a part of it. You cast @UUID[Compendium.pf2e.spells-srd.Item.Telepathy] at 6th rank, which can only be used to communicate with creatures that have the primal trait.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 17
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 15000
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Shining Kingdoms"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:trait:primal",
+                    {
+                        "or": [
+                            "action:sense-motive",
+                            "check:statistic:diplomacy",
+                            "check:statistic:intimidation"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "skill-check",
+                    "perception-check"
+                ],
+                "type": "item",
+                "value": 3
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "unique",
+            "value": [
+                "apex",
+                "invested",
+                "primal"
+            ]
+        },
+        "usage": {
+            "value": "worncirclet"
+        }
+    },
+    "type": "equipment"
+}

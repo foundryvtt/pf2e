@@ -1,0 +1,46 @@
+{
+    "_id": "Of5VbKBH0fLZHm8Z",
+    "img": "icons/magic/unholy/strike-body-life-soul-purple.webp",
+    "name": "Spell Effect: Capital Dividend",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Capital Dividend]</p>\n<p>You regain additional Hit Points from healing effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Shining Kingdoms"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:healing"
+                ],
+                "selector": "healing-received",
+                "value": "2*@item.level"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

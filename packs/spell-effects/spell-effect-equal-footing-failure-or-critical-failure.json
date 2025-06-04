@@ -1,0 +1,94 @@
+{
+    "_id": "MFvCd82lxTQGZERm",
+    "img": "icons/magic/movement/chevrons-down-yellow.webp",
+    "name": "Spell Effect: Equal Footing (Failure or Critical Failure)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Equal Footing]</p>\n<p>You take a –15-foot status penalty to all Speeds, and you can't benefit from bonuses to your Speeds nor take other penalties to your Speeds.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Shining Kingdoms"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": "failure"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": "critical-failure"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "equal-footing"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "all-speeds",
+                "slug": "equal-footing",
+                "type": "status",
+                "value": -15
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "equal-footing:failure"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            },
+            {
+                "alterations": [
+                    {
+                        "mode": "upgrade",
+                        "property": "badge-value",
+                        "value": 2
+                    }
+                ],
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "equal-footing:critical-failure"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    {
+                        "not": "penalty:slug:equal-footing"
+                    }
+                ],
+                "selector": "all-speeds",
+                "suppress": true
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
