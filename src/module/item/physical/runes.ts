@@ -140,6 +140,39 @@ function getPropertyRuneModifierAdjustments(runes: WeaponPropertyRuneType[]): Mo
     return runes.flatMap((r) => RUNE_DATA.weapon.property[r].damage?.adjustments ?? []);
 }
 
+function getPropertyRuneSaveModifiers(runes: ArmorPropertyRuneType[]): Record<string, ModifierObjectParams> {
+    return Object.fromEntries(
+        runes.flatMap((r) =>
+            Object.entries(RUNE_DATA.armor.property[r].modifiers?.save ?? {}).map(([save, mod]) => [
+                save,
+                { slug: r, ...mod },
+            ]),
+        ),
+    );
+}
+
+function getPropertyRuneSkillModifiers(runes: ArmorPropertyRuneType[]): Record<string, ModifierObjectParams> {
+    return Object.fromEntries(
+        runes.flatMap((r) =>
+            Object.entries(RUNE_DATA.armor.property[r].modifiers?.skill ?? {}).map(([skill, mod]) => [
+                skill,
+                { slug: r, ...mod },
+            ]),
+        ),
+    );
+}
+
+function getPropertyRuneSpeedModifiers(runes: ArmorPropertyRuneType[]): Record<string, ModifierObjectParams> {
+    return Object.fromEntries(
+        runes.flatMap((r) =>
+            Object.entries(RUNE_DATA.armor.property[r].modifiers?.speed ?? {}).map(([speed, mod]) => [
+                speed,
+                { slug: r, ...mod },
+            ]),
+        ),
+    );
+}
+
 type RuneDiceProperty = "slug" | "damageType" | "category" | "predicate" | "critical";
 type RuneAdditionalDamageDice = Partial<Pick<DamageDiceParameters, RuneDiceProperty>> &
     Required<Pick<DamageDiceParameters, "diceNumber" | "dieSize">>;
@@ -402,7 +435,14 @@ interface PropertyRuneData<TSlug extends string> extends RuneData {
     slug: TSlug;
 }
 
-interface ArmorPropertyRuneData<TSlug extends ArmorPropertyRuneType> extends PropertyRuneData<TSlug> {}
+interface ArmorPropertyRuneData<TSlug extends ArmorPropertyRuneType> extends PropertyRuneData<TSlug> {
+    /** Modifiers **/
+    modifiers?: {
+        save?: Record<string, ModifierObjectParams>;
+        skill?: Record<string, ModifierObjectParams>;
+        speed?: Record<string, ModifierObjectParams>;
+    };
+}
 
 interface WeaponPropertyRuneData<TSlug extends WeaponPropertyRuneType> extends PropertyRuneData<TSlug> {
     attack?: {
@@ -457,6 +497,16 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         traits: ["magical"],
     },
     antimagic: {
+        modifiers: {
+            save: {
+                all: {
+                    label: "PF2E.ArmorPropertyRuneAntimagic",
+                    modifier: 1,
+                    type: "status",
+                    predicate: ["magical"],
+                },
+            },
+        },
         name: "PF2E.ArmorPropertyRuneAntimagic",
         level: 15,
         price: 6500,
@@ -625,6 +675,11 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         traits: ["magical"],
     },
     greaterShadow: {
+        modifiers: {
+            skill: {
+                stealth: { label: "PF2E.ArmorPropertyRuneGreaterShadow", modifier: 2, type: "item" },
+            },
+        },
         name: "PF2E.ArmorPropertyRuneGreaterShadow",
         level: 9,
         price: 650,
@@ -633,6 +688,16 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         traits: ["magical"],
     },
     greaterSlick: {
+        modifiers: {
+            skill: {
+                acrobatics: {
+                    label: "PF2E.ArmorPropertyRuneGreaterSlick",
+                    modifier: 2,
+                    type: "item",
+                    predicate: [{ or: ["action:escape", "action:squeeze"] }],
+                },
+            },
+        },
         name: "PF2E.ArmorPropertyRuneGreaterSlick",
         level: 8,
         price: 450,
@@ -721,6 +786,11 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         traits: ["magical"],
     },
     majorShadow: {
+        modifiers: {
+            skill: {
+                stealth: { label: "PF2E.ArmorPropertyRuneMajorShadow", modifier: 3, type: "item" },
+            },
+        },
         name: "PF2E.ArmorPropertyRuneMajorShadow",
         level: 17,
         price: 14_000,
@@ -729,6 +799,16 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         traits: ["magical"],
     },
     majorSlick: {
+        modifiers: {
+            skill: {
+                acrobatics: {
+                    label: "PF2E.ArmorPropertyRuneMajorSlick",
+                    modifier: 3,
+                    type: "item",
+                    predicate: [{ or: ["action:escape", "action:squeeze"] }],
+                },
+            },
+        },
         name: "PF2E.ArmorPropertyRuneMajorSlick",
         level: 16,
         price: 9000,
@@ -817,6 +897,11 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         traits: ["dwarf", "magical", "saggorak"],
     },
     shadow: {
+        modifiers: {
+            skill: {
+                stealth: { label: "PF2E.ArmorPropertyRuneShadow", modifier: 1, type: "item" },
+            },
+        },
         name: "PF2E.ArmorPropertyRuneShadow",
         level: 5,
         price: 55,
@@ -841,6 +926,16 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         traits: ["magical"],
     },
     slick: {
+        modifiers: {
+            skill: {
+                acrobatics: {
+                    label: "PF2E.ArmorPropertyRuneSlick",
+                    modifier: 1,
+                    type: "item",
+                    predicate: [{ or: ["action:escape", "action:squeeze"] }],
+                },
+            },
+        },
         name: "PF2E.ArmorPropertyRuneSlick",
         level: 5,
         price: 45,
@@ -849,6 +944,16 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         traits: ["magical"],
     },
     soaring: {
+        modifiers: {
+            speed: {
+                fly: {
+                    label: "PF2E.ArmorPropertyRuneSoaring",
+                    modifier: 10,
+                    type: "item",
+                    predicate: ["speed:fly"],
+                },
+            },
+        },
         name: "PF2E.ArmorPropertyRuneSoaring",
         level: 14,
         price: 3750,
@@ -2304,9 +2409,12 @@ export {
     getPropertyRuneDamage,
     getPropertyRuneDegreeAdjustments,
     getPropertyRuneModifierAdjustments,
+    getPropertyRuneSaveModifiers,
+    getPropertyRuneSkillModifiers,
+    getPropertyRuneSpeedModifiers,
     getPropertyRuneSlots,
     getPropertyRuneStrikeAdjustments,
     getRuneValuationData,
     prunePropertyRunes,
 };
-export type { RuneData, WeaponPropertyRuneData };
+export type { RuneData, ArmorPropertyRuneData, WeaponPropertyRuneData };

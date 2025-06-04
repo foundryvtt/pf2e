@@ -31,7 +31,13 @@ import { WeaponPF2e } from "@item";
 import { AbilityTrait } from "@item/ability/types.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import type { ItemType } from "@item/base/data/index.ts";
-import { getPropertyRuneDegreeAdjustments, getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
+import {
+    getPropertyRuneDegreeAdjustments,
+    getPropertyRuneStrikeAdjustments,
+    getPropertyRuneSaveModifiers,
+    getPropertyRuneSkillModifiers,
+    getPropertyRuneSpeedModifiers,
+} from "@item/physical/runes.ts";
 import { WeaponSource } from "@item/weapon/data.ts";
 import { processTwoHandTrait } from "@item/weapon/helpers.ts";
 import { WeaponCategory } from "@item/weapon/types.ts";
@@ -797,6 +803,24 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 );
             }
 
+            // Add modifiers from worn armor's property runes
+            if (wornArmor && wornArmor.isInvested) {
+                const modifiersData = getPropertyRuneSaveModifiers(wornArmor.system.runes.property);
+                const modifierData = modifiersData[saveType] ?? modifiersData["all"];
+                if (modifierData !== undefined) {
+                    const modifier = new ModifierPF2e({
+                        ...modifierData,
+                        adjustments: extractModifierAdjustments(
+                            this.synthetics.modifierAdjustments,
+                            selectors,
+                            modifierData.slug ?? "",
+                        ),
+                    });
+
+                    modifiers.push(modifier);
+                }
+            }
+
             const affectedByBulwark = saveType === "reflex" && wornArmor?.traits.has("bulwark");
             if (affectedByBulwark) {
                 const slug = "bulwark";
@@ -873,6 +897,24 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
             // Add a penalty for attempting to Force Open without a crowbar or similar tool
             if (skillSlug === "athletics") modifiers.push(createForceOpenPenalty(this, domains));
+
+            // Add modifiers from worn armor's property runes
+            if (wornArmor && wornArmor.isInvested) {
+                const modifierData = getPropertyRuneSkillModifiers(wornArmor.system.runes.property)[skillSlug];
+                if (modifierData !== undefined) {
+                    const modifier = new ModifierPF2e({
+                        ...modifierData,
+                        domains: [...domains, ...(modifierData.domains ?? [])],
+                        adjustments: extractModifierAdjustments(
+                            synthetics.modifierAdjustments,
+                            domains,
+                            modifierData.slug ?? "",
+                        ),
+                    });
+
+                    modifiers.push(modifier);
+                }
+            }
 
             const statistic = new Statistic(this, {
                 slug: skillSlug,
@@ -960,6 +1002,23 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         if (armorPenalty) {
             statistic.push(armorPenalty);
             statistic.calculateTotal(new Set(this.getRollOptions(["all-speeds", "speed", `${movementType}-speed`])));
+        }
+
+        // Add modifiers from worn armor's property runes
+        if (wornArmor && wornArmor.isInvested) {
+            const modifierData = getPropertyRuneSpeedModifiers(wornArmor.system.runes.property)[movementType];
+            if (modifierData !== undefined) {
+                const modifier = new ModifierPF2e({
+                    ...modifierData,
+                    adjustments: extractModifierAdjustments(
+                        this.synthetics.modifierAdjustments,
+                        ["all-speeds", "speed", `${movementType}-speed`],
+                        modifierData.slug ?? "",
+                    ),
+                });
+
+                statistic.push(modifier);
+            }
         }
 
         // A hindering penalty can't be removed or mitigated
