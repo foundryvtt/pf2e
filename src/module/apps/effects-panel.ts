@@ -28,6 +28,12 @@ export class EffectsPanel extends fa.api.HandlebarsApplicationMixin(fa.api.Appli
             frame: false,
             positioned: false,
         },
+        actions: {
+            handleClick: {
+                handler: this.#onClickHandleClick,
+                buttons: [0, 2],
+            },
+        },
     };
 
     static override PARTS: Record<string, fa.api.HandlebarsTemplatePart> = {
@@ -37,6 +43,29 @@ export class EffectsPanel extends fa.api.HandlebarsApplicationMixin(fa.api.Appli
             root: true,
         },
     };
+
+    static async #onClickHandleClick(this: EffectsPanel, event: PointerEvent, effectEl: HTMLDivElement): Promise<void> {
+        const actor = this.#actor;
+        const itemId = effectEl.dataset.itemId ?? "";
+        const effect = actor?.conditions.get(itemId) ?? actor?.items.get(itemId);
+
+        if (event.button === 0) {
+            // Increase or render persistent-damage dialog on left click
+            if (actor && effect?.isOfType("condition") && effect.slug === "persistent-damage") {
+                await effect.onEndTurn({ token: this.#token });
+            } else if (effect instanceof AbstractEffectPF2e) {
+                await effect.increase();
+            }
+        } else if (event.button === 2) {
+            // Remove effect or decrease its badge value on right-click
+            if (effect instanceof AbstractEffectPF2e) {
+                await effect.decrease();
+            } else {
+                // Failover in case of a stale effect
+                this.refresh();
+            }
+        }
+    }
 
     protected override async _prepareContext(): Promise<EffectsPanelViewData> {
         const actor = this.#actor;
@@ -206,30 +235,8 @@ export class EffectsPanel extends fa.api.HandlebarsApplicationMixin(fa.api.Appli
         }
 
         for (const effectEl of htmlQueryAll(html, ".effect-item[data-item-id]")) {
-            const actor = this.#actor;
-            const itemId = effectEl.dataset.itemId ?? "";
-            const effect = actor?.conditions.get(itemId) ?? actor?.items.get(itemId);
             const iconElem = effectEl.querySelector(":scope > .icon");
-            if (!actor || !effect || !iconElem) continue;
-
-            // Increase or render persistent-damage dialog on left click
-            iconElem.addEventListener("click", async () => {
-                if (actor && effect.isOfType("condition") && effect.slug === "persistent-damage") {
-                    await effect.onEndTurn({ token: this.#token });
-                } else if (effect instanceof AbstractEffectPF2e) {
-                    await effect.increase();
-                }
-            });
-
-            // Remove effect or decrease its badge value on right-click
-            iconElem.addEventListener("contextmenu", async () => {
-                if (effect instanceof AbstractEffectPF2e) {
-                    await effect.decrease();
-                } else {
-                    // Failover in case of a stale effect
-                    this.refresh();
-                }
-            });
+            if (!iconElem) continue;
 
             // Uses a scale transform to fit the text within the box
             // Note that the value container cannot have padding or measuring will fail.
