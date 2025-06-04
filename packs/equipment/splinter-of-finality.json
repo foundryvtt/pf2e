@@ -1,0 +1,89 @@
+{
+    "_id": "MEJfmtMXXnIV4Lzx",
+    "img": "icons/commodities/metal/fragments-sword-steel.webp",
+    "name": "Splinter of Finality",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>The sharpness of this dark metal splinter never dulls. By plunging it into your neck, you anchor your soul to the fragment, granting you protection from those that would harm it at the cost of weakening your body. You take a –1 status penalty to saving throws against effects that would give you the @UUID[Compendium.pf2e.conditionitems.Item.Clumsy], @UUID[Compendium.pf2e.conditionitems.Item.Drained], or @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled] condition. At 10th level, the penalty increases to –2. However, you gain spirit resistance equal to your level and a +2 status bonus to saving throws against spirits or haunts and effects that would give you the @UUID[Compendium.pf2e.conditionitems.Item.Confused], @UUID[Compendium.pf2e.conditionitems.Item.Controlled], @UUID[Compendium.pf2e.conditionitems.Item.Doomed], or @UUID[Compendium.pf2e.conditionitems.Item.Stupefied] conditions.</p><hr /><p><strong>Destruction</strong> All 13 splinters of finality must be gathered and used to reconstruct <em>Silent Lenore</em>, which must then be destroyed by means of the @UUID[Compendium.pf2e.spells-srd.Item.Blunt the Final Blade] ritual.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 2
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {}
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Shining Kingdoms"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "inflicts:clumsy",
+                            "inflicts:drained",
+                            "inflicts:enfeeble"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": "ternary(gte(@actor.level,10),-2, -1)"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "origin:trait:haunt",
+                            "origin:trait:spirit",
+                            "inflicts:confused",
+                            "inflicts:controlled",
+                            "inflicts:doomed",
+                            "inflicts:stupefied"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "Resistance",
+                "type": "spirit",
+                "value": "@actor.level"
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "artifact",
+                "invested",
+                "occult"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        }
+    },
+    "type": "equipment"
+}

@@ -13,28 +13,14 @@
             "value": 1
         },
         "level": {
-            "value": 1
+            "value": 6
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
+            "license": "ORC",
+            "remaster": true,
             "title": "Pathfinder Treasure Vault"
         },
         "rules": [
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    {
-                        "or": [
-                            "emotion",
-                            "{item|flags.pf2e.rulesSelections.soothing}"
-                        ]
-                    }
-                ],
-                "selector": "saving-throw",
-                "type": "item",
-                "value": 1
-            },
             {
                 "choices": [
                     {
@@ -52,6 +38,20 @@
                 ],
                 "flag": "soothing",
                 "key": "ChoiceSet"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:emotion",
+                            "item:trait:{item|flags.pf2e.rulesSelections.soothing}"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "item",
+                "value": 1
             }
         ],
         "start": {

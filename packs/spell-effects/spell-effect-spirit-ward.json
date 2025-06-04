@@ -1,0 +1,72 @@
+{
+    "_id": "0P4JYUQO20mX4rCS",
+    "img": "icons/magic/light/orb-shadow-blue.webp",
+    "name": "Spell Effect: Spirit Ward",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Spirit Ward]</p>\n<p>You gain a status bonus to saving throws against spells and effects caused by creatures that have the spirit trait and haunts.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Shining Kingdoms"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "config": "actionsNumber"
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Actions.Prompt",
+                "rollOption": "spirit-ward"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:type:spell",
+                            "origin:trait:haunt",
+                            "origin:trait:spirit"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "self:mode:living",
+                    "spirit-ward:2"
+                ],
+                "selector": "saving-throw",
+                "slug": "spirit-ward",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

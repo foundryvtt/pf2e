@@ -1,0 +1,51 @@
+{
+    "_id": "PeQ2isu6YFcHhQyp",
+    "img": "icons/magic/fire/blast-jet-stream-splash.webp",
+    "name": "Effect: Smeltable",
+    "system": {
+        "description": {
+            "value": "<p>You take a -10-foot status penalty to your Speeds, and your strikes deal an extra 1d6 fire damage. You also lose your weakness to slashing damage and resistance to electricity damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Shining Kingdoms"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "land-speed",
+                "type": "status",
+                "value": -10
+            },
+            {
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "fist-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

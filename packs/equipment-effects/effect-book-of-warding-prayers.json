@@ -4,7 +4,7 @@
     "name": "Effect: Book of Warding Prayers",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Book of Warding Prayers]</p>\n<p>You and all allies within 30 feet are suffused with your deity's protection, gaining resistance 10 to damage of that type for 1 minute.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Book of Warding Prayers]</p>\n<p>You gain resistance 10 to spirit damage. If the spell cast had the holy or unholy trait, you can instead gain resistance to such effects.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,13 +16,17 @@
             "value": 8
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Treasure Vault"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Treasure Vault (Remastered)"
         },
         "rules": [
             {
                 "choices": [
+                    {
+                        "label": "PF2E.TraitSpirit",
+                        "value": "spirit"
+                    },
                     {
                         "label": "PF2E.TraitHoly",
                         "value": "holy"
@@ -32,13 +36,12 @@
                         "value": "unholy"
                     }
                 ],
-                "flag": "bowpResistance",
-                "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Prompt.Sanctification"
+                "flag": "resistance",
+                "key": "ChoiceSet"
             },
             {
                 "key": "Resistance",
-                "type": "{item|flags.pf2e.rulesSelections.bowpResistance}",
+                "type": "{item|flags.pf2e.rulesSelections.resistance}",
                 "value": 10
             }
         ],

@@ -984,6 +984,7 @@ const shieldTraits = {
     ...damageTraits,
     ...magicTraditions,
     apex: "PF2E.TraitApex",
+    artifact: "PF2E.TraitArtifact",
     "deflecting-bludgeoning": "PF2E.TraitDeflectingBludgeoning",
     "deflecting-physical-ranged": "PF2E.TraitDeflectingPhysicalRanged",
     "deflecting-piercing": "PF2E.TraitDeflectingPiercing",

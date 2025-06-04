@@ -1,0 +1,108 @@
+{
+    "_id": "Kmf5F06GucKhY6hK",
+    "img": "icons/commodities/leather/scales-blue-white.webp",
+    "name": "Dragon Breath Scale",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "category": "catalyst",
+        "containerId": null,
+        "damage": null,
+        "description": {
+            "value": "<p><strong>Activate</strong> Cast a Spell</p><hr /><p>When used to cast @UUID[Compendium.pf2e.spells-srd.Item.Breathe Fire] or @UUID[Compendium.pf2e.spells-srd.Item.Chilling Spray], a scale from a dragon's throat changes the spell's damage type and corresponding trait to the damage type and trait of the dragon's breath. You can instead choose the damage type and trait corresponding to the dragon's tradition if it's different.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Dragon Breath Scale]</p>\n<p><strong>Adamantine</strong> bludgeoning or fire</p>\n<p><strong>Conspirator</strong> mental or poison</p>\n<p><strong>Diabolic</strong> fire or spirit</p>\n<p><strong>Empyreal</strong> spirit</p>\n<p><strong>Fortune</strong> force</p>\n<p><strong>Horned</strong> fire or poison</p>\n<p><strong>Mirage</strong> force or mental</p>\n<p><strong>Omen</strong> mental</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 7
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "per": 1,
+            "value": {
+                "gp": 55
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Dragon.Adamantine",
+                        "value": "adamantine"
+                    },
+                    {
+                        "label": "PF2E.Dragon.Conspirator",
+                        "value": "conspirator"
+                    },
+                    {
+                        "label": "PF2E.Dragon.Diabolic",
+                        "value": "diabolic"
+                    },
+                    {
+                        "label": "PF2E.Dragon.Empyreal",
+                        "value": "empyreal"
+                    },
+                    {
+                        "label": "PF2E.Dragon.Fortune",
+                        "value": "fortune"
+                    },
+                    {
+                        "label": "PF2E.Dragon.Horned",
+                        "value": "horned"
+                    },
+                    {
+                        "label": "PF2E.Dragon.Mirage",
+                        "value": "mirage"
+                    },
+                    {
+                        "label": "PF2E.Dragon.Omen",
+                        "value": "omen"
+                    }
+                ],
+                "flag": "dragon",
+                "key": "ChoiceSet",
+                "requiresEquipped": false
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "requiresEquipped": false,
+                "value": "{item|flags.pf2e.rulesSelections.dragon}"
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "catalyst",
+                "consumable",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        },
+        "uses": {
+            "autoDestroy": true,
+            "max": 1,
+            "value": 1
+        }
+    },
+    "type": "consumable"
+}
