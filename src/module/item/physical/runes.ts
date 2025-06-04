@@ -536,14 +536,6 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         slug: "fortification",
         traits: ["magical"],
     },
-    glamered: {
-        name: "PF2E.ArmorPropertyRuneGlamered",
-        level: 5,
-        price: 140,
-        rarity: "common",
-        slug: "glamered",
-        traits: ["illusion", "magical"],
-    },
     gliding: {
         name: "PF2E.ArmorPropertyRuneGliding",
         level: 8,
