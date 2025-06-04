@@ -1,0 +1,102 @@
+{
+    "_id": "fEtZHzAhRYuNX2u1",
+    "img": "icons/magic/control/encase-creature-monster-hold.webp",
+    "name": "Spell Effect: Elemental Sheath",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Elemental Sheath]</p>\n<p>Choose air, earth, fire, metal, water, or wood; the spell gains that trait. You gain a +1 circumstance bonus to AC and resistance to two types of damage based on the element you choose.</p>\n<p><strong>Air</strong> bludgeoning and electricity</p>\n<p><strong>Earth</strong> bludgeoning and poison</p>\n<p><strong>Fire</strong> fire and slashing</p>\n<p><strong>Metal</strong> acid and slashing</p>\n<p><strong>Water</strong> cold and piercing</p>\n<p><strong>Wood</strong> piercing and void.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Shining Kingdoms"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAir",
+                        "value": {
+                            "firstResistance": "bludgeoning",
+                            "secondResistance": "electricity"
+                        }
+                    },
+                    {
+                        "label": "PF2E.TraitEarth",
+                        "value": {
+                            "firstResistance": "bludgeoning",
+                            "secondResistance": "poison"
+                        }
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": {
+                            "firstResistance": "fire",
+                            "secondResistance": "slashing"
+                        }
+                    },
+                    {
+                        "label": "PF2E.TraitMetal",
+                        "value": {
+                            "firstResistance": "acid",
+                            "secondResistance": "slashing"
+                        }
+                    },
+                    {
+                        "label": "PF2E.TraitWater",
+                        "value": {
+                            "firstResistance": "cold",
+                            "secondResistance": "piercing"
+                        }
+                    },
+                    {
+                        "label": "PF2E.TraitWood",
+                        "value": {
+                            "firstResistance": "piercing",
+                            "secondResistance": "void"
+                        }
+                    }
+                ],
+                "flag": "element",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.element.firstResistance}",
+                "value": "5 * floor((@item.level - 2) / 2)"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.element.secondResistance}",
+                "value": "5 * floor((@item.level - 2) / 2)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

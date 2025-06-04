@@ -1,0 +1,110 @@
+{
+    "_id": "PsBTAUV7ExEsKpVx",
+    "img": "systems/pf2e/icons/equipment/weapons/flintlock-musket.webp",
+    "name": "Screaming Pinion",
+    "system": {
+        "baseItem": "flintlock-musket",
+        "bonus": {
+            "value": 0
+        },
+        "bulk": {
+            "value": 1
+        },
+        "category": "simple",
+        "containerId": null,
+        "damage": {
+            "damageType": "piercing",
+            "dice": 1,
+            "die": "d6"
+        },
+        "description": {
+            "value": "<p>This +2 greater striking flintlock musket is an innovation of the Platinum Wing, and possession of one by a civilian is a high crime in Andoran. The gun's secret is the chip of a warshard used as the hammer in the striking mechanism.</p>\n<p><strong>Activate—Transcendent Shot</strong> <span class=\"action-glyph\">1</span> (manipulate)</p>\n<p><strong>Requirements</strong> The screaming pinion is unloaded</p><hr /><p><strong>Effect</strong> You call on the power of the warshard to load the screaming pinion with a bullet made of divine fury. The next attack from the gun deals spirit damage, rather than its typical type, and on a critical hit, the target is subject to the weapon's critical specialization effect. If the gun isn't fired before the end of your next turn, the bullet disappears, and the gun becomes unloaded.</p><hr /><p><strong>Activate—Eagle's Cry</strong> <span class=\"action-glyph\">2</span> (concentrate, manipulate, sonic)</p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The musket unleashes a piercing sound wave in a @Template[type:line|distance:70]. Each creature in the area takes @Damage[8d10[sonic]|options:area-damage] damage with a @Check[fortitude|dc:30|basic|options:area-effect|traits:sonic] save. A creature that critically fails its save is also @UUID[Compendium.pf2e.conditionitems.Item.Deafened]. If the screaming pinion has a +3 potency rune, the DC increases to 35 (@Check[fortitude|dc:35|basic|options:area-effect|traits:sonic]), and the damage increases to @Damage[10d10[sonic]|options:area-damage|shortLabel].</p>"
+        },
+        "group": "firearm",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 13
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 3000
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Shining Kingdoms"
+        },
+        "quantity": 1,
+        "range": 70,
+        "reload": {
+            "value": "1"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.ScreamingPinion.TranscendentShot",
+                "option": "screaming-pinion-transcendent-shot",
+                "toggleable": true
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "screaming-pinion-transcendent-shot"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "{item|id}-damage"
+                ],
+                "value": "spirit"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "item:id:{item|id}",
+                    "screaming-pinion-transcendent-shot"
+                ]
+            }
+        ],
+        "runes": {
+            "potency": 2,
+            "property": [],
+            "striking": 2
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": null,
+                "type": null
+            },
+            "runes": {
+                "potency": 2,
+                "property": [],
+                "striking": 2
+            }
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "concussive",
+                "fatal-d10"
+            ]
+        },
+        "usage": {
+            "value": "held-in-two-hands"
+        }
+    },
+    "type": "weapon"
+}

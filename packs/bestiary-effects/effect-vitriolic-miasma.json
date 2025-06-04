@@ -1,0 +1,60 @@
+{
+    "_id": "5KatA3QnT1zYLxGv",
+    "img": "icons/magic/air/fog-gas-smoke-green.webp",
+    "name": "Effect: Vitriolic Miasma",
+    "system": {
+        "description": {
+            "value": "<p>You take a -2 circumstance penalty to saves against poison effects and gain weakness 10 to poison damage.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Shining Kingdoms"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:poison",
+                    {
+                        "not": "vitriolic-miasma"
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": -2
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    {
+                        "not": "vitriolic-miasma"
+                    }
+                ],
+                "type": "poison",
+                "value": 10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

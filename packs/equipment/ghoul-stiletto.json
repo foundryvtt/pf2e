@@ -1,0 +1,102 @@
+{
+    "_id": "VOmOhm3Rc3VUkIu0",
+    "img": "icons/weapons/daggers/dagger-straight-thin-black.webp",
+    "name": "Ghoul Stiletto",
+    "system": {
+        "baseItem": "dagger",
+        "bonus": {
+            "value": 0
+        },
+        "bulk": {
+            "value": 0.1
+        },
+        "category": "simple",
+        "containerId": null,
+        "damage": {
+            "damageType": "piercing",
+            "dice": 1,
+            "die": "d4"
+        },
+        "description": {
+            "value": "<p>A <em>ghoul stiletto</em> is a <em>+1 dagger</em> wrapped in the still-undead skin of a ghoul. While you wield the dagger, you gain a +1 status bonus to all saves against curses and olfactory effects.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> (concentrate, divine, manipulate, olfactory)</p>\n<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> The ghoul stiletto afflicts the next living target struck by the dagger with a terrible wound that emits the foul stench of the grave. The creature emits a stench aura in a @Template[type:emanation|distance:10] for 1 minute. During that time, the affected creature, as well as any creature that starts or ends its turn in the aura, must succeed at a @Check[fortitude|dc:17] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (plus @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} as long as it's sickened on a critical failure). A creature that succeeds at its save is temporarily immune to all stench auras for 1 minute.</p><hr /><p><strong>Craft Requirements</strong> The initial raw materials must include skin from a ghoul.</p>"
+        },
+        "group": "knife",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 3
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 60
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Treasure Vault (Remastered)"
+        },
+        "quantity": 1,
+        "range": null,
+        "reload": {
+            "value": null
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:curse",
+                            "item:trait:olfactory"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "runes": {
+            "potency": 1,
+            "property": [],
+            "striking": 0
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": null,
+                "type": null
+            },
+            "runes": {
+                "potency": 1,
+                "property": [],
+                "striking": 0
+            }
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "agile",
+                "finesse",
+                "thrown-10",
+                "versatile-s"
+            ]
+        },
+        "usage": {
+            "canBeAmmo": false,
+            "value": "held-in-one-hand"
+        }
+    },
+    "type": "weapon"
+}

@@ -1,0 +1,79 @@
+{
+    "_id": "0L9LAkGW2FtmZOgb",
+    "img": "icons/magic/air/wind-swirl-gray-blue.webp",
+    "name": "Spell Effect: Veil of Spirits",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Veil of Spirits]</p>\n<p>You are dazzled. On a failure or critical failure, you gain a weakness to spirit damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Shining Kingdoms"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": "success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": "failure"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": "critical-failure"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "veil-of-spirits"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "veil-of-spirits:failure"
+                ],
+                "type": "spirit",
+                "value": "(@item.origin.level / 2)"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "veil-of-spirits:critical-failure"
+                ],
+                "type": "spirit",
+                "value": "@item.origin.level"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

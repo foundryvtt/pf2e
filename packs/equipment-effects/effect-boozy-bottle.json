@@ -1,0 +1,52 @@
+{
+    "_id": "yvYzIb8Ca4rzC4yt",
+    "img": "icons/consumables/drinks/water-jug-clay-brown.webp",
+    "name": "Effect: Boozy Bottle",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Boozy Bottle]</p>\n<p>You are off-guard and gain a +1 item bonus to saving throws against fear.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Treasure Vault (Remastered)"
+        },
+        "rules": [
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:fear"
+                ],
+                "selector": "saving-throw",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

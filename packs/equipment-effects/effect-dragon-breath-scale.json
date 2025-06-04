@@ -1,0 +1,199 @@
+{
+    "_id": "iqbWgT2TTJLGSkTL",
+    "img": "icons/commodities/leather/scales-blue-white.webp",
+    "name": "Effect: Dragon Breath Scale",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Dragon Breath Scale]</p>\n<p>You change <em>breathe fire</em> or <em>chilling spray</em>'s to the damage type and trait of the corresponding dragon's breath.</p>\n<p><strong>Adamantine</strong> bludgeoning or fire</p>\n<p><strong>Conspirator</strong> mental or poison</p>\n<p><strong>Diabolic</strong> fire or spirit</p>\n<p><strong>Empyreal</strong> spirit</p>\n<p><strong>Fortune</strong> force</p>\n<p><strong>Horned</strong> fire or poison</p>\n<p><strong>Mirage</strong> force or mental</p>\n<p><strong>Omen</strong> mental</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitBludgeoning",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:tag:adamantine",
+                                    {
+                                        "not": "parent:origin:item:slug:dragon-breath-scale"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:tag:adamantine",
+                                    "parent:origin:item:tag:diabolic",
+                                    "parent:origin:item:tag:horned",
+                                    {
+                                        "not": "parent:origin:item:slug:dragon-breath-scale"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitForce",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:tag:fortune",
+                                    "parent:origin:item:tag:mirage",
+                                    {
+                                        "not": "parent:origin:item:slug:dragon-breath-scale"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "force"
+                    },
+                    {
+                        "label": "PF2E.TraitMental",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:tag:conspirator",
+                                    "parent:origin:item:tag:mirage",
+                                    "parent:origin:item:tag:omen",
+                                    {
+                                        "not": "parent:origin:item:slug:dragon-breath-scale"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "mental"
+                    },
+                    {
+                        "label": "PF2E.TraitPoison",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:tag:conspirator",
+                                    "parent:origin:item:tag:horned",
+                                    {
+                                        "not": "parent:origin:item:slug:dragon-breath-scale"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.TraitSpirit",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:tag:diabolic",
+                                    "parent:origin:item:tag:empyreal",
+                                    {
+                                        "not": "parent:origin:item:slug:dragon-breath-scale"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "spirit"
+                    }
+                ],
+                "flag": "damageType",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DamageType",
+                "rollOption": "dragon-breath-scale-damage"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "item:slug:breathe-fire",
+                    {
+                        "not": "dragon-breath-scale:fire"
+                    }
+                ],
+                "property": "traits",
+                "value": "fire"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "item:slug:chilling-spray",
+                    {
+                        "not": "dragon-breath-scale:cold"
+                    }
+                ],
+                "property": "traits",
+                "value": "cold"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:breathe-fire",
+                            "item:slug:chilling-spray"
+                        ]
+                    },
+                    {
+                        "not": "dragon-breath-scale-damage:bludgeoning"
+                    }
+                ],
+                "property": "traits",
+                "value": "{item|flags.pf2e.rulesSelections.damageType}"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:breathe-fire",
+                            "item:slug:chilling-spray"
+                        ]
+                    }
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "spell-damage"
+                ],
+                "slug": "base",
+                "value": "{item|flags.pf2e.rulesSelections.damageType}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

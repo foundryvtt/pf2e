@@ -9,7 +9,7 @@
         },
         "containerId": null,
         "description": {
-            "value": "<p>This tattoo depicts a container of alcohol, traditionally a small, uncorked brown bottle. You gain a +1 item bonus to saving throws against poison.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">R</span> command</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You fail (but don't critically fail) an initial saving throw against a poison, or you gain persistent poison damage</p>\n<hr />\n<p><strong>Effect</strong> You pick your poison. Calling out the name of a drink as though ordering at a bar, you negate the triggering poison. Instead, you gain the alcohol affliction at stage 2. The DC of this magical alcohol is the DC of the triggering poison save or DC 20 for persistent poison damage.</p>"
+            "value": "<p>This tattoo depicts a container of alcohol, traditionally a small, uncorked brown bottle. You gain a +1 item bonus to saving throws against poison.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">R</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You fail (but don't critically fail) an initial saving throw against a poison, or you gain persistent poison damage</p><hr /><p><strong>Effect</strong> You pick your poison. Calling out the name of a drink as though ordering at a bar, you negate the triggering poison. Instead, you become slightly drunk. For 10 minutes you're @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] and gain a +1 item bonus to saving throws against fear.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Boozy Bottle]</p>"
         },
         "hardness": 0,
         "hp": {
@@ -29,16 +29,16 @@
             }
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Treasure Vault"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Treasure Vault (Remastered)"
         },
         "quantity": 1,
         "rules": [
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "poison"
+                    "item:trait:poison"
                 ],
                 "selector": "saving-throw",
                 "type": "item",

@@ -1,0 +1,48 @@
+{
+    "_id": "cSlCn3KoAhsKxm4y",
+    "img": "icons/creatures/abilities/wolf-howl-moon-purple.webp",
+    "name": "Spell Effect: Vicious Howl",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Vicious Howl]</p>\n<p>You gain a number of temporary Hit Points equal to your level and a +4 circumstance bonus to damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Shining Kingdoms"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "@actor.level"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "damage",
+                "type": "circumstance",
+                "value": 4
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

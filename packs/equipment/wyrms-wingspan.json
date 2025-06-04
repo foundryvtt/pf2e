@@ -1,0 +1,81 @@
+{
+    "_id": "WgW14gY5SPxQuf78",
+    "img": "icons/creatures/abilities/wing-batlike-white-blue.webp",
+    "name": "Wyrm's Wingspan",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>A massive pattern resembling dragon wings stretched to their full span crosses your body. The tattoo is typically inked on the upper back. Though the representation can be highly stylized, each wyrm's wingspan tattoo depicts the wings of a particular type of dragon. You gain resistance 5 to the damage type matching the tradition of the dragon your tattoo depicts.</p><ul><li><strong>Arcane</strong> force</li><li><strong>Divine</strong> spirit</li><li><strong>Occult</strong> mental</li><li><strong>Primal</strong> fire</li></ul><p><strong>Activate</strong> <span class=\"action-glyph\">2</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The tattoo casts the @UUID[Compendium.pf2e.spells-srd.Item.Dragon Wings] focus spell on you.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 9
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 700
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Treasure Vault (Remastered)"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitArcane",
+                        "value": "force"
+                    },
+                    {
+                        "label": "PF2E.TraitDivine",
+                        "value": "spirit"
+                    },
+                    {
+                        "label": "PF2E.TraitOccult",
+                        "value": "mental"
+                    },
+                    {
+                        "label": "PF2E.TraitPrimal",
+                        "value": "fire"
+                    }
+                ],
+                "flag": "resistance",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.resistance}",
+                "value": 5
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "invested",
+                "magical",
+                "tattoo"
+            ]
+        },
+        "usage": {
+            "value": "tattooed-on-the-body"
+        }
+    },
+    "type": "equipment"
+}
