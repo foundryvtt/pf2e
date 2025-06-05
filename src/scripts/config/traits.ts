@@ -328,7 +328,6 @@ const spellTraits = {
     ...magicTraditions,
     ...sanctificationTraits,
     amp: "PF2E.TraitAmp",
-    archetype: "PF2E.TraitArchetype",
     attack: "PF2E.TraitAttack",
     auditory: "PF2E.TraitAuditory",
     aura: "PF2E.TraitAura",
