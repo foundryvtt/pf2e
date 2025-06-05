@@ -114,7 +114,7 @@ declare global {
          * todo: Replace with correct type
          * @type {foundry.canvas.tokens.TokenRing|null}
          */
-        get ring(): object;
+        get ring(): TokenRing<this> | null;
 
         /** A convenience boolean to test whether the Token is using a dynamic ring. */
         get hasDynamicRing(): boolean;
@@ -822,5 +822,9 @@ declare global {
          *  Undefined in the first frame (at time 0) of the animation.
          */
         promise?: Promise<boolean>;
+    }
+
+    interface TokenRing<T extends Token> {
+        flashColor: (color: Color | number, animationOptions: CanvasAnimationOptions) => Promise<void>;
     }
 }
