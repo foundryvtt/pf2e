@@ -413,7 +413,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The agile warrior deals 2d6 precision damage to a creature on a successful Disarm attempt.</p>"
+                    "value": "<p>The agile warrior deals @Damage[(2d6[precision])[untyped]] precision damage to a creature on a successful [[/act disarm]] attempt.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -430,8 +430,10 @@
                         "predicate": [
                             "action:disarm"
                         ],
-                        "selector": "athletics",
-                        "text": "{item|system.description.value}"
+                        "selector": "skill-check",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,
