@@ -1,0 +1,124 @@
+{
+    "_id": "C8LxBHncfvvofXfj",
+    "img": "icons/skills/ranged/shuriken-thrown-yellow.webp",
+    "name": "Effect: Wyrm Spindle - Armor",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Wyrm Spindle], @UUID[Compendium.pf2e.equipment-srd.Item.Wyrm Spindle (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Wyrm Spindle (Major)]</p>\n<p>You gain resistance to fire, force, mental, and spirit.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Treasure Vault (Remastered)"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:wyrm-spindle",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Wyrm Spindle"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:wyrm-spindle-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Wyrm Spindle (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:wyrm-spindle-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Wyrm Spindle (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "wyrm-spindle"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "wyrm-spindle:wyrm-spindle"
+                ],
+                "type": [
+                    "fire",
+                    "force",
+                    "mental",
+                    "spirit"
+                ],
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "wyrm-spindle:wyrm-spindle-greater"
+                ],
+                "type": [
+                    "fire",
+                    "force",
+                    "mental",
+                    "spirit"
+                ],
+                "value": 10
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "wyrm-spindle:wyrm-spindle-major"
+                ],
+                "type": [
+                    "fire",
+                    "force",
+                    "mental",
+                    "spirit"
+                ],
+                "value": 15
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
