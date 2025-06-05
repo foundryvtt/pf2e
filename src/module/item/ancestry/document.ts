@@ -2,6 +2,7 @@ import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { SenseData } from "@actor/creature/index.ts";
 import { CreatureTrait } from "@actor/creature/types.ts";
 import { SIZE_TO_REACH } from "@actor/creature/values.ts";
+import { ActorSizePF2e } from "@actor/data/size.ts";
 import { AttributeString } from "@actor/types.ts";
 import type { DatabaseUpdateCallbackOptions } from "@common/abstract/_types.d.mts";
 import { ABCItemPF2e, type FeatPF2e } from "@item";
@@ -150,6 +151,22 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
         }
     }
 
+    /** Adjust prototypeToken dimensions if necessary */
+    protected override async _preCreate(
+        data: this["_source"],
+        options: foundry.abstract.DatabaseCreateCallbackOptions,
+        user: fd.BaseUser,
+    ): Promise<boolean | void> {
+        await super._preCreate(data, options, user);
+        const actor = this.actor;
+        if (!actor?.prototypeToken.flags.pf2e.linkToActorSize) return;
+
+        if (actor._source.system.traits?.size?.value !== this.size) {
+            const size = new ActorSizePF2e({ value: this.size });
+            actor.update({ prototypeToken: { height: size.length / 5, width: size.width / 5 } }, { render: false });
+        }
+    }
+
     /** Ensure certain fields are positive integers. */
     protected override _preUpdate(
         changed: DeepPartial<this["_source"]>,
@@ -172,6 +189,19 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
         }
 
         return super._preUpdate(changed, options, user);
+    }
+
+    /** Reset prototypeToken to standard dimensions if necessary */
+    protected override async _preDelete(
+        options: foundry.abstract.DatabaseDeleteCallbackOptions,
+        user: fd.BaseUser,
+    ): Promise<boolean | void> {
+        await super._preDelete(options, user);
+        if (!this.actor) return;
+
+        if (this.size !== "med") {
+            this.actor.update({ prototypeToken: { height: 1, width: 1 } }, { render: false });
+        }
     }
 }
 
