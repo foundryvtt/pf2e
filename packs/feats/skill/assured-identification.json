@@ -31,12 +31,25 @@
         },
         "rules": [
             {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:identify-magic"
+                ],
+                "selector": "skill-check"
+            },
+            {
                 "key": "Note",
+                "outcome": [
+                    "success"
+                ],
                 "predicate": [
                     "action:identify-magic"
                 ],
                 "selector": "skill-check",
-                "text": "When Identifying Magic, if you roll a critical failure, you get a failure instead. If you would misidentify a cursed item because you roll a success, you simply can't identify it.",
+                "text": "PF2E.SpecificRule.AssuredIdentification.CursedItem",
                 "title": "{item|name}"
             }
         ],
