@@ -1,4 +1,5 @@
 import type { ActorPF2e } from "@actor/base.ts";
+import { ActorSizePF2e } from "@actor/data/size.ts";
 import type { DialogV2Configuration } from "@client/applications/api/dialog.d.mts";
 import type { DocumentHTMLEmbedConfig } from "@client/applications/ux/text-editor.d.mts";
 import type { ItemUUID } from "@client/documents/_module.d.mts";
@@ -904,14 +905,15 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         data: this["_source"] | DeepPartial<this["_source"]>,
         action: DatabaseAction,
     ): Promise<boolean | void> {
+        const actor = this.actor;
+        if (!actor) return;
         // Look for any opportunity to abort early
         if (
             this.type !== "ancestry" &&
-            !data.system?.rules?.some((r) => ["BattleForm", "CreatureSize"].includes(r.key ?? ""))
+            !data.system?.rules?.some((r) => ["BattleForm", "CreatureSize"].includes(r.key ?? "")) &&
+            !actor.items.some((i) => i.rules.some((r) => ["BattleForm", "CreatureSize"].includes(r.key ?? "")))
         )
             return;
-        const actor = this.actor;
-        if (!actor) return;
         const currentSize = actor.system.traits?.size;
         if (!currentSize) return;
         const sourceClone = fu.deepClone(actor._source);
@@ -929,8 +931,19 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                 break;
         }
 
-        const actorClone = new Actor.implementation(sourceClone) as ActorPF2e;
-        const newSize = actorClone.system.traits?.size;
+        const newSize = ((): ActorSizePF2e | null => {
+            const actorClone = new Actor.implementation(sourceClone) as ActorPF2e;
+            if (this.isOfType("ancestry")) {
+                switch (action) {
+                    case "create":
+                    case "update":
+                        return new ActorSizePF2e({ value: this.size });
+                    case "delete":
+                        return actorClone.system.traits?.size ?? null;
+                }
+            }
+            return actorClone.system.traits?.size ?? null;
+        })();
         if (!newSize) return;
         if ((["value", "width", "length"] as const).every((p) => newSize[p] === currentSize[p])) return;
 

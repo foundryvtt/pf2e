@@ -176,22 +176,6 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
             return;
         }
 
-        // Adjust drag image if actor size differs from prototype token size
-        if (canvas.ready) {
-            const actor = this.collection.get(
-                htmlClosest(event.currentTarget, "[data-entry-id]")?.dataset.entryId ?? "",
-            );
-            const size = actor?.system.traits?.size;
-            const pt = actor?.prototypeToken;
-            if (size && pt) {
-                const width = size.width / 5;
-                const height = size.length / 5;
-                if (pt.width !== width || pt.height !== height) {
-                    pt.width = width;
-                    pt.height = height;
-                }
-            }
-        }
         super._onDragStart(event);
 
         // Add additional party metadata to the drag event
