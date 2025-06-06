@@ -31,31 +31,31 @@
         },
         "rules": [
             {
-              "adjustName": false,
-              "choices": [
-                {
-                  "label": "PF2E.ProficiencyLevel1",
-                  "value": 1,
-                  "predicate": [
-                    "skill:society:rank:0"
-                  ]
-                },
-                {
-                  "label": "PF2E.ProficiencyLevel2",
-                  "value": 2,
-                  "predicate": [
+                "adjustName": false,
+                "choices": [
                     {
-                        "gte": [
-                            "skill:society:rank",
-                            1
-                        ]
+                        "label": "PF2E.ProficiencyLevel1",
+                        "predicate": [
+                            "skill:society:rank:0"
+                        ],
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.ProficiencyLevel2",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "skill:society:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": 2
                     }
-                  ]
-                }
-              ],
-              "flag": "rank",
-              "key": "ChoiceSet",
-              "priority": 30
+                ],
+                "flag": "rank",
+                "key": "ChoiceSet",
+                "priority": 30
             },
             {
                 "key": "ActiveEffectLike",
