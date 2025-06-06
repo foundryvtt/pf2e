@@ -4,13 +4,477 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "JEEpnPA6ApcxWimd",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Deep Breath",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>An iruxi masked mummer can hold their breath for 20 minutes.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "oIXWkbczFkJ8KZlj",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Don Mask",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p><hr /><p><strong>Effect</strong> The mummer dons a ceremonial skull mask, calling an ancestral spirit to come to their aid. The spirit answers with a spell the mummer can cast as a primal innate spell (5th rank, DC 27) as part of the Don Mask activity. The mummer also gains a primal boon that lasts for 1 minute. After the minute is over or the mask is removed, the spell and boon end if either is still active, and the mummer is @UUID[Compendium.pf2e.conditionitems.Item.Fatigued]. The most common legendary spirits the masks can invoke are:</p><ul><li><p><strong>Fiery Akkarok</strong> (tyrannosaurus mask)</p><ul><li><strong>Spell</strong> @UUID[Compendium.pf2e.spells-srd.Item.Blazing Bolt] (3-action version)</li><li><strong>Boon</strong> The mummer's melee Strikes deal an additional 2d6 fire damage.</li></ul></li><li><p><strong>Hazi Zephyr-Borne</strong> (griffon or iruxi mask)</p><ul><li><strong>Spell</strong> @UUID[Compendium.pf2e.spells-srd.Item.Wall of Wind]</li><li><strong>Boon</strong> The mummer gains a fly Speed of 20 feet.</li></ul></li><li><p><strong>King of Storms</strong> (roc or horned dragon mask)</p><ul><li><strong>Spell</strong> @UUID[Compendium.pf2e.spells-srd.Item.Howling Blizzard]</li><li><strong>Boon</strong> The mummer gains the @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Reactive Strike] reaction that can be used only with their tail.</li></ul></li><li><p><strong>Nessek, the Wave Dancer</strong> (mosasaur mask)</p><ul><li><strong>Spell</strong> @UUID[Compendium.pf2e.spells-srd.Item.Slither]</li><li><strong>Boon</strong> The mummer's claw Strikes deal an additional 2d4 persistent bleed damage.</li></ul></li><li><p><strong>Zalok, Who was Called to Black Harbor</strong> (naga or spinosaurus mask)</p><ul><li><strong>Spell</strong> @UUID[Compendium.pf2e.spells-srd.Item.Hydraulic Torrent]</li><li><strong>Boon</strong> The mummer gains a +10-foot status bonus to their land Speed and swim Speed.</li></ul></li></ul>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT10M"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Don Mask",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Don Mask"
+                },
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "yejcLHz02aGTNOKx",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Starry Presence",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>30 feet. With a quick dance, the iruxi masked mummer surrounds themself with a starlight image resembling a figure from legend. The image lasts until the start of the mummer's next turn. An enemy that enters or starts its turn in the aura must succeed at a @Check[will|dc:25] save or become @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] until the start of its next turn.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "starry-presence",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "starry-presence"
+                        ],
+                        "radius": 30,
+                        "slug": "starry-presence",
+                        "traits": [
+                            "illusion",
+                            "light",
+                            "mental",
+                            "primal"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "illusion",
+                        "light",
+                        "mental",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4f6L7Yc8P7tEzOOx",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.dDIPA1WE9ESF67EB"
+            },
+            "img": "icons/equipment/chest/shirt-collared-pink.webp",
+            "name": "Mummer's Costume",
+            "sort": 400000,
+            "system": {
+                "acBonus": 0,
+                "baseItem": "explorers-clothing",
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "unarmored",
+                "checkPenalty": 0,
+                "containerId": null,
+                "description": {
+                    "value": "<p>Adventurers who don't wear armor travel in durable clothing. Though it's not armor and uses your unarmored defense proficiency, it still has a Dex Cap and can grant an item bonus to AC if etched with potency runes.</p>"
+                },
+                "dexCap": 5,
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "group": "cloth",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "explorers-clothing",
+                "speedPenalty": 0,
+                "strength": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "comfort"
+                    ]
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "wYRYSIgMLOyaKFdd",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.2c5pF6q5XkjLn8MU"
+            },
+            "img": "icons/commodities/bones/skull-canine-beige.webp",
+            "name": "Ceremonial Skull Mask",
+            "sort": 500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Lost Omens The Grand Bazaar"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "mask-ordinary",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "wornmask"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "qXO6fsPdVPjv6blu",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.bAfyWCvgsYDyw3ff"
+            },
+            "img": "systems/pf2e/icons/equipment/held-items/maestros-instrument.webp",
+            "name": "Maestro's Instrument (Lesser) (Hand Drum)",
+            "sort": 600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>A <em>maestro's instrument</em> can be crafted in the form of any variety of handheld musical instruments. A <em>maestro's instrument</em> grants you a +1 item bonus to Performance checks while playing music with the instrument.</p><hr /><p><strong>Activate—Charming Performance</strong> <span class=\"action-glyph\">2</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You play the instrument, causing it to cast a DC 17 @UUID[Compendium.pf2e.spells-srd.Item.Charm] spell.</p><hr /><p><strong>Craft Requirements</strong> You must supply a casting of <em>charm</em> of the appropriate rank.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 60
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "domain": "performance",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.PlayingItem",
+                        "option": "playing",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "playing"
+                        ],
+                        "selector": "performance",
+                        "type": "item",
+                        "value": 1
+                    }
+                ],
+                "size": "med",
+                "slug": "maestros-instrument-lesser",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "etefXLoMozL4nih7",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Iruxi Lore",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 20
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "Xu5rnjnvcAF3FuEo",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 800000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "s7gq6lme7PCF65td": {
+                        "damage": "2d6+8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "finesse",
+                        "sweep",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "sD8nNesP62YzR687",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 900000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "FcqJHafuABPTozfY": {
+                        "damage": "2d4+8",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "unarmed",
+                        "versatile-p"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "2hmdZNVQ5AHU6tqm",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spectral Roar",
+            "sort": 1000000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "XpJz1qesT9yhtaFj": {
+                        "damage": "3d10",
+                        "damageType": "sonic"
+                    }
+                },
+                "description": {
+                    "value": "<p><span class=\"action-glyph\">2</span></p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "primal",
+                        "range-30",
+                        "sonic"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
             "_id": "7xEdZ59dIOpCIy03",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FNDq4NFSN0g2HKWO"
             },
             "img": "icons/equipment/hand/gauntlet-simple-leather-brown-gold.webp",
             "name": "+1 Striking Handwraps of Mighty Blows",
-            "sort": 100000,
+            "sort": 1100000,
             "system": {
                 "baseItem": null,
                 "bonus": {
@@ -91,470 +555,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "4f6L7Yc8P7tEzOOx",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.dDIPA1WE9ESF67EB"
-            },
-            "img": "icons/equipment/chest/shirt-collared-pink.webp",
-            "name": "Mummer's Costume",
-            "sort": 200000,
-            "system": {
-                "acBonus": 0,
-                "baseItem": "explorers-clothing",
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "unarmored",
-                "checkPenalty": 0,
-                "containerId": null,
-                "description": {
-                    "value": "<p>Adventurers who don't wear armor travel in durable clothing. Though it's not armor and uses your unarmored defense proficiency, it still has a Dex Cap and can grant an item bonus to AC if etched with potency runes.</p>"
-                },
-                "dexCap": 5,
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "group": "cloth",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "explorers-clothing",
-                "speedPenalty": 0,
-                "strength": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "comfort"
-                    ]
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "wYRYSIgMLOyaKFdd",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.2c5pF6q5XkjLn8MU"
-            },
-            "img": "icons/commodities/bones/skull-canine-beige.webp",
-            "name": "Ceremonial Skull Mask",
-            "sort": 300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Lost Omens The Grand Bazaar"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "mask-ordinary",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "wornmask"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "qXO6fsPdVPjv6blu",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.bAfyWCvgsYDyw3ff"
-            },
-            "img": "systems/pf2e/icons/equipment/held-items/maestros-instrument.webp",
-            "name": "Maestro's Instrument (Lesser) (Hand Drum)",
-            "sort": 400000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>A <em>maestro's instrument</em> can be crafted in the form of any variety of handheld musical instruments. A <em>maestro's instrument</em> grants you a +1 item bonus to Performance checks while playing music with the instrument.</p><hr /><p><strong>Activate—Charming Performance</strong> <span class=\"action-glyph\">2</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You play the instrument, causing it to cast a DC 17 @UUID[Compendium.pf2e.spells-srd.Item.Charm] spell.</p><hr /><p><strong>Craft Requirements</strong> You must supply a casting of <em>charm</em> of the appropriate rank.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 60
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder GM Core"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "domain": "performance",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.PlayingItem",
-                        "option": "playing",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "playing"
-                        ],
-                        "selector": "performance",
-                        "type": "item",
-                        "value": 1
-                    }
-                ],
-                "size": "med",
-                "slug": "maestros-instrument-lesser",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "Xu5rnjnvcAF3FuEo",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tail",
-            "sort": 500000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "s7gq6lme7PCF65td": {
-                        "damage": "2d6+8",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "finesse",
-                        "sweep",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "sD8nNesP62YzR687",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 600000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "FcqJHafuABPTozfY": {
-                        "damage": "2d4+8",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "unarmed",
-                        "versatile-p"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "2hmdZNVQ5AHU6tqm",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Spectral Roar",
-            "sort": 700000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "XpJz1qesT9yhtaFj": {
-                        "damage": "3d10",
-                        "damageType": "sonic"
-                    }
-                },
-                "description": {
-                    "value": "<p><span class=\"action-glyph\">2</span></p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "primal",
-                        "range-30",
-                        "sonic"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "JEEpnPA6ApcxWimd",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Deep Breath",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>An iruxi masked mummer can hold their breath for 20 minutes.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "oIXWkbczFkJ8KZlj",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Don Mask",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p><hr /><p><strong>Effect</strong> The mummer dons a ceremonial skull mask, calling an ancestral spirit to come to their aid. The spirit answers with a spell the mummer can cast as a primal innate spell (5th rank, DC 27) as part of the Don Mask activity. The mummer also gains a primal boon that lasts for 1 minute. After the minute is over or the mask is removed, the spell and boon end if either is still active, and the mummer is @UUID[Compendium.pf2e.conditionitems.Item.Fatigued]. The most common legendary spirits the masks can invoke are:</p><ul><li><p><strong>Fiery Akkarok</strong> (tyrannosaurus mask)</p><ul><li><strong>Spell</strong> @UUID[Compendium.pf2e.spells-srd.Item.Blazing Bolt] (3-action version)</li><li><strong>Boon</strong> The mummer's melee Strikes deal an additional 2d6 fire damage.</li></ul></li><li><p><strong>Hazi Zephyr-Borne</strong> (griffon or iruxi mask)</p><ul><li><strong>Spell</strong> @UUID[Compendium.pf2e.spells-srd.Item.Wall of Wind]</li><li><strong>Boon</strong> The mummer gains a fly Speed of 20 feet.</li></ul></li><li><p><strong>King of Storms</strong> (roc or horned dragon mask)</p><ul><li><strong>Spell</strong> @UUID[Compendium.pf2e.spells-srd.Item.Howling Blizzard]</li><li><strong>Boon</strong> The mummer gains the @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Reactive Strike] reaction that can be used only with their tail.</li></ul></li><li><p><strong>Nessek, the Wave Dancer</strong> (mosasaur mask)</p><ul><li><strong>Spell</strong> @UUID[Compendium.pf2e.spells-srd.Item.Slither]</li><li><strong>Boon</strong> The mummer's claw Strikes deal an additional 2d4 persistent bleed damage.</li></ul></li><li><p><strong>Zalok, Who was Called to Black Harbor</strong> (naga or spinosaurus mask)</p><ul><li><strong>Spell</strong> @UUID[Compendium.pf2e.spells-srd.Item.Hydraulic Torrent]</li><li><strong>Boon</strong> The mummer gains a +10-foot status bonus to their land Speed and swim Speed.</li></ul></li></ul>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "PT10M"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "selfEffect": {
-                    "name": "Effect: Don Mask",
-                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Don Mask"
-                },
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "yejcLHz02aGTNOKx",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Starry Presence",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>30 feet. With a quick dance, the iruxi masked mummer surrounds themself with a starlight image resembling a figure from legend. The image lasts until the start of the mummer's next turn. An enemy that enters or starts its turn in the aura must succeed at a @Check[will|dc:25] save or become @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] until the start of its next turn.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "starry-presence",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "Aura",
-                        "predicate": [
-                            "starry-presence"
-                        ],
-                        "radius": 30,
-                        "slug": "starry-presence",
-                        "traits": [
-                            "illusion",
-                            "light",
-                            "mental",
-                            "primal"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "illusion",
-                        "light",
-                        "mental",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "etefXLoMozL4nih7",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Iruxi Lore",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 20
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
         }
     ],
     "name": "Iruxi Masked Mummer",

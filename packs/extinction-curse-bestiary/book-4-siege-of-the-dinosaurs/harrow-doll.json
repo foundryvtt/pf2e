@@ -4,22 +4,204 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "1fJFJOb1u8PBT1qs",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Innate Spells",
+            "_id": "P55ThVkZipK0fIVo",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Uncanny Divination",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A harrow doll can cast @UUID[Compendium.pf2e.spells-srd.Item.Augury] as part of a harrow reading, which takes the usual 10 minutes.</p>\n<p>When casting @UUID[Compendium.pf2e.spells-srd.Item.Locate], the harrow doll doesn't need to have previously observed a specific object to learn its direction, but instead can detail the direction only vaguely, using such phrases as \"beside a weeping mound\" or \"beneath the lost sky.\"</p>\n<p>When the harrow doll casts @UUID[Compendium.pf2e.spells-srd.Item.Mind Reading], there is no effect if the target critically succeeds its save.</p>\n<p>Each time a harrow doll makes a harrow reading, it also changes which saving throw is affected by its fortune's favor ability.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "sMH395MKnCnUaAGg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Fortune's Favor",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Whenever the harrow doll attempts a specific type of saving throw, it rolls twice and takes the higher result. The type of saving throw is determined by the suit that featured most prominently in the doll's most recent harrow reading: Fortitude (Hammers or Shields), Reflex (Keys or Books), or Will (Stars or Crowns). If the suit of its latest harrow reading is unknown, roll [[/r 1d6]]{1d6} at the beginning of combat to randomly determine it.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Fortune's Favor]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fortune"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "PQCJPgjYoVwBLXyY",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Harrowing Misfortune",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature struck by one of the harrow doll's cards must attempt a @Check[will|dc:25] save or be cursed with misfortune, which forces the creature to roll twice and take the lower result on its next roll of a specific type, determined by the card's suit (roll [[/r 1d6]]{1d6} to randomly determine the suit). A creature can be cursed with only one effect from harrowing misfortune at a time, with a new curse overriding any previous curse. The curse ends after 1 minute or after the specified roll is made, whichever comes first. The suits and their effects are: Hammers (melee attack roll), Keys (Reflex save), Shields (Fortitude save), Books (skill check), Stars (Will save), and Crowns (spell attack roll).</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Harrowing Misfortune]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "harrowing-misfortune",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "curse",
+                        "misfortune"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lHtukJ46NfLrTp0w",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "FFhpizMPIxIyhvzO",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.C1j0Zs26TPVjplbs"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/harrow-deck-simple.webp",
+            "name": "Harrow Deck (Metal)",
+            "sort": 500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>Used by gamblers and seers alike, this deck of cards comes in several varieties.</p>\n<hr />\n<p>Simple harrow decks are made from low-quality paper and typically have only an icon and a number to signify the suit and alignment. These simple decks are mostly used for games of chance, as the actual image and significance of the cards are irrelevant for such games.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #160: Assault on Hunting Lodge Seven"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "lg",
+                "slug": "harrow-deck-simple",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "WqZw6sQ6UuR8XHlz",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Lore",
+            "sort": 600000,
+            "system": {
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
+                "mod": {
+                    "value": 16
                 },
-                "proficiency": {
+                "proficient": {
                     "value": 0
                 },
                 "publication": {
@@ -28,27 +210,104 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot2": {
-                        "max": 1,
-                        "value": 1
-                    },
-                    "slot3": {
-                        "max": 2,
-                        "value": 2
-                    }
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "iKTJM59aw3XI1kNW",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
                 },
-                "slug": null,
-                "spelldc": {
-                    "dc": 27,
-                    "mod": 0,
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
                     "value": 17
                 },
-                "tradition": {
-                    "value": "arcane"
+                "damageRolls": {
+                    "4goluknhdl7istpqksso": {
+                        "damage": "2d12+6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "QYVQuOt7vXM39lkd",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Harrow Card",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "harrowing-misfortune"
+                    ]
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "LjXxiaJiE4yc0tFk": {
+                        "damage": "2d8+6",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "range-increment-60"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "usEeYnTrFjOT0n3A",
@@ -57,7 +316,7 @@
             },
             "img": "systems/pf2e/icons/spells/locate.webp",
             "name": "Locate",
-            "sort": 200000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -130,7 +389,7 @@
             },
             "img": "systems/pf2e/icons/spells/mind-reading.webp",
             "name": "Mind Reading",
-            "sort": 300000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -198,7 +457,7 @@
             },
             "img": "systems/pf2e/icons/spells/augury.webp",
             "name": "Augury (At Will)",
-            "sort": 400000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -254,299 +513,22 @@
             "type": "spell"
         },
         {
-            "_id": "FFhpizMPIxIyhvzO",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.C1j0Zs26TPVjplbs"
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/harrow-deck-simple.webp",
-            "name": "Harrow Deck (Metal)",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>Used by gamblers and seers alike, this deck of cards comes in several varieties.</p>\n<hr />\n<p>Simple harrow decks are made from low-quality paper and typically have only an icon and a number to signify the suit and alignment. These simple decks are mostly used for games of chance, as the actual image and significance of the cards are irrelevant for such games.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #160: Assault on Hunting Lodge Seven"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "lg",
-                "slug": "harrow-deck-simple",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "iKTJM59aw3XI1kNW",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 17
-                },
-                "damageRolls": {
-                    "4goluknhdl7istpqksso": {
-                        "damage": "2d12+6",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "QYVQuOt7vXM39lkd",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Harrow Card",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "harrowing-misfortune"
-                    ]
-                },
-                "bonus": {
-                    "value": 18
-                },
-                "damageRolls": {
-                    "LjXxiaJiE4yc0tFk": {
-                        "damage": "2d8+6",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "range-increment-60"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "P55ThVkZipK0fIVo",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Uncanny Divination",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A harrow doll can cast @UUID[Compendium.pf2e.spells-srd.Item.Augury] as part of a harrow reading, which takes the usual 10 minutes.</p>\n<p>When casting @UUID[Compendium.pf2e.spells-srd.Item.Locate], the harrow doll doesn't need to have previously observed a specific object to learn its direction, but instead can detail the direction only vaguely, using such phrases as \"beside a weeping mound\" or \"beneath the lost sky.\"</p>\n<p>When the harrow doll casts @UUID[Compendium.pf2e.spells-srd.Item.Mind Reading], there is no effect if the target critically succeeds its save.</p>\n<p>Each time a harrow doll makes a harrow reading, it also changes which saving throw is affected by its fortune's favor ability.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "sMH395MKnCnUaAGg",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Fortune's Favor",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Whenever the harrow doll attempts a specific type of saving throw, it rolls twice and takes the higher result. The type of saving throw is determined by the suit that featured most prominently in the doll's most recent harrow reading: Fortitude (Hammers or Shields), Reflex (Keys or Books), or Will (Stars or Crowns). If the suit of its latest harrow reading is unknown, roll [[/r 1d6]]{1d6} at the beginning of combat to randomly determine it.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Fortune's Favor]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "fortune"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "PQCJPgjYoVwBLXyY",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Harrowing Misfortune",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A creature struck by one of the harrow doll's cards must attempt a @Check[will|dc:25] save or be cursed with misfortune, which forces the creature to roll twice and take the lower result on its next roll of a specific type, determined by the card's suit (roll [[/r 1d6]]{1d6} to randomly determine the suit). A creature can be cursed with only one effect from harrowing misfortune at a time, with a new curse overriding any previous curse. The curse ends after 1 minute or after the specified roll is made, whichever comes first. The suits and their effects are: Hammers (melee attack roll), Keys (Reflex save), Shields (Fortitude save), Books (skill check), Stars (Will save), and Crowns (spell attack roll).</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Harrowing Misfortune]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "harrowing-misfortune",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "curse",
-                        "misfortune"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "lHtukJ46NfLrTp0w",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "grab",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "WqZw6sQ6UuR8XHlz",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Lore",
+            "_id": "1fJFJOb1u8PBT1qs",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Innate Spells",
             "sort": 1200000,
             "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 16
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "proficient": {
+                "proficiency": {
                     "value": 0
                 },
                 "publication": {
@@ -555,9 +537,27 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slots": {
+                    "slot2": {
+                        "max": 1,
+                        "value": 1
+                    },
+                    "slot3": {
+                        "max": 2,
+                        "value": 2
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 27,
+                    "mod": 0,
+                    "value": 17
+                },
+                "tradition": {
+                    "value": "arcane"
+                }
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Harrow Doll",

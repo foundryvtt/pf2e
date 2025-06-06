@@ -4,120 +4,203 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "jcpoFymCuFvvJ6vS",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Spontaneous Spells",
+            "_id": "AkXS62YTAYOPqg6G",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.fJSNOw4zHGbIm4bZ"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Fast Healing 10",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.FastHealing]</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
-                "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot2": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot3": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot4": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot5": {
-                        "max": 3,
-                        "value": 3
+                "rules": [
+                    {
+                        "key": "FastHealing",
+                        "value": 10
                     }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 32,
-                    "value": 24
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
+                ],
+                "slug": "fast-healing",
+                "traits": {
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "dAql5pcnyCzryoRP",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
+            "_id": "1nTecCfw8mCHs7pF",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.FXHjmH1oce7Z3tZb"
+            },
+            "folder": "Pycs65tqRMBiiARd",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Coffin Restoration",
             "sort": 200000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>Unlike other undead, a vampire isn't destroyed at 0 HP. Instead, it falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious]. If its body rests in its coffin for 1 hour, the vampire gains 1 HP, after which its fast healing begins to function normally.</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 32,
-                    "value": 24
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
+                "slug": "vampire-basic-coffin-restoration",
+                "traits": {
+                    "value": [
+                        "divine",
+                        "void"
+                    ]
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "3JQYqy3z80fFSrt6",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Sorcerer Bloodline Spells",
+            "_id": "KK3OJR7cHs7JClcB",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.eQLGYrJhu787pEwc"
+            },
+            "folder": "Pycs65tqRMBiiARd",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Shadow Form",
             "sort": 300000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Rukh reverts to pure shadow and absorbs her body and her gear into the darkness, or it shifts back to her physical form. In shadow form, Rukh gains a climb Speed equal to her land Speed and can more through any gap that isn't airtight. However, she can only move along solid surfaces that aren't highly reflective, not liquid or mirrored surfaces. If the surface she's on is destroyed, Rukh returns to physical form and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}. She loses fast healing while in shadow form but can remain in shadow form indefinitely.</p>\n<p>If Rukh is exposed to sunlight while in shadow form, she becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} and must attempt a @Check[flat|dc:16] at the end of each of her turns. If she fails, she is destroyed, the shadow vanishing with a blood-curdling wail.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Adventure: Shadows at Sundown"
+                },
+                "rules": [],
+                "slug": "vampire-strigoi-shadow-form",
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "divine",
+                        "shadow"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qAmIcePvvY6ixAmy",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.qjgrMhwz78T31kLU"
+            },
+            "folder": "Pycs65tqRMBiiARd",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Strigoi Weaknesses",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
+                    "value": "<p>All strigoi possess the following weaknesses:</p>\n<ul>\n<li><strong>Revulsion</strong> Strigoi are uncomfortable near mirrors or sources of bright light. Only a strigoi's shadow reflects in a mirror, and this often compels them to cover or destroy mirrors in their presence rather than risk their true nature being displayed. A strigoi can't voluntarily come within 10 feet of a brandished mirror or source of bright light. To brandish a mirror or light source, a creature must Interact to do so for 1 round (similar to Raising a Shield). If the strigoi involuntarily comes within 10 feet of a brandished mirror or light source, it gains the @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] condition, running from the brandished object until it ends an action beyond 10 feet. After 1 round of being exposed to the subject of its revulsion, a strigoi can attempt a @Check[will|dc:25] save as a single action, which has the concentrate trait. On a success, it overcomes its revulsions for [[/gmr 1d6 #Overcome Revulsions Duration]]{1d6 rounds} (or 1 hour on a critical success). A strigoi can move normally around mirrors or bright light sources that are not brandished, although doing so causes them discomfort that can be noticed with a successful Perception check to @UUID[Compendium.pf2e.actionspf2e.Item.Sense Motive].</li>\n<li><strong>Sunlight</strong> When exposed to direct sunlight, a strigoi immediately becomes @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] and falls to the ground. It appears to be dead: it doesn't breathe, its body temperature matches its surroundings, and it doesn't react to pain or other stimuli. A successful @Check[perception|against:reflex] check against the strigoi's Reflex DC is enough to note one anomaly: the shadow cast by its \"dead\" body shifts and moves slightly, its edges twisting and active. Spells like @UUID[Compendium.pf2e.spells-srd.Item.Detect Alignment], senses like lifesense, and the \"corpse\" taking damage from vitality energy still function normally, and could reveal the truth without needing a successful Perception check. Viewing the \"corpse\" in a mirror's reflection can also reveal the truth, for only the body's shadow reflects. While in sunlight and unconscious, the strigoi loses its resistance to physical damage. If the strigoi takes enough damage that it would be reduced to 0 Hit Points, its body quickly decomposes, and the strigoi is destroyed.</li>\n<li><strong>Water Revulsion</strong> A strigoi cannot cross a significant source of running water (such as a creek, river, or waves on a seashore). A strigoi capable of flight can cross running water provided it approaches no closer than 10 feet to the liquid's surface. If forced into running water against its will, the strigoi becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} and gains the fleeing condition as long as it remains in the water. At the end of any turn in which the strigoi remains in running water, it must succeed at a @Check[flat|dc:5] or be destroyed.</li>\n</ul>"
                 },
-                "prepared": {
-                    "value": "focus"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Adventure: Shadows at Sundown"
                 },
-                "proficiency": {
+                "rules": [],
+                "slug": "vampire-strigoi-strigoi-weaknesses",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vIM3DcBR4xmwYbxr",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8aX9xWVc94FRZnbO",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Bleed Out",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
                     "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Rukh's last action was to cast a non-cantrip spell that granted him a blood magic effect</p><hr /><p><strong>Effect</strong> Rukh makes a ranged spell attack roll against the AC of a target within 60 feet. This attack deals persistent bleed damage equal to the rank of the spell he just cast.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -125,18 +208,528 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 32,
-                    "value": 24
+                "traits": {
+                    "value": [
+                        "attack"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZxSAP8Gbs9ALeYbf",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Blood Magic—Eerie Veil",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
                 },
-                "tradition": {
-                    "value": "occult"
+                "actions": {
+                    "value": null
                 },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When Rukh casts a bloodline spell using a Focus Point or a sorcerous gift spell using a spell slot, either one target takes a –1 status penalty to Will saving throws for 1 round, or Rukh gains a +2 status bonus to Will saving throws for 1 round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Aberrant Blood Magic]</p>\n<p><strong>Sorcerous gift spells</strong></p><ul><li>@UUID[Compendium.pf2e.spells-srd.Item.Slither]</li><li>@UUID[Compendium.pf2e.spells-srd.Item.Confusion]</li><li>@UUID[Compendium.pf2e.spells-srd.Item.Vampiric Feast]</li><li>@UUID[Compendium.pf2e.spells-srd.Item.Stupefy]</li><li>@UUID[Compendium.pf2e.spells-srd.Item.Phantom Pain]</li></ul>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9hemE5bYIpubSQrc",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.rBc9fJlMXhzvn05L"
+            },
+            "folder": "Pycs65tqRMBiiARd",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Drink Essence",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> A @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], @UUID[Compendium.pf2e.conditionitems.Item.Restrained], @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], or willing creature is within the strigoi's reach</p><hr /><p><strong>Effect</strong> The strigoi sinks their fangs into the targeted creature to drink its blood and draw out its vital essence. This requires an @Check[athletics|defense:fortitude] check against the creature's Fortitude DC if the creature is grabbed and is automatic for any of the other conditions. The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1}, and Rukh regains @Damage[13[healing]] HP, gaining any excess HP as temporary Hit Points. Drinking Essence from a creature that's already drained or stupefied doesn't restore any HP, but increases either the creature's drained condition value or its stupefied condition value by 1 (whichever value is lesser is increased; if both values are equal, then the strigoi chooses which condition to increase the value of).</p>\n<p>A victim's drained condition decreases by 1 per week. A blood transfusion, which requires a successful @Check[medicine|dc:20] check and sufficient blood or a blood donor, reduces the drained value by 1 after 10 minutes.</p>\n<p>A victim's stupefied condition decreases by 1 per day after performing daily preparations. If the daily preparations are done in full sunlight, the stupefied condition is removed entirely.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Adventure: Shadows at Sundown"
+                },
+                "rules": [],
+                "slug": "vampire-strigoi-drink-essence",
+                "traits": {
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gwtoZrdJkLeTK5Yi",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Reach Spell",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If the next action Rukh takes is to Cast a Spell that has a range, increase that spell's range by 30 feet.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "spellshape"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "RIas2vP5Q5VWFwdr",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2ereKIRXMcwUQcFX",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.VJ4s6ABlkimSyjjZ"
+            },
+            "img": "systems/pf2e/icons/equipment/armor/scroll-robes.webp",
+            "name": "Scroll Robes",
+            "sort": 1100000,
+            "system": {
+                "acBonus": 0,
+                "baseItem": "scroll-robes",
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "unarmored",
+                "checkPenalty": 0,
+                "containerId": null,
+                "description": {
+                    "value": "<p>Scroll robes are composed of paper alchemically treated for strength and flexibility. A layered structure prevents cutting and tearing, and for the purpose of calculating damage, the robes are considered to be cloth. The paper accepts all sorts of decoration, including magical writing, as detailed in the inscribed trait.</p>"
+                },
+                "dexCap": 5,
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "group": "cloth",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 15
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Treasure Vault"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "resilient": 1
+                },
+                "size": "med",
+                "slug": "scroll-robes",
+                "speedPenalty": 0,
+                "strength": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "inscribed"
+                    ]
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "ZqpNePlcC78WUn1C",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.hH63OWEVoMEr4ypr"
+            },
+            "img": "icons/commodities/materials/orb-tassle-blue-yellow.webp",
+            "name": "Nightpitch",
+            "sort": 1200000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "catalyst",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> Cast a Spell</p>\n<p>A pellet of tar mixed with the fur of a nocturnal creature, such as a bat, nightpitch used to cast a @UUID[Compendium.pf2e.spells-srd.Item.Darkness] spell makes the area of the darkness difficult terrain.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 5
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 60
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Treasure Vault"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "nightpitch",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "catalyst",
+                        "consumable",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "pKLLWTF3KXiHssKB",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.QSQZJ5BC3DeHv153"
+            },
+            "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
+            "name": "Scroll of Grim Tendrils (Scroll Robe, Rank 4)",
+            "sort": 1300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "scroll",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Grim Tendrils]</p><hr /><p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>The spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack modifier and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical costs are provided when a scroll is created, so you don't need to provide them when casting from a scroll. If the spell requires a locus, you must have that locus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 7
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 70
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "scroll-of-4th-rank-spell",
+                "spell": {
+                    "_id": "TmdGDwwVyzJa5Jv3",
+                    "_stats": {
+                        "compendiumSource": "Compendium.pf2e.spells-srd.Item.k34hDOfIIMAxNL4a"
+                    },
+                    "folder": "T8AzYUgNIAgTJ9Iz",
+                    "img": "systems/pf2e/icons/spells/grim-tendrils.webp",
+                    "name": "Grim Tendrils",
+                    "sort": 0,
+                    "system": {
+                        "area": {
+                            "type": "line",
+                            "value": 30
+                        },
+                        "cost": {
+                            "value": ""
+                        },
+                        "counteraction": false,
+                        "damage": {
+                            "0": {
+                                "applyMod": false,
+                                "category": null,
+                                "formula": "2d4",
+                                "kinds": [
+                                    "damage"
+                                ],
+                                "materials": [],
+                                "type": "void"
+                            }
+                        },
+                        "defense": {
+                            "save": {
+                                "basic": false,
+                                "statistic": "fortitude"
+                            }
+                        },
+                        "description": {
+                            "value": "<p>Tendrils of darkness curl out from your fingertips and race through the air. You deal 2d4 void damage and @Damage[(@item.level)[bleed]] damage to living creatures in the line. Each living creature in the line must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half the void damage and no persistent bleed damage.</p>\n<p><strong>Failure</strong> The creature takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double void damage and double persistent bleed damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The void damage increases by 2d4, and the persistent bleed damage increases by 1.</p>"
+                        },
+                        "duration": {
+                            "sustained": false,
+                            "value": ""
+                        },
+                        "heightening": {
+                            "damage": {
+                                "0": "2d4"
+                            },
+                            "interval": 1,
+                            "type": "interval"
+                        },
+                        "level": {
+                            "value": 1
+                        },
+                        "location": {
+                            "heightenedLevel": 4,
+                            "value": null
+                        },
+                        "publication": {
+                            "license": "ORC",
+                            "remaster": true,
+                            "title": "Pathfinder Player Core"
+                        },
+                        "range": {
+                            "value": ""
+                        },
+                        "requirements": "",
+                        "rules": [],
+                        "slug": "grim-tendrils",
+                        "target": {
+                            "value": ""
+                        },
+                        "time": {
+                            "value": "2"
+                        },
+                        "traits": {
+                            "rarity": "common",
+                            "traditions": [
+                                "arcane",
+                                "occult"
+                            ],
+                            "value": [
+                                "concentrate",
+                                "manipulate",
+                                "void"
+                            ]
+                        }
+                    },
+                    "type": "spell"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "consumable",
+                        "magical",
+                        "manipulate",
+                        "scroll",
+                        "void"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "nMLkSeE8xR0z3SLZ",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Netherworld Lore",
+            "sort": 1400000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 19
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
                 "traits": {}
             },
-            "type": "spellcastingEntry"
+            "type": "lore"
+        },
+        {
+            "_id": "VQ0wqA7unG7pdHbb",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Nin Lore",
+            "sort": 1500000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 19
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "7Tl6fw29y8oM1OEu",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 1600000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "zMTY2Rbgu1uJiBB3": {
+                        "damage": "1d8+5",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "WlLJUKvThDN9k0Ej",
@@ -146,7 +739,7 @@
             "folder": "iDjm2cXyRAe4VZ35",
             "img": "icons/creatures/reptiles/serpent-horned-green.webp",
             "name": "Slither",
-            "sort": 400000,
+            "sort": 1700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -248,7 +841,7 @@
             "folder": "iDjm2cXyRAe4VZ35",
             "img": "icons/magic/fire/barrier-shield-explosion-yellow.webp",
             "name": "Synaptic Pulse",
-            "sort": 500000,
+            "sort": 1800000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -319,7 +912,7 @@
             "folder": "iDjm2cXyRAe4VZ35",
             "img": "systems/pf2e/icons/spells/synesthesia.webp",
             "name": "Synesthesia",
-            "sort": 600000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -396,7 +989,7 @@
             "folder": "7cyoYPoPYA01mErU",
             "img": "systems/pf2e/icons/spells/confusion.webp",
             "name": "Confusion",
-            "sort": 700000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -476,7 +1069,7 @@
             "folder": "7cyoYPoPYA01mErU",
             "img": "systems/pf2e/icons/spells/phantasmal-killer.webp",
             "name": "Vision of Death",
-            "sort": 800000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -565,7 +1158,7 @@
             "folder": "wnvibtD90h7CStDC",
             "img": "icons/creatures/magical/spirit-fire-yellow.webp",
             "name": "Aberrant Whispers",
-            "sort": 900000,
+            "sort": 2200000,
             "system": {
                 "area": {
                     "details": "5-foot emanation or more",
@@ -684,7 +1277,7 @@
             "folder": "4fJHnYFqH0VjZXPv",
             "img": "icons/magic/light/projectile-stars-blue.webp",
             "name": "Levitate (At Will)",
-            "sort": 1000000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -746,7 +1339,7 @@
             "folder": "4fJHnYFqH0VjZXPv",
             "img": "icons/magic/time/hourglass-tilted-gray.webp",
             "name": "Slow",
-            "sort": 1100000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -824,7 +1417,7 @@
             "folder": "4fJHnYFqH0VjZXPv",
             "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
             "name": "Vampiric Feast",
-            "sort": 1200000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -913,7 +1506,7 @@
             "folder": "lPzcDrjGDFbzuF2r",
             "img": "systems/pf2e/icons/spells/detect-alignment.webp",
             "name": "Clear Mind",
-            "sort": 1300000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -978,7 +1571,7 @@
             "folder": "lPzcDrjGDFbzuF2r",
             "img": "systems/pf2e/icons/spells/darkness.webp",
             "name": "Darkness",
-            "sort": 1400000,
+            "sort": 2700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1046,7 +1639,7 @@
             "folder": "lPzcDrjGDFbzuF2r",
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 1500000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1110,7 +1703,7 @@
             "folder": "lPzcDrjGDFbzuF2r",
             "img": "systems/pf2e/icons/spells/wholeness-of-body.webp",
             "name": "Sound Body",
-            "sort": 1600000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1175,7 +1768,7 @@
             "folder": "lPzcDrjGDFbzuF2r",
             "img": "systems/pf2e/icons/spells/feeblemind.webp",
             "name": "Stupefy",
-            "sort": 1700000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1244,7 +1837,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 1800000,
+            "sort": 3100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1332,7 +1925,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1900000,
+            "sort": 3200000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1400,7 +1993,7 @@
             "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Enfeeble",
-            "sort": 2000000,
+            "sort": 3300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1468,7 +2061,7 @@
             "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 2100000,
+            "sort": 3400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1550,7 +2143,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Figment",
-            "sort": 2200000,
+            "sort": 3500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1614,7 +2207,7 @@
             "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "systems/pf2e/icons/spells/grim-tendrils.webp",
             "name": "Grim Tendrils",
-            "sort": 2300000,
+            "sort": 3600000,
             "system": {
                 "area": {
                     "type": "line",
@@ -1703,7 +2296,7 @@
             "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "icons/magic/unholy/strike-beam-blood-small-red-purple.webp",
             "name": "Phantom Pain",
-            "sort": 2400000,
+            "sort": 3700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1791,7 +2384,7 @@
             "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "icons/skills/melee/strike-blade-scimitar-gray-red.webp",
             "name": "Sure Strike",
-            "sort": 2500000,
+            "sort": 3800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1853,7 +2446,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 2600000,
+            "sort": 3900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1978,7 +2571,7 @@
             "folder": "wnvibtD90h7CStDC",
             "img": "systems/pf2e/icons/spells/tentacular-limbs.webp",
             "name": "Tentacular Limbs",
-            "sort": 2700000,
+            "sort": 4000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2038,7 +2631,7 @@
             "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "icons/magic/control/control-influence-puppet.webp",
             "name": "Ventriloquism",
-            "sort": 2800000,
+            "sort": 4100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2104,7 +2697,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Void Warp",
-            "sort": 2900000,
+            "sort": 4200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2184,305 +2777,145 @@
             "type": "spell"
         },
         {
-            "_id": "2ereKIRXMcwUQcFX",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.VJ4s6ABlkimSyjjZ"
-            },
-            "img": "systems/pf2e/icons/equipment/armor/scroll-robes.webp",
-            "name": "Scroll Robes",
-            "sort": 3000000,
+            "_id": "jcpoFymCuFvvJ6vS",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Spontaneous Spells",
+            "sort": 4300000,
             "system": {
-                "acBonus": 0,
-                "baseItem": "scroll-robes",
-                "bulk": {
-                    "value": 0.1
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "category": "unarmored",
-                "checkPenalty": 0,
-                "containerId": null,
                 "description": {
-                    "value": "<p>Scroll robes are composed of paper alchemically treated for strength and flexibility. A layered structure prevents cutting and tearing, and for the purpose of calculating damage, the robes are considered to be cloth. The paper accepts all sorts of decoration, including magical writing, as detailed in the inscribed trait.</p>"
+                    "value": ""
                 },
-                "dexCap": 5,
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
+                "prepared": {
+                    "value": "spontaneous"
                 },
-                "group": "cloth",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 15
-                    }
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Treasure Vault"
+                    "title": ""
                 },
-                "quantity": 1,
                 "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [],
-                    "resilient": 1
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot2": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot3": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot4": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot5": {
+                        "max": 3,
+                        "value": 3
+                    }
                 },
-                "size": "med",
-                "slug": "scroll-robes",
-                "speedPenalty": 0,
-                "strength": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "inscribed"
-                    ]
-                }
+                "slug": null,
+                "spelldc": {
+                    "dc": 32,
+                    "value": 24
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
             },
-            "type": "armor"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "ZqpNePlcC78WUn1C",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.hH63OWEVoMEr4ypr"
-            },
-            "img": "icons/commodities/materials/orb-tassle-blue-yellow.webp",
-            "name": "Nightpitch",
-            "sort": 3100000,
+            "_id": "dAql5pcnyCzryoRP",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
+            "sort": 4400000,
             "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "category": "catalyst",
-                "containerId": null,
-                "damage": null,
                 "description": {
-                    "value": "<p><strong>Activate</strong> Cast a Spell</p>\n<p>A pellet of tar mixed with the fur of a nocturnal creature, such as a bat, nightpitch used to cast a @UUID[Compendium.pf2e.spells-srd.Item.Darkness] spell makes the area of the darkness difficult terrain.</p>"
+                    "value": ""
                 },
-                "equipped": {
-                    "carryType": "worn"
+                "prepared": {
+                    "value": "innate"
                 },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 5
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 60
-                    }
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Treasure Vault"
+                    "title": ""
                 },
-                "quantity": 1,
                 "rules": [],
-                "size": "med",
-                "slug": "nightpitch",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "catalyst",
-                        "consumable",
-                        "magical"
-                    ]
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 32,
+                    "value": 24
                 },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "consumable"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "pKLLWTF3KXiHssKB",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.QSQZJ5BC3DeHv153"
-            },
-            "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
-            "name": "Scroll of Grim Tendrils (Scroll Robe, Rank 4)",
-            "sort": 3200000,
+            "_id": "3JQYqy3z80fFSrt6",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Sorcerer Bloodline Spells",
+            "sort": 4500000,
             "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "category": "scroll",
-                "containerId": null,
-                "damage": null,
                 "description": {
-                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Grim Tendrils]</p><hr /><p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>The spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack modifier and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical costs are provided when a scroll is created, so you don't need to provide them when casting from a scroll. If the spell requires a locus, you must have that locus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
+                    "value": ""
                 },
-                "equipped": {
-                    "carryType": "worn"
+                "prepared": {
+                    "value": "focus"
                 },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 7
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 70
-                    }
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder GM Core"
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "quantity": 1,
                 "rules": [],
-                "size": "med",
-                "slug": "scroll-of-4th-rank-spell",
-                "spell": {
-                    "_id": "TmdGDwwVyzJa5Jv3",
-                    "_stats": {
-                        "compendiumSource": "Compendium.pf2e.spells-srd.Item.k34hDOfIIMAxNL4a"
-                    },
-                    "flags": {},
-                    "folder": "T8AzYUgNIAgTJ9Iz",
-                    "img": "systems/pf2e/icons/spells/grim-tendrils.webp",
-                    "name": "Grim Tendrils",
-                    "sort": 0,
-                    "system": {
-                        "area": {
-                            "type": "line",
-                            "value": 30
-                        },
-                        "cost": {
-                            "value": ""
-                        },
-                        "counteraction": false,
-                        "damage": {
-                            "0": {
-                                "applyMod": false,
-                                "category": null,
-                                "formula": "2d4",
-                                "kinds": [
-                                    "damage"
-                                ],
-                                "materials": [],
-                                "type": "void"
-                            }
-                        },
-                        "defense": {
-                            "save": {
-                                "basic": false,
-                                "statistic": "fortitude"
-                            }
-                        },
-                        "description": {
-                            "value": "<p>Tendrils of darkness curl out from your fingertips and race through the air. You deal 2d4 void damage and @Damage[(@item.level)[bleed]] damage to living creatures in the line. Each living creature in the line must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half the void damage and no persistent bleed damage.</p>\n<p><strong>Failure</strong> The creature takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double void damage and double persistent bleed damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The void damage increases by 2d4, and the persistent bleed damage increases by 1.</p>"
-                        },
-                        "duration": {
-                            "sustained": false,
-                            "value": ""
-                        },
-                        "heightening": {
-                            "damage": {
-                                "0": "2d4"
-                            },
-                            "interval": 1,
-                            "type": "interval"
-                        },
-                        "level": {
-                            "value": 1
-                        },
-                        "location": {
-                            "heightenedLevel": 4,
-                            "value": null
-                        },
-                        "publication": {
-                            "license": "ORC",
-                            "remaster": true,
-                            "title": "Pathfinder Player Core"
-                        },
-                        "range": {
-                            "value": ""
-                        },
-                        "requirements": "",
-                        "rules": [],
-                        "slug": "grim-tendrils",
-                        "target": {
-                            "value": ""
-                        },
-                        "time": {
-                            "value": "2"
-                        },
-                        "traits": {
-                            "rarity": "common",
-                            "traditions": [
-                                "arcane",
-                                "occult"
-                            ],
-                            "value": [
-                                "concentrate",
-                                "manipulate",
-                                "void"
-                            ]
-                        }
-                    },
-                    "type": "spell"
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 32,
+                    "value": 24
                 },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "consumable",
-                        "magical",
-                        "manipulate",
-                        "scroll",
-                        "void"
-                    ]
+                "tradition": {
+                    "value": "occult"
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
+                "traits": {}
             },
-            "type": "consumable"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "clcBXuY5I7HmG2D6",
             "img": "icons/commodities/treasure/brooch-pink-orbs.webp",
             "name": "Beaded Amulet",
-            "sort": 3300000,
+            "sort": 4600000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -2527,440 +2960,6 @@
                 }
             },
             "type": "treasure"
-        },
-        {
-            "_id": "7Tl6fw29y8oM1OEu",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 3400000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 16
-                },
-                "damageRolls": {
-                    "zMTY2Rbgu1uJiBB3": {
-                        "damage": "1d8+5",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "magical",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "AkXS62YTAYOPqg6G",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.fJSNOw4zHGbIm4bZ"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Fast Healing 10",
-            "sort": 3500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.FastHealing]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "FastHealing",
-                        "value": 10
-                    }
-                ],
-                "slug": "fast-healing",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "1nTecCfw8mCHs7pF",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.FXHjmH1oce7Z3tZb"
-            },
-            "folder": "Pycs65tqRMBiiARd",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Coffin Restoration",
-            "sort": 3600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>Unlike other undead, a vampire isn't destroyed at 0 HP. Instead, it falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious]. If its body rests in its coffin for 1 hour, the vampire gains 1 HP, after which its fast healing begins to function normally.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "vampire-basic-coffin-restoration",
-                "traits": {
-                    "value": [
-                        "divine",
-                        "void"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "KK3OJR7cHs7JClcB",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.eQLGYrJhu787pEwc"
-            },
-            "folder": "Pycs65tqRMBiiARd",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Shadow Form",
-            "sort": 3700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Rukh reverts to pure shadow and absorbs her body and her gear into the darkness, or it shifts back to her physical form. In shadow form, Rukh gains a climb Speed equal to her land Speed and can more through any gap that isn't airtight. However, she can only move along solid surfaces that aren't highly reflective, not liquid or mirrored surfaces. If the surface she's on is destroyed, Rukh returns to physical form and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}. She loses fast healing while in shadow form but can remain in shadow form indefinitely.</p>\n<p>If Rukh is exposed to sunlight while in shadow form, she becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} and must attempt a @Check[flat|dc:16] at the end of each of her turns. If she fails, she is destroyed, the shadow vanishing with a blood-curdling wail.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Adventure: Shadows at Sundown"
-                },
-                "rules": [],
-                "slug": "vampire-strigoi-shadow-form",
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "divine",
-                        "shadow"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qAmIcePvvY6ixAmy",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.qjgrMhwz78T31kLU"
-            },
-            "folder": "Pycs65tqRMBiiARd",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Strigoi Weaknesses",
-            "sort": 3800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>All strigoi possess the following weaknesses:</p>\n<ul>\n<li><strong>Revulsion</strong> Strigoi are uncomfortable near mirrors or sources of bright light. Only a strigoi's shadow reflects in a mirror, and this often compels them to cover or destroy mirrors in their presence rather than risk their true nature being displayed. A strigoi can't voluntarily come within 10 feet of a brandished mirror or source of bright light. To brandish a mirror or light source, a creature must Interact to do so for 1 round (similar to Raising a Shield). If the strigoi involuntarily comes within 10 feet of a brandished mirror or light source, it gains the @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] condition, running from the brandished object until it ends an action beyond 10 feet. After 1 round of being exposed to the subject of its revulsion, a strigoi can attempt a @Check[will|dc:25] save as a single action, which has the concentrate trait. On a success, it overcomes its revulsions for [[/gmr 1d6 #Overcome Revulsions Duration]]{1d6 rounds} (or 1 hour on a critical success). A strigoi can move normally around mirrors or bright light sources that are not brandished, although doing so causes them discomfort that can be noticed with a successful Perception check to @UUID[Compendium.pf2e.actionspf2e.Item.Sense Motive].</li>\n<li><strong>Sunlight</strong> When exposed to direct sunlight, a strigoi immediately becomes @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] and falls to the ground. It appears to be dead: it doesn't breathe, its body temperature matches its surroundings, and it doesn't react to pain or other stimuli. A successful @Check[perception|against:reflex] check against the strigoi's Reflex DC is enough to note one anomaly: the shadow cast by its \"dead\" body shifts and moves slightly, its edges twisting and active. Spells like @UUID[Compendium.pf2e.spells-srd.Item.Detect Alignment], senses like lifesense, and the \"corpse\" taking damage from vitality energy still function normally, and could reveal the truth without needing a successful Perception check. Viewing the \"corpse\" in a mirror's reflection can also reveal the truth, for only the body's shadow reflects. While in sunlight and unconscious, the strigoi loses its resistance to physical damage. If the strigoi takes enough damage that it would be reduced to 0 Hit Points, its body quickly decomposes, and the strigoi is destroyed.</li>\n<li><strong>Water Revulsion</strong> A strigoi cannot cross a significant source of running water (such as a creek, river, or waves on a seashore). A strigoi capable of flight can cross running water provided it approaches no closer than 10 feet to the liquid's surface. If forced into running water against its will, the strigoi becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} and gains the fleeing condition as long as it remains in the water. At the end of any turn in which the strigoi remains in running water, it must succeed at a @Check[flat|dc:5] or be destroyed.</li>\n</ul>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Adventure: Shadows at Sundown"
-                },
-                "rules": [],
-                "slug": "vampire-strigoi-strigoi-weaknesses",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "vIM3DcBR4xmwYbxr",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 3900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "void-healing",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8aX9xWVc94FRZnbO",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Bleed Out",
-            "sort": 4000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Rukh's last action was to cast a non-cantrip spell that granted him a blood magic effect</p><hr /><p><strong>Effect</strong> Rukh makes a ranged spell attack roll against the AC of a target within 60 feet. This attack deals persistent bleed damage equal to the rank of the spell he just cast.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "attack"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ZxSAP8Gbs9ALeYbf",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Blood Magic—Eerie Veil",
-            "sort": 4100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When Rukh casts a bloodline spell using a Focus Point or a sorcerous gift spell using a spell slot, either one target takes a –1 status penalty to Will saving throws for 1 round, or Rukh gains a +2 status bonus to Will saving throws for 1 round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Aberrant Blood Magic]</p>\n<p><strong>Sorcerous gift spells</strong></p><ul><li>@UUID[Compendium.pf2e.spells-srd.Item.Slither]</li><li>@UUID[Compendium.pf2e.spells-srd.Item.Confusion]</li><li>@UUID[Compendium.pf2e.spells-srd.Item.Vampiric Feast]</li><li>@UUID[Compendium.pf2e.spells-srd.Item.Stupefy]</li><li>@UUID[Compendium.pf2e.spells-srd.Item.Phantom Pain]</li></ul>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "9hemE5bYIpubSQrc",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.rBc9fJlMXhzvn05L"
-            },
-            "folder": "Pycs65tqRMBiiARd",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Drink Essence",
-            "sort": 4200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> A @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], @UUID[Compendium.pf2e.conditionitems.Item.Restrained], @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], or willing creature is within the strigoi's reach</p><hr /><p><strong>Effect</strong> The strigoi sinks their fangs into the targeted creature to drink its blood and draw out its vital essence. This requires an @Check[athletics|defense:fortitude] check against the creature's Fortitude DC if the creature is grabbed and is automatic for any of the other conditions. The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1}, and Rukh regains @Damage[13[healing]] HP, gaining any excess HP as temporary Hit Points. Drinking Essence from a creature that's already drained or stupefied doesn't restore any HP, but increases either the creature's drained condition value or its stupefied condition value by 1 (whichever value is lesser is increased; if both values are equal, then the strigoi chooses which condition to increase the value of).</p>\n<p>A victim's drained condition decreases by 1 per week. A blood transfusion, which requires a successful @Check[medicine|dc:20] check and sufficient blood or a blood donor, reduces the drained value by 1 after 10 minutes.</p>\n<p>A victim's stupefied condition decreases by 1 per day after performing daily preparations. If the daily preparations are done in full sunlight, the stupefied condition is removed entirely.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Adventure: Shadows at Sundown"
-                },
-                "rules": [],
-                "slug": "vampire-strigoi-drink-essence",
-                "traits": {
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "gwtoZrdJkLeTK5Yi",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Reach Spell",
-            "sort": 4300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>If the next action Rukh takes is to Cast a Spell that has a range, increase that spell's range by 30 feet.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "spellshape"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "RIas2vP5Q5VWFwdr",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
-            "sort": 4400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "grab",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "nMLkSeE8xR0z3SLZ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Netherworld Lore",
-            "sort": 4500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 19
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "VQ0wqA7unG7pdHbb",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Nin Lore",
-            "sort": 4600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 19
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
         }
     ],
     "name": "Rukh",

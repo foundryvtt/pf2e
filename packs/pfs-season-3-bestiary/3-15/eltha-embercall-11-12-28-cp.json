@@ -4,1769 +4,84 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "c5mAG4o3GPHnBoMP",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Prepared Spells",
+            "_id": "92cERLjKXXVbWKS4",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Steadying Stone",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>If Eltha rolls a success on an Acrobatics check to Balance on uneven ground composed of earth or rock, she gets a critical success instead. As long as she remains on the ground, she has a +3 circumstance bonus to her Fortitude or Reflex DC against attempts to Shove or Trip her. This bonus also applies to saving throws against spells or effects that would attempt to knock her prone.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "mFstY6UY5AtK9xm1"
-                            },
-                            {
-                                "id": "c9fCd97It4sWXUPA"
-                            },
-                            {
-                                "id": "X1zMemEejg9OlINO"
-                            },
-                            {
-                                "id": "jV0Ii2o4YYDggg3i"
-                            },
-                            {
-                                "id": "iTKWPKqHKtjYhMGe"
-                            }
-                        ]
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "predicate": [
+                            "action:balance",
+                            "on-ground"
+                        ],
+                        "selector": "acrobatics",
+                        "text": "If Eltha succeeds on a acrobatics check to balance on uneven ground composed of earch or rock she gets a critical success instead."
                     },
-                    "slot3": {
-                        "max": 4,
-                        "prepared": [
-                            {
-                                "id": "gYCGPoeDfZJDqFTl"
-                            },
-                            {
-                                "id": "3aXwAKB9WtCCyMLS"
-                            },
-                            {
-                                "id": "uvbNRjohhbP8UV3Y"
-                            },
-                            {
-                                "id": "hm7S7qEzPNqqPKzc"
-                            }
-                        ]
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "Eltha is on the ground",
+                        "option": "on-ground",
+                        "toggleable": true
                     },
-                    "slot4": {
-                        "max": 4,
-                        "prepared": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "on-ground",
                             {
-                                "id": "7hyLZ7BE0RbQFIjJ"
-                            },
-                            {
-                                "id": "hm7S7qEzPNqqPKzc"
-                            },
-                            {
-                                "id": "hm7S7qEzPNqqPKzc"
-                            },
-                            {
-                                "id": "3I8CInNeYj7j4iJC"
+                                "or": [
+                                    "action:shove",
+                                    "action:trip"
+                                ]
                             }
-                        ]
+                        ],
+                        "selector": "fortitude",
+                        "type": "circumstance",
+                        "value": 3
                     },
-                    "slot5": {
-                        "max": 4,
-                        "prepared": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "on-ground",
                             {
-                                "id": "MO2V058hRBnXbHY4"
-                            },
-                            {
-                                "id": "CPd9I6KY3BWhm2h4"
-                            },
-                            {
-                                "id": "hm7S7qEzPNqqPKzc"
-                            },
-                            {
-                                "id": "73FcW9hxDA8aeGgT"
+                                "or": [
+                                    "action:shove",
+                                    "action:trip"
+                                ]
                             }
-                        ]
-                    },
-                    "slot6": {
-                        "max": 4,
-                        "prepared": [
-                            {
-                                "id": "iDOmLldWeH92acN4"
-                            },
-                            {
-                                "id": "AFrs7Qdxl2P6N3tv"
-                            },
-                            {
-                                "id": "hm7S7qEzPNqqPKzc"
-                            },
-                            {
-                                "id": "JkKgkTQDjHylEL0T"
-                            }
-                        ]
-                    },
-                    "slot7": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "7KKHrst3qiOlWyLu"
-                            },
-                            {
-                                "id": "73FcW9hxDA8aeGgT"
-                            },
-                            {
-                                "id": "ksWcfDNGDpF63VjC"
-                            }
-                        ]
+                        ],
+                        "selector": "reflex",
+                        "type": "circumstance",
+                        "value": 3
                     }
-                },
+                ],
                 "slug": null,
-                "spelldc": {
-                    "dc": 28,
-                    "mod": 0,
-                    "value": 20
-                },
-                "tradition": {
-                    "value": "primal"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "7KKHrst3qiOlWyLu",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.m2xFMNyQiUKQDRaj"
-            },
-            "img": "icons/magic/defensive/shield-barrier-glowing-blue.webp",
-            "name": "Energy Aegis",
-            "sort": 200000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You protect the target with a powerful, long-lasting energy barrier. The target gains resistance 5 to acid, cold, electricity, fire, force, sonic, vitality, and void damage.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Energy Aegis]</p>\n<hr />\n<p><strong>Heightened (9th)</strong> The resistances increase to 10.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "24 hours"
-                },
-                "level": {
-                    "value": 7
-                },
-                "location": {
-                    "value": "c5mAG4o3GPHnBoMP"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "energy-aegis",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "1 minute"
-                },
                 "traits": {
                     "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate"
-                    ]
+                    "value": []
                 }
             },
-            "type": "spell"
-        },
-        {
-            "_id": "ksWcfDNGDpF63VjC",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.O7ZEqWjwdKyo2CUv"
-            },
-            "img": "systems/pf2e/icons/spells/volcanic-eruption.webp",
-            "name": "Volcanic Eruption",
-            "sort": 300000,
-            "system": {
-                "area": {
-                    "type": "cylinder",
-                    "value": 5
-                },
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": false,
-                        "category": null,
-                        "formula": "14d6",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "fire"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "reflex"
-                    }
-                },
-                "description": {
-                    "value": "<p><strong>Area</strong> 5-foot radius, 80-foot-tall cylinder</p>\n<hr />\n<p>The ground opens up, spraying a column of lava high into the air in a vertical cylinder, dealing 14d6 fire damage to creatures in the area. The lava rapidly cools and encases creatures in the area. A creature encased in rock is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and takes a -10-foot status penalty to its Speeds. All normal terrain is difficult terrain to a flying creature, and such creatures immediately descend 20 feet the moment they're encased, but they don't take damage from this fall. A creature encased in rock can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] against your spell DC to end the effect. Otherwise, the creature remains encased until it takes a total of 50 damage, freeing it from the rock. Additionally, creatures in the area and those within 5 feet of the lava column automatically take @Damage[(@item.rank -4)d6[fire]] damage from the intense heat, regardless of the results of their saving throws.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Volcanic Eruption]</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is encased.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is encased.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage in the area increases by 2d6, and the damage from the intense heat increases by 1d6.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 7
-                },
-                "location": {
-                    "value": "c5mAG4o3GPHnBoMP"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "volcanic-eruption",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "fire",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "iDOmLldWeH92acN4",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.dN8QBNuTiaBHCKUe"
-            },
-            "img": "icons/creatures/amphibians/frog-confused-green-blue.webp",
-            "name": "Baleful Polymorph",
-            "sort": 400000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "fortitude"
-                    }
-                },
-                "description": {
-                    "value": "<p>You transform the target creature into a harmless animal appropriate to the area, with effects based on its Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target's body gains minor features of the harmless animal. Its insides churn as they partially transform, causing it to be @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. When it recovers from the Sickened condition, its features revert to normal.</p>\n<p><strong>Failure</strong> The target transforms for 1 minute but keeps its mind. If it spends all its actions on its turn concentrating on its original form, it can attempt a Will save to end the effect immediately.</p>\n<p><strong>Critical Failure</strong> The target is transformed into the chosen harmless animal, body and mind, for an unlimited duration.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "varies"
-                },
-                "level": {
-                    "value": 6
-                },
-                "location": {
-                    "value": "c5mAG4o3GPHnBoMP"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "baleful-polymorph",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "incapacitation",
-                        "manipulate",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "AFrs7Qdxl2P6N3tv",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.znv4ECL7ZtuiagtA"
-            },
-            "img": "icons/magic/defensive/armor-stone-skin.webp",
-            "name": "Flesh to Stone",
-            "sort": 500000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "fortitude"
-                    }
-                },
-                "description": {
-                    "value": "<p>You try to turn the target's flesh into stone. The target must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} and must attempt a Fortitude save at the end of each of its turns; this ongoing save has the incapacitation trait. On a failed save, the Slowed condition increases by 1 (or 2 on a critical failure). A successful save reduces the Slowed condition by 1. When a creature is unable to act due to the Slowed condition from flesh to stone, the creature is permanently non-magically @UUID[Compendium.pf2e.conditionitems.Item.Petrified]. The spell ends if the creature is Petrified or the Slowed condition is removed.</p>\n<p><strong>Critical Failure</strong> As failure, but the target is initially @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2}.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "varies"
-                },
-                "level": {
-                    "value": 6
-                },
-                "location": {
-                    "value": "c5mAG4o3GPHnBoMP"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "flesh-to-stone",
-                "target": {
-                    "value": "1 creature made of flesh"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "JkKgkTQDjHylEL0T",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.Pr1ruNTbzGn3H9w5"
-            },
-            "img": "systems/pf2e/icons/spells/stone-to-flesh.webp",
-            "name": "Stone to Flesh",
-            "sort": 600000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>Manipulating the fundamental particles of matter, you convert stone into flesh and blood. You restore a @UUID[Compendium.pf2e.conditionitems.Item.Petrified] creature to its normal state or transform a stone object into a mass of inert flesh (without stone's Hardness) in roughly the same shape.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 6
-                },
-                "location": {
-                    "value": "c5mAG4o3GPHnBoMP"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "stone-to-flesh",
-                "target": {
-                    "value": "petrified creature or human-size stone object"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "divine",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "earth",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "MO2V058hRBnXbHY4",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.3puDanGfpEt6jK5k"
-            },
-            "img": "icons/magic/water/vortex-water-whirlpool.webp",
-            "name": "Cone of Cold",
-            "sort": 700000,
-            "system": {
-                "area": {
-                    "type": "cone",
-                    "value": 60
-                },
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "category": null,
-                        "formula": "12d6",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "cold"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": true,
-                        "statistic": "reflex"
-                    }
-                },
-                "description": {
-                    "value": "<p>Icy cold rushes forth from your hands. You deal 12d6 cold damage to creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 5
-                },
-                "location": {
-                    "value": "c5mAG4o3GPHnBoMP"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "cone-of-cold",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "primal"
-                    ],
-                    "value": [
-                        "cold",
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "CPd9I6KY3BWhm2h4",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.YvXKGlHOt7mdW2jZ"
-            },
-            "img": "icons/magic/defensive/shield-barrier-deflect-gold.webp",
-            "name": "Death Ward",
-            "sort": 800000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You shield a creature from the ravages of void energy.</p>\n<p>It receives a +4 status bonus to saves against death and void effects, gains void resistance 10, and suppresses the effects of the @UUID[Compendium.pf2e.conditionitems.Item.Doomed] condition.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Death Ward]</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "10 minutes"
-                },
-                "level": {
-                    "value": 5
-                },
-                "location": {
-                    "value": "c5mAG4o3GPHnBoMP"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "death-ward",
-                "target": {
-                    "value": "1 living creature touched"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "divine",
-                        "occult",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "73FcW9hxDA8aeGgT",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.oXeEbcUdgJGWHGEJ"
-            },
-            "img": "systems/pf2e/icons/spells/impaling-spike.webp",
-            "name": "Impaling Spike",
-            "sort": 900000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "category": null,
-                        "formula": "8d6",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "piercing"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "reflex"
-                    }
-                },
-                "description": {
-                    "value": "<p>You conjure a spike that thrusts up from the earth beneath a target creature, potentially impaling it. The spike is made of cold iron and deals 8d6 piercing damage. The target must attempt a Reflex save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target dodges the spike and is unaffected.</p>\n<p><strong>Success</strong> The target is struck by the spike and takes half damage.</p>\n<p><strong>Failure</strong> The target is impaled through a leg or another non - vital body part. The creature takes full damage and, if it's standing on solid ground, becomes @UUID[Compendium.pf2e.conditionitems.Item.Immobilized]. It can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape](the DC is your spell DC). While it remains impaled, it takes damage from any weakness to cold iron it has at the end of each of its turns.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature is impaled through a vital organ or its center of mass, taking double damage, and it is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] as long as it's impaled.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6 piercing.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 minute"
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 5
-                },
-                "location": {
-                    "value": "c5mAG4o3GPHnBoMP"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "impaling-spike",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "7hyLZ7BE0RbQFIjJ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.aqRYNoSvxsVfqglH"
-            },
-            "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
-            "name": "Freedom of Movement",
-            "sort": 1000000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You repel effects that would hinder a creature or slow its movement. While under this spell's effect, the target ignores effects that would give them a circumstance penalty to Speed. When they attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] an effect that has them @UUID[Compendium.pf2e.conditionitems.Item.Immobilized], @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], or @UUID[Compendium.pf2e.conditionitems.Item.Restrained], they automatically succeed unless the effect is magical and of a higher rank than the <em>freedom of movement</em> spell.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Unfettered Movement]{Spell Effect: Freedom of Movement}</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "10 minutes"
-                },
-                "level": {
-                    "value": 4
-                },
-                "location": {
-                    "value": "c5mAG4o3GPHnBoMP"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "freedom-of-movement",
-                "target": {
-                    "value": "1 creature touched"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "3I8CInNeYj7j4iJC",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.McnPlLFvKtQVXNcG"
-            },
-            "img": "systems/pf2e/icons/spells/shape-stone.webp",
-            "name": "Shape Stone",
-            "sort": 1100000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "reflex"
-                    }
-                },
-                "description": {
-                    "value": "<p>You shape the stone into a rough shape of your choice. The shaping process is too crude to produce intricate parts, fine details, moving pieces, or the like. Any creatures standing atop the stone when you reshape it must each attempt a Reflex save or Acrobatics check.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature falls @UUID[Compendium.pf2e.conditionitems.Item.Prone] atop the stone.</p>\n<p><strong>Critical Failure</strong> The creature falls off the stone (if applicable) and lands Prone.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 4
-                },
-                "location": {
-                    "value": "c5mAG4o3GPHnBoMP"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "shape-stone",
-                "target": {
-                    "value": "cube of stone 10 feet across or smaller"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "earth",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "uvbNRjohhbP8UV3Y",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.o6YCGx4lycsYpww4"
-            },
-            "img": "systems/pf2e/icons/spells/haste.webp",
-            "name": "Haste",
-            "sort": 1200000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>Magic empowers the target to act faster. It gains the @UUID[Compendium.pf2e.conditionitems.Item.Quickened] condition and can use the extra action each round only for Strike and Stride actions.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> You can target up to 6 creatures.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 minute"
-                },
-                "heightening": {
-                    "levels": {
-                        "7": {
-                            "target": {
-                                "value": "6 creatures"
-                            }
-                        }
-                    },
-                    "type": "fixed"
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": {
-                    "value": "c5mAG4o3GPHnBoMP"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "haste",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "gYCGPoeDfZJDqFTl",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.HRb2doyaLtaoCfi3"
-            },
-            "img": "systems/pf2e/icons/spells/faerie-fire.webp",
-            "name": "Faerie Fire",
-            "sort": 1300000,
-            "system": {
-                "area": {
-                    "type": "burst",
-                    "value": 10
-                },
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>All creatures in the area when you cast the spell are limned in colorful, heatless fire of a color of your choice for the duration. Visible creatures can't be @UUID[Compendium.pf2e.conditionitems.Item.Concealed] while affected by faerie fire. If the creatures are @UUID[Compendium.pf2e.conditionitems.Item.Invisible], they are Concealed while affected by faerie fire, rather than being @UUID[Compendium.pf2e.conditionitems.Item.Undetected].</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "5 minutes"
-                },
-                "level": {
-                    "value": 2
-                },
-                "location": {
-                    "value": "c5mAG4o3GPHnBoMP"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "faerie-fire",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "divine",
-                        "occult",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "light",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "mFstY6UY5AtK9xm1",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.gISYsBFby1TiXfBt"
-            },
-            "img": "icons/magic/acid/projectile-smoke-glowing.webp",
-            "name": "Acid Splash",
-            "sort": 1400000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": false,
-                        "category": null,
-                        "formula": "1d6",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "acid"
-                    },
-                    "gcovwqxwitqchoin": {
-                        "applyMod": false,
-                        "category": "splash",
-                        "formula": "1",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "acid"
-                    }
-                },
-                "defense": null,
-                "description": {
-                    "value": "<p>You splash a glob of acid that splatters your target and nearby creatures. Make a spell attack. If you hit, you deal 1d6 acid damage plus 1 splash acid damage. On a critical success, the target also takes @Damage[(ceil(@item.level/2))[persistent,acid]] damage.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The initial damage increases to 2d6, and the persistent damage increases to 2.</p>\n<p><strong>Heightened (5th)</strong> The initial damage increases to 3d6, the persistent damage increases to 3, and the splash damage increases to 2.</p>\n<p><strong>Heightened (7th)</strong> The initial damage increases to 4d6, the persistent damage increases to 4, and the splash damage increases to 3.</p>\n<p><strong>Heightened (9th)</strong> The initial damage increases to 5d6, the persistent damage increases to 5, and the splash damage increases to 4.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "levels": {
-                        "3": {
-                            "damage": {
-                                "0": {
-                                    "applyMod": false,
-                                    "category": null,
-                                    "formula": "2d6",
-                                    "materials": [],
-                                    "type": "acid"
-                                },
-                                "gcovwqxwitqchoin": {
-                                    "applyMod": false,
-                                    "category": "splash",
-                                    "formula": "1",
-                                    "materials": [],
-                                    "type": "acid"
-                                }
-                            }
-                        },
-                        "5": {
-                            "damage": {
-                                "0": {
-                                    "applyMod": false,
-                                    "category": null,
-                                    "formula": "3d6",
-                                    "materials": [],
-                                    "type": "acid"
-                                },
-                                "gcovwqxwitqchoin": {
-                                    "applyMod": false,
-                                    "category": "splash",
-                                    "formula": "2",
-                                    "materials": [],
-                                    "type": "acid"
-                                }
-                            }
-                        },
-                        "7": {
-                            "damage": {
-                                "0": {
-                                    "applyMod": false,
-                                    "category": null,
-                                    "formula": "4d6",
-                                    "materials": [],
-                                    "type": "acid"
-                                },
-                                "gcovwqxwitqchoin": {
-                                    "applyMod": false,
-                                    "category": "splash",
-                                    "formula": "3",
-                                    "materials": [],
-                                    "type": "acid"
-                                }
-                            }
-                        },
-                        "9": {
-                            "damage": {
-                                "0": {
-                                    "applyMod": false,
-                                    "category": null,
-                                    "formula": "5d6",
-                                    "materials": [],
-                                    "type": "acid"
-                                },
-                                "gcovwqxwitqchoin": {
-                                    "applyMod": false,
-                                    "category": "splash",
-                                    "formula": "4",
-                                    "materials": [],
-                                    "type": "acid"
-                                }
-                            }
-                        }
-                    },
-                    "type": "fixed"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "c5mAG4o3GPHnBoMP"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "acid-splash",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "primal"
-                    ],
-                    "value": [
-                        "acid",
-                        "attack",
-                        "cantrip",
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "3aXwAKB9WtCCyMLS",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.4koZzrnMXhhosn0D"
-            },
-            "img": "systems/pf2e/icons/spells/fear.webp",
-            "name": "Fear",
-            "sort": 1500000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "will"
-                    }
-                },
-                "description": {
-                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} and @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "varies"
-                },
-                "heightening": {
-                    "levels": {
-                        "3": {
-                            "target": {
-                                "value": "5 creatures"
-                            }
-                        }
-                    },
-                    "type": "fixed"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "c5mAG4o3GPHnBoMP"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "fear",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "emotion",
-                        "fear",
-                        "manipulate",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "hm7S7qEzPNqqPKzc",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.rfZpqmj0AIIdkVIs"
-            },
-            "img": "icons/magic/life/cross-worn-green.webp",
-            "name": "Heal",
-            "sort": 1600000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": false,
-                        "category": null,
-                        "formula": "1d8",
-                        "kinds": [
-                            "damage",
-                            "healing"
-                        ],
-                        "materials": [],
-                        "type": "vitality"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": true,
-                        "statistic": "fortitude"
-                    }
-                },
-                "description": {
-                    "value": "<p>You channel vitality energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of vitality damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"action-glyph\">1</span> <strong>(somatic)</strong> The spell has a range of touch.</p>\n<p><span class=\"action-glyph\">2</span> <strong>(verbal, somatic)</strong> The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8</p>\n<p><span class=\"action-glyph\">3</span> <strong>(material, somatic, verbal)</strong> You disperse vitality energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d8"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "c5mAG4o3GPHnBoMP"
-                },
-                "overlays": {
-                    "37gy7l19tik74o4s": {
-                        "_id": "37gy7l19tik74o4s",
-                        "name": "Heal (vs. Living)",
-                        "overlayType": "override",
-                        "sort": 2,
-                        "system": {
-                            "damage": {
-                                "0": {
-                                    "formula": "1d8+8",
-                                    "kinds": [
-                                        "healing"
-                                    ]
-                                }
-                            },
-                            "defense": null,
-                            "heightening": {
-                                "damage": {
-                                    "0": "1d8+8"
-                                }
-                            },
-                            "range": {
-                                "value": "30 feet"
-                            },
-                            "time": {
-                                "value": "2"
-                            },
-                            "traits": {
-                                "value": [
-                                    "concentrate",
-                                    "healing",
-                                    "manipulate",
-                                    "vitality"
-                                ]
-                            }
-                        }
-                    },
-                    "7qdtetowq348s9oc": {
-                        "_id": "7qdtetowq348s9oc",
-                        "overlayType": "override",
-                        "sort": 1,
-                        "system": {
-                            "range": {
-                                "value": "touch"
-                            },
-                            "time": {
-                                "value": "1"
-                            }
-                        }
-                    },
-                    "7vbvdrv2cl87sqta": {
-                        "_id": "7vbvdrv2cl87sqta",
-                        "overlayType": "override",
-                        "sort": 4,
-                        "system": {
-                            "area": {
-                                "type": "emanation",
-                                "value": 30
-                            },
-                            "range": {
-                                "value": ""
-                            },
-                            "target": {
-                                "value": "all living and undead creatures"
-                            },
-                            "time": {
-                                "value": "3"
-                            },
-                            "traits": {
-                                "value": [
-                                    "concentrate",
-                                    "healing",
-                                    "manipulate",
-                                    "vitality"
-                                ]
-                            }
-                        }
-                    },
-                    "lfxcoz2d3f8j2zq1": {
-                        "_id": "lfxcoz2d3f8j2zq1",
-                        "name": "Heal (vs. Undead)",
-                        "overlayType": "override",
-                        "sort": 3,
-                        "system": {
-                            "damage": {
-                                "0": {
-                                    "kinds": [
-                                        "damage"
-                                    ]
-                                }
-                            },
-                            "range": {
-                                "value": "30 feet"
-                            },
-                            "target": {
-                                "value": "1 undead"
-                            },
-                            "time": {
-                                "value": "2"
-                            },
-                            "traits": {
-                                "value": [
-                                    "concentrate",
-                                    "healing",
-                                    "manipulate",
-                                    "vitality"
-                                ]
-                            }
-                        }
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "varies"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "heal",
-                "target": {
-                    "value": "1 willing living creature or 1 undead"
-                },
-                "time": {
-                    "value": "1 to 3"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "divine",
-                        "primal"
-                    ],
-                    "value": [
-                        "healing",
-                        "manipulate",
-                        "vitality"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "c9fCd97It4sWXUPA",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.WBmvzNDfpwka3qT4"
-            },
-            "img": "systems/pf2e/icons/spells/light.webp",
-            "name": "Light",
-            "sort": 1700000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Light]</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "until the next time you make your daily preparations"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "c5mAG4o3GPHnBoMP"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "light",
-                "target": {
-                    "value": "1 object of 1 Bulk or less, either unattended or possessed by you or a willing ally"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ],
-                    "value": [
-                        "cantrip",
-                        "concentrate",
-                        "light",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "X1zMemEejg9OlINO",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.gYjPm7YwGtEa1oxh"
-            },
-            "img": "icons/magic/movement/trail-streak-impact-blue.webp",
-            "name": "Ray of Frost",
-            "sort": 1800000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": false,
-                        "category": null,
-                        "formula": "2d4",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "cold"
-                    }
-                },
-                "defense": null,
-                "description": {
-                    "value": "<p>You blast an icy ray. Make a spell attack roll. The ray deals 2d4 cold damage.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage and takes a -10-foot status penalty to its Speeds for 1 round.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Ray of Frost]</p>\n<p><strong>Success</strong> The target takes normal damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d4"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "c5mAG4o3GPHnBoMP"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "ray-of-frost",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "primal"
-                    ],
-                    "value": [
-                        "attack",
-                        "cantrip",
-                        "cold",
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "jV0Ii2o4YYDggg3i",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.SnjhtQYexDtNDdEg"
-            },
-            "img": "icons/magic/control/debuff-energy-hold-yellow.webp",
-            "name": "Stabilize",
-            "sort": 1900000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>Vitality energy shuts death's door. The target loses the @UUID[Compendium.pf2e.conditionitems.Item.Dying] condition, though it remains @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] at 0 Hit Points.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "c5mAG4o3GPHnBoMP"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "stabilize",
-                "target": {
-                    "value": "1 dying creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "divine",
-                        "primal"
-                    ],
-                    "value": [
-                        "cantrip",
-                        "concentrate",
-                        "healing",
-                        "manipulate",
-                        "vitality"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "iTKWPKqHKtjYhMGe",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.uZK2BYzPnxUBnDjr"
-            },
-            "img": "icons/magic/nature/root-vine-entangled-hand.webp",
-            "name": "Tanglefoot",
-            "sort": 2000000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>A vine covered in sticky sap appears from thin air, flicking from your hand and lashing itself to the target. Attempt a spell attack against the target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target gains the @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] condition and takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty and the @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] condition.</p>\n<p><strong>Success</strong> The target takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Tangle Vine]</p>\n<p><strong>Failure</strong> The target is unaffected.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> The effects last for 2 rounds.</p>\n<p><strong>Heightened (4th)</strong> The effects last for 1 minute.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "c5mAG4o3GPHnBoMP"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "tanglefoot",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "primal"
-                    ],
-                    "value": [
-                        "attack",
-                        "cantrip",
-                        "concentrate",
-                        "manipulate",
-                        "plant"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "qXrPPWuFK3gBJ0SJ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FVjTuBCIefAgloUU"
-            },
-            "img": "icons/weapons/staves/staff-simple.webp",
-            "name": "Staff",
-            "sort": 2100000,
-            "system": {
-                "baseItem": "staff",
-                "bonus": {
-                    "value": 0
-                },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "bulk": {
-                    "value": 1
-                },
-                "category": "simple",
-                "containerId": null,
-                "damage": {
-                    "damageType": "bludgeoning",
-                    "dice": 1,
-                    "die": "d4"
-                },
-                "description": {
-                    "value": "<p>This long piece of wood can aid in walking and deliver a mighty blow.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "club",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": ""
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [],
-                    "striking": 1
-                },
-                "size": "med",
-                "slug": "staff",
-                "splashDamage": {
-                    "value": 0
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "two-hand-d8"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "weapon"
+            "type": "action"
         },
         {
             "_id": "VWxSOKyD24CcDLyE",
@@ -1775,7 +90,7 @@
             },
             "img": "icons/equipment/chest/vest-leather-tattered-white.webp",
             "name": "Hide Armor",
-            "sort": 2200000,
+            "sort": 200000,
             "system": {
                 "acBonus": 3,
                 "baseItem": "hide-armor",
@@ -1843,7 +158,7 @@
             },
             "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
             "name": "Scroll of Heal (Rank 6)",
-            "sort": 2300000,
+            "sort": 300000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -2104,6 +419,31 @@
             "type": "consumable"
         },
         {
+            "_id": "9dv4spjeRfsh6eDd",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Darklands Lore",
+            "sort": 400000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 19
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
             "_id": "6L96hWDChYR39P9O",
             "flags": {
                 "pf2e": {
@@ -2112,7 +452,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Staff",
-            "sort": 2400000,
+            "sort": 500000,
             "system": {
                 "attack": {
                     "value": ""
@@ -2173,99 +513,1564 @@
             "type": "melee"
         },
         {
-            "_id": "92cERLjKXXVbWKS4",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Steadying Stone",
-            "sort": 2500000,
+            "_id": "7KKHrst3qiOlWyLu",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.m2xFMNyQiUKQDRaj"
+            },
+            "img": "icons/magic/defensive/shield-barrier-glowing-blue.webp",
+            "name": "Energy Aegis",
+            "sort": 600000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p>If Eltha rolls a success on an Acrobatics check to Balance on uneven ground composed of earth or rock, she gets a critical success instead. As long as she remains on the ground, she has a +3 circumstance bonus to her Fortitude or Reflex DC against attempts to Shove or Trip her. This bonus also applies to saving throws against spells or effects that would attempt to knock her prone.</p>"
+                    "value": "<p>You protect the target with a powerful, long-lasting energy barrier. The target gains resistance 5 to acid, cold, electricity, fire, force, sonic, vitality, and void damage.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Energy Aegis]</p>\n<hr />\n<p><strong>Heightened (9th)</strong> The resistances increase to 10.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "24 hours"
+                },
+                "level": {
+                    "value": 7
+                },
+                "location": {
+                    "value": "c5mAG4o3GPHnBoMP"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "predicate": [
-                            "action:balance",
-                            "on-ground"
-                        ],
-                        "selector": "acrobatics",
-                        "text": "If Eltha succeeds on a acrobatics check to balance on uneven ground composed of earch or rock she gets a critical success instead."
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "Eltha is on the ground",
-                        "option": "on-ground",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "on-ground",
-                            {
-                                "or": [
-                                    "action:shove",
-                                    "action:trip"
-                                ]
-                            }
-                        ],
-                        "selector": "fortitude",
-                        "type": "circumstance",
-                        "value": 3
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "on-ground",
-                            {
-                                "or": [
-                                    "action:shove",
-                                    "action:trip"
-                                ]
-                            }
-                        ],
-                        "selector": "reflex",
-                        "type": "circumstance",
-                        "value": 3
-                    }
-                ],
-                "slug": null,
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "energy-aegis",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "1 minute"
+                },
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "9dv4spjeRfsh6eDd",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Darklands Lore",
-            "sort": 2600000,
+            "_id": "ksWcfDNGDpF63VjC",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.O7ZEqWjwdKyo2CUv"
+            },
+            "img": "systems/pf2e/icons/spells/volcanic-eruption.webp",
+            "name": "Volcanic Eruption",
+            "sort": 700000,
             "system": {
+                "area": {
+                    "type": "cylinder",
+                    "value": 5
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "14d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "fire"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "reflex"
+                    }
+                },
+                "description": {
+                    "value": "<p><strong>Area</strong> 5-foot radius, 80-foot-tall cylinder</p>\n<hr />\n<p>The ground opens up, spraying a column of lava high into the air in a vertical cylinder, dealing 14d6 fire damage to creatures in the area. The lava rapidly cools and encases creatures in the area. A creature encased in rock is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and takes a -10-foot status penalty to its Speeds. All normal terrain is difficult terrain to a flying creature, and such creatures immediately descend 20 feet the moment they're encased, but they don't take damage from this fall. A creature encased in rock can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] against your spell DC to end the effect. Otherwise, the creature remains encased until it takes a total of 50 damage, freeing it from the rock. Additionally, creatures in the area and those within 5 feet of the lava column automatically take @Damage[(@item.rank -4)d6[fire]] damage from the intense heat, regardless of the results of their saving throws.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Volcanic Eruption]</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is encased.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is encased.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage in the area increases by 2d6, and the damage from the intense heat increases by 1d6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 7
+                },
+                "location": {
+                    "value": "c5mAG4o3GPHnBoMP"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "volcanic-eruption",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "fire",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "iDOmLldWeH92acN4",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.dN8QBNuTiaBHCKUe"
+            },
+            "img": "icons/creatures/amphibians/frog-confused-green-blue.webp",
+            "name": "Baleful Polymorph",
+            "sort": 800000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "fortitude"
+                    }
+                },
+                "description": {
+                    "value": "<p>You transform the target creature into a harmless animal appropriate to the area, with effects based on its Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target's body gains minor features of the harmless animal. Its insides churn as they partially transform, causing it to be @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. When it recovers from the Sickened condition, its features revert to normal.</p>\n<p><strong>Failure</strong> The target transforms for 1 minute but keeps its mind. If it spends all its actions on its turn concentrating on its original form, it can attempt a Will save to end the effect immediately.</p>\n<p><strong>Critical Failure</strong> The target is transformed into the chosen harmless animal, body and mind, for an unlimited duration.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "varies"
+                },
+                "level": {
+                    "value": 6
+                },
+                "location": {
+                    "value": "c5mAG4o3GPHnBoMP"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "baleful-polymorph",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "incapacitation",
+                        "manipulate",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "AFrs7Qdxl2P6N3tv",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.znv4ECL7ZtuiagtA"
+            },
+            "img": "icons/magic/defensive/armor-stone-skin.webp",
+            "name": "Flesh to Stone",
+            "sort": 900000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "fortitude"
+                    }
+                },
+                "description": {
+                    "value": "<p>You try to turn the target's flesh into stone. The target must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} and must attempt a Fortitude save at the end of each of its turns; this ongoing save has the incapacitation trait. On a failed save, the Slowed condition increases by 1 (or 2 on a critical failure). A successful save reduces the Slowed condition by 1. When a creature is unable to act due to the Slowed condition from flesh to stone, the creature is permanently non-magically @UUID[Compendium.pf2e.conditionitems.Item.Petrified]. The spell ends if the creature is Petrified or the Slowed condition is removed.</p>\n<p><strong>Critical Failure</strong> As failure, but the target is initially @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2}.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "varies"
+                },
+                "level": {
+                    "value": 6
+                },
+                "location": {
+                    "value": "c5mAG4o3GPHnBoMP"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "flesh-to-stone",
+                "target": {
+                    "value": "1 creature made of flesh"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "JkKgkTQDjHylEL0T",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.Pr1ruNTbzGn3H9w5"
+            },
+            "img": "systems/pf2e/icons/spells/stone-to-flesh.webp",
+            "name": "Stone to Flesh",
+            "sort": 1000000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>Manipulating the fundamental particles of matter, you convert stone into flesh and blood. You restore a @UUID[Compendium.pf2e.conditionitems.Item.Petrified] creature to its normal state or transform a stone object into a mass of inert flesh (without stone's Hardness) in roughly the same shape.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 6
+                },
+                "location": {
+                    "value": "c5mAG4o3GPHnBoMP"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "stone-to-flesh",
+                "target": {
+                    "value": "petrified creature or human-size stone object"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "divine",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "earth",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "MO2V058hRBnXbHY4",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.3puDanGfpEt6jK5k"
+            },
+            "img": "icons/magic/water/vortex-water-whirlpool.webp",
+            "name": "Cone of Cold",
+            "sort": 1100000,
+            "system": {
+                "area": {
+                    "type": "cone",
+                    "value": 60
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "category": null,
+                        "formula": "12d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "cold"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "reflex"
+                    }
+                },
+                "description": {
+                    "value": "<p>Icy cold rushes forth from your hands. You deal 12d6 cold damage to creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": {
+                    "value": "c5mAG4o3GPHnBoMP"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "cone-of-cold",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "cold",
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "CPd9I6KY3BWhm2h4",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.YvXKGlHOt7mdW2jZ"
+            },
+            "img": "icons/magic/defensive/shield-barrier-deflect-gold.webp",
+            "name": "Death Ward",
+            "sort": 1200000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You shield a creature from the ravages of void energy.</p>\n<p>It receives a +4 status bonus to saves against death and void effects, gains void resistance 10, and suppresses the effects of the @UUID[Compendium.pf2e.conditionitems.Item.Doomed] condition.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Death Ward]</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "10 minutes"
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": {
+                    "value": "c5mAG4o3GPHnBoMP"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "death-ward",
+                "target": {
+                    "value": "1 living creature touched"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "73FcW9hxDA8aeGgT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.oXeEbcUdgJGWHGEJ"
+            },
+            "img": "systems/pf2e/icons/spells/impaling-spike.webp",
+            "name": "Impaling Spike",
+            "sort": 1300000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "category": null,
+                        "formula": "8d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "piercing"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "reflex"
+                    }
+                },
+                "description": {
+                    "value": "<p>You conjure a spike that thrusts up from the earth beneath a target creature, potentially impaling it. The spike is made of cold iron and deals 8d6 piercing damage. The target must attempt a Reflex save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target dodges the spike and is unaffected.</p>\n<p><strong>Success</strong> The target is struck by the spike and takes half damage.</p>\n<p><strong>Failure</strong> The target is impaled through a leg or another non - vital body part. The creature takes full damage and, if it's standing on solid ground, becomes @UUID[Compendium.pf2e.conditionitems.Item.Immobilized]. It can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape](the DC is your spell DC). While it remains impaled, it takes damage from any weakness to cold iron it has at the end of each of its turns.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature is impaled through a vital organ or its center of mass, taking double damage, and it is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] as long as it's impaled.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6 piercing.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 minute"
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": {
+                    "value": "c5mAG4o3GPHnBoMP"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Advanced Player's Guide"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "impaling-spike",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "7hyLZ7BE0RbQFIjJ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.aqRYNoSvxsVfqglH"
+            },
+            "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
+            "name": "Freedom of Movement",
+            "sort": 1400000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You repel effects that would hinder a creature or slow its movement. While under this spell's effect, the target ignores effects that would give them a circumstance penalty to Speed. When they attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] an effect that has them @UUID[Compendium.pf2e.conditionitems.Item.Immobilized], @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], or @UUID[Compendium.pf2e.conditionitems.Item.Restrained], they automatically succeed unless the effect is magical and of a higher rank than the <em>freedom of movement</em> spell.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Unfettered Movement]{Spell Effect: Freedom of Movement}</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "10 minutes"
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "value": "c5mAG4o3GPHnBoMP"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "freedom-of-movement",
+                "target": {
+                    "value": "1 creature touched"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "3I8CInNeYj7j4iJC",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.McnPlLFvKtQVXNcG"
+            },
+            "img": "systems/pf2e/icons/spells/shape-stone.webp",
+            "name": "Shape Stone",
+            "sort": 1500000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "reflex"
+                    }
+                },
+                "description": {
+                    "value": "<p>You shape the stone into a rough shape of your choice. The shaping process is too crude to produce intricate parts, fine details, moving pieces, or the like. Any creatures standing atop the stone when you reshape it must each attempt a Reflex save or Acrobatics check.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature falls @UUID[Compendium.pf2e.conditionitems.Item.Prone] atop the stone.</p>\n<p><strong>Critical Failure</strong> The creature falls off the stone (if applicable) and lands Prone.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "value": "c5mAG4o3GPHnBoMP"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "shape-stone",
+                "target": {
+                    "value": "cube of stone 10 feet across or smaller"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "earth",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "uvbNRjohhbP8UV3Y",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.o6YCGx4lycsYpww4"
+            },
+            "img": "systems/pf2e/icons/spells/haste.webp",
+            "name": "Haste",
+            "sort": 1600000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>Magic empowers the target to act faster. It gains the @UUID[Compendium.pf2e.conditionitems.Item.Quickened] condition and can use the extra action each round only for Strike and Stride actions.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> You can target up to 6 creatures.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 minute"
+                },
+                "heightening": {
+                    "levels": {
+                        "7": {
+                            "target": {
+                                "value": "6 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": {
+                    "value": "c5mAG4o3GPHnBoMP"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "haste",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "gYCGPoeDfZJDqFTl",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.HRb2doyaLtaoCfi3"
+            },
+            "img": "systems/pf2e/icons/spells/faerie-fire.webp",
+            "name": "Faerie Fire",
+            "sort": 1700000,
+            "system": {
+                "area": {
+                    "type": "burst",
+                    "value": 10
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>All creatures in the area when you cast the spell are limned in colorful, heatless fire of a color of your choice for the duration. Visible creatures can't be @UUID[Compendium.pf2e.conditionitems.Item.Concealed] while affected by faerie fire. If the creatures are @UUID[Compendium.pf2e.conditionitems.Item.Invisible], they are Concealed while affected by faerie fire, rather than being @UUID[Compendium.pf2e.conditionitems.Item.Undetected].</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "5 minutes"
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "value": "c5mAG4o3GPHnBoMP"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "faerie-fire",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "light",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "mFstY6UY5AtK9xm1",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.gISYsBFby1TiXfBt"
+            },
+            "img": "icons/magic/acid/projectile-smoke-glowing.webp",
+            "name": "Acid Splash",
+            "sort": 1800000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "1d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "acid"
+                    },
+                    "gcovwqxwitqchoin": {
+                        "applyMod": false,
+                        "category": "splash",
+                        "formula": "1",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "acid"
+                    }
+                },
+                "defense": null,
+                "description": {
+                    "value": "<p>You splash a glob of acid that splatters your target and nearby creatures. Make a spell attack. If you hit, you deal 1d6 acid damage plus 1 splash acid damage. On a critical success, the target also takes @Damage[(ceil(@item.level/2))[persistent,acid]] damage.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The initial damage increases to 2d6, and the persistent damage increases to 2.</p>\n<p><strong>Heightened (5th)</strong> The initial damage increases to 3d6, the persistent damage increases to 3, and the splash damage increases to 2.</p>\n<p><strong>Heightened (7th)</strong> The initial damage increases to 4d6, the persistent damage increases to 4, and the splash damage increases to 3.</p>\n<p><strong>Heightened (9th)</strong> The initial damage increases to 5d6, the persistent damage increases to 5, and the splash damage increases to 4.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "damage": {
+                                "0": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "2d6",
+                                    "materials": [],
+                                    "type": "acid"
+                                },
+                                "gcovwqxwitqchoin": {
+                                    "applyMod": false,
+                                    "category": "splash",
+                                    "formula": "1",
+                                    "materials": [],
+                                    "type": "acid"
+                                }
+                            }
+                        },
+                        "5": {
+                            "damage": {
+                                "0": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "3d6",
+                                    "materials": [],
+                                    "type": "acid"
+                                },
+                                "gcovwqxwitqchoin": {
+                                    "applyMod": false,
+                                    "category": "splash",
+                                    "formula": "2",
+                                    "materials": [],
+                                    "type": "acid"
+                                }
+                            }
+                        },
+                        "7": {
+                            "damage": {
+                                "0": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "4d6",
+                                    "materials": [],
+                                    "type": "acid"
+                                },
+                                "gcovwqxwitqchoin": {
+                                    "applyMod": false,
+                                    "category": "splash",
+                                    "formula": "3",
+                                    "materials": [],
+                                    "type": "acid"
+                                }
+                            }
+                        },
+                        "9": {
+                            "damage": {
+                                "0": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "5d6",
+                                    "materials": [],
+                                    "type": "acid"
+                                },
+                                "gcovwqxwitqchoin": {
+                                    "applyMod": false,
+                                    "category": "splash",
+                                    "formula": "4",
+                                    "materials": [],
+                                    "type": "acid"
+                                }
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "c5mAG4o3GPHnBoMP"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "acid-splash",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "acid",
+                        "attack",
+                        "cantrip",
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "3aXwAKB9WtCCyMLS",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.4koZzrnMXhhosn0D"
+            },
+            "img": "systems/pf2e/icons/spells/fear.webp",
+            "name": "Fear",
+            "sort": 1900000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} and @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "varies"
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "target": {
+                                "value": "5 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "c5mAG4o3GPHnBoMP"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "fear",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "emotion",
+                        "fear",
+                        "manipulate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "hm7S7qEzPNqqPKzc",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.rfZpqmj0AIIdkVIs"
+            },
+            "img": "icons/magic/life/cross-worn-green.webp",
+            "name": "Heal",
+            "sort": 2000000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "1d8",
+                        "kinds": [
+                            "damage",
+                            "healing"
+                        ],
+                        "materials": [],
+                        "type": "vitality"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "fortitude"
+                    }
+                },
+                "description": {
+                    "value": "<p>You channel vitality energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of vitality damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"action-glyph\">1</span> <strong>(somatic)</strong> The spell has a range of touch.</p>\n<p><span class=\"action-glyph\">2</span> <strong>(verbal, somatic)</strong> The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8</p>\n<p><span class=\"action-glyph\">3</span> <strong>(material, somatic, verbal)</strong> You disperse vitality energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "c5mAG4o3GPHnBoMP"
+                },
+                "overlays": {
+                    "37gy7l19tik74o4s": {
+                        "_id": "37gy7l19tik74o4s",
+                        "name": "Heal (vs. Living)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "damage": {
+                                "0": {
+                                    "formula": "1d8+8",
+                                    "kinds": [
+                                        "healing"
+                                    ]
+                                }
+                            },
+                            "defense": null,
+                            "heightening": {
+                                "damage": {
+                                    "0": "1d8+8"
+                                }
+                            },
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "time": {
+                                "value": "2"
+                            },
+                            "traits": {
+                                "value": [
+                                    "concentrate",
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
+                                ]
+                            }
+                        }
+                    },
+                    "7qdtetowq348s9oc": {
+                        "_id": "7qdtetowq348s9oc",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "range": {
+                                "value": "touch"
+                            },
+                            "time": {
+                                "value": "1"
+                            }
+                        }
+                    },
+                    "7vbvdrv2cl87sqta": {
+                        "_id": "7vbvdrv2cl87sqta",
+                        "overlayType": "override",
+                        "sort": 4,
+                        "system": {
+                            "area": {
+                                "type": "emanation",
+                                "value": 30
+                            },
+                            "range": {
+                                "value": ""
+                            },
+                            "target": {
+                                "value": "all living and undead creatures"
+                            },
+                            "time": {
+                                "value": "3"
+                            },
+                            "traits": {
+                                "value": [
+                                    "concentrate",
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
+                                ]
+                            }
+                        }
+                    },
+                    "lfxcoz2d3f8j2zq1": {
+                        "_id": "lfxcoz2d3f8j2zq1",
+                        "name": "Heal (vs. Undead)",
+                        "overlayType": "override",
+                        "sort": 3,
+                        "system": {
+                            "damage": {
+                                "0": {
+                                    "kinds": [
+                                        "damage"
+                                    ]
+                                }
+                            },
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "target": {
+                                "value": "1 undead"
+                            },
+                            "time": {
+                                "value": "2"
+                            },
+                            "traits": {
+                                "value": [
+                                    "concentrate",
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "varies"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "heal",
+                "target": {
+                    "value": "1 willing living creature or 1 undead"
+                },
+                "time": {
+                    "value": "1 to 3"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "divine",
+                        "primal"
+                    ],
+                    "value": [
+                        "healing",
+                        "manipulate",
+                        "vitality"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "c9fCd97It4sWXUPA",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.WBmvzNDfpwka3qT4"
+            },
+            "img": "systems/pf2e/icons/spells/light.webp",
+            "name": "Light",
+            "sort": 2100000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Light]</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "until the next time you make your daily preparations"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "c5mAG4o3GPHnBoMP"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "light",
+                "target": {
+                    "value": "1 object of 1 Bulk or less, either unattended or possessed by you or a willing ally"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "light",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "X1zMemEejg9OlINO",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.gYjPm7YwGtEa1oxh"
+            },
+            "img": "icons/magic/movement/trail-streak-impact-blue.webp",
+            "name": "Ray of Frost",
+            "sort": 2200000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "2d4",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "cold"
+                    }
+                },
+                "defense": null,
+                "description": {
+                    "value": "<p>You blast an icy ray. Make a spell attack roll. The ray deals 2d4 cold damage.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage and takes a -10-foot status penalty to its Speeds for 1 round.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Ray of Frost]</p>\n<p><strong>Success</strong> The target takes normal damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "c5mAG4o3GPHnBoMP"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "ray-of-frost",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "attack",
+                        "cantrip",
+                        "cold",
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "jV0Ii2o4YYDggg3i",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.SnjhtQYexDtNDdEg"
+            },
+            "img": "icons/magic/control/debuff-energy-hold-yellow.webp",
+            "name": "Stabilize",
+            "sort": 2300000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>Vitality energy shuts death's door. The target loses the @UUID[Compendium.pf2e.conditionitems.Item.Dying] condition, though it remains @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] at 0 Hit Points.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "c5mAG4o3GPHnBoMP"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "stabilize",
+                "target": {
+                    "value": "1 dying creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "divine",
+                        "primal"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "healing",
+                        "manipulate",
+                        "vitality"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "iTKWPKqHKtjYhMGe",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.uZK2BYzPnxUBnDjr"
+            },
+            "img": "icons/magic/nature/root-vine-entangled-hand.webp",
+            "name": "Tanglefoot",
+            "sort": 2400000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>A vine covered in sticky sap appears from thin air, flicking from your hand and lashing itself to the target. Attempt a spell attack against the target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target gains the @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] condition and takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty and the @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] condition.</p>\n<p><strong>Success</strong> The target takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Tangle Vine]</p>\n<p><strong>Failure</strong> The target is unaffected.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> The effects last for 2 rounds.</p>\n<p><strong>Heightened (4th)</strong> The effects last for 1 minute.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "c5mAG4o3GPHnBoMP"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "tanglefoot",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "attack",
+                        "cantrip",
+                        "concentrate",
+                        "manipulate",
+                        "plant"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "c5mAG4o3GPHnBoMP",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Prepared Spells",
+            "sort": 2500000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 19
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
                 },
-                "proficient": {
-                    "value": 0
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -2273,9 +2078,204 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "mFstY6UY5AtK9xm1"
+                            },
+                            {
+                                "id": "c9fCd97It4sWXUPA"
+                            },
+                            {
+                                "id": "X1zMemEejg9OlINO"
+                            },
+                            {
+                                "id": "jV0Ii2o4YYDggg3i"
+                            },
+                            {
+                                "id": "iTKWPKqHKtjYhMGe"
+                            }
+                        ]
+                    },
+                    "slot3": {
+                        "max": 4,
+                        "prepared": [
+                            {
+                                "id": "gYCGPoeDfZJDqFTl"
+                            },
+                            {
+                                "id": "3aXwAKB9WtCCyMLS"
+                            },
+                            {
+                                "id": "uvbNRjohhbP8UV3Y"
+                            },
+                            {
+                                "id": "hm7S7qEzPNqqPKzc"
+                            }
+                        ]
+                    },
+                    "slot4": {
+                        "max": 4,
+                        "prepared": [
+                            {
+                                "id": "7hyLZ7BE0RbQFIjJ"
+                            },
+                            {
+                                "id": "hm7S7qEzPNqqPKzc"
+                            },
+                            {
+                                "id": "hm7S7qEzPNqqPKzc"
+                            },
+                            {
+                                "id": "3I8CInNeYj7j4iJC"
+                            }
+                        ]
+                    },
+                    "slot5": {
+                        "max": 4,
+                        "prepared": [
+                            {
+                                "id": "MO2V058hRBnXbHY4"
+                            },
+                            {
+                                "id": "CPd9I6KY3BWhm2h4"
+                            },
+                            {
+                                "id": "hm7S7qEzPNqqPKzc"
+                            },
+                            {
+                                "id": "73FcW9hxDA8aeGgT"
+                            }
+                        ]
+                    },
+                    "slot6": {
+                        "max": 4,
+                        "prepared": [
+                            {
+                                "id": "iDOmLldWeH92acN4"
+                            },
+                            {
+                                "id": "AFrs7Qdxl2P6N3tv"
+                            },
+                            {
+                                "id": "hm7S7qEzPNqqPKzc"
+                            },
+                            {
+                                "id": "JkKgkTQDjHylEL0T"
+                            }
+                        ]
+                    },
+                    "slot7": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "7KKHrst3qiOlWyLu"
+                            },
+                            {
+                                "id": "73FcW9hxDA8aeGgT"
+                            },
+                            {
+                                "id": "ksWcfDNGDpF63VjC"
+                            }
+                        ]
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 28,
+                    "mod": 0,
+                    "value": 20
+                },
+                "tradition": {
+                    "value": "primal"
+                }
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "qXrPPWuFK3gBJ0SJ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FVjTuBCIefAgloUU"
+            },
+            "img": "icons/weapons/staves/staff-simple.webp",
+            "name": "Staff",
+            "sort": 2600000,
+            "system": {
+                "baseItem": "staff",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "bludgeoning",
+                    "dice": 1,
+                    "die": "d4"
+                },
+                "description": {
+                    "value": "<p>This long piece of wood can aid in walking and deliver a mighty blow.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "club",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "striking": 1
+                },
+                "size": "med",
+                "slug": "staff",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "two-hand-d8"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
         }
     ],
     "name": "Eltha Embercall (11-12, 28+ CP)",

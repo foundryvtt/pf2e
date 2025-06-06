@@ -4,22 +4,178 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "AEQewVYOqlqT2tMJ",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "1oCth6jpnhdrJCOk",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Walk the Ethereal Line",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The phantom walks the thin line between the Ethereal Plane and the Universe in order to exist on both planes simultaneously.</p>\n<p>They can shift back to solely the Ethereal Plane by using this ability again.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "j68N9UkahC1d6lhq",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "-1 Status to All Saves vs. Death Effects",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "death"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": -1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AwRCPMRzo9dIymmM",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Susceptible to Death",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Though phantoms aren't alive, neither are they undead, and they are uniquely vulnerable to the effects of death.</p>\n<p>A phantom whose Hit Points are reduced to 0 as a result of a death effect (such as from a spell like @UUID[Compendium.pf2e.spells-srd.Item.Execute]) is immediately whisked away to the River of Souls, where their soul resumes the usual path to the afterlife.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XvOTWzFd6aOalVNt",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Phantom Daggers",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Each time they make a phantom dagger Strike, a Puddles phantom can choose to deal spirit damage instead of the normal physical damage type. Whichever damage type they choose, the phantom dagger vanishes and a new phantom dagger immediately appears in the phantom's hand.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "phantom-touch",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "predicate": [
+                            "phantom-touch"
+                        ],
+                        "property": "damage-type",
+                        "selectors": [
+                            "strike-damage"
+                        ],
+                        "value": "spirit"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "spirit"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JfXliv2Be7V9lhmd",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Phantom Dagger",
+            "sort": 500000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "UR4k9iuPBl7lt4LH": {
+                        "damage": "2d4+10",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,21 +183,56 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
+                "slug": "dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "B2YcWqGQbFdwRtzX",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Phantom Dagger",
+            "sort": 600000,
+            "system": {
+                "attackEffects": {
+                    "value": []
                 },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 25,
+                "bonus": {
                     "value": 17
                 },
-                "tradition": {
-                    "value": "occult"
+                "damageRolls": {
+                    "32s2Abv6amH9qL7O": {
+                        "damage": "2d4+10",
+                        "damageType": "piercing"
+                    }
                 },
-                "traits": {}
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
         },
         {
             "_id": "uMIOF63HDq4JAlLE",
@@ -50,7 +241,7 @@
             },
             "img": "systems/pf2e/icons/spells/blood-vendetta.webp",
             "name": "Blood Vendetta",
-            "sort": 200000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -135,7 +326,7 @@
             },
             "img": "icons/skills/melee/strike-weapon-polearm-ice-blue.webp",
             "name": "Telekinetic Maneuver",
-            "sort": 300000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -198,7 +389,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 400000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -261,7 +452,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 500000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -385,7 +576,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Void Warp",
-            "sort": 600000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -465,235 +656,44 @@
             "type": "spell"
         },
         {
-            "_id": "JfXliv2Be7V9lhmd",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Phantom Dagger",
-            "sort": 700000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 17
-                },
-                "damageRolls": {
-                    "UR4k9iuPBl7lt4LH": {
-                        "damage": "2d4+10",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "B2YcWqGQbFdwRtzX",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Phantom Dagger",
-            "sort": 800000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 17
-                },
-                "damageRolls": {
-                    "32s2Abv6amH9qL7O": {
-                        "damage": "2d4+10",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "magical",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "1oCth6jpnhdrJCOk",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Walk the Ethereal Line",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The phantom walks the thin line between the Ethereal Plane and the Universe in order to exist on both planes simultaneously.</p>\n<p>They can shift back to solely the Ethereal Plane by using this ability again.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "j68N9UkahC1d6lhq",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "-1 Status to All Saves vs. Death Effects",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "death"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": -1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "AwRCPMRzo9dIymmM",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Susceptible to Death",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Though phantoms aren't alive, neither are they undead, and they are uniquely vulnerable to the effects of death.</p>\n<p>A phantom whose Hit Points are reduced to 0 as a result of a death effect (such as from a spell like @UUID[Compendium.pf2e.spells-srd.Item.Execute]) is immediately whisked away to the River of Souls, where their soul resumes the usual path to the afterlife.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "XvOTWzFd6aOalVNt",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Phantom Daggers",
+            "_id": "AEQewVYOqlqT2tMJ",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 1200000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>Each time they make a phantom dagger Strike, a Puddles phantom can choose to deal spirit damage instead of the normal physical damage type. Whichever damage type they choose, the phantom dagger vanishes and a new phantom dagger immediately appears in the phantom's hand.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
-                    "license": "ORC",
-                    "remaster": true,
+                    "license": "OGL",
+                    "remaster": false,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "phantom-touch",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "DamageAlteration",
-                        "mode": "override",
-                        "predicate": [
-                            "phantom-touch"
-                        ],
-                        "property": "damage-type",
-                        "selectors": [
-                            "strike-damage"
-                        ],
-                        "value": "spirit"
-                    }
-                ],
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "spirit"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 25,
+                    "value": 17
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Puddles Phantom (5-6)",

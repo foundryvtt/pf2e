@@ -4,264 +4,107 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "z84wqzko1RPXKwRr",
-            "img": "systems/pf2e/icons/equipment/weapons/crossbow.webp",
-            "name": "+1 Striking Crossbow",
+            "_id": "wPp48cMhLkEqI4UE",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Binding Blast",
             "sort": 100000,
             "system": {
-                "baseItem": null,
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "passive"
                 },
-                "bonusDamage": {
-                    "value": 0
+                "actions": {
+                    "value": null
                 },
-                "bulk": {
-                    "value": 1
-                },
-                "category": "simple",
-                "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d8"
-                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>This ranged weapon has a bow-like assembly mounted on a handled frame called a tiller. The tiller has a mechanism to lock the bowstring in place, attached to a trigger mechanism that releases the tension and launches a bolt.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "crossbow",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 3
-                    }
+                    "value": "<p>A commando's thunderstone is infused with special reagents to produce a blinding flash of light. In addition to the thunderstone's normal effects, creatures that fail the saving throw against the thunderstone are also @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round. Creatures that critically fail are @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round. Creatures who protect their eyes, such as by wearing tinted goggles, are immune to the infused thunderstone's blinding effect.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "quantity": 1,
-                "range": 120,
-                "reload": {
-                    "value": "1"
-                },
                 "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [],
-                    "striking": 1
-                },
-                "size": "med",
-                "slug": null,
-                "splashDamage": {
-                    "value": 0
-                },
+                "slug": "binding-blast",
                 "traits": {
                     "rarity": "common",
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
-            "type": "weapon"
+            "type": "action"
         },
         {
-            "_id": "zlY2IvuCU0h5iOV8",
-            "img": "icons/commodities/gems/pearl-rough-turquoise.webp",
-            "name": "Thunderstone (Greater)",
+            "_id": "Eq6IkJnS6klg5Kqj",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Target Culprit",
             "sort": 200000,
             "system": {
-                "baseItem": null,
-                "bonus": {
-                    "value": 2
+                "actionType": {
+                    "value": "action"
                 },
-                "bonusDamage": {
-                    "value": 0
+                "actions": {
+                    "value": 1
                 },
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "martial",
-                "containerId": null,
-                "damage": {
-                    "damageType": "sonic",
-                    "dice": 3,
-                    "die": "d4"
-                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>When this stone hits a creature or a hard surface, it explodes with a deafening bang. A thunderstone deals the listed sonic damage and sonic splash damage, and each creature within 10 feet of the space in which the stone exploded must succeed at a Fortitude saving throw with the listed DC or be deafened until the end of its next turn. Many types of thunderstone grant an item bonus to attack rolls.</p>\n<p>You gain a +2 item bonus to attack rolls. The bomb deals 3d4 sonic damage and 3 sonic splash damage, and the DC is 28.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "bomb",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 11
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 250
-                    }
+                    "value": "<p>The commando designates a single creature as their culprit. The commando gains a +2 circumstance bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Seek] their culprit and a +2 circumstance bonus to Survival checks to @UUID[Compendium.pf2e.actionspf2e.Item.Track] their culprit. The commando's attacks deal an additional 2d8 precision damage to the culprit. This designation lasts for 24 hours or until the commando targets another creature with this ability.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
-                },
-                "quantity": 3,
-                "range": 20,
-                "reload": {
-                    "value": ""
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.BombNotes.Thunderstone.Greater.success"
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "target-culprit",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:seek",
+                            "target-culprit"
+                        ],
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:track",
+                            "target-culprit"
+                        ],
+                        "selector": "survival",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": 2,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target-culprit"
+                        ],
+                        "selector": "damage"
                     }
                 ],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
                 "slug": null,
-                "splashDamage": {
-                    "value": 3
-                },
                 "traits": {
                     "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "bomb",
-                        "consumable",
-                        "sonic",
-                        "splash"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": []
                 }
             },
-            "type": "weapon"
-        },
-        {
-            "_id": "EjxAC6le3nK3Lfmx",
-            "img": "systems/pf2e/icons/equipment/weapons/longsword.webp",
-            "name": "+1 Striking Longsword",
-            "sort": 300000,
-            "system": {
-                "baseItem": null,
-                "bonus": {
-                    "value": 0
-                },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "bulk": {
-                    "value": 1
-                },
-                "category": "martial",
-                "containerId": null,
-                "damage": {
-                    "damageType": "slashing",
-                    "dice": 1,
-                    "die": "d8"
-                },
-                "description": {
-                    "value": "<p>Longswords can be one-edged or two-edged swords. Their blades are heavy and they're between 3 and 4 feet in length.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "sword",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": ""
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [],
-                    "striking": 1
-                },
-                "size": "med",
-                "slug": null,
-                "splashDamage": {
-                    "value": 0
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "versatile-p"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "weapon"
+            "type": "action"
         },
         {
             "_id": "59NYvJMmj1tMm5lr",
             "img": "systems/pf2e/icons/equipment/armor/chainshirt.webp",
             "name": "Chain Shirt",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "acBonus": 2,
                 "baseItem": null,
@@ -326,63 +169,10 @@
             "type": "armor"
         },
         {
-            "_id": "VhwvrjXUG0odeyH5",
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "Tinted Goggles",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
             "_id": "aUT5HG083JzDakWn",
             "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
             "name": "Bolts",
-            "sort": 600000,
+            "sort": 400000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -440,6 +230,84 @@
                 }
             },
             "type": "consumable"
+        },
+        {
+            "_id": "VhwvrjXUG0odeyH5",
+            "img": "systems/pf2e/icons/default-icons/equipment.svg",
+            "name": "Tinted Goggles",
+            "sort": 500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "bN92RThudov2eNQm",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Legal Lore",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 20
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         },
         {
             "_id": "WlrYnJI19Nc7qelL",
@@ -608,126 +476,258 @@
             "type": "melee"
         },
         {
-            "_id": "wPp48cMhLkEqI4UE",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Binding Blast",
+            "_id": "z84wqzko1RPXKwRr",
+            "img": "systems/pf2e/icons/equipment/weapons/crossbow.webp",
+            "name": "+1 Striking Crossbow",
             "sort": 1000000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "baseItem": null,
+                "bonus": {
+                    "value": 0
                 },
-                "actions": {
-                    "value": null
+                "bonusDamage": {
+                    "value": 0
                 },
-                "category": "offensive",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d8"
+                },
                 "description": {
-                    "value": "<p>A commando's thunderstone is infused with special reagents to produce a blinding flash of light. In addition to the thunderstone's normal effects, creatures that fail the saving throw against the thunderstone are also @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round. Creatures that critically fail are @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round. Creatures who protect their eyes, such as by wearing tinted goggles, are immune to the infused thunderstone's blinding effect.</p>"
+                    "value": "<p>This ranged weapon has a bow-like assembly mounted on a handled frame called a tiller. The tiller has a mechanism to lock the bowstring in place, attached to a trigger mechanism that releases the tension and launches a bolt.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "crossbow",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
+                "quantity": 1,
+                "range": 120,
+                "reload": {
+                    "value": "1"
+                },
                 "rules": [],
-                "slug": "binding-blast",
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "striking": 1
+                },
+                "size": "med",
+                "slug": null,
+                "splashDamage": {
+                    "value": 0
+                },
                 "traits": {
                     "rarity": "common",
                     "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
                 }
             },
-            "type": "action"
+            "type": "weapon"
         },
         {
-            "_id": "Eq6IkJnS6klg5Kqj",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Target Culprit",
+            "_id": "zlY2IvuCU0h5iOV8",
+            "img": "icons/commodities/gems/pearl-rough-turquoise.webp",
+            "name": "Thunderstone (Greater)",
             "sort": 1100000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "baseItem": null,
+                "bonus": {
+                    "value": 2
                 },
-                "actions": {
-                    "value": 1
+                "bonusDamage": {
+                    "value": 0
                 },
-                "category": "offensive",
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "sonic",
+                    "dice": 3,
+                    "die": "d4"
+                },
                 "description": {
-                    "value": "<p>The commando designates a single creature as their culprit. The commando gains a +2 circumstance bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Seek] their culprit and a +2 circumstance bonus to Survival checks to @UUID[Compendium.pf2e.actionspf2e.Item.Track] their culprit. The commando's attacks deal an additional 2d8 precision damage to the culprit. This designation lasts for 24 hours or until the commando targets another creature with this ability.</p>"
+                    "value": "<p>When this stone hits a creature or a hard surface, it explodes with a deafening bang. A thunderstone deals the listed sonic damage and sonic splash damage, and each creature within 10 feet of the space in which the stone exploded must succeed at a Fortitude saving throw with the listed DC or be deafened until the end of its next turn. Many types of thunderstone grant an item bonus to attack rolls.</p>\n<p>You gain a +2 item bonus to attack rolls. The bomb deals 3d4 sonic damage and 3 sonic splash damage, and the DC is 28.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "bomb",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 11
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 250
+                    }
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
+                },
+                "quantity": 3,
+                "range": 20,
+                "reload": {
+                    "value": ""
                 },
                 "rules": [
                     {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "target-culprit",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "action:seek",
-                            "target-culprit"
-                        ],
-                        "selector": "perception",
-                        "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "action:track",
-                            "target-culprit"
-                        ],
-                        "selector": "survival",
-                        "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "category": "precision",
-                        "diceNumber": 2,
-                        "dieSize": "d8",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target-culprit"
-                        ],
-                        "selector": "damage"
+                        "key": "Note",
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.BombNotes.Thunderstone.Greater.success"
                     }
                 ],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
                 "slug": null,
+                "splashDamage": {
+                    "value": 3
+                },
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "alchemical",
+                        "bomb",
+                        "consumable",
+                        "sonic",
+                        "splash"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
                 }
             },
-            "type": "action"
+            "type": "weapon"
         },
         {
-            "_id": "bN92RThudov2eNQm",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Legal Lore",
+            "_id": "EjxAC6le3nK3Lfmx",
+            "img": "systems/pf2e/icons/equipment/weapons/longsword.webp",
+            "name": "+1 Striking Longsword",
             "sort": 1200000,
             "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 20
-                },
-                "proficient": {
+                "baseItem": null,
+                "bonus": {
                     "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 1
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d8"
+                },
+                "description": {
+                    "value": "<p>Longswords can be one-edged or two-edged swords. Their blades are heavy and they're between 3 and 4 feet in length.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "sword",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
                 "rules": [],
-                "slug": null
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "striking": 1
+                },
+                "size": "med",
+                "slug": null,
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "versatile-p"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
             },
-            "type": "lore"
+            "type": "weapon"
         }
     ],
     "name": "Starwatch Commando",

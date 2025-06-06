@@ -4,22 +4,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "g72eXVO3frQVvBua",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "awrs8inIFHsyp1ke",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Cursesense",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>The argyrzei can see and hear through any silver object it cursed, as long as the object is within 1 mile.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,18 +25,209 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 33,
-                    "value": 25
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
+                "traits": {
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "XfTGAsHXd5WmKYoe",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Headless",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>An argyrzei is headless but can still hear, speak, see, and smell as if it had a head. The argyrzei is immune to decapitation effects, such as those caused by vorpal weapons.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uyVRzrqjIP4K3iNa",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Soul Shred",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Creatures killed by an argyrzei are difficult to bring back to life or to animate as undead. The argyrzei automatically attempts to counteract any attempt to resurrect or animate as undead any creature that it has killed (counteract modifier [[/r 1d20+23 #Counteract]]{+23}, counteract level 7th). If the argyrzei who slew the creature is itself slain, the creature can be brought back from death or become undead normally.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Hs9FuPkhWqYScg1d",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Infect Silver",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The argyrzei concentrates on an adjacent silver object that's no larger than Bulk 2. That object becomes cursed; if the object is being carried, the object's carrier can resist the object becoming cursed with a @Check[will|dc:33] save. The argyrzei can maintain up to five curses simultaneously; if it infects a sixth silver item, the oldest cursed item becomes uncursed.</p>\n<h2><strong>Infected Silver</strong></h2>\n<section class=\"traits\">\n<p><strong>RARE</strong></p>\n<p><strong>CURSED</strong></p>\n<p><strong>MAGICAL</strong></p>\n</section>\n<p><strong>Usage</strong> curses silver item</p>\n<p>After 1 minute of carrying infected silver, it fuses to you. You become @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and remain so as long as the curse persists. As long as you remain cursed, you take a –2 status penalties to all saving throws against mental effects created by nindorus.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "curse",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2NXMqqY4YvaqJYTi",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Manifest Silver Blade",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The argyrzei isn't carrying a silver blade</p>\n<hr />\n<p><strong>Effect</strong> The argyrzei pulls one of the broken silver weapons from the stump of its neck, transforming it into a <em>+1 striking wounding silver bastard sword</em>. This weapon crumbles into sand if it leaves the argyrzei's possession.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Rosna49njMDwpVXz",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Silver Blade",
+            "sort": 600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 28
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d8+11",
+                        "damageType": "slashing"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "1d6",
+                        "damageType": "bleed"
+                    },
+                    "2": {
+                        "damage": "1d6",
+                        "damageType": "mental"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.BastardSword",
+                        "option": "two-handed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "{item|_id}-damage"
+                        ],
+                        "slug": "base",
+                        "value": 12
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "silver",
+                        "two-hand-d12"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "UPNifozVgHMFLti9",
@@ -47,7 +236,7 @@
             },
             "img": "systems/pf2e/icons/spells/dominate.webp",
             "name": "Dominate",
-            "sort": 200000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -116,7 +305,7 @@
             },
             "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
             "name": "Illusory Scene",
-            "sort": 300000,
+            "sort": 800000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -184,7 +373,7 @@
             },
             "img": "icons/magic/symbols/runes-carved-stone-yellow.webp",
             "name": "Subconscious Suggestion",
-            "sort": 400000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -263,7 +452,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 500000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -350,7 +539,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise (At Will)",
-            "sort": 600000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -413,7 +602,7 @@
             },
             "img": "systems/pf2e/icons/spells/item-facade.webp",
             "name": "Item Facade",
-            "sort": 700000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -476,7 +665,7 @@
             },
             "img": "icons/magic/unholy/strike-beam-blood-small-red-purple.webp",
             "name": "Phantom Pain",
-            "sort": 800000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -562,7 +751,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Telekinetic Hand",
-            "sort": 900000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -643,7 +832,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 1000000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -761,214 +950,22 @@
             "type": "spell"
         },
         {
-            "_id": "Rosna49njMDwpVXz",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Silver Blade",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 28
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d8+11",
-                        "damageType": "slashing"
-                    },
-                    "1": {
-                        "category": "persistent",
-                        "damage": "1d6",
-                        "damageType": "bleed"
-                    },
-                    "2": {
-                        "damage": "1d6",
-                        "damageType": "mental"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TwoHanded.BastardSword",
-                        "option": "two-handed",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "DamageAlteration",
-                        "mode": "upgrade",
-                        "predicate": [
-                            "two-handed"
-                        ],
-                        "property": "dice-faces",
-                        "selectors": [
-                            "{item|_id}-damage"
-                        ],
-                        "slug": "base",
-                        "value": 12
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "silver",
-                        "two-hand-d12"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "awrs8inIFHsyp1ke",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Cursesense",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The argyrzei can see and hear through any silver object it cursed, as long as the object is within 1 mile.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "XfTGAsHXd5WmKYoe",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Headless",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>An argyrzei is headless but can still hear, speak, see, and smell as if it had a head. The argyrzei is immune to decapitation effects, such as those caused by vorpal weapons.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "uyVRzrqjIP4K3iNa",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Soul Shred",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Creatures killed by an argyrzei are difficult to bring back to life or to animate as undead. The argyrzei automatically attempts to counteract any attempt to resurrect or animate as undead any creature that it has killed (counteract modifier [[/r 1d20+23 #Counteract]]{+23}, counteract level 7th). If the argyrzei who slew the creature is itself slain, the creature can be brought back from death or become undead normally.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Hs9FuPkhWqYScg1d",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Infect Silver",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The argyrzei concentrates on an adjacent silver object that's no larger than Bulk 2. That object becomes cursed; if the object is being carried, the object's carrier can resist the object becoming cursed with a @Check[will|dc:33] save. The argyrzei can maintain up to five curses simultaneously; if it infects a sixth silver item, the oldest cursed item becomes uncursed.</p>\n<h2><strong>Infected Silver</strong></h2>\n<section class=\"traits\">\n<p><strong>RARE</strong></p>\n<p><strong>CURSED</strong></p>\n<p><strong>MAGICAL</strong></p>\n</section>\n<p><strong>Usage</strong> curses silver item</p>\n<p>After 1 minute of carrying infected silver, it fuses to you. You become @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and remain so as long as the curse persists. As long as you remain cursed, you take a –2 status penalties to all saving throws against mental effects created by nindorus.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "curse",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "2NXMqqY4YvaqJYTi",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Manifest Silver Blade",
+            "_id": "g72eXVO3frQVvBua",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 1600000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The argyrzei isn't carrying a silver blade</p>\n<hr />\n<p><strong>Effect</strong> The argyrzei pulls one of the broken silver weapons from the stump of its neck, transforming it into a <em>+1 striking wounding silver bastard sword</em>. This weapon crumbles into sand if it leaves the argyrzei's possession.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -976,15 +973,18 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "occult"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 33,
+                    "value": 25
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Argyrzei",

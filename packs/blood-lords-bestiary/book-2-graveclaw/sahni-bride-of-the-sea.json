@@ -4,22 +4,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "L0WhknLHZXfnNuhE",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Spontaneous Spells",
+            "_id": "tMZFtFOnhFklTFgg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Coven",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>Sahni adds @UUID[Compendium.pf2e.spells-srd.Item.Acid Arrow], @UUID[Compendium.pf2e.spells-srd.Item.Mariner's Curse], and @UUID[Compendium.pf2e.spells-srd.Item.Water Walk] to her coven's spells.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,53 +25,72 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot4": {
-                        "max": 2,
-                        "value": 2
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "mod": 0,
-                    "value": 17
-                },
-                "tradition": {
-                    "value": "divine"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "mOf0N5cPqWpR53Kq",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Scattered Coven Spells",
+            "_id": "sb5m6sOre6tgHoeV",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
             "sort": 200000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4JQCEMoeJlcDamCi",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Bride's Bargain",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Sahni can make a bargain with a willing creature of sound mind. The creature gives away a special quality-such as its courage, beauty, or voice-or sacrifices a loved one in exchange for a boon or a promise from Sahni. As long as Sahni keeps her end of the bargain, the only way to restore a lost quality is to defeat Sahni or make another bargain for its return. Loved ones sacrificed for Sahni's bargain can't be restored except with @UUID[Compendium.pf2e.spells-srd.Item.Wish], @UUID[Compendium.pf2e.spells-srd.Item.Miracle], or similarly powerful magic.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -81,21 +98,212 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "mod": 0,
-                    "value": 17
-                },
-                "tradition": {
-                    "value": "occult"
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "occult"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "s1W6qbbXuGOf5KH9",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Curse of Futility",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Sahni gazes upon a creature, affecting it with an overwhelming sense that every action it takes is futile; that humiliating failure is their only possible future. The target attempts a @Check[will|dc:25] save; the target doesn't need to be able to see Sahni.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and temporarily immune to Sahni's Curse of Futility for 24 hours.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 round and then temporarily immune for 1 hour.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is stupefied 2 for 1 hour and is @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} as long as it is stupefied.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "curse",
+                        "emotion",
+                        "fear",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "sbJrYK7O0j91qRUJ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scattered Coven",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>As a scattered coven, the Graveclaw grants Sahni the ability to cast the following spells as 3rd-rank occult spells, once per day each, without requiring help from her fellow coven members: @UUID[Compendium.pf2e.spells-srd.Item.Acid Arrow], @UUID[Compendium.pf2e.spells-srd.Item.Curse of Lost Time], @UUID[Compendium.pf2e.spells-srd.Item.Earthbind], @UUID[Compendium.pf2e.spells-srd.Item.Harm], @UUID[Compendium.pf2e.spells-srd.Item.Mimic Undead], @UUID[Compendium.pf2e.spells-srd.Item.Summon Construct], and @UUID[Compendium.pf2e.spells-srd.Item.Water Walk]. If Sahni is the third hag they confront, the coven is broken and she lacks these coven spells.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6GGUzCplbeA7sGXK",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ACa9QlFqdmW4s2Th"
+            },
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/hag-eye.webp",
+            "name": "Stony Hag Eye",
+            "sort": 600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This item appears to be an ordinary semiprecious stone and is typically mounted on a brooch or ring, but the stone is, in fact, an eyeball. This illusion can be seen through with true seeing or similar magic, and anyone who interacts with the item feels its wet and sticky surface, allowing them to attempt to disbelieve the illusion (DC 19). Many hags claim a hag eye is more effective if plucked from a living, awake creature, but this is likely just a convenient excuse for sadism.</p>\n<p>The hag eye produces no direct benefit for the wearer, but allows the hag who created it, or any member of her coven, can peer through the eye using the Seek action. This has no range limit, provided the hag is on the same plane.</p>\n<p>Any damage dealt to the eye destroys it. If this happens while a hag is looking through it, the hag is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 hour.</p>\n<p>A stony hag eye is fashioned from the eye of a creature, such a basilisk or medusa, with a petrifying gaze.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> (incapacitation, transmutation, visual)</p>\n<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> You target a creature within 30 feet that can see the stony hag eye. The target must attempt a @Check[fortitude|dc:22|traits:incapacitation,transmutation,visual] save. On a failure, it's @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 minute; on a critical failure, if the creature is already slowed, it's permanently petrified. Touching the stony hag eye to the petrified creature (a single action with the manipulate trait) removes the petrified condition.</p>\n<hr />\n<p><strong>Craft Requirements</strong> You must be a hag, and the raw materials must include the eye of a creature whose gaze turns creatures to stone.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 6
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 250
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #182: Graveclaw"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "hag-eye",
+                "traits": {
+                    "rarity": "rare",
+                    "value": [
+                        "invested",
+                        "occult",
+                        "scrying"
+                    ]
+                },
+                "usage": {
+                    "value": "worn"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "6zNsyu1WRFyMdwSK",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Legal Lore",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 19
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "cD3sKBhXsFxiROYa",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "mhmyy9wvvrpibhjhwmu4": {
+                        "damage": "2d10 + 4",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "bc0g7gWuE3xjv9x2",
@@ -104,7 +312,7 @@
             },
             "img": "systems/pf2e/icons/spells/bestial-curse.webp",
             "name": "Bestial Curse",
-            "sort": 300000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -173,7 +381,7 @@
             },
             "img": "icons/environment/settlement/sewer-entrance.webp",
             "name": "Vampiric Maiden",
-            "sort": 400000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -270,7 +478,7 @@
             },
             "img": "icons/creatures/mammals/dog-husky-white-blue.webp",
             "name": "Animal Vision",
-            "sort": 500000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -331,7 +539,7 @@
             },
             "img": "icons/magic/water/pseudopod-swirl-blue.webp",
             "name": "Crashing Wave",
-            "sort": 600000,
+            "sort": 1200000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -419,7 +627,7 @@
             },
             "img": "systems/pf2e/icons/spells/curse-of-lost-time.webp",
             "name": "Curse of Lost Time",
-            "sort": 700000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -506,7 +714,7 @@
             },
             "img": "icons/magic/earth/barrier-stone-explosion-debris.webp",
             "name": "Earthbind",
-            "sort": 800000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -572,7 +780,7 @@
             },
             "img": "systems/pf2e/icons/spells/acid-arrow.webp",
             "name": "Acid Arrow",
-            "sort": 900000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -657,7 +865,7 @@
             },
             "img": "icons/creatures/birds/raptor-owl-flying-moon.webp",
             "name": "Animal Messenger",
-            "sort": 1000000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -718,7 +926,7 @@
             },
             "img": "icons/magic/death/undead-skeleton-rags-fire-green.webp",
             "name": "Mimic Undead",
-            "sort": 1100000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -779,7 +987,7 @@
             },
             "img": "systems/pf2e/icons/spells/see-invisibility.webp",
             "name": "See Invisibility",
-            "sort": 1200000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -842,7 +1050,7 @@
             },
             "img": "icons/magic/water/wave-water-blue.webp",
             "name": "Water Walk",
-            "sort": 1300000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -917,7 +1125,7 @@
             },
             "img": "systems/pf2e/icons/spells/alarm.webp",
             "name": "Alarm",
-            "sort": 1400000,
+            "sort": 2000000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -983,7 +1191,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 1500000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1063,7 +1271,7 @@
             },
             "img": "systems/pf2e/icons/spells/command.webp",
             "name": "Command",
-            "sort": 1600000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1143,7 +1351,7 @@
             },
             "img": "systems/pf2e/icons/spells/divine-lance.webp",
             "name": "Divine Lance",
-            "sort": 1700000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1224,7 +1432,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 1800000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1305,7 +1513,7 @@
             },
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
-            "sort": 1900000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1500,7 +1708,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Mage Hand",
-            "sort": 2000000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1581,7 +1789,7 @@
             },
             "img": "systems/pf2e/icons/spells/mending.webp",
             "name": "Mending",
-            "sort": 2100000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1659,7 +1867,7 @@
             },
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
-            "sort": 2200000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1734,7 +1942,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 2300000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1797,7 +2005,7 @@
             },
             "img": "systems/pf2e/icons/spells/sigil.webp",
             "name": "Sigil",
-            "sort": 2400000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1860,7 +2068,7 @@
             },
             "img": "systems/pf2e/icons/spells/summon-construct.webp",
             "name": "Summon Construct",
-            "sort": 2500000,
+            "sort": 3100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1914,296 +2122,22 @@
             "type": "spell"
         },
         {
-            "_id": "6GGUzCplbeA7sGXK",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ACa9QlFqdmW4s2Th"
-            },
-            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/hag-eye.webp",
-            "name": "Stony Hag Eye",
-            "sort": 2600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This item appears to be an ordinary semiprecious stone and is typically mounted on a brooch or ring, but the stone is, in fact, an eyeball. This illusion can be seen through with true seeing or similar magic, and anyone who interacts with the item feels its wet and sticky surface, allowing them to attempt to disbelieve the illusion (DC 19). Many hags claim a hag eye is more effective if plucked from a living, awake creature, but this is likely just a convenient excuse for sadism.</p>\n<p>The hag eye produces no direct benefit for the wearer, but allows the hag who created it, or any member of her coven, can peer through the eye using the Seek action. This has no range limit, provided the hag is on the same plane.</p>\n<p>Any damage dealt to the eye destroys it. If this happens while a hag is looking through it, the hag is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 hour.</p>\n<p>A stony hag eye is fashioned from the eye of a creature, such a basilisk or medusa, with a petrifying gaze.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> (incapacitation, transmutation, visual)</p>\n<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> You target a creature within 30 feet that can see the stony hag eye. The target must attempt a @Check[fortitude|dc:22|traits:incapacitation,transmutation,visual] save. On a failure, it's @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 minute; on a critical failure, if the creature is already slowed, it's permanently petrified. Touching the stony hag eye to the petrified creature (a single action with the manipulate trait) removes the petrified condition.</p>\n<hr />\n<p><strong>Craft Requirements</strong> You must be a hag, and the raw materials must include the eye of a creature whose gaze turns creatures to stone.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 6
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 250
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #182: Graveclaw"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "hag-eye",
-                "traits": {
-                    "rarity": "rare",
-                    "value": [
-                        "invested",
-                        "occult",
-                        "scrying"
-                    ]
-                },
-                "usage": {
-                    "value": "worn"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "cD3sKBhXsFxiROYa",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 2700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 16
-                },
-                "damageRolls": {
-                    "mhmyy9wvvrpibhjhwmu4": {
-                        "damage": "2d10 + 4",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "tMZFtFOnhFklTFgg",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Coven",
-            "sort": 2800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Sahni adds @UUID[Compendium.pf2e.spells-srd.Item.Acid Arrow], @UUID[Compendium.pf2e.spells-srd.Item.Mariner's Curse], and @UUID[Compendium.pf2e.spells-srd.Item.Water Walk] to her coven's spells.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "sb5m6sOre6tgHoeV",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 2900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "4JQCEMoeJlcDamCi",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Bride's Bargain",
-            "sort": 3000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Sahni can make a bargain with a willing creature of sound mind. The creature gives away a special quality-such as its courage, beauty, or voice-or sacrifices a loved one in exchange for a boon or a promise from Sahni. As long as Sahni keeps her end of the bargain, the only way to restore a lost quality is to defeat Sahni or make another bargain for its return. Loved ones sacrificed for Sahni's bargain can't be restored except with @UUID[Compendium.pf2e.spells-srd.Item.Wish], @UUID[Compendium.pf2e.spells-srd.Item.Miracle], or similarly powerful magic.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "s1W6qbbXuGOf5KH9",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Curse of Futility",
-            "sort": 3100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Sahni gazes upon a creature, affecting it with an overwhelming sense that every action it takes is futile; that humiliating failure is their only possible future. The target attempts a @Check[will|dc:25] save; the target doesn't need to be able to see Sahni.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and temporarily immune to Sahni's Curse of Futility for 24 hours.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 round and then temporarily immune for 1 hour.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is stupefied 2 for 1 hour and is @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} as long as it is stupefied.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "curse",
-                        "emotion",
-                        "fear",
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "sbJrYK7O0j91qRUJ",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Scattered Coven",
+            "_id": "L0WhknLHZXfnNuhE",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Spontaneous Spells",
             "sort": 3200000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>As a scattered coven, the Graveclaw grants Sahni the ability to cast the following spells as 3rd-rank occult spells, once per day each, without requiring help from her fellow coven members: @UUID[Compendium.pf2e.spells-srd.Item.Acid Arrow], @UUID[Compendium.pf2e.spells-srd.Item.Curse of Lost Time], @UUID[Compendium.pf2e.spells-srd.Item.Earthbind], @UUID[Compendium.pf2e.spells-srd.Item.Harm], @UUID[Compendium.pf2e.spells-srd.Item.Mimic Undead], @UUID[Compendium.pf2e.spells-srd.Item.Summon Construct], and @UUID[Compendium.pf2e.spells-srd.Item.Water Walk]. If Sahni is the third hag they confront, the coven is broken and she lacks these coven spells.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "6zNsyu1WRFyMdwSK",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Legal Lore",
-            "sort": 3300000,
-            "system": {
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 19
+                "prepared": {
+                    "value": "spontaneous"
                 },
-                "proficient": {
-                    "value": 0
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -2211,9 +2145,75 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slots": {
+                    "slot1": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot4": {
+                        "max": 2,
+                        "value": 2
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 25,
+                    "mod": 0,
+                    "value": 17
+                },
+                "tradition": {
+                    "value": "divine"
+                }
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "mOf0N5cPqWpR53Kq",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Scattered Coven Spells",
+            "sort": 3300000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 25,
+                    "mod": 0,
+                    "value": 17
+                },
+                "tradition": {
+                    "value": "occult"
+                }
+            },
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Sahni Bride-Of-The-Sea",

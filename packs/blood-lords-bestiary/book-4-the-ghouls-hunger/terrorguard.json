@@ -4,10 +4,170 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "3GMuYwRCpwabX2Jv",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Breath of Phantasms",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The terrorguard's ram-skull head opens at the jaw, allowing a horde of swirling phantasms to escape from its maw in a @Template[cone|distance:30]. Each creature in the area is subjected to a 5th-rank @UUID[Compendium.pf2e.spells-srd.Item.Phantasmal Killer] spell (@Check[will|dc:31], @Check[fortitude|dc:31|traits:incapacitation]).</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "death",
+                        "emotion",
+                        "fear",
+                        "illusion",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TI32SCeXh4AwiTF3",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Draw the Line",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A terrorguard plunges its dreamscythe into the ground and rends a glowing line across the surface that reverberates with the essence of the Dimension of Dreams. Chose up to four unoccupied squares which are adjacent to one another and adjacent to the terrorguard. For [[/gmr 1d4 #Rounds]]{1d4 rounds}, any creature besides the terrorguard who enters such a square must succeed at a @Check[will|dc:31] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 4} as they behold grotesque visions from the nightmare realm. A creature that succeeds at this save is temporarily immune to the effect for 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "emotion",
+                        "fear",
+                        "illusion",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZCE0MMUew9kQ0v3t",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Nightmare Essence",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature damaged by a terrorguard's dreamscythe hallucinates that the environment and creatures around them have transformed into a hellscape reminiscent of their most horrifying dreams. A creature hit with a dreamscythe Strike must succeed at a @Check[will|dc:31] save or become @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round. A creature who succeeds at this save is temporarily immune for 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "emotion",
+                        "fear",
+                        "illusion",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6Ku9JLx9tFrA39RI",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Skull Charge",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The terrorguard Strides twice in a straight line and then makes a horn Strike with a +1 circumstance bonus to its attack roll.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "skull-charge",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "skull-charge"
+                        ],
+                        "selector": "horn-attack",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "5dMHJWq6aav9pceN",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Dreamscythe",
-            "sort": 100000,
+            "sort": 500000,
             "system": {
                 "attack": {
                     "value": ""
@@ -57,7 +217,7 @@
             "_id": "lFpriGpGC4mH6iZD",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Horn",
-            "sort": 200000,
+            "sort": 600000,
             "system": {
                 "attack": {
                     "value": ""
@@ -95,166 +255,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "3GMuYwRCpwabX2Jv",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Breath of Phantasms",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The terrorguard's ram-skull head opens at the jaw, allowing a horde of swirling phantasms to escape from its maw in a @Template[cone|distance:30]. Each creature in the area is subjected to a 5th-rank @UUID[Compendium.pf2e.spells-srd.Item.Phantasmal Killer] spell (@Check[will|dc:31], @Check[fortitude|dc:31|traits:incapacitation]).</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "death",
-                        "emotion",
-                        "fear",
-                        "illusion",
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "TI32SCeXh4AwiTF3",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Draw the Line",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A terrorguard plunges its dreamscythe into the ground and rends a glowing line across the surface that reverberates with the essence of the Dimension of Dreams. Chose up to four unoccupied squares which are adjacent to one another and adjacent to the terrorguard. For [[/gmr 1d4 #Rounds]]{1d4 rounds}, any creature besides the terrorguard who enters such a square must succeed at a @Check[will|dc:31] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 4} as they behold grotesque visions from the nightmare realm. A creature that succeeds at this save is temporarily immune to the effect for 24 hours.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "emotion",
-                        "fear",
-                        "illusion",
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ZCE0MMUew9kQ0v3t",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Nightmare Essence",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A creature damaged by a terrorguard's dreamscythe hallucinates that the environment and creatures around them have transformed into a hellscape reminiscent of their most horrifying dreams. A creature hit with a dreamscythe Strike must succeed at a @Check[will|dc:31] save or become @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round. A creature who succeeds at this save is temporarily immune for 24 hours.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "emotion",
-                        "fear",
-                        "illusion",
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "6Ku9JLx9tFrA39RI",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Skull Charge",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The terrorguard Strides twice in a straight line and then makes a horn Strike with a +1 circumstance bonus to its attack roll.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "skull-charge",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "skull-charge"
-                        ],
-                        "selector": "horn-attack",
-                        "type": "circumstance",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Terrorguard",

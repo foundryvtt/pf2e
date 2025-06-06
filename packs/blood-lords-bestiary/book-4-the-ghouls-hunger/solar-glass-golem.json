@@ -4,10 +4,134 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "kcRvfKLlgq9sdmsj",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Golem Antimagic",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Harmed by sonic (@Damage[8d6[untyped]], @Damage[2d6[untyped]] from areas or persistent damage); healed by fire (area @Damage[2d6[healing]] HP); slowed by cold</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.GolemAntimagic]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LwBTFYgYLRf8gXzt",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Spell Reflection",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The glass golem is targeted by a spell</p>\n<hr />\n<p><strong>Effect</strong> The glass golem positions its magical, reflective surfaces to turn the spell back on the caster. It tries to counteract the spell by attempting an @Check[acrobatics] check for its counteract check. If it successfully counteract the spell, the effect is turned back on the caster.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4cuSJxJLUg7icXmj",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Vulnerable to Shatter",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A glass golem is affected by the @UUID[Compendium.pf2e.spells-srd.Item.Shatter] spell as though the golem were an unattended object.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HrJ5JhtYoyiqDvRj",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Solar Flare",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The glass golem holds up its stained-glass frame and angles it downward, causing the image of the sun in the artwork to flash brightly, illuminating a @Template[cone|distance:30]. This blast of light deals @Damage[8d6[fire]] damage to creatures in the area, plus @Damage[4d6[vitality]]{4d6} additional vitality damage to undead creatures. Each creature in the area must attempt a @Check[reflex|dc:30|traits:damaging-effect] save. If this solar flare overlaps an area of magical darkness, it attempts to counteract the darkness effect ([[/r 1d20+22 #Counteract]]{+22} counteract check).</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] permanently.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "light"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "D2hp0VWVMMVmH5aZ",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Stained Glass Frame",
-            "sort": 100000,
+            "sort": 500000,
             "system": {
                 "attack": {
                     "value": ""
@@ -51,130 +175,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "kcRvfKLlgq9sdmsj",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Golem Antimagic",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Harmed by sonic (@Damage[8d6[untyped]], @Damage[2d6[untyped]] from areas or persistent damage); healed by fire (area @Damage[2d6[healing]] HP); slowed by cold</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.GolemAntimagic]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "LwBTFYgYLRf8gXzt",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Spell Reflection",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The glass golem is targeted by a spell</p>\n<hr />\n<p><strong>Effect</strong> The glass golem positions its magical, reflective surfaces to turn the spell back on the caster. It tries to counteract the spell by attempting an @Check[acrobatics] check for its counteract check. If it successfully counteract the spell, the effect is turned back on the caster.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "4cuSJxJLUg7icXmj",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Vulnerable to Shatter",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A glass golem is affected by the @UUID[Compendium.pf2e.spells-srd.Item.Shatter] spell as though the golem were an unattended object.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "HrJ5JhtYoyiqDvRj",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Solar Flare",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The glass golem holds up its stained-glass frame and angles it downward, causing the image of the sun in the artwork to flash brightly, illuminating a @Template[cone|distance:30]. This blast of light deals @Damage[8d6[fire]] damage to creatures in the area, plus @Damage[4d6[vitality]]{4d6} additional vitality damage to undead creatures. Each creature in the area must attempt a @Check[reflex|dc:30|traits:damaging-effect] save. If this solar flare overlaps an area of magical darkness, it attempts to counteract the darkness effect ([[/r 1d20+22 #Counteract]]{+22} counteract check).</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] permanently.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "light"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Solar Glass Golem",

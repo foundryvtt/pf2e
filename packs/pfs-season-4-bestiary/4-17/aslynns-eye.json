@@ -4,22 +4,100 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "URYS88ljj6OQv3wz",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "Vae91zLgpuLdKOB8",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 30 feet (Other Aslynn's Eyes Only)",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ffdirXFSKr2vqlqP",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves Vs. Mental Effects",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:trait:mental"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-mind-affecting-effects",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "sruAZbRITPlv3UJ8",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Shattered Mirror",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>When an Aslynn's eye dies, their body explodes in a @Template[burst|distance:20] of jagged glass shards that deal @Damage[5d6[slashing]] damage to each creature in the area (@Check[reflex|dc:18|basic] save).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,20 +105,191 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 21,
-                    "value": 13
-                },
-                "tradition": {
-                    "value": "occult"
+                "traits": {
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "8GBQQQxNAWNNzaGQ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Dream Eating",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>An Aslynn's eye can consume the subconscious dreams of a creature within 30 feet; the creature must attempt a @Check[will|dc:21] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and is temporarily immune to the Aslynn's eye's dream eating for 1 day.</p>\n<p><strong>Success</strong> Target takes @Damage[1d6[mental]] damage and Aslynn's eye gains temporary Hit Points equal to half the mental damage the target takes. If the target's Hit Points were lower than the damage dealt, the Aslynn's eye gains temporary Hit Points equal to their remaining Hit Points instead.</p>\n<p><strong>Failure</strong> As success, but target takes @Damage[2d6[mental]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 round.</p>\n<p><strong>Critical Failure</strong> As success, but target takes @Damage[4d6[mental]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "curse",
+                        "manipulate",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "DIQp8sq3PKsnRMuE",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Mirror Travel",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>An Aslynn's eye can crawl into any mirror within their reach as if it were a door or window, instantly transporting them as well as any items they're wearing and holding to another mirror within 500 feet. The Aslynn's eye can remain within the mirror indefinitely or, provided they're using their Mirrored Transformation ability, they may choose to exit a mirror as part of any action they take with the Move trait. An Aslynn's eye can't exit a mirror unless they're using their Mirrored Transformation ability to take a specific creature's form. An Aslynn's eye can't exit a mirror that has the broken condition.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult",
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3D6tfBRQsCUQMSMX",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Mirrored Transformation",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>An Aslynn's eye takes the appearance of a mirrored version of any Large or smaller creature who they have seen and whose appearance they remember. While those who are not familiar with the subject of their mimicry may be fooled by the disguise, those who know the subject well automatically notice the mirroring effect. This ability doesn't change the Speed of the Aslynn's eye or their attack and damage bonuses with its Strikes but might change the damage type their Strikes deal.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "occult",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "iSXcIEG9tvvik1O2",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Psychic Assault",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The Aslynn's eye imbues their attacks with a psychic assault, infusing the mind of the creature struck with hideous nightmare visions and hallucinations. A creature damaged by the Aslynn's eye's fist must succeed at a @Check[fortitude|dc:21] save or be @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round. On a critical failure, the target is dazzled for [[/gmr 1d4 #Rounds]] rounds and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qLyAj1x85rNKn5kh",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "psychic-assault"
+                    ]
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "WyRLW9CbMQxpCoAL": {
+                        "damage": "2d6+3",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "unarmed",
+                        "unholy"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "Pc5MtrAlApNWCd4R",
@@ -49,7 +298,7 @@
             },
             "img": "systems/pf2e/icons/spells/mirror-image.webp",
             "name": "Mirror Image",
-            "sort": 200000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -112,7 +361,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-object.webp",
             "name": "Illusory Object (At Will)",
-            "sort": 300000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -178,7 +427,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Mage Hand",
-            "sort": 400000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -253,276 +502,22 @@
             "type": "spell"
         },
         {
-            "_id": "qLyAj1x85rNKn5kh",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "psychic-assault"
-                    ]
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "WyRLW9CbMQxpCoAL": {
-                        "damage": "2d6+3",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "unarmed",
-                        "unholy"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Vae91zLgpuLdKOB8",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 30 feet (Other Aslynn's Eyes Only)",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ffdirXFSKr2vqlqP",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves Vs. Mental Effects",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:trait:mental"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-mind-affecting-effects",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "sruAZbRITPlv3UJ8",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Shattered Mirror",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>When an Aslynn's eye dies, their body explodes in a @Template[burst|distance:20] of jagged glass shards that deal @Damage[5d6[slashing]] damage to each creature in the area (@Check[reflex|dc:18|basic] save).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8GBQQQxNAWNNzaGQ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Dream Eating",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>An Aslynn's eye can consume the subconscious dreams of a creature within 30 feet; the creature must attempt a @Check[will|dc:21] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and is temporarily immune to the Aslynn's eye's dream eating for 1 day.</p>\n<p><strong>Success</strong> Target takes @Damage[1d6[mental]] damage and Aslynn's eye gains temporary Hit Points equal to half the mental damage the target takes. If the target's Hit Points were lower than the damage dealt, the Aslynn's eye gains temporary Hit Points equal to their remaining Hit Points instead.</p>\n<p><strong>Failure</strong> As success, but target takes @Damage[2d6[mental]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 round.</p>\n<p><strong>Critical Failure</strong> As success, but target takes @Damage[4d6[mental]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 minute.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "curse",
-                        "manipulate",
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "DIQp8sq3PKsnRMuE",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Mirror Travel",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>An Aslynn's eye can crawl into any mirror within their reach as if it were a door or window, instantly transporting them as well as any items they're wearing and holding to another mirror within 500 feet. The Aslynn's eye can remain within the mirror indefinitely or, provided they're using their Mirrored Transformation ability, they may choose to exit a mirror as part of any action they take with the Move trait. An Aslynn's eye can't exit a mirror unless they're using their Mirrored Transformation ability to take a specific creature's form. An Aslynn's eye can't exit a mirror that has the broken condition.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "occult",
-                        "teleportation"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "3D6tfBRQsCUQMSMX",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Mirrored Transformation",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>An Aslynn's eye takes the appearance of a mirrored version of any Large or smaller creature who they have seen and whose appearance they remember. While those who are not familiar with the subject of their mimicry may be fooled by the disguise, those who know the subject well automatically notice the mirroring effect. This ability doesn't change the Speed of the Aslynn's eye or their attack and damage bonuses with its Strikes but might change the damage type their Strikes deal.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "occult",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "iSXcIEG9tvvik1O2",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Psychic Assault",
+            "_id": "URYS88ljj6OQv3wz",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 1200000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>The Aslynn's eye imbues their attacks with a psychic assault, infusing the mind of the creature struck with hideous nightmare visions and hallucinations. A creature damaged by the Aslynn's eye's fist must succeed at a @Check[fortitude|dc:21] save or be @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round. On a critical failure, the target is dazzled for [[/gmr 1d4 #Rounds]] rounds and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -530,15 +525,20 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "mental",
-                        "occult"
-                    ]
+                "spelldc": {
+                    "dc": 21,
+                    "value": 13
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Aslynn's Eye",

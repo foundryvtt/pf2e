@@ -4,22 +4,78 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "g09JNowhgbOgv51x",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Monk Focus Spells",
+            "_id": "qOYHhLTMridyJoy3",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Disrupt Qi",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "actionType": {
+                    "value": "action"
                 },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
                 "description": {
-                    "value": ""
+                    "value": "<p>The grandmaster attempts an unarmed Strike against a living creature. On a hit, the creature takes 3d6 persistent void damage and is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} until the persistent damage ends.</p>"
                 },
-                "prepared": {
-                    "value": "focus"
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
                 },
-                "proficiency": {
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "disrupt-qi",
+                        "toggleable": true
+                    },
+                    {
+                        "category": "persistent",
+                        "damageType": "void",
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "disrupt-qi",
+                            "item:category:unarmed",
+                            "target:mode:living"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "DJFmV5evM4JqcBe8",
+            "_stats": {
+                "compendiumSource": "Actor.zRUKUK93YxtbadPT.Item.PjqwihmMf7cPnPtH"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Flurry of Blows",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
                     "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The grandmaster makes two fist Strikes. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses.</p>\n<p>The grandmaster can substitute any number of the attacks with temple sword Strikes or attempts to [[/act grapple]], [[/act reposition]], [[/act shove]], or [[/act trip]].</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
                 },
                 "publication": {
                     "license": "ORC",
@@ -27,18 +83,386 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 38,
-                    "value": 34
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qkT4nVoSdcKb838L",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Forbidden Palm",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
                 },
-                "tradition": {
-                    "value": "occult"
+                "actions": {
+                    "value": 3
                 },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The grandmaster has at least 1 Focus Point</p><hr /><p><strong>Effect</strong> The grandmaster casts @UUID[Compendium.pf2e.spells-srd.Item.Touch of Death] (spending 1 Focus Point as normal). Any time the target attempts a Fortitude save against this <em>touch of death</em>, the grandmaster takes @Damage[40] damage and is permanently @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}. If the target gets a critical success, it's @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}; if it gets a success or failure the stunned condition it gains is increased by 1, and any damage it takes is increased by 40.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UpywR6mdWHYmYNSa",
+            "img": "systems/pf2e/icons/actions/TwoThreeActions.webp",
+            "name": "One-Millimeter Punch",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><span class=\"action-glyph\">2</span> or <span class=\"action-glyph\">3</span></p>\n<p>The grandmaster makes a single, carefully controlled unarmed Strike that deals 2 additional dice of damage, or 4 additional dice if the grandmaster spent 3 actions. If this damages the target, the grandmaster can choose to make the target attempt a @Check[fortitude|dc:38] save.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is pushed back 5 feet.</p>\n<p><strong>Failure</strong> The target is pushed back 10 feet.</p>\n<p><strong>Critical Failure</strong> The target is pushed back 10 feet for each action the grandmaster spent on One-Millimeter Punch.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "one-millimeter-punch",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.SpecificRule.Actions.TwoActions",
+                                "value": "2"
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.Actions.ThreeActions",
+                                "value": "4"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": "@item.flags.pf2e.rulesSelections.oneMillimeterPunch",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "one-millimeter-punch"
+                        ],
+                        "selector": "unarmed-damage"
+                    }
+                ],
+                "slug": "one-millimeter-punch",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "V4vCBm7Vs6OANCRu",
+            "_stats": {
+                "compendiumSource": "Actor.zRUKUK93YxtbadPT.Item.nrV7U6vtd1tSnRpu"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Powerful Fists",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The grandmaster's fist Strikes don't take penalties when making lethal attacks, and fist Strikes are treated as adamantine, cold iron and silver.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "definition": [
+                            "item:slug:fist"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "materials",
+                        "value": "adamantine"
+                    },
+                    {
+                        "definition": [
+                            "item:slug:fist"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "materials",
+                        "value": "cold-iron"
+                    },
+                    {
+                        "definition": [
+                            "item:slug:fist"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "materials",
+                        "value": "silver"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Rc52ahXG5FtbitmC",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.02q8s6sSicMkhs1l"
+            },
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/bracers-of-armor.webp",
+            "name": "Bands of Force",
+            "sort": 600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>Decorated with clear gemstones, these thick metal bands spread an inflexible layer of force over your body. The force grants you a +1 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5 as armor. You can affix talismans to the bands as though they were light armor.</p>\n<p><strong>Activate—Return Force</strong> <span class=\"action-glyph\">R</span> (force, manipulate)</p>\n<p><strong>Trigger</strong> A creature critically misses you with a melee Strike</p>\n<hr />\n<p><strong>Effect</strong> You Shove the creature using the bands' Athletics modifier of [[/r d20+14]]{+14}.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 8
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 500
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": [
+                            "ac",
+                            "saving-throw"
+                        ],
+                        "slug": "bracers-of-armor",
+                        "type": "item",
+                        "value": 1
+                    },
+                    {
+                        "key": "DexterityModifierCap",
+                        "value": 5
+                    }
+                ],
+                "size": "med",
+                "slug": "bands-of-force",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "force",
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "wornarmbands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "CjmWBISgt6qVeg05",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Martial Arts Lore",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 30
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
                 "traits": {}
             },
-            "type": "spellcastingEntry"
+            "type": "lore"
+        },
+        {
+            "_id": "nFZ5iicSh9R6lC4r",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "xkohw3Yl1dNZejGF"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Temple Sword",
+            "sort": 800000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "jFOJqc2GNEi4PJ6Z": {
+                        "damage": "3d8+14",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "temple-sword",
+                "traits": {
+                    "value": [
+                        "magical",
+                        "trip"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "0Fd5PXefTlI9tTR7",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "DRqMAkeXU8VvNOyJ"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 900000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "sQQ3PB3uQcyDyPZG": {
+                        "damage": "3d6+14",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "WZMQp8WvoCaV5Fqs",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "lKXPORtP7o6UsJLm"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Shuriken",
+            "sort": 1000000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 31
+                },
+                "damageRolls": {
+                    "6CunWX2Pr5JhOUEK": {
+                        "damage": "3d4+14",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "shuriken",
+                "traits": {
+                    "value": [
+                        "magical",
+                        "reload-0",
+                        "thrown-20"
+                    ]
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "EyJ80XKsRtpQDgZD",
@@ -47,7 +471,7 @@
             },
             "img": "systems/pf2e/icons/spells/quivering-palm.webp",
             "name": "Touch of Death",
-            "sort": 200000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -112,7 +536,7 @@
             },
             "img": "systems/pf2e/icons/spells/wind-jump.webp",
             "name": "Wind Jump",
-            "sort": 300000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -171,7 +595,7 @@
             },
             "img": "systems/pf2e/icons/spells/ki-blast.webp",
             "name": "Qi Blast",
-            "sort": 400000,
+            "sort": 1300000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -378,7 +802,7 @@
             },
             "img": "systems/pf2e/icons/spells/wholeness-of-body.webp",
             "name": "Harmonize Self",
-            "sort": 500000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -450,13 +874,50 @@
             "type": "spell"
         },
         {
+            "_id": "g09JNowhgbOgv51x",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Monk Focus Spells",
+            "sort": 1500000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 38,
+                    "value": 34
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "lKXPORtP7o6UsJLm",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.fjkwYZ0hRmBztwBG"
             },
             "img": "systems/pf2e/icons/equipment/weapons/shuriken.webp",
             "name": "Shuriken",
-            "sort": 600000,
+            "sort": 1600000,
             "system": {
                 "baseItem": "shuriken",
                 "bonus": {
@@ -546,7 +1007,7 @@
             },
             "img": "icons/equipment/hand/gauntlet-simple-leather-brown-gold.webp",
             "name": "+2 Greater Striking Handwraps of Mighty Blows",
-            "sort": 700000,
+            "sort": 1700000,
             "system": {
                 "baseItem": null,
                 "bonus": {
@@ -635,7 +1096,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/temple-sword.webp",
             "name": "Temple Sword",
-            "sort": 800000,
+            "sort": 1800000,
             "system": {
                 "baseItem": "temple-sword",
                 "bonus": {
@@ -713,467 +1174,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "Rc52ahXG5FtbitmC",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.02q8s6sSicMkhs1l"
-            },
-            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/bracers-of-armor.webp",
-            "name": "Bands of Force",
-            "sort": 900000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>Decorated with clear gemstones, these thick metal bands spread an inflexible layer of force over your body. The force grants you a +1 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5 as armor. You can affix talismans to the bands as though they were light armor.</p>\n<p><strong>Activate—Return Force</strong> <span class=\"action-glyph\">R</span> (force, manipulate)</p>\n<p><strong>Trigger</strong> A creature critically misses you with a melee Strike</p>\n<hr />\n<p><strong>Effect</strong> You Shove the creature using the bands' Athletics modifier of [[/r d20+14]]{+14}.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 8
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 500
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder GM Core"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": [
-                            "ac",
-                            "saving-throw"
-                        ],
-                        "slug": "bracers-of-armor",
-                        "type": "item",
-                        "value": 1
-                    },
-                    {
-                        "key": "DexterityModifierCap",
-                        "value": 5
-                    }
-                ],
-                "size": "med",
-                "slug": "bands-of-force",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "force",
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "wornarmbands"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "nFZ5iicSh9R6lC4r",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "xkohw3Yl1dNZejGF"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Temple Sword",
-            "sort": 1000000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 33
-                },
-                "damageRolls": {
-                    "jFOJqc2GNEi4PJ6Z": {
-                        "damage": "3d8+14",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "temple-sword",
-                "traits": {
-                    "value": [
-                        "magical",
-                        "trip"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "0Fd5PXefTlI9tTR7",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "DRqMAkeXU8VvNOyJ"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 1100000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 33
-                },
-                "damageRolls": {
-                    "sQQ3PB3uQcyDyPZG": {
-                        "damage": "3d6+14",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "magical",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "WZMQp8WvoCaV5Fqs",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "lKXPORtP7o6UsJLm"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Shuriken",
-            "sort": 1200000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 31
-                },
-                "damageRolls": {
-                    "6CunWX2Pr5JhOUEK": {
-                        "damage": "3d4+14",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "shuriken",
-                "traits": {
-                    "value": [
-                        "magical",
-                        "reload-0",
-                        "thrown-20"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "qOYHhLTMridyJoy3",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Disrupt Qi",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The grandmaster attempts an unarmed Strike against a living creature. On a hit, the creature takes 3d6 persistent void damage and is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} until the persistent damage ends.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "disrupt-qi",
-                        "toggleable": true
-                    },
-                    {
-                        "category": "persistent",
-                        "damageType": "void",
-                        "diceNumber": 3,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "disrupt-qi",
-                            "item:category:unarmed",
-                            "target:mode:living"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "void"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "DJFmV5evM4JqcBe8",
-            "_stats": {
-                "compendiumSource": "Actor.zRUKUK93YxtbadPT.Item.PjqwihmMf7cPnPtH"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Flurry of Blows",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The grandmaster makes two fist Strikes. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses.</p>\n<p>The grandmaster can substitute any number of the attacks with temple sword Strikes or attempts to [[/act grapple]], [[/act reposition]], [[/act shove]], or [[/act trip]].</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qkT4nVoSdcKb838L",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Forbidden Palm",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The grandmaster has at least 1 Focus Point</p><hr /><p><strong>Effect</strong> The grandmaster casts @UUID[Compendium.pf2e.spells-srd.Item.Touch of Death] (spending 1 Focus Point as normal). Any time the target attempts a Fortitude save against this <em>touch of death</em>, the grandmaster takes @Damage[40] damage and is permanently @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}. If the target gets a critical success, it's @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}; if it gets a success or failure the stunned condition it gains is increased by 1, and any damage it takes is increased by 40.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "UpywR6mdWHYmYNSa",
-            "img": "systems/pf2e/icons/actions/TwoThreeActions.webp",
-            "name": "One-Millimeter Punch",
-            "sort": 1600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><span class=\"action-glyph\">2</span> or <span class=\"action-glyph\">3</span></p>\n<p>The grandmaster makes a single, carefully controlled unarmed Strike that deals 2 additional dice of damage, or 4 additional dice if the grandmaster spent 3 actions. If this damages the target, the grandmaster can choose to make the target attempt a @Check[fortitude|dc:38] save.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is pushed back 5 feet.</p>\n<p><strong>Failure</strong> The target is pushed back 10 feet.</p>\n<p><strong>Critical Failure</strong> The target is pushed back 10 feet for each action the grandmaster spent on One-Millimeter Punch.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "one-millimeter-punch",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.SpecificRule.Actions.TwoActions",
-                                "value": "2"
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.Actions.ThreeActions",
-                                "value": "4"
-                            }
-                        ],
-                        "toggleable": true
-                    },
-                    {
-                        "diceNumber": "@item.flags.pf2e.rulesSelections.oneMillimeterPunch",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "one-millimeter-punch"
-                        ],
-                        "selector": "unarmed-damage"
-                    }
-                ],
-                "slug": "one-millimeter-punch",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "V4vCBm7Vs6OANCRu",
-            "_stats": {
-                "compendiumSource": "Actor.zRUKUK93YxtbadPT.Item.nrV7U6vtd1tSnRpu"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Powerful Fists",
-            "sort": 1700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The grandmaster's fist Strikes don't take penalties when making lethal attacks, and fist Strikes are treated as adamantine, cold iron and silver.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "definition": [
-                            "item:slug:fist"
-                        ],
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "materials",
-                        "value": "adamantine"
-                    },
-                    {
-                        "definition": [
-                            "item:slug:fist"
-                        ],
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "materials",
-                        "value": "cold-iron"
-                    },
-                    {
-                        "definition": [
-                            "item:slug:fist"
-                        ],
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "materials",
-                        "value": "silver"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CjmWBISgt6qVeg05",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Martial Arts Lore",
-            "sort": 1800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 30
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
         }
     ],
     "name": "Grandmaster",

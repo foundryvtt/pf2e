@@ -4,22 +4,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "GzJUBKMhT6vGRr4H",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "cI431Dx0ib1ik3yK",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Shadow Shift",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>Being made partially of shadow, shae are @UUID[Compendium.pf2e.conditionitems.Item.Concealed] in dim light or darkness even to creatures that can see clearly in those light levels.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,20 +25,373 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 38,
-                    "value": 30
-                },
-                "tradition": {
-                    "value": "occult"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "eNJU3pr48jiva5ob",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rzzDTTRv6sX73Yu2",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Counterattack",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Ghiasi is targeted by an attack from an adjacent creature that misses due to her being @UUID[Compendium.pf2e.conditionitems.Item.Concealed]</p>\n<p><strong>Requirements</strong> Ghiasi is aware of the attack</p>\n<hr />\n<p><strong>Effect</strong> Ghiasi makes a Strike against the attacker.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Oaq4T5auxVlppuFQ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Multiple Reactions",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Ghiasi gains an additional reaction each turn that she can only use to Slip.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lqLxZLzDQ2kV4c78",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Slip",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature moves adjacent to Ghiasi</p>\n<hr />\n<p><strong>Effect</strong> Ghiasi teleports to a clear space adjacent to another creature she can see within 30 feet.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7bleURu8R5FzBx08",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Shadow Gate",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Ghiasi opens or closes a gate between Twined Stories and the House of Inspiring Shadows, although the gate must be opened in the same place each time. It remains open until she uses this ability again, but she can't close the gate until at least 10 minutes after she opens it.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "occult",
+                        "shadow"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vawZsydY2VJutDZg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Swift Steps",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Ghiasi's movement doesn't trigger reactions.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5QDAOEZkWIjzDQPo",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tenebral Form",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Ghiasi can Fly at full Speed in gaseous form.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0olHx7gZxjFk95E8",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Shadow Plane Lore",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 30
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "CkD5zmejP6QtzHmq",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "eUNG3ALTKnNJ07Tb"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Shadow's Heart",
+            "sort": 1000000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "nUJidhO1NSfrM60H": {
+                        "damage": "3d6+15",
+                        "damageType": "slashing"
+                    },
+                    "pvsOxFD2mZF2pYJQ": {
+                        "damage": "2d6",
+                        "damageType": "cold"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "trip"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "2hifCfWWug4LUL5m",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "rECDVM58oj7jbIkn"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 1100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 30
+                },
+                "damageRolls": {
+                    "3sMJb8iKe04EZyJ4": {
+                        "damage": "1d4+15",
+                        "damageType": "piercing"
+                    },
+                    "aM6XbfKXiYw7BLEq": {
+                        "damage": "2d6",
+                        "damageType": "cold"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "UjyjvKQ0vlrgyiqq",
@@ -49,7 +400,7 @@
             },
             "img": "icons/magic/control/control-influence-crown-gold.webp",
             "name": "Overwhelming Presence",
-            "sort": 200000,
+            "sort": 1200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -122,7 +473,7 @@
             },
             "img": "systems/pf2e/icons/spells/weird.webp",
             "name": "Weird",
-            "sort": 300000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -203,7 +554,7 @@
             },
             "img": "systems/pf2e/icons/spells/shadow-army.webp",
             "name": "Split Shadow",
-            "sort": 400000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -269,7 +620,7 @@
             },
             "img": "systems/pf2e/icons/spells/uncontrollable-dance.webp",
             "name": "Uncontrollable Dance",
-            "sort": 500000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -337,7 +688,7 @@
             },
             "img": "icons/commodities/treasure/crystal-ball-blue-purple.webp",
             "name": "Unrelenting Observation",
-            "sort": 600000,
+            "sort": 1600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -402,7 +753,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-explosion-purple.webp",
             "name": "Plane Shift (Self Only; to Shadow Plane or Material Plane Only)",
-            "sort": 700000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -466,7 +817,7 @@
             },
             "img": "icons/magic/perception/orb-crystal-ball-scrying-blue.webp",
             "name": "Planar Binding",
-            "sort": 800000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -529,7 +880,7 @@
             },
             "img": "systems/pf2e/icons/spells/prying-eye.webp",
             "name": "Prying Eye",
-            "sort": 900000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -592,7 +943,7 @@
             },
             "img": "icons/magic/unholy/beam-impact-purple.webp",
             "name": "Shadow Blast",
-            "sort": 1000000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -676,7 +1027,7 @@
             },
             "img": "systems/pf2e/icons/spells/gaseous-form.webp",
             "name": "Gaseous Form (At Will)",
-            "sort": 1100000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -739,7 +1090,7 @@
             },
             "img": "systems/pf2e/icons/spells/glibness.webp",
             "name": "Glibness",
-            "sort": 1200000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -800,7 +1151,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Chill Touch",
-            "sort": 1300000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -886,7 +1237,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 1400000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -973,7 +1324,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1500000,
+            "sort": 2500000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1034,13 +1385,52 @@
             "type": "spell"
         },
         {
+            "_id": "GzJUBKMhT6vGRr4H",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
+            "sort": 2600000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 38,
+                    "value": 30
+                },
+                "tradition": {
+                    "value": "occult"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "rECDVM58oj7jbIkn",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
             "name": "Dagger",
-            "sort": 1600000,
+            "sort": 2700000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -1128,7 +1518,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/kukri.webp",
             "name": "Shadow's Heart",
-            "sort": 1700000,
+            "sort": 2800000,
             "system": {
                 "baseItem": "kukri",
                 "bonus": {
@@ -1225,396 +1615,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "CkD5zmejP6QtzHmq",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "eUNG3ALTKnNJ07Tb"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Shadow's Heart",
-            "sort": 1800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 33
-                },
-                "damageRolls": {
-                    "nUJidhO1NSfrM60H": {
-                        "damage": "3d6+15",
-                        "damageType": "slashing"
-                    },
-                    "pvsOxFD2mZF2pYJQ": {
-                        "damage": "2d6",
-                        "damageType": "cold"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "trip"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "2hifCfWWug4LUL5m",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "rECDVM58oj7jbIkn"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 1900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 30
-                },
-                "damageRolls": {
-                    "3sMJb8iKe04EZyJ4": {
-                        "damage": "1d4+15",
-                        "damageType": "piercing"
-                    },
-                    "aM6XbfKXiYw7BLEq": {
-                        "damage": "2d6",
-                        "damageType": "cold"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "cI431Dx0ib1ik3yK",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Shadow Shift",
-            "sort": 2000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Being made partially of shadow, shae are @UUID[Compendium.pf2e.conditionitems.Item.Concealed] in dim light or darkness even to creatures that can see clearly in those light levels.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "eNJU3pr48jiva5ob",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 2100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rzzDTTRv6sX73Yu2",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Counterattack",
-            "sort": 2200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> Ghiasi is targeted by an attack from an adjacent creature that misses due to her being @UUID[Compendium.pf2e.conditionitems.Item.Concealed]</p>\n<p><strong>Requirements</strong> Ghiasi is aware of the attack</p>\n<hr />\n<p><strong>Effect</strong> Ghiasi makes a Strike against the attacker.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Oaq4T5auxVlppuFQ",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Multiple Reactions",
-            "sort": 2300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Ghiasi gains an additional reaction each turn that she can only use to Slip.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "lqLxZLzDQ2kV4c78",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Slip",
-            "sort": 2400000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature moves adjacent to Ghiasi</p>\n<hr />\n<p><strong>Effect</strong> Ghiasi teleports to a clear space adjacent to another creature she can see within 30 feet.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7bleURu8R5FzBx08",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Shadow Gate",
-            "sort": 2500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Ghiasi opens or closes a gate between Twined Stories and the House of Inspiring Shadows, although the gate must be opened in the same place each time. It remains open until she uses this ability again, but she can't close the gate until at least 10 minutes after she opens it.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "occult",
-                        "shadow"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "vawZsydY2VJutDZg",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Swift Steps",
-            "sort": 2600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Ghiasi's movement doesn't trigger reactions.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "5QDAOEZkWIjzDQPo",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Tenebral Form",
-            "sort": 2700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Ghiasi can Fly at full Speed in gaseous form.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "0olHx7gZxjFk95E8",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Shadow Plane Lore",
-            "sort": 2800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 30
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Ghiasi",

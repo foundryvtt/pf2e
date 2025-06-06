@@ -3,21 +3,24 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "auHvPa2qajS0vG6w",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Spontaneous Spells",
+            "_id": "7tW8esj9IVdwLqwS",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Primal Weapon",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
-                    "value": ""
+                    "value": "<p><strong>Frequency</strong> once per turn</p>\n<p><strong>Requirements</strong> the false priestess' most recent action was to cast a non-cantrip spell</p>\n<p><strong>Effect</strong> Until the end of the false priestess's next turn, the priestess deals an extra @Damage[1d6[slashing]] damage with her melee Strikes.</p>"
                 },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
+                "frequency": {
+                    "max": 1,
+                    "per": "turn",
                     "value": 1
                 },
                 "publication": {
@@ -25,53 +28,48 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "primal-weapon",
+                        "toggleable": true,
+                        "value": true
                     },
-                    "slot2": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot3": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "value": 3
+                    {
+                        "damageType": "slashing",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "primal-weapon"
+                        ],
+                        "selector": "melee-strike-damage"
                     }
-                },
+                ],
                 "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "value": 17
-                },
-                "tradition": {
-                    "value": "primal"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "ztl64mYGjNx9Qab6",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Sorcerer Bloodline Spells",
+            "_id": "QXYemYqhU6zdoBsz",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Reach Spell",
             "sort": 200000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "actionType": {
+                    "value": "action"
                 },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
+                "actions": {
                     "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If the next action the false priestess uses is to @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell] that has a range, increase that spell's range by 30 feet.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -79,17 +77,120 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "value": 17
-                },
-                "tradition": {
-                    "value": "primal"
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "spellshape"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "aDli69WFeRXUP2U3",
+            "img": "icons/equipment/back/cloak-collared-pink-gold.webp",
+            "name": "Ceremonial Robes",
+            "sort": 300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "MrbeKdSngiqGczPC",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "l47LUxjBXwp06JZ8"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Glaive",
+            "sort": 400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "umnsBdGl9KALNtS2": {
+                        "damage": "1d8+6",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "deadly-d8",
+                        "forceful",
+                        "magical",
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "Cemw0vRViLKzQGJI",
@@ -98,7 +199,7 @@
             },
             "img": "icons/magic/air/wind-tornado-funnel-damage-blue.webp",
             "name": "Hydraulic Torrent",
-            "sort": 300000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "type": "line",
@@ -185,7 +286,7 @@
             },
             "img": "systems/pf2e/icons/spells/suggestion.webp",
             "name": "Suggestion",
-            "sort": 400000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -264,7 +365,7 @@
             },
             "img": "icons/skills/wounds/injury-eyes-blood-red.webp",
             "name": "Blindness",
-            "sort": 500000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -333,7 +434,7 @@
             },
             "img": "icons/magic/earth/barrier-stone-explosion-debris.webp",
             "name": "Earthbind",
-            "sort": 600000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -399,7 +500,7 @@
             },
             "img": "systems/pf2e/icons/spells/enthrall.webp",
             "name": "Enthrall",
-            "sort": 700000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -467,7 +568,7 @@
             },
             "img": "systems/pf2e/icons/spells/fey-disapperance.webp",
             "name": "Fey Disappearance",
-            "sort": 800000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -525,7 +626,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-sparks-blue.webp",
             "name": "Lightning Bolt",
-            "sort": 900000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "line",
@@ -613,7 +714,7 @@
             },
             "img": "icons/magic/time/hourglass-tilted-gray.webp",
             "name": "Slow",
-            "sort": 1000000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -690,7 +791,7 @@
             },
             "img": "icons/creatures/birds/raptor-owl-flying-moon.webp",
             "name": "Animal Messenger",
-            "sort": 1100000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -751,7 +852,7 @@
             },
             "img": "systems/pf2e/icons/spells/create-food.webp",
             "name": "Create Food",
-            "sort": 1200000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -813,7 +914,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 1300000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -876,7 +977,7 @@
             },
             "img": "systems/pf2e/icons/spells/glitterdust.webp",
             "name": "Glitterdust",
-            "sort": 1400000,
+            "sort": 1600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -945,7 +1046,7 @@
             },
             "img": "systems/pf2e/icons/spells/hideous-laughter.webp",
             "name": "Hideous Laughter",
-            "sort": 1500000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1013,7 +1114,7 @@
             },
             "img": "systems/pf2e/icons/spells/alarm.webp",
             "name": "Alarm",
-            "sort": 1600000,
+            "sort": 1800000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1079,7 +1180,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 1700000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1159,7 +1260,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1800000,
+            "sort": 2000000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1226,7 +1327,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
             "name": "Electric Arc",
-            "sort": 1900000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1311,7 +1412,7 @@
             },
             "img": "systems/pf2e/icons/spells/faerie-dust.webp",
             "name": "Faerie Dust",
-            "sort": 2000000,
+            "sort": 2200000,
             "system": {
                 "area": {
                     "details": "5-foot burst or more",
@@ -1423,7 +1524,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 2100000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1504,7 +1605,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Ghost Sound",
-            "sort": 2200000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1582,7 +1683,7 @@
             },
             "img": "systems/pf2e/icons/spells/grease.webp",
             "name": "Grease",
-            "sort": 2300000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1648,7 +1749,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 2400000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1845,7 +1946,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 2500000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2042,7 +2143,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 2600000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2239,7 +2340,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 2700000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2302,7 +2403,7 @@
             },
             "img": "icons/magic/fire/flame-burning-earth-orange.webp",
             "name": "Produce Flame",
-            "sort": 2800000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2383,7 +2484,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tanglefoot",
-            "sort": 2900000,
+            "sort": 3100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2440,13 +2541,102 @@
             "type": "spell"
         },
         {
+            "_id": "auHvPa2qajS0vG6w",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Spontaneous Spells",
+            "sort": 3200000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot2": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot3": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "value": 3
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 25,
+                    "value": 17
+                },
+                "tradition": {
+                    "value": "primal"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "ztl64mYGjNx9Qab6",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Sorcerer Bloodline Spells",
+            "sort": 3300000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 25,
+                    "value": 17
+                },
+                "tradition": {
+                    "value": "primal"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "l47LUxjBXwp06JZ8",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.vlnzTSsRmWeSkt9O"
             },
             "img": "systems/pf2e/icons/equipment/weapons/glaive.webp",
             "name": "Glaive",
-            "sort": 3000000,
+            "sort": 3400000,
             "system": {
                 "baseItem": "glaive",
                 "bonus": {
@@ -2526,196 +2716,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "aDli69WFeRXUP2U3",
-            "img": "icons/equipment/back/cloak-collared-pink-gold.webp",
-            "name": "Ceremonial Robes",
-            "sort": 3100000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "MrbeKdSngiqGczPC",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "l47LUxjBXwp06JZ8"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Glaive",
-            "sort": 3200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "umnsBdGl9KALNtS2": {
-                        "damage": "1d8+6",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "deadly-d8",
-                        "forceful",
-                        "magical",
-                        "reach-10"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "7tW8esj9IVdwLqwS",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Primal Weapon",
-            "sort": 3300000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per turn</p>\n<p><strong>Requirements</strong> the false priestess' most recent action was to cast a non-cantrip spell</p>\n<p><strong>Effect</strong> Until the end of the false priestess's next turn, the priestess deals an extra @Damage[1d6[slashing]] damage with her melee Strikes.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "turn",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "primal-weapon",
-                        "toggleable": true,
-                        "value": true
-                    },
-                    {
-                        "damageType": "slashing",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "primal-weapon"
-                        ],
-                        "selector": "melee-strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "QXYemYqhU6zdoBsz",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Reach Spell",
-            "sort": 3400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>If the next action the false priestess uses is to @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell] that has a range, increase that spell's range by 30 feet.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "spellshape"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "False Priestess",

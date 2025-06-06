@@ -4,149 +4,10 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "FybAGu5NsbbQwTSW",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7"
-            },
-            "img": "systems/pf2e/icons/conditions/enfeebled.webp",
-            "name": "Enfeebled",
-            "sort": 100000,
-            "system": {
-                "description": {
-                    "value": "<p>You're physically weakened. Enfeebled always includes a value. When you are enfeebled, you take a status penalty equal to the condition value to Strength-based rolls and DCs, including Strength-based melee attack rolls, Strength-based damage rolls, and Athletics checks.</p>"
-                },
-                "duration": {
-                    "value": 0
-                },
-                "group": "abilities",
-                "overrides": [],
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "references": {
-                    "children": [],
-                    "immunityFrom": [],
-                    "overriddenBy": [],
-                    "overrides": []
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": [
-                            "str-based",
-                            "str-damage"
-                        ],
-                        "slug": "enfeebled",
-                        "type": "status",
-                        "value": "-@item.badge.value"
-                    }
-                ],
-                "slug": "enfeebled",
-                "value": {
-                    "isValued": true,
-                    "value": 1
-                }
-            },
-            "type": "condition"
-        },
-        {
-            "_id": "V5h82KFJ1lnz9DOR",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm"
-            },
-            "img": "systems/pf2e/icons/conditions/clumsy.webp",
-            "name": "Clumsy",
-            "sort": 200000,
-            "system": {
-                "description": {
-                    "value": "<p>Your movements become clumsy and inexact. Clumsy always includes a value. You take a status penalty equal to the condition value to Dexterity-based checks and DCs, including AC, Reflex saves, ranged attack rolls, and skill checks using Acrobatics, Stealth, and Thievery.</p>"
-                },
-                "duration": {
-                    "value": 0
-                },
-                "group": "abilities",
-                "overrides": [],
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "references": {
-                    "children": [],
-                    "immunityFrom": [],
-                    "overriddenBy": [],
-                    "overrides": []
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": "dex-based",
-                        "slug": "clumsy",
-                        "type": "status",
-                        "value": "-@item.badge.value"
-                    }
-                ],
-                "slug": "clumsy",
-                "value": {
-                    "isValued": true,
-                    "value": 2
-                }
-            },
-            "type": "condition"
-        },
-        {
-            "_id": "68hstcNYAfYsk65j",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": [
-                        "grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 10
-                },
-                "damageRolls": {
-                    "an2nrw2pk2i92t5n07xg": {
-                        "damage": "1d10+4",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "reach-10",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "vHAnfWC23o0LOVJW",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Parasitized",
-            "sort": 400000,
+            "sort": 100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -175,7 +36,7 @@
             "_id": "ez4TlFP9ir8diYv7",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Scuttle",
-            "sort": 500000,
+            "sort": 200000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -221,7 +82,7 @@
             "_id": "WXEuGWzgAk5JMfEE",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Vulnerable to Prone",
-            "sort": 600000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -270,7 +131,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Constrict",
-            "sort": 700000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -303,7 +164,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 800000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -328,6 +189,145 @@
                 }
             },
             "type": "action"
+        },
+        {
+            "_id": "FybAGu5NsbbQwTSW",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7"
+            },
+            "img": "systems/pf2e/icons/conditions/enfeebled.webp",
+            "name": "Enfeebled",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": "<p>You're physically weakened. Enfeebled always includes a value. When you are enfeebled, you take a status penalty equal to the condition value to Strength-based rolls and DCs, including Strength-based melee attack rolls, Strength-based damage rolls, and Athletics checks.</p>"
+                },
+                "duration": {
+                    "value": 0
+                },
+                "group": "abilities",
+                "overrides": [],
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "references": {
+                    "children": [],
+                    "immunityFrom": [],
+                    "overriddenBy": [],
+                    "overrides": []
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": [
+                            "str-based",
+                            "str-damage"
+                        ],
+                        "slug": "enfeebled",
+                        "type": "status",
+                        "value": "-@item.badge.value"
+                    }
+                ],
+                "slug": "enfeebled",
+                "value": {
+                    "isValued": true,
+                    "value": 1
+                }
+            },
+            "type": "condition"
+        },
+        {
+            "_id": "V5h82KFJ1lnz9DOR",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm"
+            },
+            "img": "systems/pf2e/icons/conditions/clumsy.webp",
+            "name": "Clumsy",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": "<p>Your movements become clumsy and inexact. Clumsy always includes a value. You take a status penalty equal to the condition value to Dexterity-based checks and DCs, including AC, Reflex saves, ranged attack rolls, and skill checks using Acrobatics, Stealth, and Thievery.</p>"
+                },
+                "duration": {
+                    "value": 0
+                },
+                "group": "abilities",
+                "overrides": [],
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "references": {
+                    "children": [],
+                    "immunityFrom": [],
+                    "overriddenBy": [],
+                    "overrides": []
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "dex-based",
+                        "slug": "clumsy",
+                        "type": "status",
+                        "value": "-@item.badge.value"
+                    }
+                ],
+                "slug": "clumsy",
+                "value": {
+                    "isValued": true,
+                    "value": 2
+                }
+            },
+            "type": "condition"
+        },
+        {
+            "_id": "68hstcNYAfYsk65j",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "an2nrw2pk2i92t5n07xg": {
+                        "damage": "1d10+4",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "reach-10",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         }
     ],
     "name": "Lady Shimmersnip",

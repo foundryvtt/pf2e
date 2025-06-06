@@ -4,82 +4,53 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "8cgkDiC9zmACYIRJ",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Spontaneous Spells",
+            "_id": "k1Xq3pZ765Pghl8W",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Bestiary"
                 },
                 "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot2": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot3": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot4": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot5": {
-                        "max": 3,
-                        "value": 3
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 28,
-                    "mod": 0,
-                    "value": 20
-                },
-                "tradition": {
-                    "value": "primal"
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "R97wvvub1hhH6l5N",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
+            "_id": "mrR6xPNV4YFujksa",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Blood Siphon",
             "sort": 200000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p><strong>Trigger</strong> A creature within 60 feet takes @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage]{Persistent Bleed Damage}.</p><hr /><p><strong>Effect</strong> The shed blood disperses into a fine mist that Qxal siphons up with their proboscis. Qxal regains @Damage[14[healing]] Hit Points.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -87,18 +58,353 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 28,
-                    "mod": 0,
-                    "value": 20
-                },
-                "tradition": {
-                    "value": "primal"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "dAAfkCznVNT1SBH9",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Hallucinatory Scale Dust",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. Fey glamours shed from Qxal's wings like scale dust, causing hallucinations. A creature entering the aura or starting its turn in the area must attempt a @Check[will|dc:25] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to the scale dust for 24 hours.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature hallucinates that it is beginning to transform into a plant or animal native to their homeland, becoming either @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}, @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}, or @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1}, at Qxal's choice. The condition lasts for 1 hour. Each time a creature fails this save, Qxal can choose an additional condition.</p>\n<p><strong>Critical Failure</strong> As failure, but the condition value is 2 (@UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2}, @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}, or @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2}).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "hallucinatory-scale-dust",
+                        "traits": [
+                            "illusion",
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "illusion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0VQ8msRsnI58Dzyz",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Cooperative Growth",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Qxal's last action was a successful Strike against a creature adjacent to a natural surface.</p>\n<hr />\n<p><strong>Effect</strong> Vines sprout from the surface, wrapping around the target's limbs. The creature gains the @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] condition. To escape, the creature must succeed on a DC 28 Escape check or break the vines (AC 20, Hardness 4, HP 36, BT 18, weakness 10 to slashing).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2G83FlVGLWw04oTy",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Flutter",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Qxal Flies. Any creature they pass within 30 feet of during their Flutter is exposed to their hallucinatory scale dust.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "WmUvsISFLTWBCvzx",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grasping Visions",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Qxal causes one creature within 60 feet who is under a condition from Qxal's hallucinatory scale dust aura to see visions of grasping vines and swarming insects, impeding the target's every move. All squares count as difficult terrain for that creature until the end of Qxal's next turn, and during that time they gain no benefit from any ability that would allow them to ignore difficult terrain.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "illusion",
+                        "mental",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uhTOSjCBo9dPMbpa",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Secret Spells",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Qxal knows how to disguise the manifestations of their spellcasting to catch their foes off guard. If the next action they use is Casting a Spell that has a verbal component, they can remove the verbal component. This makes the spell quieter and allows them to cast it in areas where sound can't carry. Additionally, if Qxal has cover or greater cover against or is @UUID[Compendium.pf2e.conditionitems.Item.Concealed] from one or more observers while Casting a Spell, they can attempt a @Check[stealth] check against one or more of those observers' Perception DC. If they succeed at their check against an observer's DC, that observer doesn't notice Qxal is casting a spell.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "b1geJH47XvkD5cYf",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Woodland Stride",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Qxal can pass freely through even the densest jungle. They ignore difficult terrain caused by plants, including plants manipulated by magic.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6nIv0OI76xRQBvEG",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Proboscis",
+            "sort": 900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d12+9",
+                        "damageType": "slashing"
+                    },
+                    "1": {
+                        "damage": "1d4",
+                        "damageType": "bleed"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "deadly-d12"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "73oN7130poosB0cM",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tendril",
+            "sort": 1000000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d10+9",
+                        "damageType": "slashing"
+                    },
+                    "1": {
+                        "damage": "1d4",
+                        "damageType": "bleed"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "vG13MKLFTfoDMIQt",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Thorn",
+            "sort": 1100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d4+9",
+                        "damageType": "piercing"
+                    },
+                    "1": {
+                        "damage": "1d4",
+                        "damageType": "bleed"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "range-60"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "3GAEtB3yJJsmNOWT",
@@ -107,7 +413,7 @@
             },
             "img": "icons/creatures/slimes/slime-movement-splash-green.webp",
             "name": "Cloudkill",
-            "sort": 300000,
+            "sort": 1200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -196,7 +502,7 @@
             },
             "img": "icons/magic/water/vortex-water-whirlpool.webp",
             "name": "Cone of Cold",
-            "sort": 400000,
+            "sort": 1300000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -283,7 +589,7 @@
             },
             "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
             "name": "Illusory Scene",
-            "sort": 500000,
+            "sort": 1400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -351,7 +657,7 @@
             },
             "img": "systems/pf2e/icons/spells/synesthesia.webp",
             "name": "Synesthesia",
-            "sort": 600000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -427,7 +733,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Tongues (Constant)",
-            "sort": 700000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -489,7 +795,7 @@
             },
             "img": "systems/pf2e/icons/spells/confusion.webp",
             "name": "Confusion",
-            "sort": 800000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -567,7 +873,7 @@
             },
             "img": "systems/pf2e/icons/spells/hallucinatory-terrain.webp",
             "name": "Hallucinatory Terrain (At Will)",
-            "sort": 900000,
+            "sort": 1800000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -633,7 +939,7 @@
             },
             "img": "icons/magic/nature/plant-poison-spit-green.webp",
             "name": "Speak with Plants (Constant)",
-            "sort": 1000000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -694,7 +1000,7 @@
             },
             "img": "icons/skills/wounds/injury-eyes-blood-red.webp",
             "name": "Blindness",
-            "sort": 1100000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -763,7 +1069,7 @@
             },
             "img": "icons/magic/earth/barrier-stone-explosion-debris.webp",
             "name": "Earthbind",
-            "sort": 1200000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -829,7 +1135,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-sparks-blue.webp",
             "name": "Lightning Bolt",
-            "sort": 1300000,
+            "sort": 2200000,
             "system": {
                 "area": {
                     "type": "line",
@@ -917,7 +1223,7 @@
             },
             "img": "icons/magic/time/hourglass-tilted-gray.webp",
             "name": "Slow",
-            "sort": 1400000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -994,7 +1300,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-humanoid.webp",
             "name": "Wall of Thorns",
-            "sort": 1500000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1072,7 +1378,7 @@
             },
             "img": "icons/magic/air/air-burst-spiral-large-pink.webp",
             "name": "Deafness",
-            "sort": 1600000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1140,7 +1446,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 1700000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1203,7 +1509,7 @@
             },
             "img": "icons/magic/nature/root-vines-grow-brown.webp",
             "name": "Entangle",
-            "sort": 1800000,
+            "sort": 2700000,
             "system": {
                 "area": {
                     "details": "all squares in a 20-foot-radius burst that contain plants",
@@ -1273,7 +1579,7 @@
             },
             "img": "systems/pf2e/icons/spells/faerie-fire.webp",
             "name": "Faerie Fire",
-            "sort": 1900000,
+            "sort": 2800000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1339,7 +1645,7 @@
             },
             "img": "icons/magic/nature/mushrooms-fire-glow-blue.webp",
             "name": "Fungal Hyphae",
-            "sort": 2000000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1400,7 +1706,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility (At Will)",
-            "sort": 2100000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1461,7 +1767,7 @@
             },
             "img": "icons/magic/acid/projectile-smoke-glowing.webp",
             "name": "Acid Splash",
-            "sort": 2200000,
+            "sort": 3100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1622,7 +1928,7 @@
             },
             "img": "systems/pf2e/icons/spells/command.webp",
             "name": "Command (At Will)",
-            "sort": 2300000,
+            "sort": 3200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1702,7 +2008,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
             "name": "Electric Arc",
-            "sort": 2400000,
+            "sort": 3300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1787,7 +2093,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 2500000,
+            "sort": 3400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1868,7 +2174,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 2600000,
+            "sort": 3500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2065,7 +2371,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise (At Will)",
-            "sort": 2700000,
+            "sort": 3600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2128,7 +2434,7 @@
             },
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
-            "sort": 2800000,
+            "sort": 3700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2203,7 +2509,7 @@
             },
             "img": "icons/magic/unholy/strike-beam-blood-small-red-purple.webp",
             "name": "Phantom Pain",
-            "sort": 2900000,
+            "sort": 3800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2289,7 +2595,7 @@
             },
             "img": "icons/magic/fire/flame-burning-earth-orange.webp",
             "name": "Produce Flame",
-            "sort": 3000000,
+            "sort": 3900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2370,7 +2676,7 @@
             },
             "img": "icons/magic/sonic/explosion-shock-wave-teal.webp",
             "name": "Shockwave",
-            "sort": 3100000,
+            "sort": 4000000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -2440,7 +2746,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tanglefoot",
-            "sort": 3200000,
+            "sort": 4100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2503,7 +2809,7 @@
             },
             "img": "icons/magic/control/control-influence-puppet.webp",
             "name": "Ventriloquism",
-            "sort": 3300000,
+            "sort": 4200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2562,393 +2868,23 @@
             "type": "spell"
         },
         {
-            "_id": "6nIv0OI76xRQBvEG",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Proboscis",
-            "sort": 3400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 21
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d12+9",
-                        "damageType": "slashing"
-                    },
-                    "1": {
-                        "damage": "1d4",
-                        "damageType": "bleed"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "deadly-d12"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "73oN7130poosB0cM",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tendril",
-            "sort": 3500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 21
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d10+9",
-                        "damageType": "slashing"
-                    },
-                    "1": {
-                        "damage": "1d4",
-                        "damageType": "bleed"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "reach-10"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "vG13MKLFTfoDMIQt",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Thorn",
-            "sort": 3600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 21
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d4+9",
-                        "damageType": "piercing"
-                    },
-                    "1": {
-                        "damage": "1d4",
-                        "damageType": "bleed"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "range-60"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "k1Xq3pZ765Pghl8W",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 3700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "mrR6xPNV4YFujksa",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Blood Siphon",
-            "sort": 3800000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within 60 feet takes @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage]{Persistent Bleed Damage}.</p><hr /><p><strong>Effect</strong> The shed blood disperses into a fine mist that Qxal siphons up with their proboscis. Qxal regains @Damage[14[healing]] Hit Points.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "dAAfkCznVNT1SBH9",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Hallucinatory Scale Dust",
-            "sort": 3900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>30 feet. Fey glamours shed from Qxal's wings like scale dust, causing hallucinations. A creature entering the aura or starting its turn in the area must attempt a @Check[will|dc:25] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to the scale dust for 24 hours.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature hallucinates that it is beginning to transform into a plant or animal native to their homeland, becoming either @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}, @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}, or @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1}, at Qxal's choice. The condition lasts for 1 hour. Each time a creature fails this save, Qxal can choose an additional condition.</p>\n<p><strong>Critical Failure</strong> As failure, but the condition value is 2 (@UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2}, @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}, or @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2}).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "slug": "hallucinatory-scale-dust",
-                        "traits": [
-                            "illusion",
-                            "mental"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "illusion",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "0VQ8msRsnI58Dzyz",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Cooperative Growth",
-            "sort": 4000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Qxal's last action was a successful Strike against a creature adjacent to a natural surface.</p>\n<hr />\n<p><strong>Effect</strong> Vines sprout from the surface, wrapping around the target's limbs. The creature gains the @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] condition. To escape, the creature must succeed on a DC 28 Escape check or break the vines (AC 20, Hardness 4, HP 36, BT 18, weakness 10 to slashing).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "2G83FlVGLWw04oTy",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Flutter",
-            "sort": 4100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Qxal Flies. Any creature they pass within 30 feet of during their Flutter is exposed to their hallucinatory scale dust.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "WmUvsISFLTWBCvzx",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grasping Visions",
-            "sort": 4200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Qxal causes one creature within 60 feet who is under a condition from Qxal's hallucinatory scale dust aura to see visions of grasping vines and swarming insects, impeding the target's every move. All squares count as difficult terrain for that creature until the end of Qxal's next turn, and during that time they gain no benefit from any ability that would allow them to ignore difficult terrain.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "illusion",
-                        "mental",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "uhTOSjCBo9dPMbpa",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Secret Spells",
+            "_id": "8cgkDiC9zmACYIRJ",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Spontaneous Spells",
             "sort": 4300000,
             "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Qxal knows how to disguise the manifestations of their spellcasting to catch their foes off guard. If the next action they use is Casting a Spell that has a verbal component, they can remove the verbal component. This makes the spell quieter and allows them to cast it in areas where sound can't carry. Additionally, if Qxal has cover or greater cover against or is @UUID[Compendium.pf2e.conditionitems.Item.Concealed] from one or more observers while Casting a Spell, they can attempt a @Check[stealth] check against one or more of those observers' Perception DC. If they succeed at their check against an observer's DC, that observer doesn't notice Qxal is casting a spell.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "b1geJH47XvkD5cYf",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Woodland Stride",
-            "sort": 4400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>Qxal can pass freely through even the densest jungle. They ignore difficult terrain caused by plants, including plants manipulated by magic.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -2956,13 +2892,77 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot2": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot3": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot4": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot5": {
+                        "max": 3,
+                        "value": 3
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 28,
+                    "mod": 0,
+                    "value": 20
+                },
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "R97wvvub1hhH6l5N",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
+            "sort": 4400000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 28,
+                    "mod": 0,
+                    "value": 20
+                },
+                "tradition": {
+                    "value": "primal"
+                }
+            },
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Qxal, The Thorned Monarch",

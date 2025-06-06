@@ -4,10 +4,178 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "AOXhc4CffSgp6cvE",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Pain Sensitivity",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When a trighoul's tentacle is severed, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}. Its Speed is reduced by 15 feet until the tentacle is regrown.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "pain-sensitivity",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "pain-sensitivity"
+                        ],
+                        "selector": "land-speed",
+                        "value": -15
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YNwew5oiGcsj7YSw",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Tentacle Regrowth",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A trighoul ordinarily has three tentacles. A creature can attempt to sever a tentacle by specifically targeting it and dealing damage equal to the tentacle's Hit Points. A tentacle that isn't severed completely returns to full Hit Points at the end of any creature's turn. A severed trighoul tentacles regrows, restored to full Hit Points, after [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KyySvWbQsUodrCtS",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Puppet Show",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p>\n<p><strong>Requirements</strong> The trighoul is using Puppeteer Corpse</p><hr /><p><strong>Effect</strong> The trighoul manipulates up to three corpses to silently Impersonate the living. A creature that fails to detect the deception is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to the trighoul's corpse Strike. The deception ends immediately after the trighoul attacks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "U1BJLmxtPIXUebo9",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Puppeteer Corpse",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The trighoul is @UUID[Compendium.pf2e.conditionitems.Item.Hidden], and there's at least one corpse within 10 feet</p><hr /><p><strong>Effect</strong> The trighoul attaches a tentacle to the corpse of a Large to Small creature. That tentacle replaces its Strike with a melee corpse Strike that deals bludgeoning damage equal to the total damage dealt by its tentacle. A controlled corpse is destroyed when it takes 20 Hit Points of damage. The trighoul can detach from a corpse as a single action with the manipulate trait.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Iwdpk2YiDPA5Br15",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Grab",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "improved-grab",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "0K8vH9ZJyWhYI2IX",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Tentacle",
-            "sort": 100000,
+            "sort": 600000,
             "system": {
                 "attackEffects": {
                     "value": [
@@ -52,7 +220,7 @@
             "_id": "v1fwuyz2N9QzUovs",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
-            "sort": 200000,
+            "sort": 700000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -90,7 +258,7 @@
             "_id": "R9fVVDNH7AuJSNMJ",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Spit",
-            "sort": 300000,
+            "sort": 800000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -128,174 +296,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "AOXhc4CffSgp6cvE",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Pain Sensitivity",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>When a trighoul's tentacle is severed, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}. Its Speed is reduced by 15 feet until the tentacle is regrown.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "pain-sensitivity",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "pain-sensitivity"
-                        ],
-                        "selector": "land-speed",
-                        "value": -15
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "YNwew5oiGcsj7YSw",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Tentacle Regrowth",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A trighoul ordinarily has three tentacles. A creature can attempt to sever a tentacle by specifically targeting it and dealing damage equal to the tentacle's Hit Points. A tentacle that isn't severed completely returns to full Hit Points at the end of any creature's turn. A severed trighoul tentacles regrows, restored to full Hit Points, after [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "KyySvWbQsUodrCtS",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Puppet Show",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p>\n<p><strong>Requirements</strong> The trighoul is using Puppeteer Corpse</p><hr /><p><strong>Effect</strong> The trighoul manipulates up to three corpses to silently Impersonate the living. A creature that fails to detect the deception is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to the trighoul's corpse Strike. The deception ends immediately after the trighoul attacks.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "U1BJLmxtPIXUebo9",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Puppeteer Corpse",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The trighoul is @UUID[Compendium.pf2e.conditionitems.Item.Hidden], and there's at least one corpse within 10 feet</p><hr /><p><strong>Effect</strong> The trighoul attaches a tentacle to the corpse of a Large to Small creature. That tentacle replaces its Strike with a melee corpse Strike that deals bludgeoning damage equal to the total damage dealt by its tentacle. A controlled corpse is destroyed when it takes 20 Hit Points of damage. The trighoul can detach from a corpse as a single action with the manipulate trait.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Iwdpk2YiDPA5Br15",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
-            },
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Improved Grab",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "improved-grab",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Trighoul",

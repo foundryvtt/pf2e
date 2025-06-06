@@ -4,22 +4,173 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "H8gN1bhxFt7xjlDQ",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
+            "_id": "xZCulUxb6sXLOAkA",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Risk Aura",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
+                    "value": "<p>30 feet. A feeling of recklessness surrounds a gambling devil. When a non-fiend creature enters the aura or begins its turn in the aura, it must attempt a @Check[will|dc:31] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to Risk Aura for 24 hours.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The next time the creature rolls a d20, it must roll twice. If either roll is a natural 20, the creature uses that result; otherwise, it must take the lower of the two results.</p>\n<p><strong>Critical Failure</strong> As failure, but applies to all of the creature's d20 rolls as long as it remains in the aura.</p>"
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "divine",
+                        "mental",
+                        "misfortune"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "iULBe8CiHhYQFUum",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
                     "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The agadaz adopts the appearance of any Small or Medium humanoid. This doesn't change their Speed or their attack and damage bonuses with their Strikes, but it might change the type of damage their Strikes deal.</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "change-shape",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "divine",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "PP1a73w4zq2ppeeT",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Double Down",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The agadaz attempts a Strike, saving throw, or skill check</p><hr /><p><strong>Effect</strong> The agadaz takes a –2 status penalty to the roll, then gains a +2 status bonus to the next Strike, saving throw, or skill check they attempt before the end of their turn, or before the end of their next turn if they used Double Down during another creature's turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "double-down",
+                        "selection": "bonus",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.SpecificRule.Modifier.Bonus",
+                                "value": "bonus"
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.Modifier.Penalty",
+                                "value": "penalty"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "double-down"
+                        ],
+                        "selector": [
+                            "strike-attack-roll",
+                            "saving-throw",
+                            "skill-check"
+                        ],
+                        "type": "status",
+                        "value": 2
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "mode": "multiply",
+                        "predicate": [
+                            "double-down:penalty"
+                        ],
+                        "selector": "all",
+                        "slug": "double-down",
+                        "value": -1
+                    }
+                ],
+                "slug": "double-down",
+                "traits": {
+                    "value": [
+                        "divine",
+                        "fortune"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ULXJv8rgzPh8vlRK",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Produce Gold Coins",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The agadaz has a free hand</p><hr /><p><strong>Effect</strong> The agadaz creates up to 5 gp in their hand. At any one time, an agadaz can possess no more than 20 gp created in this way; coins created in excess of this value vanish. A coin created in this way vanishes automatically 1 hour after leaving the devil's possession.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,21 +178,196 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 34,
-                    "value": 26
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "w8wKeoNsytzmig44",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Accounting Lore",
+            "sort": 500000,
+            "system": {
+                "description": {
+                    "value": ""
                 },
-                "tradition": {
-                    "value": "divine"
+                "mod": {
+                    "value": 25
                 },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
                 "traits": {}
             },
-            "type": "spellcastingEntry"
+            "type": "lore"
+        },
+        {
+            "_id": "1whEZNFCQZ4CKiT6",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Games Lore",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 29
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "OCPbnGGxOZI4GKPC",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 700000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "QQFvsMYTVVzTCuoi": {
+                        "damage": "3d4+11",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "unarmed",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "MEIeSMCVWhNUUies",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "t0WGuYviDLr9rSoc"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Sword Cane",
+            "sort": 800000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 28
+                },
+                "damageRolls": {
+                    "6uXNbZJAMbXBd6I5": {
+                        "damage": "3d6+11",
+                        "damageType": "piercing"
+                    },
+                    "USvfJp9kVOA3SJY3": {
+                        "damage": "1d4",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "sword-cane",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "concealable",
+                        "finesse",
+                        "magical",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "F8RTmdRmsiB3StH3",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Thrown Coin",
+            "sort": 900000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 28
+                },
+                "damageRolls": {
+                    "Onr4sag0cFBqXCUq": {
+                        "damage": "3d6+8",
+                        "damageType": "bludgeoning"
+                    },
+                    "qsRWPCvtLrPxHYh3": {
+                        "category": "precision",
+                        "damage": "1d6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "range-30",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "dZ2zDwFMyklPgIiE",
@@ -50,7 +376,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "Truesight",
-            "sort": 200000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -114,7 +440,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Translocate",
-            "sort": 300000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -186,7 +512,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Translocate (At Will)",
-            "sort": 400000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -258,7 +584,7 @@
             },
             "img": "icons/creatures/magical/spirit-undead-winged-ghost.webp",
             "name": "Illusory Creature",
-            "sort": 500000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -323,7 +649,7 @@
             },
             "img": "systems/pf2e/icons/spells/infernal-pact.webp",
             "name": "Diabolic Pact",
-            "sort": 600000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -388,7 +714,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Figment",
-            "sort": 700000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -451,7 +777,7 @@
             },
             "img": "icons/sundries/lights/candles-lit-red-evil.webp",
             "name": "Ill Omen (At Will)",
-            "sort": 800000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -518,7 +844,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-object.webp",
             "name": "Illusory Object",
-            "sort": 900000,
+            "sort": 1700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -578,13 +904,106 @@
             "type": "spell"
         },
         {
+            "_id": "H8gN1bhxFt7xjlDQ",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
+            "sort": 1800000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 34,
+                    "value": 26
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "I4UiXow9ZXalGaAm",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.BlqDXtRZcevCYRNz"
+            },
+            "img": "systems/pf2e/icons/equipment/treasure/art-objects/major-art-object/jeweled-mithral-crown.webp",
+            "name": "Jewelry",
+            "sort": 1900000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 5000
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "jeweled-dawnsilver-crown",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "treasure"
+        },
+        {
             "_id": "t0WGuYviDLr9rSoc",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.VitLIpdIAmKlGb7i"
             },
             "img": "systems/pf2e/icons/equipment/weapons/sword-cane.webp",
             "name": "Sword Cane",
-            "sort": 1000000,
+            "sort": 2000000,
             "system": {
                 "baseItem": "sword-cane",
                 "bonus": {
@@ -665,425 +1084,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "I4UiXow9ZXalGaAm",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.BlqDXtRZcevCYRNz"
-            },
-            "img": "systems/pf2e/icons/equipment/treasure/art-objects/major-art-object/jeweled-mithral-crown.webp",
-            "name": "Jewelry",
-            "sort": 1100000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 5000
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder GM Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "jeweled-dawnsilver-crown",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "treasure"
-        },
-        {
-            "_id": "OCPbnGGxOZI4GKPC",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 1200000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 26
-                },
-                "damageRolls": {
-                    "QQFvsMYTVVzTCuoi": {
-                        "damage": "3d4+11",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "unarmed",
-                        "unholy"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "MEIeSMCVWhNUUies",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "t0WGuYviDLr9rSoc"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Sword Cane",
-            "sort": 1300000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 28
-                },
-                "damageRolls": {
-                    "6uXNbZJAMbXBd6I5": {
-                        "damage": "3d6+11",
-                        "damageType": "piercing"
-                    },
-                    "USvfJp9kVOA3SJY3": {
-                        "damage": "1d4",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "sword-cane",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "concealable",
-                        "finesse",
-                        "magical",
-                        "unholy"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "F8RTmdRmsiB3StH3",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Thrown Coin",
-            "sort": 1400000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 28
-                },
-                "damageRolls": {
-                    "Onr4sag0cFBqXCUq": {
-                        "damage": "3d6+8",
-                        "damageType": "bludgeoning"
-                    },
-                    "qsRWPCvtLrPxHYh3": {
-                        "category": "precision",
-                        "damage": "1d6",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "range-30",
-                        "unholy"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "xZCulUxb6sXLOAkA",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Risk Aura",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>30 feet. A feeling of recklessness surrounds a gambling devil. When a non-fiend creature enters the aura or begins its turn in the aura, it must attempt a @Check[will|dc:31] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to Risk Aura for 24 hours.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The next time the creature rolls a d20, it must roll twice. If either roll is a natural 20, the creature uses that result; otherwise, it must take the lower of the two results.</p>\n<p><strong>Critical Failure</strong> As failure, but applies to all of the creature's d20 rolls as long as it remains in the aura.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "divine",
-                        "mental",
-                        "misfortune"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "iULBe8CiHhYQFUum",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
-            "sort": 1600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The agadaz adopts the appearance of any Small or Medium humanoid. This doesn't change their Speed or their attack and damage bonuses with their Strikes, but it might change the type of damage their Strikes deal.</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "change-shape",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "divine",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "PP1a73w4zq2ppeeT",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Double Down",
-            "sort": 1700000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The agadaz attempts a Strike, saving throw, or skill check</p><hr /><p><strong>Effect</strong> The agadaz takes a –2 status penalty to the roll, then gains a +2 status bonus to the next Strike, saving throw, or skill check they attempt before the end of their turn, or before the end of their next turn if they used Double Down during another creature's turn.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "double-down",
-                        "selection": "bonus",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.SpecificRule.Modifier.Bonus",
-                                "value": "bonus"
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.Modifier.Penalty",
-                                "value": "penalty"
-                            }
-                        ],
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "double-down"
-                        ],
-                        "selector": [
-                            "strike-attack-roll",
-                            "saving-throw",
-                            "skill-check"
-                        ],
-                        "type": "status",
-                        "value": 2
-                    },
-                    {
-                        "key": "AdjustModifier",
-                        "mode": "multiply",
-                        "predicate": [
-                            "double-down:penalty"
-                        ],
-                        "selector": "all",
-                        "slug": "double-down",
-                        "value": -1
-                    }
-                ],
-                "slug": "double-down",
-                "traits": {
-                    "value": [
-                        "divine",
-                        "fortune"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ULXJv8rgzPh8vlRK",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Produce Gold Coins",
-            "sort": 1800000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The agadaz has a free hand</p><hr /><p><strong>Effect</strong> The agadaz creates up to 5 gp in their hand. At any one time, an agadaz can possess no more than 20 gp created in this way; coins created in excess of this value vanish. A coin created in this way vanishes automatically 1 hour after leaving the devil's possession.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "w8wKeoNsytzmig44",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Accounting Lore",
-            "sort": 1900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 25
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "1whEZNFCQZ4CKiT6",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Games Lore",
-            "sort": 2000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 29
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
         }
     ],
     "name": "Silverhand Salvo",

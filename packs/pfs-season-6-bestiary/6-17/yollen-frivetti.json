@@ -4,137 +4,103 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "UDXGWAWooVjEyIoE",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Prepared Spells",
+            "_id": "eC3ZOjUxEhwhrXWB",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Reactive Strike",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
                 "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "OahOzwwO7qH7dAcS"
-                            },
-                            {
-                                "id": "H9R9KaRyQjtuhstA"
-                            },
-                            {
-                                "id": "HhWtnK3Fta6aWnjT"
-                            },
-                            {
-                                "id": "yfurEx8H0nzKW82I"
-                            },
-                            {
-                                "id": "3MyCMMeM0Mvpx784"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "D4I78dvEcwNqMkNo"
-                            },
-                            {
-                                "id": "0AFCHoC82riM0Qh5"
-                            },
-                            {
-                                "id": "vJtZHaMSvQSS6tcV"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "MnBndz2Cs4BhNodz"
-                            },
-                            {
-                                "id": "5SICo1mYetsYmGSF"
-                            },
-                            {
-                                "id": "hRDP7RWpW31Uzoma"
-                            }
-                        ]
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "7jmBbn4TY1adhhFK"
-                            },
-                            {
-                                "id": "zrpMzARGCvPvjOKn"
-                            },
-                            {
-                                "id": "iQcCdU2qC1AWam1q"
-                            }
-                        ]
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "73QwTWfEi4N5aJt9"
-                            },
-                            {
-                                "id": "5UkGFjUhqOmGkdm4"
-                            },
-                            {
-                                "id": "f2asQoapKxvmSZyp"
-                            }
-                        ]
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 23,
-                    "value": 15
-                },
-                "tradition": {
-                    "value": "arcane"
-                },
-                "traits": {}
+                "slug": "reactive-strike",
+                "traits": {
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "HtUrNXk9CM9aldoH",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Magus Conflux Spells",
+            "_id": "1CUi9QEspSFb6L9m",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Hellish Spellstrike",
             "sort": 200000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "actionType": {
+                    "value": "action"
                 },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
                 "description": {
-                    "value": ""
+                    "value": "<p>Yollen's signature spellstrike channels the ill will of Hell. He casts @UUID[Compendium.pf2e.spells-srd.Item.Ignition], then makes a melee attack strike with his greataxe. If he successfully hits, he deals an additional 2d6 damage (4d6 on a critical hit) on top of the damage from <em>ignition</em> and the greataxe. This counts as two attacks for the purposes of multiple attack penalty, but the penalty does not apply until after Yollen completes this ability. Yollen cannot use Hellish Spellstrike again until he has recharge it using a single action with the concentrate trait or cast his conflux spell.</p>"
                 },
-                "prepared": {
-                    "value": "focus"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "hellish-spellstrike",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "hellish-spellstrike"
+                        ],
+                        "selector": "greataxe-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hzoFSN3ShYWPgJjG",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Mountain of Iron",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
                     "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> Yollen draws upon the power of the warshard to bolster his health. He gains fast healing 5 for 1 minute.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1H"
                 },
                 "publication": {
                     "license": "OGL",
@@ -142,18 +108,167 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
+                "selfEffect": {
+                    "name": "Effect: Warshard Healing",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Warshard Healing"
+                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 23,
+                "traits": {
+                    "value": [
+                        "concentrate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HxbK0v0twdoLLVIE",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Kf4eJEXnFPuAsseP"
+            },
+            "img": "systems/pf2e/icons/equipment/armor/chainmail.webp",
+            "name": "Chain Mail",
+            "sort": 400000,
+            "system": {
+                "acBonus": 4,
+                "baseItem": "chain-mail",
+                "bulk": {
+                    "value": 2
+                },
+                "category": "medium",
+                "checkPenalty": -2,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A suit of chain mail consists of several pieces of armor composed of small metal rings linked together in a protective mesh. It typically includes a chain shirt, leggings, a pair of arms, and a coif, collectively protecting most of the body.</p>"
+                },
+                "dexCap": 1,
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "group": "chain",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 6
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "chain-mail",
+                "speedPenalty": -5,
+                "strength": 3,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "flexible",
+                        "noisy"
+                    ]
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "3bMEwurEVGizKX8y",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "L4bTZxF0pt7NqeeM"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Greataxe",
+            "sort": 500000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "9TbjcNeZFc6z6Ehq": {
+                        "damage": "2d12+8",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "greataxe",
+                "traits": {
+                    "value": [
+                        "sweep"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "SKPGmIhVjoFNQiN6",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 600000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
                     "value": 15
                 },
-                "tradition": {
-                    "value": "arcane"
+                "damageRolls": {
+                    "tpfdPTXll2ebkaks": {
+                        "damage": "1d4+8",
+                        "damageType": "bludgeoning"
+                    }
                 },
-                "traits": {}
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
         },
         {
             "_id": "73QwTWfEi4N5aJt9",
@@ -163,7 +278,7 @@
             "folder": "7cyoYPoPYA01mErU",
             "img": "icons/creatures/mammals/bats-movement-flying-black.webp",
             "name": "Fly",
-            "sort": 300000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -226,7 +341,7 @@
             "folder": "7cyoYPoPYA01mErU",
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Translocate",
-            "sort": 400000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -298,7 +413,7 @@
             "folder": "4fJHnYFqH0VjZXPv",
             "img": "icons/skills/wounds/injury-eyes-blood-red.webp",
             "name": "Blindness",
-            "sort": 500000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -367,7 +482,7 @@
             "folder": "4fJHnYFqH0VjZXPv",
             "img": "icons/magic/time/hourglass-tilted-gray.webp",
             "name": "Slow",
-            "sort": 600000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -444,7 +559,7 @@
             "folder": "4fJHnYFqH0VjZXPv",
             "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
             "name": "Vampiric Feast",
-            "sort": 700000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -531,7 +646,7 @@
             "folder": "4fJHnYFqH0VjZXPv",
             "img": "icons/magic/nature/root-vine-entangled-humanoid.webp",
             "name": "Wall of Thorns",
-            "sort": 800000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -612,7 +727,7 @@
             "folder": "lPzcDrjGDFbzuF2r",
             "img": "icons/magic/fire/projectile-fireball-smoke-orange.webp",
             "name": "Blazing Bolt",
-            "sort": 900000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -735,7 +850,7 @@
             "folder": "lPzcDrjGDFbzuF2r",
             "img": "icons/magic/unholy/silhouette-evil-horned-giant.webp",
             "name": "Enlarge",
-            "sort": 1000000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -807,7 +922,7 @@
             "folder": "lPzcDrjGDFbzuF2r",
             "img": "systems/pf2e/icons/spells/feeblemind.webp",
             "name": "Stupefy",
-            "sort": 1100000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -874,7 +989,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1200000,
+            "sort": 1600000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -942,7 +1057,7 @@
             "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "icons/skills/movement/feet-winged-sandals-tan.webp",
             "name": "Fleet Step",
-            "sort": 1300000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1003,7 +1118,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "icons/magic/fire/explosion-embers-evade-silhouette.webp",
             "name": "Ignition",
-            "sort": 1400000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1114,7 +1229,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 1500000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1179,7 +1294,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 1600000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1259,7 +1374,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 1700000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1322,7 +1437,7 @@
             "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "icons/skills/melee/strike-blade-scimitar-gray-red.webp",
             "name": "Sure Strike",
-            "sort": 1800000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1383,7 +1498,7 @@
             "folder": "wnvibtD90h7CStDC",
             "img": "systems/pf2e/icons/spells/thunderous-strike.webp",
             "name": "Thunderous Strike",
-            "sort": 1900000,
+            "sort": 2300000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -1469,7 +1584,7 @@
             "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "systems/pf2e/icons/spells/shocking-grasp.webp",
             "name": "Thunderstrike",
-            "sort": 2000000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1559,13 +1674,165 @@
             "type": "spell"
         },
         {
+            "_id": "UDXGWAWooVjEyIoE",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Prepared Spells",
+            "sort": 2500000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "OahOzwwO7qH7dAcS"
+                            },
+                            {
+                                "id": "H9R9KaRyQjtuhstA"
+                            },
+                            {
+                                "id": "HhWtnK3Fta6aWnjT"
+                            },
+                            {
+                                "id": "yfurEx8H0nzKW82I"
+                            },
+                            {
+                                "id": "3MyCMMeM0Mvpx784"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "D4I78dvEcwNqMkNo"
+                            },
+                            {
+                                "id": "0AFCHoC82riM0Qh5"
+                            },
+                            {
+                                "id": "vJtZHaMSvQSS6tcV"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "MnBndz2Cs4BhNodz"
+                            },
+                            {
+                                "id": "5SICo1mYetsYmGSF"
+                            },
+                            {
+                                "id": "hRDP7RWpW31Uzoma"
+                            }
+                        ]
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "7jmBbn4TY1adhhFK"
+                            },
+                            {
+                                "id": "zrpMzARGCvPvjOKn"
+                            },
+                            {
+                                "id": "iQcCdU2qC1AWam1q"
+                            }
+                        ]
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "73QwTWfEi4N5aJt9"
+                            },
+                            {
+                                "id": "5UkGFjUhqOmGkdm4"
+                            },
+                            {
+                                "id": "f2asQoapKxvmSZyp"
+                            }
+                        ]
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 23,
+                    "value": 15
+                },
+                "tradition": {
+                    "value": "arcane"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "HtUrNXk9CM9aldoH",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Magus Conflux Spells",
+            "sort": 2600000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 23,
+                    "value": 15
+                },
+                "tradition": {
+                    "value": "arcane"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "L4bTZxF0pt7NqeeM",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8COlYvHe6hKCXY8x"
             },
             "img": "icons/weapons/axes/axe-double-engraved.webp",
             "name": "Greataxe",
-            "sort": 2100000,
+            "sort": 2700000,
             "system": {
                 "baseItem": "greataxe",
                 "bonus": {
@@ -1642,273 +1909,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "HxbK0v0twdoLLVIE",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Kf4eJEXnFPuAsseP"
-            },
-            "img": "systems/pf2e/icons/equipment/armor/chainmail.webp",
-            "name": "Chain Mail",
-            "sort": 2200000,
-            "system": {
-                "acBonus": 4,
-                "baseItem": "chain-mail",
-                "bulk": {
-                    "value": 2
-                },
-                "category": "medium",
-                "checkPenalty": -2,
-                "containerId": null,
-                "description": {
-                    "value": "<p>A suit of chain mail consists of several pieces of armor composed of small metal rings linked together in a protective mesh. It typically includes a chain shirt, leggings, a pair of arms, and a coif, collectively protecting most of the body.</p>"
-                },
-                "dexCap": 1,
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "group": "chain",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 6
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "chain-mail",
-                "speedPenalty": -5,
-                "strength": 3,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "flexible",
-                        "noisy"
-                    ]
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "3bMEwurEVGizKX8y",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "L4bTZxF0pt7NqeeM"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Greataxe",
-            "sort": 2300000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 18
-                },
-                "damageRolls": {
-                    "9TbjcNeZFc6z6Ehq": {
-                        "damage": "2d12+8",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "greataxe",
-                "traits": {
-                    "value": [
-                        "sweep"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "SKPGmIhVjoFNQiN6",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 2400000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 15
-                },
-                "damageRolls": {
-                    "tpfdPTXll2ebkaks": {
-                        "damage": "1d4+8",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "eC3ZOjUxEhwhrXWB",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Reactive Strike",
-            "sort": 2500000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "reactive-strike",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "1CUi9QEspSFb6L9m",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Hellish Spellstrike",
-            "sort": 2600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Yollen's signature spellstrike channels the ill will of Hell. He casts @UUID[Compendium.pf2e.spells-srd.Item.Ignition], then makes a melee attack strike with his greataxe. If he successfully hits, he deals an additional 2d6 damage (4d6 on a critical hit) on top of the damage from <em>ignition</em> and the greataxe. This counts as two attacks for the purposes of multiple attack penalty, but the penalty does not apply until after Yollen completes this ability. Yollen cannot use Hellish Spellstrike again until he has recharge it using a single action with the concentrate trait or cast his conflux spell.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "RollOption",
-                        "option": "hellish-spellstrike",
-                        "toggleable": true
-                    },
-                    {
-                        "diceNumber": 2,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "hellish-spellstrike"
-                        ],
-                        "selector": "greataxe-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "arcane",
-                        "magical"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "hzoFSN3ShYWPgJjG",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Mountain of Iron",
-            "sort": 2700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> Yollen draws upon the power of the warshard to bolster his health. He gains fast healing 5 for 1 minute.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "PT1H"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "selfEffect": {
-                    "name": "Effect: Warshard Healing",
-                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Warshard Healing"
-                },
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Yollen Frivetti",

@@ -3,10 +3,118 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "1hjabmTtR1jzUEh9",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Hellish Revenge",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The greater hell hound is critically hit by any Strike</p>\n<hr />\n<p><strong>Effect</strong> The greater hell hound's Hellfire Breath recharges. They can immediately use it as part of this reaction.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "escewXwusyFQw1t9",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Hellfire Breath",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The hell hound breathes flames that deal @Damage[10d6[fire]|options:area-damage] damage to all creatures in a @Template[cone|distance:15] (@Check[reflex|dc:28|basic|options:area-effect] save.)</p>\n<p>The hell hound can't use Hellfire Breath again for [[/gmr 1d4 #Recharge Hellfire Breath]]{1d4 rounds}. If the greater hell hound would take fire damage or be targeted by a fire effect, their Hellfire Breath recharges.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "fire"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "DXOTK3gZgiPc9AVG",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Pack Attack",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The greater hell hound's Strikes deal 1d8 extra damage to creatures within the reach of at least two of their allies.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "pack-attack",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "pack-attack"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "Id4tvbdVJaXtgOOu",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
-            "sort": 100000,
+            "sort": 400000,
             "system": {
                 "attack": {
                     "value": ""
@@ -51,114 +159,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "1hjabmTtR1jzUEh9",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Hellish Revenge",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The greater hell hound is critically hit by any Strike</p>\n<hr />\n<p><strong>Effect</strong> The greater hell hound's Hellfire Breath recharges. They can immediately use it as part of this reaction.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "escewXwusyFQw1t9",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Hellfire Breath",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The hell hound breathes flames that deal @Damage[10d6[fire]|options:area-damage] damage to all creatures in a @Template[cone|distance:15] (@Check[reflex|dc:28|basic|options:area-effect] save.)</p>\n<p>The hell hound can't use Hellfire Breath again for [[/gmr 1d4 #Recharge Hellfire Breath]]{1d4 rounds}. If the greater hell hound would take fire damage or be targeted by a fire effect, their Hellfire Breath recharges.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine",
-                        "fire"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "DXOTK3gZgiPc9AVG",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Pack Attack",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The greater hell hound's Strikes deal 1d8 extra damage to creatures within the reach of at least two of their allies.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "pack-attack",
-                        "toggleable": true
-                    },
-                    {
-                        "diceNumber": 1,
-                        "dieSize": "d8",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "pack-attack"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Greater Hell Hound",

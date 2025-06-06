@@ -4,21 +4,148 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "zWAfVC0a50Vpxur6",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
+            "_id": "eEJbnRRJjKe1QZrQ",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Phasic Defenses",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
+                    "value": "<p><strong>Requirements</strong> Kaneepo hasn't Slimstepped since the beginning of their last turn</p>\n<p><strong>Trigger</strong> Kaneepo would take damage from an attack</p>\n<hr />\n<p><strong>Effect</strong> Kaneepo Slimsteps, taking no damage if their new square would move them out of the range or area of the attack.</p>"
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "snnkc1WVmU7H0RQm",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Create Breach",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Once per day, Kaneepo can tear open the fabric between planes, creating a portal between the Thinlands and a point anywhere in Sevenarches. This portal lasts for up to 1 hour, but Kaneepo can close it at will.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "DpPQal3ryriioWgz",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Shadow Pull",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>All creatures in a @Template[line|distance:60] are affected by Kaneepo's shadowfeed ability.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4aBDzZE5rBN5Q35e",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Shadowfeed",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Whenever Kaneepo hits a creature with an attack, Kaneepo's flayed strips of flesh wrap around the target's shadow, causing the victim's body to wither. The struck creature must attempt a @Check[fortitude|dc:21] saving throw.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature takes @Damage[3d6[mental]] and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[6d6[mental]] and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "04KY54q7VHeFaIUl",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Slimstep",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Kaneepo is in dim light or darkness</p>\n<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> Kaneepo instantly transports themself from one shadow to another. Kaneepo teleports themself and any items they're holding to a clear space within 30 feet that's in dim light or darkness. If this would bring any other creature with Kaneepo, the ability is disrupted.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round",
                     "value": 1
                 },
                 "publication": {
@@ -27,20 +154,151 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 21,
-                    "value": 13
-                },
-                "tradition": {
-                    "value": "primal"
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "primal",
+                        "shadow",
+                        "teleportation"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "IJtZ79TJSoCrB5NC",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.jqaSdm5zp8STSW27"
+            },
+            "img": "systems/pf2e/icons/equipment/contracts/key-to-the-stomach.webp",
+            "name": "Shadewither Key",
+            "sort": 600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This palm-sized talisman hangs on a string of braided bark fibers. It resembles a leaf from some unknown tree similar to oak, carved from jade and then dipped halfway into black ink that looks wet despite feeling completely dry. The gate key was originally created to open the aiudara known as the Seventh Arch. In recent years, corrupting magic has given it additional, stranger powers.</p>\n<p>When you wear and invest the <em>Shadewither Key</em>, shadows gather around you. You gain a +1 item bonus to Stealth checks. However, this boon comes with great risk: any elf who touches the <em>Shadewither Key</em> is immediately afflicted with the obnubilate curse (see below).</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact</p>\n<hr />\n<p><strong>Effect</strong> You touch the <em>Shadewither Key</em> and command the shadows it casts around you to peel away. The shadows form an umbral double that resembles you in every way except for its fiery red eyes and the expression of wicked delight on its face. The double occupies the same space as you and attempts to intercept any attacks aimed at you. A creature must succeed at a @Check[flat|dc:11] when targeting you with an attack, spell, or other effect; on a failure, they hit the shadowy double instead of you. The effect lasts for 1 minute or until the double is hit, whichever comes first. Once the double is hit, it's destroyed. As long as the double exists, you don't gain the <em>Shadewither Key's</em> item bonus to Stealth checks.</p>\n<hr />\n<p><strong>Destruction</strong> The <em>Shadewither Key's</em> magic can be destroyed by exposing the artifact to uncontained teleportation energies. If touched to an unlinked or malfunctioning aiudara, the <em>Shadewither Key</em> causes the gate to connect to a new counterpart. If this happens, the key's magic leaves it, rendering the item useless.</p>\n<hr />\n<p><strong>Obnubilate Curse</strong></p>\n<p>Only elves can be afflicted with this magical curse; other creatures are immune. An elf who touches the Shadewither Key must save against the curse. Victims quickly fall @UUID[Compendium.pf2e.conditionitems.Item.Unconscious]; then, over several days, they slowly blacken and shrivel like rotting fruit until they die. The corpse of an elf killed by the obnubilate curse is dry and charcoal-like; it collapses into ash at the slightest touch.</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:27|traits:curse,enchantment,incapacitation,magical,mental,shadow|overrideTraits:true]</p>\n<p><strong>Onset</strong> 1 minute</p>\n<p><strong>Stage 1</strong> unconscious and @Damage[3d6[mental]] (1 day)</p>\n<p><strong>Stage 2</strong> unconscious and @Damage[6d6[mental]] (2 days)</p>\n<p><strong>Stage 3</strong> unconscious and @Damage[6d6[mental]] (2 days)</p>\n<p><strong>Stage 4</strong> unconscious and @Damage[6d6[mental]], permanent loss of most recent year of memory (1 day)</p>\n<p><strong>Stage 5</strong> unconscious and @Damage[6d6[mental]], permanent loss of all memory (1 day)</p>\n<p><strong>Stage 6</strong> death.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 22
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #187: The Seventh Arch"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "shadewither-key",
+                "traits": {
+                    "rarity": "unique",
+                    "value": [
+                        "artifact",
+                        "cursed",
+                        "illusion",
+                        "invested",
+                        "primal",
+                        "shadow"
+                    ]
+                },
+                "usage": {
+                    "value": "worn"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "lnCkY57DXSQDcGeB",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "First World Lore",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 10
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "gNZND9cktvmWzCUJ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "shadowfeed"
+                    ]
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "2EOkIWCkJj7TDpfe": {
+                        "damage": "1d6+1",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "okIat1D75UL5ZpoF",
@@ -49,7 +307,7 @@
             },
             "img": "systems/pf2e/icons/spells/mind-reading.webp",
             "name": "Mind Reading",
-            "sort": 200000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -117,7 +375,7 @@
             },
             "img": "systems/pf2e/icons/spells/paralyze.webp",
             "name": "Paralyze",
-            "sort": 300000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -189,291 +447,22 @@
             "type": "spell"
         },
         {
-            "_id": "IJtZ79TJSoCrB5NC",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.jqaSdm5zp8STSW27"
-            },
-            "img": "systems/pf2e/icons/equipment/contracts/key-to-the-stomach.webp",
-            "name": "Shadewither Key",
-            "sort": 400000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This palm-sized talisman hangs on a string of braided bark fibers. It resembles a leaf from some unknown tree similar to oak, carved from jade and then dipped halfway into black ink that looks wet despite feeling completely dry. The gate key was originally created to open the aiudara known as the Seventh Arch. In recent years, corrupting magic has given it additional, stranger powers.</p>\n<p>When you wear and invest the <em>Shadewither Key</em>, shadows gather around you. You gain a +1 item bonus to Stealth checks. However, this boon comes with great risk: any elf who touches the <em>Shadewither Key</em> is immediately afflicted with the obnubilate curse (see below).</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact</p>\n<hr />\n<p><strong>Effect</strong> You touch the <em>Shadewither Key</em> and command the shadows it casts around you to peel away. The shadows form an umbral double that resembles you in every way except for its fiery red eyes and the expression of wicked delight on its face. The double occupies the same space as you and attempts to intercept any attacks aimed at you. A creature must succeed at a @Check[flat|dc:11] when targeting you with an attack, spell, or other effect; on a failure, they hit the shadowy double instead of you. The effect lasts for 1 minute or until the double is hit, whichever comes first. Once the double is hit, it's destroyed. As long as the double exists, you don't gain the <em>Shadewither Key's</em> item bonus to Stealth checks.</p>\n<hr />\n<p><strong>Destruction</strong> The <em>Shadewither Key's</em> magic can be destroyed by exposing the artifact to uncontained teleportation energies. If touched to an unlinked or malfunctioning aiudara, the <em>Shadewither Key</em> causes the gate to connect to a new counterpart. If this happens, the key's magic leaves it, rendering the item useless.</p>\n<hr />\n<p><strong>Obnubilate Curse</strong></p>\n<p>Only elves can be afflicted with this magical curse; other creatures are immune. An elf who touches the Shadewither Key must save against the curse. Victims quickly fall @UUID[Compendium.pf2e.conditionitems.Item.Unconscious]; then, over several days, they slowly blacken and shrivel like rotting fruit until they die. The corpse of an elf killed by the obnubilate curse is dry and charcoal-like; it collapses into ash at the slightest touch.</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:27|traits:curse,enchantment,incapacitation,magical,mental,shadow|overrideTraits:true]</p>\n<p><strong>Onset</strong> 1 minute</p>\n<p><strong>Stage 1</strong> unconscious and @Damage[3d6[mental]] (1 day)</p>\n<p><strong>Stage 2</strong> unconscious and @Damage[6d6[mental]] (2 days)</p>\n<p><strong>Stage 3</strong> unconscious and @Damage[6d6[mental]] (2 days)</p>\n<p><strong>Stage 4</strong> unconscious and @Damage[6d6[mental]], permanent loss of most recent year of memory (1 day)</p>\n<p><strong>Stage 5</strong> unconscious and @Damage[6d6[mental]], permanent loss of all memory (1 day)</p>\n<p><strong>Stage 6</strong> death.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 22
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #187: The Seventh Arch"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "shadewither-key",
-                "traits": {
-                    "rarity": "unique",
-                    "value": [
-                        "artifact",
-                        "cursed",
-                        "illusion",
-                        "invested",
-                        "primal",
-                        "shadow"
-                    ]
-                },
-                "usage": {
-                    "value": "worn"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "gNZND9cktvmWzCUJ",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "shadowfeed"
-                    ]
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "2EOkIWCkJj7TDpfe": {
-                        "damage": "1d6+1",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "eEJbnRRJjKe1QZrQ",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Phasic Defenses",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Kaneepo hasn't Slimstepped since the beginning of their last turn</p>\n<p><strong>Trigger</strong> Kaneepo would take damage from an attack</p>\n<hr />\n<p><strong>Effect</strong> Kaneepo Slimsteps, taking no damage if their new square would move them out of the range or area of the attack.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "snnkc1WVmU7H0RQm",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Create Breach",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Once per day, Kaneepo can tear open the fabric between planes, creating a portal between the Thinlands and a point anywhere in Sevenarches. This portal lasts for up to 1 hour, but Kaneepo can close it at will.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "DpPQal3ryriioWgz",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Shadow Pull",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>All creatures in a @Template[line|distance:60] are affected by Kaneepo's shadowfeed ability.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "4aBDzZE5rBN5Q35e",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Shadowfeed",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Whenever Kaneepo hits a creature with an attack, Kaneepo's flayed strips of flesh wrap around the target's shadow, causing the victim's body to wither. The struck creature must attempt a @Check[fortitude|dc:21] saving throw.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature takes @Damage[3d6[mental]] and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[6d6[mental]] and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "emotion",
-                        "fear",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "04KY54q7VHeFaIUl",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Slimstep",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Kaneepo is in dim light or darkness</p>\n<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> Kaneepo instantly transports themself from one shadow to another. Kaneepo teleports themself and any items they're holding to a clear space within 30 feet that's in dim light or darkness. If this would bring any other creature with Kaneepo, the ability is disrupted.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "primal",
-                        "shadow",
-                        "teleportation"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "lnCkY57DXSQDcGeB",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "First World Lore",
+            "_id": "zWAfVC0a50Vpxur6",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 1100000,
             "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 10
+                "prepared": {
+                    "value": "innate"
                 },
-                "proficient": {
-                    "value": 0
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -481,9 +470,20 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 21,
+                    "value": 13
+                },
+                "tradition": {
+                    "value": "primal"
+                }
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Kaneepo the Slim",

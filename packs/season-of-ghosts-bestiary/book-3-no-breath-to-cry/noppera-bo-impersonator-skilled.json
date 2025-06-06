@@ -4,10 +4,183 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "NZ7fkfKmdxhS0R9K",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 30 feet",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "magical",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "taWY1Sh4GGv2Br5K",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "No Face",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The noppera-bo has no sense of vision, but their hearing is precise. They don't breathe and are immune to effects that require breathing. They gain sustenance by absorbing fluids through their skin—traditionally by immersing their hands or faceless head into the fluid to \"drink\" through osmosis; they can also benefit from consumables, such as potions or elixirs, in this way.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "61tU4WPavuL0A67R",
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {}
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sensitive Hearing",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>As long as the noppera-bo is @UUID[Compendium.pf2e.conditionitems.Item.Deafened], they're @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "self:condition:deafened"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ly5pMtEPvN4x765o",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "False Weapon",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A noppera-bo impersonator carries a <em>+1 striking</em> weapon that looks identical to the favored weapon of the PC being impersonated. If the PC favors unarmed strikes, it appears as hand wraps. If the PC favors a ranged weapon, then the noppera-bo impersonator has no melee weapon and instead uses the ranged weapon rules above; otherwise, the noppera-bo impersonator has no ranged weapon. If the PCs favors no weapon, then the noppera-bo wields a club as its false weapon. This false weapon is only partially real and inflicts only mental damage when it hits; it gains none of the original weapon's traits or magical enhancements. If a noppera-bo impersonator's false weapon is broken, disarmed, or set down, it fades away. The noppera-bo impersonator can craft a replacement false weapon by spending 10 minutes to recreate one.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "f4F6saygFT2CblWG",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Impersonated Abilities",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The noppera-bo impersonator gains one of the following abilities of your choice.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Impersonated Ability]</p>\n<ul>\n<li><strong>Commander</strong> The noppera-bo impersonator gains a minion that they can command. This creature takes the form of the impersonated PC's animal companion, eidolon, or other fighting companion creature; choose a 4th-level creature that approximates the impersonated companion creature's abilities. This creature gains the minion trait.</li>\n<li>@UUID[Compendium.pf2e.adventure-specific-actions.Item.Elemental Attack]</li>\n<li><strong>Sneak Attack</strong> The noppera-bo impersonator deals an additional 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</li>\n<li><strong>Weapon Perk</strong> The noppera-bo impersonator chooses one of the following weapon traits to add to their false weapon: agile, backstabber, disarm, finesse, sweep, or trip.</li>\n</ul>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "noppera-bo-impersonator:skilled"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "pbdJTC68GFtqKzFk",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "False Weapon",
-            "sort": 100000,
+            "sort": 600000,
             "system": {
                 "attack": {
                     "value": ""
@@ -47,7 +220,7 @@
             "_id": "FUM93DUkaoT0QqJ9",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "False Weapon",
-            "sort": 200000,
+            "sort": 700000,
             "system": {
                 "attack": {
                     "value": ""
@@ -82,179 +255,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "NZ7fkfKmdxhS0R9K",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 30 feet",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "taWY1Sh4GGv2Br5K",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "No Face",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The noppera-bo has no sense of vision, but their hearing is precise. They don't breathe and are immune to effects that require breathing. They gain sustenance by absorbing fluids through their skin—traditionally by immersing their hands or faceless head into the fluid to \"drink\" through osmosis; they can also benefit from consumables, such as potions or elixirs, in this way.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "61tU4WPavuL0A67R",
-            "flags": {
-                "pf2e": {
-                    "itemGrants": {}
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Sensitive Hearing",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>As long as the noppera-bo is @UUID[Compendium.pf2e.conditionitems.Item.Deafened], they're @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "inMemoryOnly": true,
-                        "key": "GrantItem",
-                        "predicate": [
-                            "self:condition:deafened"
-                        ],
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ly5pMtEPvN4x765o",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "False Weapon",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A noppera-bo impersonator carries a <em>+1 striking</em> weapon that looks identical to the favored weapon of the PC being impersonated. If the PC favors unarmed strikes, it appears as hand wraps. If the PC favors a ranged weapon, then the noppera-bo impersonator has no melee weapon and instead uses the ranged weapon rules above; otherwise, the noppera-bo impersonator has no ranged weapon. If the PCs favors no weapon, then the noppera-bo wields a club as its false weapon. This false weapon is only partially real and inflicts only mental damage when it hits; it gains none of the original weapon's traits or magical enhancements. If a noppera-bo impersonator's false weapon is broken, disarmed, or set down, it fades away. The noppera-bo impersonator can craft a replacement false weapon by spending 10 minutes to recreate one.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "f4F6saygFT2CblWG",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Impersonated Abilities",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The noppera-bo impersonator gains one of the following abilities of your choice.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Impersonated Ability]</p>\n<ul>\n<li><strong>Commander</strong> The noppera-bo impersonator gains a minion that they can command. This creature takes the form of the impersonated PC's animal companion, eidolon, or other fighting companion creature; choose a 4th-level creature that approximates the impersonated companion creature's abilities. This creature gains the minion trait.</li>\n<li>@UUID[Compendium.pf2e.adventure-specific-actions.Item.Elemental Attack]</li>\n<li><strong>Sneak Attack</strong> The noppera-bo impersonator deals an additional 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</li>\n<li><strong>Weapon Perk</strong> The noppera-bo impersonator chooses one of the following weapon traits to add to their false weapon: agile, backstabber, disarm, finesse, sweep, or trip.</li>\n</ul>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "noppera-bo-impersonator:skilled"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Noppera-Bo Impersonator (Skilled)",

@@ -3,13 +3,355 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "nwnUrVIQCLXEaoyv",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Catch and Release",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The rage rider has a hand free</p>\n<p><strong>Trigger</strong> An enemy critically misses the rage rider with a thrown weapon attack</p><hr /><p><strong>Effect</strong> The rage rider catches the thrown weapon and makes a ranged Strike with it.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AvprHCX3FKN6fnHy",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Exquisite Kokogiak Harness",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A rage rider is equipped with an exquisitely crafted harness when riding a kokogiak. Two rage riders can ride a willing kokogiak at once using such a harness, and both of their hands remain free while doing so. When a rage rider is attached to a kokogiak, they can't use any action that uses their speed (such as Step or Stride), and all DCs to forcibly move the rage rider or to knock them from their mount are increased by 5. If a kokogiak being ridden by a rage rider using such a harness is killed or falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], the rage rider takes @Damage[3d6[bludgeoning]] damage from the fall (@Check[reflex|dc:30|basic] save). A rage rider can release their harness with an Interact action.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "self:deity:slug:gorum"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Sldf7RJKpibhYMI3",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Ruinous Rage",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The rage rider enters a state of pure rage that lasts either for 1 minute, until there are no enemies they can perceive, or until they fall @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], whichever comes first. While raging, the rage rider has AC 27 and their spear Strikes deal 2d6+15 damage plus 2d6 persistent bleed damage. While raging, the rage rider can't use actions that have the concentrate trait, except for @UUID[Compendium.pf2e.actionspf2e.Item.Seek]. After they've stopped raging, a rage rider can't use Rage again for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "self:effect:rage"
+                        ],
+                        "selector": "ac",
+                        "value": -2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "self:effect:rage"
+                        ],
+                        "selector": "spear-damage",
+                        "value": 4
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.rageTempHP",
+                        "value": 0
+                    },
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "self:effect:rage"
+                        ],
+                        "selector": "spear-damage"
+                    }
+                ],
+                "selfEffect": {
+                    "name": "Effect: Rage",
+                    "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Rage"
+                },
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "u3Dg7xJLeUgTHbpk",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ewQZ0VeL38v3qFnN"
+            },
+            "img": "icons/equipment/chest/breastplate-layered-leather-studded-brown.webp",
+            "name": "Studded Leather Armor",
+            "sort": 400000,
+            "system": {
+                "acBonus": 2,
+                "baseItem": "studded-leather-armor",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>This leather armor is reinforced with metal studs and sometimes small metal plates, providing most of the flexibility of leather armor with more robust protection.</p>"
+                },
+                "dexCap": 3,
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [
+                        "coldResistant"
+                    ],
+                    "resilient": null
+                },
+                "size": "med",
+                "slug": "studded-leather-armor",
+                "speedPenalty": 0,
+                "strength": 1,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "00UpgWeZpznH6g16",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FphoSIj3t6iQj3ew"
+            },
+            "img": "icons/environment/creatures/horse-tan.webp",
+            "name": "Exquisite Kokogiak Harness",
+            "sort": 500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 8
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Lost Omens Travel Guide"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "harness",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "worn"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "xonELCCd5sGTpde3",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "syIQ8c9gQkxl1hOC"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spear",
+            "sort": 600000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 22
+                },
+                "damageRolls": {
+                    "XoyjBHwsh8U2iMWY": {
+                        "damage": "2d6+11",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "spear",
+                "traits": {
+                    "value": [
+                        "magical"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "q5D8Zu3qu39Oh81p",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "syIQ8c9gQkxl1hOC"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spear",
+            "sort": 700000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "aq9UjnvL0wjdrEb2": {
+                        "damage": "2d6+11",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "spear",
+                "traits": {
+                    "value": [
+                        "magical",
+                        "thrown-20"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
             "_id": "syIQ8c9gQkxl1hOC",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.tOhoGvmCMw4JpWcS"
             },
             "img": "icons/weapons/polearms/spear-flared-steel.webp",
             "name": "Spear",
-            "sort": 100000,
+            "sort": 800000,
             "system": {
                 "baseItem": "spear",
                 "bonus": {
@@ -90,348 +432,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "u3Dg7xJLeUgTHbpk",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ewQZ0VeL38v3qFnN"
-            },
-            "img": "icons/equipment/chest/breastplate-layered-leather-studded-brown.webp",
-            "name": "Studded Leather Armor",
-            "sort": 200000,
-            "system": {
-                "acBonus": 2,
-                "baseItem": "studded-leather-armor",
-                "bulk": {
-                    "value": 1
-                },
-                "category": "light",
-                "checkPenalty": -1,
-                "containerId": null,
-                "description": {
-                    "value": "<p>This leather armor is reinforced with metal studs and sometimes small metal plates, providing most of the flexibility of leather armor with more robust protection.</p>"
-                },
-                "dexCap": 3,
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "group": "leather",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 3
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [
-                        "coldResistant"
-                    ],
-                    "resilient": null
-                },
-                "size": "med",
-                "slug": "studded-leather-armor",
-                "speedPenalty": 0,
-                "strength": 1,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "00UpgWeZpznH6g16",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FphoSIj3t6iQj3ew"
-            },
-            "img": "icons/environment/creatures/horse-tan.webp",
-            "name": "Exquisite Kokogiak Harness",
-            "sort": 300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 8
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Lost Omens Travel Guide"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "harness",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "worn"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "xonELCCd5sGTpde3",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "syIQ8c9gQkxl1hOC"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Spear",
-            "sort": 400000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 22
-                },
-                "damageRolls": {
-                    "XoyjBHwsh8U2iMWY": {
-                        "damage": "2d6+11",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "spear",
-                "traits": {
-                    "value": [
-                        "magical"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "q5D8Zu3qu39Oh81p",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "syIQ8c9gQkxl1hOC"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Spear",
-            "sort": 500000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "aq9UjnvL0wjdrEb2": {
-                        "damage": "2d6+11",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "spear",
-                "traits": {
-                    "value": [
-                        "magical",
-                        "thrown-20"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "nwnUrVIQCLXEaoyv",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Catch and Release",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The rage rider has a hand free</p>\n<p><strong>Trigger</strong> An enemy critically misses the rage rider with a thrown weapon attack</p><hr /><p><strong>Effect</strong> The rage rider catches the thrown weapon and makes a ranged Strike with it.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "AvprHCX3FKN6fnHy",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Exquisite Kokogiak Harness",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A rage rider is equipped with an exquisitely crafted harness when riding a kokogiak. Two rage riders can ride a willing kokogiak at once using such a harness, and both of their hands remain free while doing so. When a rage rider is attached to a kokogiak, they can't use any action that uses their speed (such as Step or Stride), and all DCs to forcibly move the rage rider or to knock them from their mount are increased by 5. If a kokogiak being ridden by a rage rider using such a harness is killed or falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], the rage rider takes @Damage[3d6[bludgeoning]] damage from the fall (@Check[reflex|dc:30|basic] save). A rage rider can release their harness with an Interact action.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "self:deity:slug:gorum"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Sldf7RJKpibhYMI3",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Ruinous Rage",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The rage rider enters a state of pure rage that lasts either for 1 minute, until there are no enemies they can perceive, or until they fall @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], whichever comes first. While raging, the rage rider has AC 27 and their spear Strikes deal 2d6+15 damage plus 2d6 persistent bleed damage. While raging, the rage rider can't use actions that have the concentrate trait, except for @UUID[Compendium.pf2e.actionspf2e.Item.Seek]. After they've stopped raging, a rage rider can't use Rage again for 1 minute.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "self:effect:rage"
-                        ],
-                        "selector": "ac",
-                        "value": -2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "self:effect:rage"
-                        ],
-                        "selector": "spear-damage",
-                        "value": 4
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "flags.pf2e.rageTempHP",
-                        "value": 0
-                    },
-                    {
-                        "damageType": "bleed",
-                        "diceNumber": 2,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "self:effect:rage"
-                        ],
-                        "selector": "spear-damage"
-                    }
-                ],
-                "selfEffect": {
-                    "name": "Effect: Rage",
-                    "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Rage"
-                },
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "emotion",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Rage Rider",

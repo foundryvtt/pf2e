@@ -4,134 +4,184 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "2aKMkFmn4gFQSHPE",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Spontaneous Spells",
+            "_id": "8qbbiiWYLOBisWao",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.sebk9XseMCRkDqRg"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Lifesense 60 feet",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Bestiary"
                 },
                 "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot2": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot3": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot4": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot5": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot6": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot7": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot8": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot9": {
-                        "max": 3,
-                        "value": 3
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 46,
-                    "value": 38
-                },
-                "tradition": {
-                    "value": "divine"
+                "slug": "lifesense",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "Skieic55PgyEpTKa",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
+            "_id": "Iph95fu5IhW4Kq8b",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
             "sort": 200000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Bestiary"
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 46,
-                    "value": 38
-                },
-                "tradition": {
-                    "value": "divine"
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "R7m6UAfHaArx89Vz",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Focus Spells",
+            "_id": "uKVihdZh10f60zxY",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Shard Shield",
             "sort": 300000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
+                    "value": "<p><strong>Trigger</strong> A creature targets Matron Uldrula with an attack</p>\n<p><strong>Requirements</strong> Matron Uldrula has been reduced to 150 Hit Points or fewer</p>\n<hr />\n<p><strong>Effect</strong> The fragments of Matron Uldrula, sheared off from her form during this encounter, fly through the air, interposing themselves between Matron Uldrula and harm. Matron Uldrula gains a +2 circumstance bonus to AC against the triggering attack.</p>"
                 },
-                "prepared": {
-                    "value": "focus"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "shard-shield",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "shard-shield",
+                            {
+                                "lte": [
+                                    "hp-remaining",
+                                    150
+                                ]
+                            }
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BvSY2UcdIiDeZpPO",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Soul Shards",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When Matron Uldrula is wounded, tiny fragments of her break away, littering the floor with glass-like shards. In their place, glimmering gold cracks crisscross Matron Uldrula's form, each hard as steel. When Matron Uldrula is reduced to 150 Hit Points or fewer, she gains resistance 10 to all physical damage, as her body becomes more gold than flesh.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "hp-remaining",
+                                    150
+                                ]
+                            }
+                        ],
+                        "type": "physical",
+                        "value": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MVJzWbiRIqCaCA3v",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Infuse Staff",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Matron Uldrula's staff is her symbol of office and gains a measure of her personal power. This staff becomes a <em>+2 greater striking staff</em> and is treated as if it were adamantine while Matron Uldrula wields it. Matron Uldrula's staff has Hardness 17 and HP 68 (BT 34) while possessed by her, or Hardness 5 and HP 20 (BT 10) while out of her possession. If her staff is taken or destroyed, Matron Uldrula can infuse a new one with an hour of work.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -139,17 +189,292 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 46,
-                    "value": 38
-                },
-                "tradition": {
-                    "value": "divine"
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "3ZCQLxhf1lgCinva",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Soul Lock",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Matron Uldrula doesn't have a soul locked within her staff</p>\n<hr />\n<p><strong>Effect</strong> Matron Uldrula attempts to capture the soul of a creature on the brink of death, either an undead creature or a creature with the dying condition. The target must attempt a @Check[will|dc:46] save with the following results.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and becomes temporarily immune to Soul Lock.</p>\n<p><strong>Success</strong> Matron Uldrula's staff tugs at the creature's soul but doesn't trap it. If the creature is living, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} (or increases its doomed condition by 1). If the creature is a corporeal undead, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}. If the creature is an incorporeal undead, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2}. The creature then becomes temporarily immune to soul lock for 24 hours.</p>\n<p><strong>Failure</strong> Matron Uldrula locks the creature's soul in her staff. If the creature is living, it dies. If the creature is a corporeal undead, its body becomes an inanimate corpse. If the creature is an incorporeal undead, it becomes bodily trapped within the staff. While the soul is locked in the staff, the target can't be returned to life or undeath, or rejuvenated through any means, save powerful magic, such as miracle or wish, or through divine intervention. If Matron Uldrula's staff is destroyed or she wills it, the soul is released. Matron Uldrula's staff can only hold one soul at a time.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "incapacitation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "May8pisi3prNRNuU",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Spirit Touch",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Matron Uldrula's Strikes affect incorporeal creatures with the effects of a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch]</em> property rune and deal @Damage[4d6[void]] damage to living creatures and @Damage[4d6[vitality]] damage to undead.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "ghost-touch"
+                    },
+                    {
+                        "damageType": "vitality",
+                        "diceNumber": 4,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:mode:undead"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "damageType": "void",
+                        "diceNumber": 4,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:mode:living"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": "spirit-touch",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pNaTK2YQXqLsBvpF",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI"
+            },
+            "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
+            "name": "Religious Symbols",
+            "sort": 800000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "has-religious-symbol",
+                        "requiresEquipped": false
+                    }
+                ],
+                "size": "med",
+                "slug": "religious-symbol-wooden",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "fG1uAi0MuizEIvYo",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Boneyard Lore",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 37
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "IiHNRCF5KzZHArm7",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Legal Lore",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 33
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "ruZ6oWwcZdNEcT6Z",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "4bxWxFS12G3iBuRT"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Staff",
+            "sort": 1100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "spirit-touch"
+                    ]
+                },
+                "bonus": {
+                    "value": 34
+                },
+                "damageRolls": {
+                    "5mZEEgPUkeYidJU2": {
+                        "damage": "3d4+12",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "option": "two-handed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "{item|_id}-damage"
+                        ],
+                        "slug": "base",
+                        "value": 8
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "two-hand-d8"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "U54Z3xA6R4QeAwGM",
@@ -158,7 +483,7 @@
             },
             "img": "systems/pf2e/icons/spells/unfathomable-song.webp",
             "name": "Unfathomable Song",
-            "sort": 400000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -228,7 +553,7 @@
             },
             "img": "systems/pf2e/icons/spells/weird.webp",
             "name": "Weird",
-            "sort": 500000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -309,7 +634,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-explosion-purple.webp",
             "name": "Plane Shift (Self And Locked Soul Only, To The Boneyard Only)",
-            "sort": 600000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -373,7 +698,7 @@
             },
             "img": "icons/magic/earth/explosion-lava-stone-red.webp",
             "name": "Phantasmal Calamity",
-            "sort": 700000,
+            "sort": 1500000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -462,7 +787,7 @@
             },
             "img": "systems/pf2e/icons/spells/spiritual-blast.webp",
             "name": "Spirit Blast",
-            "sort": 800000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -547,7 +872,7 @@
             },
             "img": "systems/pf2e/icons/spells/spiritual-blast.webp",
             "name": "Spirit Blast",
-            "sort": 900000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -632,7 +957,7 @@
             },
             "img": "systems/pf2e/icons/spells/wall-of-force.webp",
             "name": "Wall of Force",
-            "sort": 1000000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -694,7 +1019,7 @@
             },
             "img": "systems/pf2e/icons/spells/banishment.webp",
             "name": "Banishment",
-            "sort": 1100000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -773,7 +1098,7 @@
             },
             "img": "icons/magic/death/undead-ghost-scream-teal.webp",
             "name": "Call Spirit (Doesn't Require Secondary Casters)",
-            "sort": 1200000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -836,7 +1161,7 @@
             },
             "img": "systems/pf2e/icons/spells/mind-probe.webp",
             "name": "Mind Probe",
-            "sort": 1300000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -904,7 +1229,7 @@
             },
             "img": "systems/pf2e/icons/spells/spiritual-guardian.webp",
             "name": "Spiritual Guardian",
-            "sort": 1400000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -984,7 +1309,7 @@
             },
             "img": "systems/pf2e/icons/spells/synesthesia.webp",
             "name": "Synesthesia",
-            "sort": 1500000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1060,7 +1385,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Tongues (Constant)",
-            "sort": 1600000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1122,7 +1447,7 @@
             },
             "img": "systems/pf2e/icons/spells/anathematic-reprisal.webp",
             "name": "Anathematic Reprisal",
-            "sort": 1700000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1205,7 +1530,7 @@
             },
             "img": "systems/pf2e/icons/spells/confusion.webp",
             "name": "Confusion",
-            "sort": 1800000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1283,7 +1608,7 @@
             },
             "img": "systems/pf2e/icons/spells/discern-lies.webp",
             "name": "Discern Lies",
-            "sort": 1900000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1347,7 +1672,7 @@
             },
             "img": "systems/pf2e/icons/spells/globe-of-invulnerability.webp",
             "name": "Globe of Invulnerability",
-            "sort": 2000000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1409,7 +1734,7 @@
             },
             "img": "icons/magic/unholy/strike-body-explode-disintegrate.webp",
             "name": "Overflowing Sorrow",
-            "sort": 2100000,
+            "sort": 2900000,
             "system": {
                 "area": {
                     "details": "15-foot emanation, centered on you",
@@ -1480,7 +1805,7 @@
             },
             "img": "systems/pf2e/icons/spells/phantasmal-killer.webp",
             "name": "Phantasmal Killer",
-            "sort": 2200000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1568,7 +1893,7 @@
             },
             "img": "icons/sundries/gaming/playing-cards-black.webp",
             "name": "Read Omens",
-            "sort": 2300000,
+            "sort": 3100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1630,7 +1955,7 @@
             },
             "img": "systems/pf2e/icons/spells/talking-corpse.webp",
             "name": "Talking Corpse",
-            "sort": 2400000,
+            "sort": 3200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1696,7 +2021,7 @@
             },
             "img": "systems/pf2e/icons/spells/bind-undead.webp",
             "name": "Bind Undead",
-            "sort": 2500000,
+            "sort": 3300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1758,7 +2083,7 @@
             },
             "img": "systems/pf2e/icons/spells/mind-reading.webp",
             "name": "Mind Reading",
-            "sort": 2600000,
+            "sort": 3400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1826,7 +2151,7 @@
             },
             "img": "systems/pf2e/icons/spells/searing-light.webp",
             "name": "Searing Light",
-            "sort": 2700000,
+            "sort": 3500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1929,7 +2254,7 @@
             },
             "img": "icons/magic/time/hourglass-tilted-gray.webp",
             "name": "Slow",
-            "sort": 2800000,
+            "sort": 3600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2006,7 +2331,7 @@
             },
             "img": "icons/magic/symbols/star-inverted-yellow.webp",
             "name": "Zone of Truth",
-            "sort": 2900000,
+            "sort": 3700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -2076,7 +2401,7 @@
             },
             "img": "icons/creatures/abilities/wolf-heads-swirl-purple.webp",
             "name": "Calm Emotions",
-            "sort": 3000000,
+            "sort": 3800000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -2148,7 +2473,7 @@
             },
             "img": "systems/pf2e/icons/spells/death-knell.webp",
             "name": "Death Knell",
-            "sort": 3100000,
+            "sort": 3900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2215,7 +2540,7 @@
             },
             "img": "systems/pf2e/icons/spells/false-life.webp",
             "name": "False Life",
-            "sort": 3200000,
+            "sort": 4000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2276,7 +2601,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility (At Will, Self Only)",
-            "sort": 3300000,
+            "sort": 4100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2337,7 +2662,7 @@
             },
             "img": "systems/pf2e/icons/spells/mirror-image.webp",
             "name": "Mirror Image",
-            "sort": 3400000,
+            "sort": 4200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2400,7 +2725,7 @@
             },
             "img": "systems/pf2e/icons/spells/reapers-lantern.webp",
             "name": "Reaper's Lantern",
-            "sort": 3500000,
+            "sort": 4300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2469,7 +2794,7 @@
             },
             "img": "systems/pf2e/icons/spells/see-invisibility.webp",
             "name": "See Invisibility",
-            "sort": 3600000,
+            "sort": 4400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2532,7 +2857,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 3700000,
+            "sort": 4500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2612,7 +2937,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Chill Touch",
-            "sort": 3800000,
+            "sort": 4600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2698,7 +3023,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 3900000,
+            "sort": 4700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2785,7 +3110,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-alignment.webp",
             "name": "Detect Alignment (Constant)",
-            "sort": 4000000,
+            "sort": 4800000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -2850,7 +3175,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 4100000,
+            "sort": 4900000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -2917,7 +3242,7 @@
             },
             "img": "icons/magic/death/undead-skeleton-fire-green.webp",
             "name": "Disrupt Undead",
-            "sort": 4200000,
+            "sort": 5000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3002,7 +3327,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Ghost Sound",
-            "sort": 4300000,
+            "sort": 5100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3080,7 +3405,7 @@
             },
             "img": "systems/pf2e/icons/spells/guidance.webp",
             "name": "Guidance",
-            "sort": 4400000,
+            "sort": 5200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3141,7 +3466,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 4500000,
+            "sort": 5300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3342,7 +3667,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise",
-            "sort": 4600000,
+            "sort": 5400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3405,7 +3730,7 @@
             },
             "img": "icons/magic/fire/elemental-fire-humanoid.webp",
             "name": "Lament",
-            "sort": 4700000,
+            "sort": 5500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3489,7 +3814,7 @@
             },
             "img": "icons/magic/unholy/strike-beam-blood-small-red-purple.webp",
             "name": "Phantom Pain",
-            "sort": 4800000,
+            "sort": 5600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3575,7 +3900,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 4900000,
+            "sort": 5700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3638,7 +3963,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 5000000,
+            "sort": 5800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3717,7 +4042,7 @@
             },
             "img": "systems/pf2e/icons/spells/sigil.webp",
             "name": "Sigil",
-            "sort": 5100000,
+            "sort": 5900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3780,7 +4105,7 @@
             },
             "img": "icons/magic/control/debuff-energy-hold-yellow.webp",
             "name": "Stabilize",
-            "sort": 5200000,
+            "sort": 6000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3843,7 +4168,7 @@
             },
             "img": "icons/skills/melee/strike-blade-scimitar-gray-red.webp",
             "name": "True Strike",
-            "sort": 5300000,
+            "sort": 6100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3898,13 +4223,161 @@
             "type": "spell"
         },
         {
+            "_id": "2aKMkFmn4gFQSHPE",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Spontaneous Spells",
+            "sort": 6200000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot2": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot3": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot4": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot5": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot6": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot7": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot8": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot9": {
+                        "max": 3,
+                        "value": 3
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 46,
+                    "value": 38
+                },
+                "tradition": {
+                    "value": "divine"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "Skieic55PgyEpTKa",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
+            "sort": 6300000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 46,
+                    "value": 38
+                },
+                "tradition": {
+                    "value": "divine"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "R7m6UAfHaArx89Vz",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Focus Spells",
+            "sort": 6400000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 46,
+                    "value": 38
+                },
+                "tradition": {
+                    "value": "divine"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "4bxWxFS12G3iBuRT",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FVjTuBCIefAgloUU"
             },
             "img": "icons/weapons/staves/staff-simple.webp",
             "name": "Staff",
-            "sort": 5400000,
+            "sort": 6500000,
             "system": {
                 "baseItem": "staff",
                 "bonus": {
@@ -3979,479 +4452,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "pNaTK2YQXqLsBvpF",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI"
-            },
-            "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
-            "name": "Religious Symbols",
-            "sort": 5500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "has-religious-symbol",
-                        "requiresEquipped": false
-                    }
-                ],
-                "size": "med",
-                "slug": "religious-symbol-wooden",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "ruZ6oWwcZdNEcT6Z",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "4bxWxFS12G3iBuRT"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Staff",
-            "sort": 5600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "spirit-touch"
-                    ]
-                },
-                "bonus": {
-                    "value": 34
-                },
-                "damageRolls": {
-                    "5mZEEgPUkeYidJU2": {
-                        "damage": "3d4+12",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
-                        "option": "two-handed",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "DamageAlteration",
-                        "mode": "upgrade",
-                        "predicate": [
-                            "two-handed"
-                        ],
-                        "property": "dice-faces",
-                        "selectors": [
-                            "{item|_id}-damage"
-                        ],
-                        "slug": "base",
-                        "value": 8
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "two-hand-d8"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "8qbbiiWYLOBisWao",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.sebk9XseMCRkDqRg"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Lifesense 60 feet",
-            "sort": 5700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "lifesense",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Iph95fu5IhW4Kq8b",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 5800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "uKVihdZh10f60zxY",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Shard Shield",
-            "sort": 5900000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature targets Matron Uldrula with an attack</p>\n<p><strong>Requirements</strong> Matron Uldrula has been reduced to 150 Hit Points or fewer</p>\n<hr />\n<p><strong>Effect</strong> The fragments of Matron Uldrula, sheared off from her form during this encounter, fly through the air, interposing themselves between Matron Uldrula and harm. Matron Uldrula gains a +2 circumstance bonus to AC against the triggering attack.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "ac",
-                        "key": "RollOption",
-                        "option": "shard-shield",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "shard-shield",
-                            {
-                                "lte": [
-                                    "hp-remaining",
-                                    150
-                                ]
-                            }
-                        ],
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "BvSY2UcdIiDeZpPO",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Soul Shards",
-            "sort": 6000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>When Matron Uldrula is wounded, tiny fragments of her break away, littering the floor with glass-like shards. In their place, glimmering gold cracks crisscross Matron Uldrula's form, each hard as steel. When Matron Uldrula is reduced to 150 Hit Points or fewer, she gains resistance 10 to all physical damage, as her body becomes more gold than flesh.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Resistance",
-                        "predicate": [
-                            {
-                                "lte": [
-                                    "hp-remaining",
-                                    150
-                                ]
-                            }
-                        ],
-                        "type": "physical",
-                        "value": 10
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "MVJzWbiRIqCaCA3v",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Infuse Staff",
-            "sort": 6100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Matron Uldrula's staff is her symbol of office and gains a measure of her personal power. This staff becomes a <em>+2 greater striking staff</em> and is treated as if it were adamantine while Matron Uldrula wields it. Matron Uldrula's staff has Hardness 17 and HP 68 (BT 34) while possessed by her, or Hardness 5 and HP 20 (BT 10) while out of her possession. If her staff is taken or destroyed, Matron Uldrula can infuse a new one with an hour of work.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "3ZCQLxhf1lgCinva",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Soul Lock",
-            "sort": 6200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Matron Uldrula doesn't have a soul locked within her staff</p>\n<hr />\n<p><strong>Effect</strong> Matron Uldrula attempts to capture the soul of a creature on the brink of death, either an undead creature or a creature with the dying condition. The target must attempt a @Check[will|dc:46] save with the following results.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and becomes temporarily immune to Soul Lock.</p>\n<p><strong>Success</strong> Matron Uldrula's staff tugs at the creature's soul but doesn't trap it. If the creature is living, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} (or increases its doomed condition by 1). If the creature is a corporeal undead, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}. If the creature is an incorporeal undead, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2}. The creature then becomes temporarily immune to soul lock for 24 hours.</p>\n<p><strong>Failure</strong> Matron Uldrula locks the creature's soul in her staff. If the creature is living, it dies. If the creature is a corporeal undead, its body becomes an inanimate corpse. If the creature is an incorporeal undead, it becomes bodily trapped within the staff. While the soul is locked in the staff, the target can't be returned to life or undeath, or rejuvenated through any means, save powerful magic, such as miracle or wish, or through divine intervention. If Matron Uldrula's staff is destroyed or she wills it, the soul is released. Matron Uldrula's staff can only hold one soul at a time.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine",
-                        "incapacitation"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "May8pisi3prNRNuU",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Spirit Touch",
-            "sort": 6300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Matron Uldrula's Strikes affect incorporeal creatures with the effects of a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch]</em> property rune and deal @Damage[4d6[void]] damage to living creatures and @Damage[4d6[vitality]] damage to undead.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "property-runes",
-                        "value": "ghost-touch"
-                    },
-                    {
-                        "damageType": "vitality",
-                        "diceNumber": 4,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:mode:undead"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "damageType": "void",
-                        "diceNumber": 4,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:mode:living"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": "spirit-touch",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fG1uAi0MuizEIvYo",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Boneyard Lore",
-            "sort": 6400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 37
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "IiHNRCF5KzZHArm7",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Legal Lore",
-            "sort": 6500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 33
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Matron Uldrula",

@@ -3,10 +3,171 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "WgRAV30SN2oS2cQo",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Steam Vision",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The boiling spring ignores the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition from mist and steam.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hMaMMYBxRYNPlMa9",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Evaporate",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An effect would deal fire damage to the boiling spring, even if they would ignore the damage</p>\n<hr />\n<p><strong>Effect</strong> The boiling spring evaporates into the air. Until the beginning of the boiling spring's next turn, they can't be attacked or targeted. They still occupy their space, and their auras still function as normal.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zSTlM9Fk66DQ0PuQ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sweltering Heat",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>25 feet. The boiling spring radiates heat, raising the air temperature around them. A creature that starts its turn in the emanation must succeed at a @Check[fortitude|dc:33] save or become @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] while it remains in the area; creatures immune to environmental heat effects or with any fire resistance are immune.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 25,
+                        "slug": "sweltering-heat",
+                        "traits": [
+                            "fire"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "fire"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GiNgPElBEzkxHc5Z",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Freeze and Shatter",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>If the boiling spring is destroyed with cold damage, their body freezes over and explodes, sending out a wave of frigid air and ice shards that deal @Damage[4d6[piercing],4d6[cold]]{4d6 piercing damage plus 4d6 cold damage} to creatures in a @Template[emanation|distance:20] (@Check[reflex|dc:36|basic] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xYrzF20l1k4U6sAz",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Scalding Breath",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The boiling spring breathes out a cloud of steam in a @Template[cone|distance:30] that deals @Damage[14d6[fire]] damage to each creature in the area (@Check[reflex|dc:33|basic] save). The boiling spring can't use Scalding Breath again for [[/gmr 1d4 #Recharge Scalding Breath]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fire",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "UUimkffh4zxy5wdh",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Blistering Fist",
-            "sort": 100000,
+            "sort": 600000,
             "system": {
                 "attack": {
                     "value": ""
@@ -48,7 +209,7 @@
             "_id": "vggyhRWtCf7td2D1",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Heat Wave",
-            "sort": 200000,
+            "sort": 700000,
             "system": {
                 "attack": {
                     "value": ""
@@ -86,167 +247,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "WgRAV30SN2oS2cQo",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Steam Vision",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The boiling spring ignores the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition from mist and steam.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "hMaMMYBxRYNPlMa9",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Evaporate",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An effect would deal fire damage to the boiling spring, even if they would ignore the damage</p>\n<hr />\n<p><strong>Effect</strong> The boiling spring evaporates into the air. Until the beginning of the boiling spring's next turn, they can't be attacked or targeted. They still occupy their space, and their auras still function as normal.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "zSTlM9Fk66DQ0PuQ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Sweltering Heat",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>25 feet. The boiling spring radiates heat, raising the air temperature around them. A creature that starts its turn in the emanation must succeed at a @Check[fortitude|dc:33] save or become @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] while it remains in the area; creatures immune to environmental heat effects or with any fire resistance are immune.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 25,
-                        "slug": "sweltering-heat",
-                        "traits": [
-                            "fire"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "fire"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "GiNgPElBEzkxHc5Z",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Freeze and Shatter",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>If the boiling spring is destroyed with cold damage, their body freezes over and explodes, sending out a wave of frigid air and ice shards that deal @Damage[4d6[piercing],4d6[cold]]{4d6 piercing damage plus 4d6 cold damage} to creatures in a @Template[emanation|distance:20] (@Check[reflex|dc:36|basic] save).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xYrzF20l1k4U6sAz",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Scalding Breath",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The boiling spring breathes out a cloud of steam in a @Template[cone|distance:30] that deals @Damage[14d6[fire]] damage to each creature in the area (@Check[reflex|dc:33|basic] save). The boiling spring can't use Scalding Breath again for [[/gmr 1d4 #Recharge Scalding Breath]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "fire",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Boiling Spring",

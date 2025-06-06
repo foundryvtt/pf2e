@@ -4,10 +4,236 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "lYvWF5v5Vah9KWsN",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Golem Antimagic",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Harmed by acid (@Damage[(6d10+4)[untyped]], @Damage[(2d8+4)[untyped]] from areas and persistent damage); healed by fire (area @Damage[(2d8+4)[healing]] HP); slowed by electricity</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.GolemAntimagic]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aMNM0X0dVvVRdlZT",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Vulnerable to Neutralize Poison",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Casting @UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction] on the golem deactivates its Breath Weapon for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SJraLZmz7x1C04ki",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Vulnerable to Rust",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Magical rusting effects, like a rust monster's antennae, affect the iron golem normally.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HkUjt1e6CiwdfHoy",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Breath Weapon",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The iron golem exhales poisonous gas in a @Template[burst|distance:10]{10-foot radius} centered on the corner of one of the iron golem's squares.</p>\n<p>The gas persists for 1 round. Any creature in the area (or that later enters the area) is exposed to the iron golem's poison.</p>\n<p>The golem can't use its Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "yhVKDXeyQEVchPJW",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Dismember",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Whenever Mr. Snips rolls a critical hit with a scissors Strike, in addition to dealing extra damage, the golem has a chance to dismember its victim. The target must roll a @Check[reflex|dc:39|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Success</strong> No additional effect.</p>\n<p><strong>Failure</strong> The target takes @Damage[2d10[bleed]].</p>\n<p><strong>Critical Failure</strong> As failure, and one of the targets extremities is severed (the effects of this are up to the GM's discretion).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "scissors-attack",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "nhz5F428cTKGkc9v",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Inexorable March",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The iron golem Strides up to its Speed, pushing back each creature whose space it moves into and damaging them if they try to stop its movement. A creature can attempt to bar the way by succeeding at a @Check[fortitude|dc:39] save. On a critical success, the resisting creature takes no damage; otherwise, it is damaged as if hit by the golem's fist.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "RSzJjCjwpz8jIS3J",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Iron Golem Poison",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Any @UUID[Compendium.pf2e.conditionitems.Item.Drained] value from this poison is reduced by 1 every hour.</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:35]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> @Damage[2d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[4d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[8d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 3} (1 round)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "0vSVpFhBgh2bSdVc",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 100000,
+            "sort": 800000,
             "system": {
                 "attack": {
                     "value": ""
@@ -52,7 +278,7 @@
             "_id": "pjqAB7UZDOSJ8Dvg",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Scissors",
-            "sort": 200000,
+            "sort": 900000,
             "system": {
                 "attack": {
                     "value": ""
@@ -92,232 +318,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "lYvWF5v5Vah9KWsN",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Golem Antimagic",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Harmed by acid (@Damage[(6d10+4)[untyped]], @Damage[(2d8+4)[untyped]] from areas and persistent damage); healed by fire (area @Damage[(2d8+4)[healing]] HP); slowed by electricity</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.GolemAntimagic]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "aMNM0X0dVvVRdlZT",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Vulnerable to Neutralize Poison",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Casting @UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction] on the golem deactivates its Breath Weapon for 1 minute.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "SJraLZmz7x1C04ki",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Vulnerable to Rust",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Magical rusting effects, like a rust monster's antennae, affect the iron golem normally.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "HkUjt1e6CiwdfHoy",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Breath Weapon",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The iron golem exhales poisonous gas in a @Template[burst|distance:10]{10-foot radius} centered on the corner of one of the iron golem's squares.</p>\n<p>The gas persists for 1 round. Any creature in the area (or that later enters the area) is exposed to the iron golem's poison.</p>\n<p>The golem can't use its Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "yhVKDXeyQEVchPJW",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Dismember",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Whenever Mr. Snips rolls a critical hit with a scissors Strike, in addition to dealing extra damage, the golem has a chance to dismember its victim. The target must roll a @Check[reflex|dc:39|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Success</strong> No additional effect.</p>\n<p><strong>Failure</strong> The target takes @Damage[2d10[bleed]].</p>\n<p><strong>Critical Failure</strong> As failure, and one of the targets extremities is severed (the effects of this are up to the GM's discretion).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "scissors-attack",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}",
-                        "visibility": "owner"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "nhz5F428cTKGkc9v",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Inexorable March",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The iron golem Strides up to its Speed, pushing back each creature whose space it moves into and damaging them if they try to stop its movement. A creature can attempt to bar the way by succeeding at a @Check[fortitude|dc:39] save. On a critical success, the resisting creature takes no damage; otherwise, it is damaged as if hit by the golem's fist.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "RSzJjCjwpz8jIS3J",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Iron Golem Poison",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Any @UUID[Compendium.pf2e.conditionitems.Item.Drained] value from this poison is reduced by 1 every hour.</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:35]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> @Damage[2d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[4d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[8d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 3} (1 round)</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Mr. Snips",

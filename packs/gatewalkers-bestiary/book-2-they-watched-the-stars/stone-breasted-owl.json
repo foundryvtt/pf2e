@@ -4,22 +4,53 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "UbteBatu0F9hxxSX",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
+            "_id": "Mpnm2N6G2z2eG08m",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "exrVOhECA3LInYzF",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Warning Hoot",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The stone-breasted owl is about to roll a Perception or Survival check to determine initiative</p>\n<hr />\n<p><strong>Effect</strong> The stone-breasted owl lets out a hoot to warn allies, granting each ally a +1 circumstance bonus to their initiative roll.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Warning Hoot]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,20 +58,225 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "value": 17
-                },
-                "tradition": {
-                    "value": "primal"
+                "traits": {
+                    "value": [
+                        "auditory"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "vw3EAp4cdvbZ0QnD",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Bond with Mortal",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The spirit guide forms a bond with a mortal creature. While the bond exists, the spirit guide's current and maximum Hit Points increase by 14, the spirit guide gains a +2 status bonus to attack and damage rolls, and the spirit guide and bonded mortal can communicate telepathically as long as they're on the same plane. The spirit guide can be bonded with only one mortal at a time, and can take this action again to end the bond or to form a new bond (which also ends the old bond). The bond ends if the spirit guide or the mortal dies.</p>\n<p>This bond strengthens the spirit guide's connection to the Material Plane. While bonded, the spirit guide loses the incorporeal and spirit traits, loses their immunities and resistances, and changes their Strikes to deal the appropriate physical damage (typically piercing or slashing) instead of force damage.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "bond-with-mortal",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "bond-with-mortal"
+                        ],
+                        "selector": "hp",
+                        "value": 14
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "bond-with-mortal"
+                        ],
+                        "selector": [
+                            "damage",
+                            "attack"
+                        ],
+                        "type": "status",
+                        "value": 2
+                    },
+                    {
+                        "exceptions": [
+                            "force",
+                            "ghost-touch",
+                            "vitality"
+                        ],
+                        "key": "Resistance",
+                        "predicate": [
+                            {
+                                "not": "bond-with-mortal"
+                            }
+                        ],
+                        "type": "all-damage",
+                        "value": 5
+                    },
+                    {
+                        "key": "Immunity",
+                        "predicate": [
+                            {
+                                "not": "bond-with-mortal"
+                            }
+                        ],
+                        "type": [
+                            "disease",
+                            "paralyzed",
+                            "poison",
+                            "precision"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "mental",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "oWs5CHKFaaFDdQb5",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Bonded Strike",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The spirit guide is currently Bonded with a Mortal</p>\n<hr />\n<p><strong>Effect</strong> The spirit guide makes a talon Strike. If this attack hits, the bonded mortal can spend their reaction to Strike the same target.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZvxxxxHi8YXDeyet",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Empowered Healing",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When the stone-breasted owl casts heal, it rolls d10s instead of d8s.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "item:slug:heal"
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "spell-damage",
+                            "spell-healing"
+                        ],
+                        "slug": "base",
+                        "value": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3g8C2emJ7n0Ce4z8",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Talon",
+            "sort": 600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 13
+                },
+                "damageRolls": {
+                    "3TZr3XqE4F5Cpywv": {
+                        "damage": "2d6+3",
+                        "damageType": "force"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "1BbQQdhQdFdXQxTl",
@@ -49,7 +285,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Tongues (Constant)",
-            "sort": 200000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -111,7 +347,7 @@
             },
             "img": "icons/magic/death/skull-poison-green.webp",
             "name": "Remove Disease",
-            "sort": 300000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -173,7 +409,7 @@
             },
             "img": "systems/pf2e/icons/spells/remove-fear.webp",
             "name": "Remove Fear",
-            "sort": 400000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -248,7 +484,7 @@
             },
             "img": "systems/pf2e/icons/spells/restore-senses.webp",
             "name": "Restore Senses",
-            "sort": 500000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -324,7 +560,7 @@
             },
             "img": "icons/magic/light/explosion-glow-spiral-teal.webp",
             "name": "Detect Poison",
-            "sort": 600000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -386,7 +622,7 @@
             },
             "img": "systems/pf2e/icons/spells/guidance.webp",
             "name": "Guidance",
-            "sort": 700000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -447,7 +683,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 800000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -648,7 +884,7 @@
             },
             "img": "icons/skills/ranged/arrow-flying-ornate-gold.webp",
             "name": "Know Direction",
-            "sort": 900000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -711,7 +947,7 @@
             },
             "img": "icons/magic/nature/leaf-glow-maple-teal.webp",
             "name": "Purify Food and Drink",
-            "sort": 1000000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -772,7 +1008,7 @@
             },
             "img": "icons/magic/control/debuff-energy-hold-yellow.webp",
             "name": "Stabilize",
-            "sort": 1100000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -829,133 +1065,21 @@
             "type": "spell"
         },
         {
-            "_id": "3g8C2emJ7n0Ce4z8",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Talon",
-            "sort": 1200000,
+            "_id": "UbteBatu0F9hxxSX",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
+            "sort": 1700000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 13
-                },
-                "damageRolls": {
-                    "3TZr3XqE4F5Cpywv": {
-                        "damage": "2d6+3",
-                        "damageType": "force"
-                    }
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Mpnm2N6G2z2eG08m",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "exrVOhECA3LInYzF",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Warning Hoot",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The stone-breasted owl is about to roll a Perception or Survival check to determine initiative</p>\n<hr />\n<p><strong>Effect</strong> The stone-breasted owl lets out a hoot to warn allies, granting each ally a +1 circumstance bonus to their initiative roll.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Warning Hoot]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "auditory"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "vw3EAp4cdvbZ0QnD",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Bond with Mortal",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The spirit guide forms a bond with a mortal creature. While the bond exists, the spirit guide's current and maximum Hit Points increase by 14, the spirit guide gains a +2 status bonus to attack and damage rolls, and the spirit guide and bonded mortal can communicate telepathically as long as they're on the same plane. The spirit guide can be bonded with only one mortal at a time, and can take this action again to end the bond or to form a new bond (which also ends the old bond). The bond ends if the spirit guide or the mortal dies.</p>\n<p>This bond strengthens the spirit guide's connection to the Material Plane. While bonded, the spirit guide loses the incorporeal and spirit traits, loses their immunities and resistances, and changes their Strikes to deal the appropriate physical damage (typically piercing or slashing) instead of force damage.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
+                "proficiency": {
                     "value": 1
                 },
                 "publication": {
@@ -963,145 +1087,21 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "bond-with-mortal",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "bond-with-mortal"
-                        ],
-                        "selector": "hp",
-                        "value": 14
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "bond-with-mortal"
-                        ],
-                        "selector": [
-                            "damage",
-                            "attack"
-                        ],
-                        "type": "status",
-                        "value": 2
-                    },
-                    {
-                        "exceptions": [
-                            "force",
-                            "ghost-touch",
-                            "vitality"
-                        ],
-                        "key": "Resistance",
-                        "predicate": [
-                            {
-                                "not": "bond-with-mortal"
-                            }
-                        ],
-                        "type": "all-damage",
-                        "value": 5
-                    },
-                    {
-                        "key": "Immunity",
-                        "predicate": [
-                            {
-                                "not": "bond-with-mortal"
-                            }
-                        ],
-                        "type": [
-                            "disease",
-                            "paralyzed",
-                            "poison",
-                            "precision"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "mental",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "oWs5CHKFaaFDdQb5",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Bonded Strike",
-            "sort": 1600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The spirit guide is currently Bonded with a Mortal</p>\n<hr />\n<p><strong>Effect</strong> The spirit guide makes a talon Strike. If this attack hits, the bonded mortal can spend their reaction to Strike the same target.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": []
+                "spelldc": {
+                    "dc": 25,
+                    "value": 17
+                },
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "action"
-        },
-        {
-            "_id": "ZvxxxxHi8YXDeyet",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Empowered Healing",
-            "sort": 1700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When the stone-breasted owl casts heal, it rolls d10s instead of d8s.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "DamageAlteration",
-                        "mode": "upgrade",
-                        "predicate": [
-                            "item:slug:heal"
-                        ],
-                        "property": "dice-faces",
-                        "selectors": [
-                            "spell-damage",
-                            "spell-healing"
-                        ],
-                        "slug": "base",
-                        "value": 10
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Stone-Breasted Owl",

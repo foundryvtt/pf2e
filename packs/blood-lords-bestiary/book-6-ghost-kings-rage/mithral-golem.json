@@ -4,13 +4,219 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "ooPhbtvdtMFxysJe",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Evasion",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When the mithral golem rolls a success on a Reflex save, it gets a critical success instead.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "adjustment": {
+                            "success": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "selector": "reflex"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jgB5xsEwGDphGPM7",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.r34QDwKiWZoVymJa"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Golem Antimagic",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Harmed by cold and water (@Damage[8d10[untyped]], @Damage[2d10[untyped]] from areas or persistent damage); healed by transmutation (area @Damage[2d10[healing]] HP); slowed by electricity</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.GolemAntimagic]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "golem-golem-antimagic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5PRYxLiEoiOScKcc",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Swift Steps",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A mithral golem is permanently @UUID[Compendium.pf2e.conditionitems.Item.Quickened], and it can use the extra action only to Step or Stride.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Y2DLiZGrL1Rc9uJZ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Vulnerable to Slow",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A mithral golem is not healed by a @UUID[Compendium.pf2e.spells-srd.Item.Slow] spell, and such spells affect them normally. A @UUID[Compendium.pf2e.spells-srd.Item.Haste] spell reverses the effects of a <em>slow</em> spell immediately.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ILOl1dY50IaR6WPN",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Liquefy",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The mithral golem becomes fully liquid and amorphous. It gains immunity to precision damage, but it takes double damage from cold and water magic (see golem antimagic). The only actions it can use while Liquefied are move actions, Spike Storm, and spike Strikes. It can resume its normal form by taking this action again.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "liquefy",
+                        "priority": 50,
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Immunity",
+                        "predicate": [
+                            "liquefy"
+                        ],
+                        "type": "precision"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rjVHVaa9BN3ZAiKL",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Spike Storm",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The mithral golem makes a spike Strike against each target within its reach. These attacks count toward the mithral golem's multiple attack penalty, but its multiple attack penalty doesn't increase until after all the attacks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "gm13winmstas1ock",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.conditionitems.Item.nlCjDvLMf2EkV2dl"
             },
             "img": "systems/pf2e/icons/conditions/quickened.webp",
             "name": "Quickened",
-            "sort": 100000,
+            "sort": 700000,
             "system": {
                 "description": {
                     "value": "<p>You gain 1 additional action at the start of your turn each round. Many effects that make you quickened specify the types of actions you can use with this additional action. If you become quickened from multiple sources, you can use the extra action you've been granted for any single action allowed by any of the effects that made you quickened. Because quickened has its effect at the start of your turn, you don't immediately gain actions if you become quickened during your turn.</p>"
@@ -44,7 +250,7 @@
             "_id": "USVxY3qpSEozrQU8",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 200000,
+            "sort": 800000,
             "system": {
                 "attack": {
                     "value": ""
@@ -90,7 +296,7 @@
             "_id": "bkajUVm6XDKbIO89",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Spike",
-            "sort": 300000,
+            "sort": 900000,
             "system": {
                 "attack": {
                     "value": ""
@@ -131,212 +337,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "ooPhbtvdtMFxysJe",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Evasion",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>When the mithral golem rolls a success on a Reflex save, it gets a critical success instead.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "adjustment": {
-                            "success": "one-degree-better"
-                        },
-                        "key": "AdjustDegreeOfSuccess",
-                        "selector": "reflex"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "jgB5xsEwGDphGPM7",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.r34QDwKiWZoVymJa"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Golem Antimagic",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Harmed by cold and water (@Damage[8d10[untyped]], @Damage[2d10[untyped]] from areas or persistent damage); healed by transmutation (area @Damage[2d10[healing]] HP); slowed by electricity</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.GolemAntimagic]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "golem-golem-antimagic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "5PRYxLiEoiOScKcc",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Swift Steps",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A mithral golem is permanently @UUID[Compendium.pf2e.conditionitems.Item.Quickened], and it can use the extra action only to Step or Stride.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Y2DLiZGrL1Rc9uJZ",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Vulnerable to Slow",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A mithral golem is not healed by a @UUID[Compendium.pf2e.spells-srd.Item.Slow] spell, and such spells affect them normally. A @UUID[Compendium.pf2e.spells-srd.Item.Haste] spell reverses the effects of a <em>slow</em> spell immediately.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ILOl1dY50IaR6WPN",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Liquefy",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The mithral golem becomes fully liquid and amorphous. It gains immunity to precision damage, but it takes double damage from cold and water magic (see golem antimagic). The only actions it can use while Liquefied are move actions, Spike Storm, and spike Strikes. It can resume its normal form by taking this action again.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "liquefy",
-                        "priority": 50,
-                        "toggleable": true
-                    },
-                    {
-                        "key": "Immunity",
-                        "predicate": [
-                            "liquefy"
-                        ],
-                        "type": "precision"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rjVHVaa9BN3ZAiKL",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Spike Storm",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The mithral golem makes a spike Strike against each target within its reach. These attacks count toward the mithral golem's multiple attack penalty, but its multiple attack penalty doesn't increase until after all the attacks.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Mithral Golem",

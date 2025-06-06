@@ -4,22 +4,55 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "OnSujDYpJOshiiU0",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Spontaneous Spells",
+            "_id": "sKsC8fD4GZJL7oNp",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Reclaimed Fate",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
+                    "value": "<p>Raven has eerie control over her immediate future. She can ignore any fortune or misfortune effects that affect her. If she is forced to roll twice as part of a fortune and misfortune effect, she can take whichever die result she prefers, even if the effect would normally force her to choose one of the results. Finally, when rolling initiative, Raven can choose not to roll initiative and instead have a result of 16 + her initiative modifier.</p>"
                 },
-                "prepared": {
-                    "value": "spontaneous"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [
+                    {
+                        "key": "SubstituteRoll",
+                        "selector": "initiative",
+                        "value": 16
+                    }
+                ],
+                "slug": "",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "WNOqI0v6YF697eJv",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Bloodline Magic",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When Raven casts a bloodline spell, she gains @UUID[Compendium.pf2e.conditionitems.Item.Concealed]{Concealment} for 1 round, but can't use it to @UUID[Compendium.pf2e.actionspf2e.Item.Hide].</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,58 +60,336 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot10": {
-                        "max": 2,
-                        "value": 2
-                    },
-                    "slot2": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot3": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot4": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot5": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot6": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot7": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot8": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot9": {
-                        "max": 4,
-                        "value": 4
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 42,
-                    "value": 34
-                },
-                "tradition": {
-                    "value": "occult"
+                "slug": "",
+                "traits": {
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "k2IoWqvvQDbUK6xn",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Harrow Burst",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Raven unleashes a mass of magical harrow cards, dealing @Damage[15d8[slashing]] damage in a @Template[emanation|distance:30] (@Check[reflex|dc:42|basic] save). A creature that fails its save rolls 1d6 to determine a suit of cards: 1 = hammers (Strength), 2 = keys (Dexterity), 3 = shields (Constitution), 4 = books (Intelligence), 5 = stars (Wisdom), 6 = crowns (Charisma). The creature takes a –1 status penalty to all checks related to that ability score for 1 round (–2 status penalty on a critical failure). Raven can't use Harrow Burst again for [[/gmr 1d4 #Recharge Harrow Burst]]{1d4 rounds}.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Harrow Burst]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "",
+                "traits": {
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "iDhwO3RDKAfoaXPc",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rqJzQawe3CbXiWnG"
+            },
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/bracers-of-armor.webp",
+            "name": "Bracers of Armor III",
+            "sort": 400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>These stiff leather armguards grant you a +3 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5. You can affix talismans to <em>bracers of armor</em> as though they were light armor.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "inSlot": false,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 20
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 60000
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": [
+                            "ac",
+                            "saving-throw"
+                        ],
+                        "slug": "bracers-of-armor",
+                        "type": "item",
+                        "value": 3
+                    },
+                    {
+                        "key": "DexterityModifierCap",
+                        "value": 5
+                    }
+                ],
+                "size": "med",
+                "slug": "bracers-of-armor-iii",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "wornbracers"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "IMNn2gzwX6jVGtV2",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.0yeM77XLNrB0a0LF"
+            },
+            "img": "systems/pf2e/icons/equipment/worn-items/apex-items/circlet-of-persuasion.webp",
+            "name": "Circlet of Persuasion",
+            "sort": 500000,
+            "system": {
+                "apex": {
+                    "attribute": "cha"
+                },
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This elegant silver band often resembles curling fig leaves and fits around your brow. You gain a +2 item bonus to Deception and Diplomacy checks. When you invest the circlet, you either increase your Charisma score by 2 or increase it to 18, whichever would give you a higher score.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> envision</p>\n<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> You cast a 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Charm] spell (DC 38).</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "inSlot": false,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 17
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 15000
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": [
+                            "deception",
+                            "diplomacy"
+                        ],
+                        "type": "item",
+                        "value": 2
+                    }
+                ],
+                "size": "med",
+                "slug": "circlet-of-persuasion",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "apex",
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "worncirclet"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "z3xMTkzgvPdhCx7J",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.QPWWO89YR0uZ881r"
+            },
+            "img": "icons/sundries/gaming/playing-cards-black.webp",
+            "name": "The Deck of Destiny",
+            "sort": 600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>Composed of 54 cards that are powerful in their own right, the Deck of Destiny epitomizes the powers of the harrow and divination. The deck only has its full suite of abilities while complete. Completing the deck requires all 54 cards to be placed together and shuffled into their complete state over the span of 1 minute; the cards merely being in proximity of each other is not enough to complete the deck. Once complete, the deck can be invested normally.</p>\n<p>While the complete deck is on your person or in hand and invested, you gain a natural insight into events to be. Any divination effects you create become heightened to 10th level for the purpose of determining their counteract rank. Additionally, divination effects you create gain a +4 item bonus to their DC and to spell attack rolls. The deck also helps you maintain control of your own fate, granting you immunity to fortune and misfortune effects, though you can be affected by such effects if you wish.</p>\n<hr />\n<p><strong>Activate</strong> envision (daily preparations)</p>\n<p>When you perform your daily preparations, you can share the Deck of Destiny with your companions, allowing them to invest a hand of up to 5 cards each as if they carried the cards. When one of your companions activates one of their invested cards, an illusory image of the card appears in their hand, but the card's effects are otherwise unaltered. This lasts until the next time you perform your daily preparations.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">r</span> envision</p>\n<p><strong>Trigger</strong> A creature you can see within 60 feet is about to attempt a check</p>\n<p><strong>Effect</strong> You quickly draw a card to alter the triggering creature's fate. Choose either weal or woe. With weal (a fortune effect), the triggering creature rolls twice and takes the better result on their check. With woe (a misfortune effect), the triggering creature is forced to roll twice and take the worse result. If the card you drew is related to the check, such as drawing a card from the suit of shields for a Fortitude saving throw or a card from the suit of crowns for a Deception check, the creature is affected further. When choosing weal, the creature gains a +4 circumstance bonus to the triggering check. When faced with woe, the triggering creature takes a –4 circumstance penalty to the triggering check. Regardless of whether they faced weal or woe, the triggering creature becomes temporarily immune to this ability for 24 hours.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Deck of Destiny]</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">3</span> envision, Interact</p>\n<p><strong>Effect</strong> You call upon the deck in an attempt to put an end to a creature's life by visiting upon them a particularly grisly fate. Choose a creature within 60 feet. The deck casts @UUID[Compendium.pf2e.spells-srd.Item.Phantasmal Killer] (@Check[will|dc:50|traits:spell] and @Check[fortitude|dc:50|traits:spell,incapacitation], heightened to 10th level) on that creature. This effect doesn't have the emotion, fear, illusion, or mental traits, as it actually alters reality to rewrite a creature's doom. Regardless of the results, the creature becomes temporarily immune to this effect for 1 week.</p>\n<hr />\n<p><strong>Activate</strong> 1 hour (envision, Interact)</p>\n<p><strong>Frequency</strong> once per year</p>\n<p><strong>Effect</strong> You attempt to undo a creature's untimely death and return them to life. The deck performs a 10th-rank @UUID[Compendium.pf2e.spells-srd.Item.Resurrect] ritual. This ritual doesn't have any cost and doesn't require any secondary casters. Instead, you are the primary caster and must attempt a @Check[occultism|dc:50] check to complete the ritual as you perform a @UUID[Compendium.pf2e.spells-srd.Item.Harrowing], perform that same harrowing in reverse in an attempt to pull back the threads of fate, and perform one final harrowing to \"rewrite\" the target's destiny.</p>\n<hr />\n<p><strong>Destruction</strong> The Deck of Destiny is inherently connected to the fate of Golarion. If the deck is used in a harrow reading to determine the destiny of the entire planet, or if the planet itself is destroyed or removed from this reality, the cards crumble to dust after the harrowing is complete or the planet is gone.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 25
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #192: Worst of All Possible Worlds"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "divination"
+                        ],
+                        "selector": [
+                            "spell-attack",
+                            "spell-dc"
+                        ],
+                        "type": "item",
+                        "value": 4
+                    }
+                ],
+                "size": "med",
+                "slug": "the-deck-of-destiny",
+                "traits": {
+                    "rarity": "unique",
+                    "value": [
+                        "artifact",
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "r5yQvBh0zwIahtQ1",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Fortune-Telling Lore",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 33
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "qZ0CrPq6RSSpxqBA",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 31
+                },
+                "damageRolls": {
+                    "UaUrg1yG2P4aGvqC": {
+                        "damage": "1d4+8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "HGvMo1M7MG3014zw",
@@ -87,7 +398,7 @@
             },
             "img": "systems/pf2e/icons/spells/alter-reality.webp",
             "name": "Alter Reality",
-            "sort": 200000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -147,7 +458,7 @@
             },
             "img": "systems/pf2e/icons/spells/gate.webp",
             "name": "Gate",
-            "sort": 300000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -210,7 +521,7 @@
             },
             "img": "icons/magic/perception/orb-eye-scrying.webp",
             "name": "Foresight",
-            "sort": 400000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -274,7 +585,7 @@
             },
             "img": "systems/pf2e/icons/spells/wail-of-the-banshee.webp",
             "name": "Wail of the Banshee",
-            "sort": 500000,
+            "sort": 1200000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -356,7 +667,7 @@
             },
             "img": "systems/pf2e/icons/spells/weird.webp",
             "name": "Weird (Blood Magic)",
-            "sort": 600000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -438,7 +749,7 @@
             },
             "img": "icons/environment/settlement/watchtower-cliff.webp",
             "name": "Discern Location",
-            "sort": 700000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -501,7 +812,7 @@
             },
             "img": "systems/pf2e/icons/spells/maze.webp",
             "name": "Maze",
-            "sort": 800000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -564,7 +875,7 @@
             },
             "img": "systems/pf2e/icons/spells/uncontrollable-dance.webp",
             "name": "Uncontrollable Dance",
-            "sort": 900000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -632,7 +943,7 @@
             },
             "img": "icons/commodities/treasure/crystal-ball-blue-purple.webp",
             "name": "Unrelenting Observation (Blood Magic)",
-            "sort": 1000000,
+            "sort": 1700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -697,7 +1008,7 @@
             },
             "img": "systems/pf2e/icons/spells/prismatic-spray.webp",
             "name": "Prismatic Spray",
-            "sort": 1100000,
+            "sort": 1800000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -762,7 +1073,7 @@
             },
             "img": "icons/magic/lightning/projectile-tendrils-red.webp",
             "name": "Retrocognition (Blood Magic)",
-            "sort": 1200000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -822,7 +1133,7 @@
             },
             "img": "systems/pf2e/icons/spells/warp-mind.webp",
             "name": "Warp Mind",
-            "sort": 1300000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -891,7 +1202,7 @@
             },
             "img": "systems/pf2e/icons/spells/feeblemind.webp",
             "name": "Feeblemind",
-            "sort": 1400000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -960,7 +1271,7 @@
             },
             "img": "systems/pf2e/icons/spells/spiritual-blast.webp",
             "name": "Spirit Blast",
-            "sort": 1500000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1045,7 +1356,7 @@
             },
             "img": "systems/pf2e/icons/spells/teleport.webp",
             "name": "Teleport",
-            "sort": 1600000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1107,7 +1418,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing (Blood Magic)",
-            "sort": 1700000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1171,7 +1482,7 @@
             },
             "img": "systems/pf2e/icons/spells/cloak-of-colors.webp",
             "name": "Cloak of Colors",
-            "sort": 1800000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1234,7 +1545,7 @@
             },
             "img": "icons/magic/unholy/beam-impact-purple.webp",
             "name": "Shadow Blast",
-            "sort": 1900000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1344,7 +1655,7 @@
             },
             "img": "icons/magic/air/wind-vortex-swirl-purple.webp",
             "name": "Shadow Siphon (Blood Magic)",
-            "sort": 2000000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1406,7 +1717,7 @@
             },
             "img": "systems/pf2e/icons/spells/synesthesia.webp",
             "name": "Synesthesia",
-            "sort": 2100000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1482,7 +1793,7 @@
             },
             "img": "systems/pf2e/icons/spells/blink.webp",
             "name": "Blink",
-            "sort": 2200000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1544,7 +1855,7 @@
             },
             "img": "systems/pf2e/icons/spells/confusion.webp",
             "name": "Confusion",
-            "sort": 2300000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1622,7 +1933,7 @@
             },
             "img": "icons/creatures/mammals/bats-movement-flying-black.webp",
             "name": "Fly",
-            "sort": 2400000,
+            "sort": 3100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1684,7 +1995,7 @@
             },
             "img": "systems/pf2e/icons/spells/phantasmal-killer.webp",
             "name": "Phantasmal Killer",
-            "sort": 2500000,
+            "sort": 3200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1772,7 +2083,7 @@
             },
             "img": "systems/pf2e/icons/spells/suggestion.webp",
             "name": "Suggestion (Blood Magic)",
-            "sort": 2600000,
+            "sort": 3300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1851,7 +2162,7 @@
             },
             "img": "icons/skills/wounds/injury-eyes-blood-red.webp",
             "name": "Blindness",
-            "sort": 2700000,
+            "sort": 3400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1920,7 +2231,7 @@
             },
             "img": "systems/pf2e/icons/spells/hypnotic-pattern.webp",
             "name": "Hypnotic Pattern",
-            "sort": 2800000,
+            "sort": 3500000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1990,7 +2301,7 @@
             },
             "img": "systems/pf2e/icons/spells/paralyze.webp",
             "name": "Paralyze",
-            "sort": 2900000,
+            "sort": 3600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2068,7 +2379,7 @@
             },
             "img": "icons/environment/wilderness/terrain-river-road-gray.webp",
             "name": "Wanderer's Guide (Blood Magic)",
-            "sort": 3000000,
+            "sort": 3700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2129,7 +2440,7 @@
             },
             "img": "systems/pf2e/icons/spells/augury.webp",
             "name": "Augury (Blood Magic)",
-            "sort": 3100000,
+            "sort": 3800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2191,7 +2502,7 @@
             },
             "img": "systems/pf2e/icons/spells/blur.webp",
             "name": "Blur",
-            "sort": 3200000,
+            "sort": 3900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2254,7 +2565,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 3300000,
+            "sort": 4000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2317,7 +2628,7 @@
             },
             "img": "systems/pf2e/icons/spells/hideous-laughter.webp",
             "name": "Hideous Laughter",
-            "sort": 3400000,
+            "sort": 4100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2385,7 +2696,7 @@
             },
             "img": "systems/pf2e/icons/spells/mirror-image.webp",
             "name": "Mirror Image",
-            "sort": 3500000,
+            "sort": 4200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2448,7 +2759,7 @@
             },
             "img": "icons/magic/control/buff-luck-fortune-rainbow.webp",
             "name": "Color Spray",
-            "sort": 3600000,
+            "sort": 4300000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -2520,7 +2831,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 3700000,
+            "sort": 4400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2607,7 +2918,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic (Blood Magic)",
-            "sort": 3800000,
+            "sort": 4500000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -2674,7 +2985,7 @@
             },
             "img": "icons/sundries/lights/candles-lit-red-evil.webp",
             "name": "Ill Omen (Blood Magic)",
-            "sort": 3900000,
+            "sort": 4600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2741,7 +3052,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Mage Hand",
-            "sort": 4000000,
+            "sort": 4700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2822,7 +3133,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Ray of Enfeeblement",
-            "sort": 4100000,
+            "sort": 4800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2890,7 +3201,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 4200000,
+            "sort": 4900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2952,7 +3263,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 4300000,
+            "sort": 5000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3076,7 +3387,7 @@
             },
             "img": "icons/skills/melee/strike-blade-scimitar-gray-red.webp",
             "name": "True Strike",
-            "sort": 4400000,
+            "sort": 5100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3131,382 +3442,22 @@
             "type": "spell"
         },
         {
-            "_id": "iDhwO3RDKAfoaXPc",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rqJzQawe3CbXiWnG"
-            },
-            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/bracers-of-armor.webp",
-            "name": "Bracers of Armor III",
-            "sort": 4500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>These stiff leather armguards grant you a +3 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5. You can affix talismans to <em>bracers of armor</em> as though they were light armor.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": false,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 20
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 60000
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": [
-                            "ac",
-                            "saving-throw"
-                        ],
-                        "slug": "bracers-of-armor",
-                        "type": "item",
-                        "value": 3
-                    },
-                    {
-                        "key": "DexterityModifierCap",
-                        "value": 5
-                    }
-                ],
-                "size": "med",
-                "slug": "bracers-of-armor-iii",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "wornbracers"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "IMNn2gzwX6jVGtV2",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.0yeM77XLNrB0a0LF"
-            },
-            "img": "systems/pf2e/icons/equipment/worn-items/apex-items/circlet-of-persuasion.webp",
-            "name": "Circlet of Persuasion",
-            "sort": 4600000,
-            "system": {
-                "apex": {
-                    "attribute": "cha"
-                },
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This elegant silver band often resembles curling fig leaves and fits around your brow. You gain a +2 item bonus to Deception and Diplomacy checks. When you invest the circlet, you either increase your Charisma score by 2 or increase it to 18, whichever would give you a higher score.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> envision</p>\n<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> You cast a 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Charm] spell (DC 38).</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": false,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 17
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 15000
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": [
-                            "deception",
-                            "diplomacy"
-                        ],
-                        "type": "item",
-                        "value": 2
-                    }
-                ],
-                "size": "med",
-                "slug": "circlet-of-persuasion",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "apex",
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "worncirclet"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "z3xMTkzgvPdhCx7J",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.QPWWO89YR0uZ881r"
-            },
-            "img": "icons/sundries/gaming/playing-cards-black.webp",
-            "name": "The Deck of Destiny",
-            "sort": 4700000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>Composed of 54 cards that are powerful in their own right, the Deck of Destiny epitomizes the powers of the harrow and divination. The deck only has its full suite of abilities while complete. Completing the deck requires all 54 cards to be placed together and shuffled into their complete state over the span of 1 minute; the cards merely being in proximity of each other is not enough to complete the deck. Once complete, the deck can be invested normally.</p>\n<p>While the complete deck is on your person or in hand and invested, you gain a natural insight into events to be. Any divination effects you create become heightened to 10th level for the purpose of determining their counteract rank. Additionally, divination effects you create gain a +4 item bonus to their DC and to spell attack rolls. The deck also helps you maintain control of your own fate, granting you immunity to fortune and misfortune effects, though you can be affected by such effects if you wish.</p>\n<hr />\n<p><strong>Activate</strong> envision (daily preparations)</p>\n<p>When you perform your daily preparations, you can share the Deck of Destiny with your companions, allowing them to invest a hand of up to 5 cards each as if they carried the cards. When one of your companions activates one of their invested cards, an illusory image of the card appears in their hand, but the card's effects are otherwise unaltered. This lasts until the next time you perform your daily preparations.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">r</span> envision</p>\n<p><strong>Trigger</strong> A creature you can see within 60 feet is about to attempt a check</p>\n<p><strong>Effect</strong> You quickly draw a card to alter the triggering creature's fate. Choose either weal or woe. With weal (a fortune effect), the triggering creature rolls twice and takes the better result on their check. With woe (a misfortune effect), the triggering creature is forced to roll twice and take the worse result. If the card you drew is related to the check, such as drawing a card from the suit of shields for a Fortitude saving throw or a card from the suit of crowns for a Deception check, the creature is affected further. When choosing weal, the creature gains a +4 circumstance bonus to the triggering check. When faced with woe, the triggering creature takes a –4 circumstance penalty to the triggering check. Regardless of whether they faced weal or woe, the triggering creature becomes temporarily immune to this ability for 24 hours.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Deck of Destiny]</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">3</span> envision, Interact</p>\n<p><strong>Effect</strong> You call upon the deck in an attempt to put an end to a creature's life by visiting upon them a particularly grisly fate. Choose a creature within 60 feet. The deck casts @UUID[Compendium.pf2e.spells-srd.Item.Phantasmal Killer] (@Check[will|dc:50|traits:spell] and @Check[fortitude|dc:50|traits:spell,incapacitation], heightened to 10th level) on that creature. This effect doesn't have the emotion, fear, illusion, or mental traits, as it actually alters reality to rewrite a creature's doom. Regardless of the results, the creature becomes temporarily immune to this effect for 1 week.</p>\n<hr />\n<p><strong>Activate</strong> 1 hour (envision, Interact)</p>\n<p><strong>Frequency</strong> once per year</p>\n<p><strong>Effect</strong> You attempt to undo a creature's untimely death and return them to life. The deck performs a 10th-rank @UUID[Compendium.pf2e.spells-srd.Item.Resurrect] ritual. This ritual doesn't have any cost and doesn't require any secondary casters. Instead, you are the primary caster and must attempt a @Check[occultism|dc:50] check to complete the ritual as you perform a @UUID[Compendium.pf2e.spells-srd.Item.Harrowing], perform that same harrowing in reverse in an attempt to pull back the threads of fate, and perform one final harrowing to \"rewrite\" the target's destiny.</p>\n<hr />\n<p><strong>Destruction</strong> The Deck of Destiny is inherently connected to the fate of Golarion. If the deck is used in a harrow reading to determine the destiny of the entire planet, or if the planet itself is destroyed or removed from this reality, the cards crumble to dust after the harrowing is complete or the planet is gone.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 25
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #192: Worst of All Possible Worlds"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "divination"
-                        ],
-                        "selector": [
-                            "spell-attack",
-                            "spell-dc"
-                        ],
-                        "type": "item",
-                        "value": 4
-                    }
-                ],
-                "size": "med",
-                "slug": "the-deck-of-destiny",
-                "traits": {
-                    "rarity": "unique",
-                    "value": [
-                        "artifact",
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "qZ0CrPq6RSSpxqBA",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 4800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 31
-                },
-                "damageRolls": {
-                    "UaUrg1yG2P4aGvqC": {
-                        "damage": "1d4+8",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "sKsC8fD4GZJL7oNp",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Reclaimed Fate",
-            "sort": 4900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Raven has eerie control over her immediate future. She can ignore any fortune or misfortune effects that affect her. If she is forced to roll twice as part of a fortune and misfortune effect, she can take whichever die result she prefers, even if the effect would normally force her to choose one of the results. Finally, when rolling initiative, Raven can choose not to roll initiative and instead have a result of 16 + her initiative modifier.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "SubstituteRoll",
-                        "selector": "initiative",
-                        "value": 16
-                    }
-                ],
-                "slug": "",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "WNOqI0v6YF697eJv",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Bloodline Magic",
-            "sort": 5000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When Raven casts a bloodline spell, she gains @UUID[Compendium.pf2e.conditionitems.Item.Concealed]{Concealment} for 1 round, but can't use it to @UUID[Compendium.pf2e.actionspf2e.Item.Hide].</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "k2IoWqvvQDbUK6xn",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Harrow Burst",
-            "sort": 5100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Raven unleashes a mass of magical harrow cards, dealing @Damage[15d8[slashing]] damage in a @Template[emanation|distance:30] (@Check[reflex|dc:42|basic] save). A creature that fails its save rolls 1d6 to determine a suit of cards: 1 = hammers (Strength), 2 = keys (Dexterity), 3 = shields (Constitution), 4 = books (Intelligence), 5 = stars (Wisdom), 6 = crowns (Charisma). The creature takes a –1 status penalty to all checks related to that ability score for 1 round (–2 status penalty on a critical failure). Raven can't use Harrow Burst again for [[/gmr 1d4 #Recharge Harrow Burst]]{1d4 rounds}.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Harrow Burst]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "",
-                "traits": {
-                    "value": [
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "r5yQvBh0zwIahtQ1",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Fortune-Telling Lore",
+            "_id": "OnSujDYpJOshiiU0",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Spontaneous Spells",
             "sort": 5200000,
             "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 33
+                "prepared": {
+                    "value": "spontaneous"
                 },
-                "proficient": {
-                    "value": 0
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -3514,9 +3465,58 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot10": {
+                        "max": 2,
+                        "value": 2
+                    },
+                    "slot2": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot3": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot4": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot5": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot6": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot7": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot8": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot9": {
+                        "max": 4,
+                        "value": 4
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 42,
+                    "value": 34
+                },
+                "tradition": {
+                    "value": "occult"
+                }
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Raven Nicoletta",

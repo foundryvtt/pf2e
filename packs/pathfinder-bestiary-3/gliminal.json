@@ -3,22 +3,89 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "pV1OZsdl0kyBME6Q",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
+            "_id": "tZtHn0wl4msKd5S2",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 60 feet",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "sAINNUJA1VNOBd31",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.sebk9XseMCRkDqRg"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Lifesense 60 feet",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "lifesense",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "u4eux5FgWu5TDOdj",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Positive Nature",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A gliminal doesn't gain the automatic or temporary Hit Points from being on a plane with the vitality planar essence.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -26,21 +93,296 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 28,
-                    "mod": 0,
-                    "value": 20
-                },
-                "tradition": {
-                    "value": "primal"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "s65OrlZwX6JQgM40",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Radiant Mantle",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. The gliminal emits bright light in the area, and dim light out to 60 feet. When a creature enters or starts its turn in the area of bright light, it must succeed at a @Check[fortitude|dc:25] save or become @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] until the end of its turn.</p>\n<p>If the mantle is counteracted or suppressed, the gliminal loses their resistance and can't use Bond in Light until the mantle returns.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "radiant-mantle",
+                        "priority": 50,
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "radiant-mantle"
+                        ],
+                        "value": {
+                            "alpha": 0.3,
+                            "animation": {
+                                "intensity": 1,
+                                "reverse": false,
+                                "speed": 3,
+                                "type": "pulse"
+                            },
+                            "bright": 30,
+                            "color": "#fff9a3",
+                            "coloration": 0.1,
+                            "contrast": 0,
+                            "darkness": {
+                                "max": 1,
+                                "min": 0
+                            },
+                            "dim": 60,
+                            "gradual": true,
+                            "luminosity": 0.5,
+                            "saturation": 0,
+                            "shadows": 0
+                        }
+                    },
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "radiant-mantle"
+                        ],
+                        "radius": 30,
+                        "slug": "radiant-mantle",
+                        "traits": [
+                            "light",
+                            "vitality",
+                            "visual"
+                        ]
+                    },
+                    {
+                        "exceptions": [
+                            "force",
+                            "ghost-touch",
+                            "void"
+                        ],
+                        "key": "Resistance",
+                        "predicate": [
+                            "radiant-mantle"
+                        ],
+                        "type": "all-damage",
+                        "value": 5
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "light",
+                        "visual",
+                        "vitality"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NsMzxbtDP9JAooC6",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Bond in Light",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The gliminal magically links to one living creature within the radius of their radiant mantle. This creature glows with bright light in a 20-foot emanation and dim light to 40 feet.</p>\n<p>While the link is in effect, the target has fast healing 10, and any time the target needs to defend against an attack or attempt a save, the gliminal can substitute their own AC or corresponding save bonus if it's higher than the target's.</p>\n<p>Any time the target takes damage, the gliminal can choose to divert any amount of that damage to themself. The damage has the same type and still applies the gliminal's immunities, resistances, and weaknesses.</p>\n<p>The link remains until the target is more than 120 feet away, the gliminal falls unconscious, or the gliminal uses Bond in Light again.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Bond in Light]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "healing",
+                        "primal",
+                        "vitality"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fzv99kNrktzJJd55",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Overpowering Healing",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When a gliminal grants vitality healing that would heal a living creature above their maximum Hit Points, including the fast healing HP from their Bond in Light ability, the excess is granted as temporary Hit Points.</p>\n<p>Unlike normal, these temporary HP combine with each other, and they last for 1 hour. If a creature's temporary HP from a gliminal ever exceeds its maximum HP, it becomes overloaded and explodes in a burst of vitality energy.</p>\n<p>A creature with temporary HP from overpowering healing becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}, or @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} if the temporary HP equal half their maximum HP or more. The creature can't reduce this sickened condition unless it has 0 temporary HP.</p>\n<p>Overpowering healing doesn't apply to creatures with the vitality trait.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "primal",
+                        "vitality"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fj2rLzo717u5F5Ya",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Forge of Creation Lore",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 19
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "tNH3T8aLwLgqsb4C",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Scintillating Claw",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d8 + 7",
+                        "damageType": "vitality"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "WC0xg40Qwic6NwdR",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Radiant Ray",
+            "sort": 900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "4d8",
+                        "damageType": "vitality"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "light",
+                        "magical",
+                        "range-30",
+                        "vitality"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "nlQRbDRxTq80oE0t",
@@ -49,7 +391,7 @@
             },
             "img": "systems/pf2e/icons/spells/chromatic-wall.webp",
             "name": "Chromatic Wall",
-            "sort": 200000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -110,7 +452,7 @@
             },
             "img": "systems/pf2e/icons/spells/searing-light.webp",
             "name": "Searing Light",
-            "sort": 300000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -212,7 +554,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal (At Will)",
-            "sort": 400000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -409,7 +751,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 500000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -467,376 +809,22 @@
             "type": "spell"
         },
         {
-            "_id": "tNH3T8aLwLgqsb4C",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Scintillating Claw",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "3d8 + 7",
-                        "damageType": "vitality"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "WC0xg40Qwic6NwdR",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Radiant Ray",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "4d8",
-                        "damageType": "vitality"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "light",
-                        "magical",
-                        "range-30",
-                        "vitality"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "tZtHn0wl4msKd5S2",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 60 feet",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "sAINNUJA1VNOBd31",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.sebk9XseMCRkDqRg"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Lifesense 60 feet",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "lifesense",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "u4eux5FgWu5TDOdj",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Positive Nature",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A gliminal doesn't gain the automatic or temporary Hit Points from being on a plane with the vitality planar essence.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "s65OrlZwX6JQgM40",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Radiant Mantle",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>30 feet. The gliminal emits bright light in the area, and dim light out to 60 feet. When a creature enters or starts its turn in the area of bright light, it must succeed at a @Check[fortitude|dc:25] save or become @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] until the end of its turn.</p>\n<p>If the mantle is counteracted or suppressed, the gliminal loses their resistance and can't use Bond in Light until the mantle returns.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "radiant-mantle",
-                        "priority": 50,
-                        "toggleable": true,
-                        "value": true
-                    },
-                    {
-                        "key": "TokenLight",
-                        "predicate": [
-                            "radiant-mantle"
-                        ],
-                        "value": {
-                            "alpha": 0.3,
-                            "animation": {
-                                "intensity": 1,
-                                "reverse": false,
-                                "speed": 3,
-                                "type": "pulse"
-                            },
-                            "bright": 30,
-                            "color": "#fff9a3",
-                            "coloration": 0.1,
-                            "contrast": 0,
-                            "darkness": {
-                                "max": 1,
-                                "min": 0
-                            },
-                            "dim": 60,
-                            "gradual": true,
-                            "luminosity": 0.5,
-                            "saturation": 0,
-                            "shadows": 0
-                        }
-                    },
-                    {
-                        "key": "Aura",
-                        "predicate": [
-                            "radiant-mantle"
-                        ],
-                        "radius": 30,
-                        "slug": "radiant-mantle",
-                        "traits": [
-                            "light",
-                            "vitality",
-                            "visual"
-                        ]
-                    },
-                    {
-                        "exceptions": [
-                            "force",
-                            "ghost-touch",
-                            "void"
-                        ],
-                        "key": "Resistance",
-                        "predicate": [
-                            "radiant-mantle"
-                        ],
-                        "type": "all-damage",
-                        "value": 5
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "light",
-                        "visual",
-                        "vitality"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "NsMzxbtDP9JAooC6",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Bond in Light",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The gliminal magically links to one living creature within the radius of their radiant mantle. This creature glows with bright light in a 20-foot emanation and dim light to 40 feet.</p>\n<p>While the link is in effect, the target has fast healing 10, and any time the target needs to defend against an attack or attempt a save, the gliminal can substitute their own AC or corresponding save bonus if it's higher than the target's.</p>\n<p>Any time the target takes damage, the gliminal can choose to divert any amount of that damage to themself. The damage has the same type and still applies the gliminal's immunities, resistances, and weaknesses.</p>\n<p>The link remains until the target is more than 120 feet away, the gliminal falls unconscious, or the gliminal uses Bond in Light again.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Bond in Light]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "healing",
-                        "primal",
-                        "vitality"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fzv99kNrktzJJd55",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Overpowering Healing",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When a gliminal grants vitality healing that would heal a living creature above their maximum Hit Points, including the fast healing HP from their Bond in Light ability, the excess is granted as temporary Hit Points.</p>\n<p>Unlike normal, these temporary HP combine with each other, and they last for 1 hour. If a creature's temporary HP from a gliminal ever exceeds its maximum HP, it becomes overloaded and explodes in a burst of vitality energy.</p>\n<p>A creature with temporary HP from overpowering healing becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}, or @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} if the temporary HP equal half their maximum HP or more. The creature can't reduce this sickened condition unless it has 0 temporary HP.</p>\n<p>Overpowering healing doesn't apply to creatures with the vitality trait.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "primal",
-                        "vitality"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fj2rLzo717u5F5Ya",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Forge of Creation Lore",
+            "_id": "pV1OZsdl0kyBME6Q",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 1400000,
             "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 19
+                "prepared": {
+                    "value": "innate"
                 },
-                "proficient": {
-                    "value": 0
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -844,9 +832,21 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 28,
+                    "mod": 0,
+                    "value": 20
+                },
+                "tradition": {
+                    "value": "primal"
+                }
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Gliminal",

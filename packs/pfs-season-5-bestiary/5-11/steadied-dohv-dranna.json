@@ -4,22 +4,380 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "Xe4Ca7mHwdqwZ7wZ",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Spontaneous Spells",
+            "_id": "xa1KRhMM6JnsIsgl",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 feet",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "EMWzNZneWpK3nLER",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "spontaneous"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9SCUupqh4itf7aTx",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Brain Blisters",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A brain collector has seven brain blisters on its back that it uses to house stolen brains. A brain collector without all seven blisters full is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied] with a value equal to the number of empty blisters.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.BrainCollector.BrainBlistersRemaining",
+                        "option": "brain-blisters",
+                        "selection": "7",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.SpecificRule.Numbers.One",
+                                "value": "1"
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.Numbers.Two",
+                                "value": "2"
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.Numbers.Three",
+                                "value": "3"
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.Numbers.Four",
+                                "value": "4"
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.Numbers.Five",
+                                "value": "5"
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.Numbers.Six",
+                                "value": "6"
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.Numbers.Seven",
+                                "value": "7"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SE3QsBzRX2bmkrnR",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Brain Loss",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>If a brain collector takes 30 damage from a critical hit or takes 25 mental damage, it must succeed at a DC 29 save (@Check[fortitude|dc:29] for critical damage or @Check[will|dc:29] for mental damage) or one of its brain blisters is destroyed.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "a8yy3kqZmWzMBKci",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Brain Collector Venom",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:29]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[1d6[poison]] damage, enfeebled 1, and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[2d6[poison]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}, and slowed 1 (1 round)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "brain-collector-venom",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mvKy4fox7C9GJNq4",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Collect Brain",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The brain collector collects a brain of a creature that has been dead for no more than 1 minute. It can then use an Interact action to secure the brain in one of its empty brain blisters.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "thChQrAoqxPJlmhv",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.cfqRc4clMniqQNsl"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Explosive End",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>The mutant brain collector's death reveals one last surprise as it explodes into radioactive ash. When it dies, it explodes, dealing @Damage[5d6[acid]] damage to each creature in a @Template[emanation|distance:10], with a basic @Check[reflex|dc:27] save.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Dark Archive"
+                },
+                "rules": [],
+                "slug": "cryptid-mutant-explosive-end",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ttZHm74xhLp5A9SV",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.ZUxt6s54TMgydXoW"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Shifting Iridescence",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Whenever the mutant brain collector takes energy damage to which it isn't resistant or immune, after taking the damage normally, it gains resistance 10 to that damage type. If it had a resistance to a different damage type from shifting iridescence, it replaces the old resistance with the new resistance.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Dark Archive"
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "shifting-iridescence",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitAcid",
+                                "value": "acid"
+                            },
+                            {
+                                "label": "PF2E.TraitCold",
+                                "value": "cold"
+                            },
+                            {
+                                "label": "PF2E.TraitElectricity",
+                                "value": "electricity"
+                            },
+                            {
+                                "label": "PF2E.TraitFire",
+                                "value": "fire"
+                            },
+                            {
+                                "label": "PF2E.TraitForce",
+                                "value": "force"
+                            },
+                            {
+                                "label": "PF2E.TraitSonic",
+                                "value": "sonic"
+                            },
+                            {
+                                "label": "PF2E.TraitVitality",
+                                "value": "vitality"
+                            },
+                            {
+                                "label": "PF2E.TraitVoid",
+                                "value": "void"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "shifting-iridescence"
+                        ],
+                        "type": "{item|flags.pf2e.rulesSelections.shiftingIridescence}",
+                        "value": "ternary(gte(@actor.level,17),15,ternary(gte(@actor.level,9),10,5))"
+                    }
+                ],
+                "slug": "cryptid-mutant-shifting-iridescence",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JotouX7ikK4QZh6H",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Lore (all subcategories)",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 21
+                },
+                "proficient": {
                     "value": 0
                 },
                 "publication": {
@@ -28,39 +386,101 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot2": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot4": {
-                        "max": 2,
-                        "value": 2
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 29,
-                    "mod": 0,
-                    "value": 21
-                },
-                "tradition": {
-                    "value": "occult"
-                },
                 "traits": {}
             },
-            "type": "spellcastingEntry"
+            "type": "lore"
+        },
+        {
+            "_id": "koIcuQqgttVU1vlz",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 1000000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "brain-collector-venom"
+                    ]
+                },
+                "bonus": {
+                    "value": 23
+                },
+                "damageRolls": {
+                    "pgsa4eg784s5ejayhaj1": {
+                        "damage": "2d12+9",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "CZ7Y6ryNge5pbthf",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 1100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 23
+                },
+                "damageRolls": {
+                    "9z3yrno2knwx7foh986b": {
+                        "damage": "2d8+9",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "fCuRGUk1t9Cq5eUl",
@@ -69,7 +489,7 @@
             },
             "img": "systems/pf2e/icons/spells/confusion.webp",
             "name": "Confusion",
-            "sort": 200000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -147,7 +567,7 @@
             },
             "img": "systems/pf2e/icons/spells/phantasmal-killer.webp",
             "name": "Phantasmal Killer",
-            "sort": 300000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -235,7 +655,7 @@
             },
             "img": "systems/pf2e/icons/spells/haste.webp",
             "name": "Haste",
-            "sort": 400000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -307,7 +727,7 @@
             },
             "img": "systems/pf2e/icons/spells/paralyze.webp",
             "name": "Paralyze",
-            "sort": 500000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -385,7 +805,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 600000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -448,7 +868,7 @@
             },
             "img": "systems/pf2e/icons/spells/humanoid-form.webp",
             "name": "Humanoid Form",
-            "sort": 700000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -511,7 +931,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility",
-            "sort": 800000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -572,7 +992,7 @@
             },
             "img": "systems/pf2e/icons/spells/mirror-image.webp",
             "name": "Mirror Image",
-            "sort": 900000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -635,7 +1055,7 @@
             },
             "img": "icons/magic/fire/flame-burning-eye.webp",
             "name": "Paranoia",
-            "sort": 1000000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -712,7 +1132,7 @@
             },
             "img": "systems/pf2e/icons/spells/dancing-lights.webp",
             "name": "Dancing Lights",
-            "sort": 1100000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -775,7 +1195,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1200000,
+            "sort": 2200000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -842,7 +1262,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Mage Hand",
-            "sort": 1300000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -923,7 +1343,7 @@
             },
             "img": "systems/pf2e/icons/spells/mindlink.webp",
             "name": "Mindlink",
-            "sort": 1400000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -984,7 +1404,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 1500000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1047,7 +1467,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Ray of Enfeeblement",
-            "sort": 1600000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1115,7 +1535,7 @@
             },
             "img": "icons/skills/melee/strike-blade-scimitar-gray-red.webp",
             "name": "True Strike",
-            "sort": 1700000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1176,7 +1596,7 @@
             },
             "img": "icons/magic/air/wind-stream-blue-gray.webp",
             "name": "Unseen Servant",
-            "sort": 1800000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1231,471 +1651,22 @@
             "type": "spell"
         },
         {
-            "_id": "koIcuQqgttVU1vlz",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 1900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "brain-collector-venom"
-                    ]
-                },
-                "bonus": {
-                    "value": 23
-                },
-                "damageRolls": {
-                    "pgsa4eg784s5ejayhaj1": {
-                        "damage": "2d12+9",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "CZ7Y6ryNge5pbthf",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 2000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 23
-                },
-                "damageRolls": {
-                    "9z3yrno2knwx7foh986b": {
-                        "damage": "2d8+9",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "xa1KRhMM6JnsIsgl",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 100 feet",
-            "sort": 2100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "EMWzNZneWpK3nLER",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 2200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "9SCUupqh4itf7aTx",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Brain Blisters",
-            "sort": 2300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A brain collector has seven brain blisters on its back that it uses to house stolen brains. A brain collector without all seven blisters full is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied] with a value equal to the number of empty blisters.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "alwaysActive": true,
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.NPCAbility.BrainCollector.BrainBlistersRemaining",
-                        "option": "brain-blisters",
-                        "selection": "7",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.SpecificRule.Numbers.One",
-                                "value": "1"
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.Numbers.Two",
-                                "value": "2"
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.Numbers.Three",
-                                "value": "3"
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.Numbers.Four",
-                                "value": "4"
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.Numbers.Five",
-                                "value": "5"
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.Numbers.Six",
-                                "value": "6"
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.Numbers.Seven",
-                                "value": "7"
-                            }
-                        ],
-                        "toggleable": true,
-                        "value": true
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "SE3QsBzRX2bmkrnR",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Brain Loss",
-            "sort": 2400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>If a brain collector takes 30 damage from a critical hit or takes 25 mental damage, it must succeed at a DC 29 save (@Check[fortitude|dc:29] for critical damage or @Check[will|dc:29] for mental damage) or one of its brain blisters is destroyed.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "a8yy3kqZmWzMBKci",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Brain Collector Venom",
-            "sort": 2500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:29]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[1d6[poison]] damage, enfeebled 1, and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[2d6[poison]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}, and slowed 1 (1 round)</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "brain-collector-venom",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "mvKy4fox7C9GJNq4",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Collect Brain",
-            "sort": 2600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The brain collector collects a brain of a creature that has been dead for no more than 1 minute. It can then use an Interact action to secure the brain in one of its empty brain blisters.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "thChQrAoqxPJlmhv",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.cfqRc4clMniqQNsl"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Explosive End",
-            "sort": 2700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>The mutant brain collector's death reveals one last surprise as it explodes into radioactive ash. When it dies, it explodes, dealing @Damage[5d6[acid]] damage to each creature in a @Template[emanation|distance:10], with a basic @Check[reflex|dc:27] save.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Dark Archive"
-                },
-                "rules": [],
-                "slug": "cryptid-mutant-explosive-end",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ttZHm74xhLp5A9SV",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.ZUxt6s54TMgydXoW"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Shifting Iridescence",
-            "sort": 2800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Whenever the mutant brain collector takes energy damage to which it isn't resistant or immune, after taking the damage normally, it gains resistance 10 to that damage type. If it had a resistance to a different damage type from shifting iridescence, it replaces the old resistance with the new resistance.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Dark Archive"
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "shifting-iridescence",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.TraitAcid",
-                                "value": "acid"
-                            },
-                            {
-                                "label": "PF2E.TraitCold",
-                                "value": "cold"
-                            },
-                            {
-                                "label": "PF2E.TraitElectricity",
-                                "value": "electricity"
-                            },
-                            {
-                                "label": "PF2E.TraitFire",
-                                "value": "fire"
-                            },
-                            {
-                                "label": "PF2E.TraitForce",
-                                "value": "force"
-                            },
-                            {
-                                "label": "PF2E.TraitSonic",
-                                "value": "sonic"
-                            },
-                            {
-                                "label": "PF2E.TraitVitality",
-                                "value": "vitality"
-                            },
-                            {
-                                "label": "PF2E.TraitVoid",
-                                "value": "void"
-                            }
-                        ],
-                        "toggleable": true
-                    },
-                    {
-                        "key": "Resistance",
-                        "predicate": [
-                            "shifting-iridescence"
-                        ],
-                        "type": "{item|flags.pf2e.rulesSelections.shiftingIridescence}",
-                        "value": "ternary(gte(@actor.level,17),15,ternary(gte(@actor.level,9),10,5))"
-                    }
-                ],
-                "slug": "cryptid-mutant-shifting-iridescence",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "JotouX7ikK4QZh6H",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Lore (all subcategories)",
+            "_id": "Xe4Ca7mHwdqwZ7wZ",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Spontaneous Spells",
             "sort": 2900000,
             "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 21
+                "prepared": {
+                    "flexible": false,
+                    "value": "spontaneous"
                 },
-                "proficient": {
+                "proficiency": {
                     "value": 0
                 },
                 "publication": {
@@ -1704,10 +1675,39 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot2": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot4": {
+                        "max": 2,
+                        "value": 2
+                    }
+                },
                 "slug": null,
+                "spelldc": {
+                    "dc": 29,
+                    "mod": 0,
+                    "value": 21
+                },
+                "tradition": {
+                    "value": "occult"
+                },
                 "traits": {}
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Steadied Dohv-Dranna",

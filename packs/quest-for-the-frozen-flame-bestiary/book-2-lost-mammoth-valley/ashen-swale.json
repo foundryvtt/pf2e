@@ -4,22 +4,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "vg2OCyGeOvfW1fuo",
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Arcane Spontaneous Spells",
+            "_id": "pj3l76rx3200el2x",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Siphon Life",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 0
+                    "value": "<p><strong>Trigger</strong> A creature within 30 feet uses a spell or ability with the healing trait that restores Hit Points or is the target of a spell or ability with the healing trait that restores Hit Points</p><hr /><p><strong>Effect</strong> Ashen Swale seizes upon the healing magic, drawing a portion of it into himself instead of the intended target. The healing effect restores 10 fewer Hit Points to one of its targets and Ashen Swale is restored 10 Hit Points or the total amount of healing, whichever is less.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,87 +25,33 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "Vvl6ugBYT7bzqNty"
-                            },
-                            {
-                                "id": "x4acr7HByuvcfhQ0"
-                            },
-                            {
-                                "id": "zk2lURHx9DcCfJQR"
-                            },
-                            {
-                                "id": "EosQ2sMmIwFTJ00q"
-                            },
-                            {
-                                "id": "n1k5jHFl4wHKY6qa"
-                            }
-                        ],
-                        "value": 5
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "6uJuggbEAtOMm6aS"
-                            },
-                            {
-                                "id": "Ub668xAIATdP7BMn"
-                            },
-                            {
-                                "id": "HkPKJwZAdlvMrXOs"
-                            }
-                        ],
-                        "value": 3
-                    },
-                    "slot4": {
-                        "max": 4,
-                        "prepared": [
-                            {
-                                "id": "Qx0PiuqL4YOJv828"
-                            },
-                            {
-                                "id": "hoDZKGZiHQij1XVR"
-                            }
-                        ],
-                        "value": 4
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "item": 0,
-                    "mod": 0,
-                    "value": 17
-                },
-                "tradition": {
-                    "value": "divine"
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "primal",
+                        "vitality"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "DiZt608OsN2MK79y",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Focus Spells",
+            "_id": "wrq2ffxoouebysd4",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Corpse Puppet",
             "sort": 200000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "actionType": {
+                    "value": "action"
                 },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 0
+                    "value": "<p>Ashen Swale seizes control of the body of a creature within 30 feet that is dead or @UUID[Compendium.pf2e.conditionitems.Item.Unconscious]. The target must attempt a Will save. Dead creatures automatically fail this save. On a success, the target is permanently immune to Corpse Puppet. On a failure, the target is controlled by Ashen Swale. It gains the minion trait and can act as though it were alive and conscious as long as it's controlled by Ashen Swale. Controlling each target requires Ashen Swale to take an action to Command a Minion. The only actions the target can take during this time are Interact, Stride, and Strike.</p>\n<p>Ashen Swale retains control of the target for 10 minutes. This control ends immediately if the target loses the unconscious condition or the target is dealt an additional 50 damage since Ashen Swale took control (which destroys the body completely). After he has lost control of a target, that target is permanently immune to Corpse Puppet.</p>\n<p>Ashen Swale can control up to two targets with Corpse Puppet at a time.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -115,1258 +59,120 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "mod": 0,
-                    "value": 17
-                },
-                "tradition": {
-                    "value": "arcane"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "hoDZKGZiHQij1XVR",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.eexkxcqnkXazsGfK"
-            },
-            "img": "systems/pf2e/icons/spells/enervation.webp",
-            "name": "Enervation",
-            "sort": 300000,
-            "system": {
-                "area": {
-                    "type": "line",
-                    "value": 30
-                },
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "fortitude"
-                    }
-                },
-                "description": {
-                    "value": "<p>Extending a finger, you fire a beam of void energy that weakens the life force of any creature it touches. Each living creature in the line must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[(floor(@item.rank/2))d8[persistent,void]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[(floor(@item.rank/2)*2)d8[persistent,void]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[(floor(@item.rank/2)*2)d8[persistent,void]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} and @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The persistent void damage increases by 1d8 on a success, or by 2d8 on a failure or critical failure.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {}
-                },
-                "level": {
-                    "value": 4
-                },
-                "location": {
-                    "value": "vg2OCyGeOvfW1fuo"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "enervation",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
                 "traits": {
                     "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate",
-                        "void"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "6uJuggbEAtOMm6aS",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.GUeRTriJkMlMlVrk"
-            },
-            "img": "systems/pf2e/icons/spells/bind-undead.webp",
-            "name": "Bind Undead",
-            "sort": 400000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>With a word of power, you seize control of the target. It gains the minion trait. If you or an ally uses any hostile actions against the target, the spell ends.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Bind Undead]</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 day"
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": {
-                    "value": "vg2OCyGeOvfW1fuo"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "bind-undead",
-                "target": {
-                    "value": "1 mindless undead creature with a level no greater than bind undead's spell rank"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "Ub668xAIATdP7BMn",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.VosLNn2M8S7JH67D"
-            },
-            "img": "icons/skills/wounds/injury-eyes-blood-red.webp",
-            "name": "Blindness",
-            "sort": 500000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "fortitude"
-                    }
-                },
-                "description": {
-                    "value": "<p>You blind the target. The effect is determined by the target's Fortitude save. The target then becomes temporarily immune for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] until its next turn begins.</p>\n<p><strong>Failure</strong> The target is Blinded for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is Blinded permanently.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": {
-                    "value": "vg2OCyGeOvfW1fuo"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "blindness",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ],
                     "value": [
                         "concentrate",
                         "incapacitation",
-                        "manipulate"
+                        "manipulate",
+                        "primal"
                     ]
                 }
             },
-            "type": "spell"
+            "type": "action"
         },
         {
-            "_id": "NNUJ4Nm6PPU0RP4w",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.gWmLT5SkA0qH2mNE"
-            },
-            "img": "icons/creatures/mammals/elk-moose-marked-green.webp",
-            "name": "Envenom Companion",
-            "sort": 600000,
+            "_id": "x83x9fjrppcc90jp",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Hasten Eidolon",
+            "sort": 300000,
             "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
+                "actionType": {
+                    "value": "action"
                 },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>You envenom your companion or eidolon's attacks, which drip with highly toxic venom for the spell's duration. The first time each round the target hits a creature with an unarmed Strike that deals piercing or slashing damage, that Strike deals an additional 1d8 poison damage. A creature that is damaged by this poison must attempt a Fortitude save. On a failure, it's also @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 1 round. This spell can't target familiars.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Envenom Companion]</p>\n<hr />\n<p><strong>Heightened (+3)</strong> The poison damage increases by 1d8 and the clumsy value imposed on a failed save increases by 1.</p>"
+                    "value": "<p>Ashen Swale focuses on the link he shares with Idovik to quicken his eidolon's actions. Idovik is @UUID[Compendium.pf2e.conditionitems.Item.Quickened] 1 until the beginning of Ashen Swale's next turn.</p>"
                 },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 minute"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "level": {
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6wpx2hvdygd0cx5k",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Manifest Eidolon",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
                     "value": 3
                 },
-                "location": {
-                    "heightenedLevel": 3,
-                    "value": "vg2OCyGeOvfW1fuo"
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Ashen Swale summons Idovik in an adjacent open space. If Idovik was already manifested, Ashen Swale chooses whether to unmanifest Idovik or to teleport Idovik to an adjacent open space. If Idovik unmanifested at 0 Hit Points, this process takes 1 minute instead of 3 actions, but Idovik regains 1 Hit Point when he remanifests.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Secrets of Magic"
+                    "title": ""
                 },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
                 "rules": [],
-                "slug": "envenom-companion",
-                "target": {
-                    "value": "your companion or eidolon"
-                },
-                "time": {
-                    "value": "2"
-                },
+                "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "traditions": [
-                        "primal"
-                    ],
+                    "value": [
+                        "concentrate",
+                        "magical",
+                        "manipulate",
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5u5les4bbzduvczh",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Transpose",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>With a flash, Ashen Swale and Idovik switch places, each teleporting to the other's position.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
                     "value": [
                         "concentrate",
                         "manipulate",
-                        "poison"
+                        "primal",
+                        "teleportation"
                     ]
                 }
             },
-            "type": "spell"
-        },
-        {
-            "_id": "HkPKJwZAdlvMrXOs",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.N1Z1oLPdBxaSgrEE"
-            },
-            "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
-            "name": "Vampiric Touch",
-            "sort": 700000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "category": null,
-                        "formula": "6d6",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "void"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": true,
-                        "statistic": "fortitude"
-                    }
-                },
-                "description": {
-                    "value": "<p>Your touch leeches the lifeblood out of a target to empower yourself. You deal 6d6 void damage to the target. You gain temporary Hit Points equal to half the void damage the target takes (after applying resistances and the like). You lose any remaining temporary Hit Points after 1 minute.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": {
-                    "value": "vg2OCyGeOvfW1fuo"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "vampiric-touch",
-                "target": {
-                    "value": "1 living creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "death",
-                        "manipulate",
-                        "void"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "8ii7COra6PaFBdl7",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.S708JF3E0kuhuRzG"
-            },
-            "img": "icons/commodities/bones/bones-stack-tan.webp",
-            "name": "Bone Spray",
-            "sort": 800000,
-            "system": {
-                "area": {
-                    "type": "cone",
-                    "value": 15
-                },
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": false,
-                        "category": null,
-                        "formula": "2d10",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "piercing"
-                    },
-                    "1": {
-                        "applyMod": false,
-                        "category": null,
-                        "formula": "1",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "bleed"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": true,
-                        "statistic": "reflex"
-                    }
-                },
-                "description": {
-                    "value": "<p>You fire a torrent of jagged bone shards from your hands, dealing 2d10 piercing damage and 1 persistent bleed damage to all creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The piercing damage increases by 1d10 and the persistent bleed damage increases by 1.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d10",
-                        "1": "1"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 2
-                },
-                "location": {
-                    "heightenedLevel": 4,
-                    "value": "vg2OCyGeOvfW1fuo"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #176: Lost Mammoth Valley"
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "bone-spray",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "zolRr66biRwdkPyc",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.zdNUbHqqZzjA07oM"
-            },
-            "img": "icons/skills/wounds/bone-broken-marrow-red.webp",
-            "name": "Boneshaker",
-            "sort": 900000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "ohmjnqzezb9q8i8x": {
-                        "applyMod": false,
-                        "category": null,
-                        "formula": "3d8",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "bludgeoning"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "fortitude"
-                    }
-                },
-                "description": {
-                    "value": "<p>You reach out a hand and seize a creature's skeleton from afar, harming their body and potentially wrenching them by the bones to move them against their will. The number of actions you spend when Casting this Spell determines the spell's effects. Regardless of the number of actions spent to Cast this Spell, the target must attempt a Fortitude save.</p>\n<p><span class=\"action-glyph\">2</span> (somatic, verbal) You clench your fist, painfully compressing the target's bones and dealing 3d8 bludgeoning damage.</p>\n<p><span class=\"action-glyph\">3</span> (material, somatic, verbal) As the 2-action version, plus you pull the target's body by their bones, moving them around like an awkward marionette. This movement follows the rules for forced movement.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage. If you cast the 3-action version, you can move the target up to 5 feet; it can choose to fall @UUID[Compendium.pf2e.conditionitems.Item.Prone] to avoid moving.</p>\n<p><strong>Failure</strong> The target takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}. If you cast the 3-action version, you can move the target up to 15 feet; it can fall prone to avoid moving.</p>\n<p><strong>Critical Failure</strong> The target takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}. If you cast the 3-action version, you can move the target up to 25 feet, then knock the target prone; if you attempt to move the target to a hazardous location, such as into a pool of acid or off a cliff, it can fall prone to avoid moving.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 3d8.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "ohmjnqzezb9q8i8x": "3d8"
-                    },
-                    "interval": 2,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 2
-                },
-                "location": {
-                    "heightenedLevel": 4,
-                    "value": "vg2OCyGeOvfW1fuo"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #176: Lost Mammoth Valley"
-                },
-                "range": {
-                    "value": "100 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "boneshaker",
-                "target": {
-                    "value": "1 creature with a skeleton"
-                },
-                "time": {
-                    "value": "2 or 3"
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "primal"
-                    ],
-                    "value": []
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "NkOUAEmyxrjCc3bU",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.c3b6LdLlQDPngNIb"
-            },
-            "img": "systems/pf2e/icons/spells/create-undead.webp",
-            "name": "Create Undead",
-            "sort": 1000000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": "black onyx, see Table 7-1"
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You transform the target into an undead creature with a level up to that allowed in Table 7-1. There are many versions of this ritual, each specific to a particular type of undead (one ritual for all zombies, one for skeletons, one for ghouls, and so on), and the rituals that create rare undead are also rare. Some forms of undead, such as liches, form using their own unique methods and can't be created with a version of <em>create undead</em>.</p>\n<h2>Table 7-1: Creatures Creation Rituals</h2>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Creature Level</th>\n<th>Spell Rank Required</th>\n<th>Cost</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>-1 or 0</td>\n<td>2</td>\n<td>15 gp</td>\n</tr>\n<tr>\n<td>1</td>\n<td>2</td>\n<td>60 gp</td>\n</tr>\n<tr>\n<td>2</td>\n<td>3</td>\n<td>105 gp</td>\n</tr>\n<tr>\n<td>3</td>\n<td>3</td>\n<td>180 gp</td>\n</tr>\n<tr>\n<td>4</td>\n<td>4</td>\n<td>300 gp</td>\n</tr>\n<tr>\n<td>5</td>\n<td>4</td>\n<td>480 gp</td>\n</tr>\n<tr>\n<td>6</td>\n<td>5</td>\n<td>750 gp</td>\n</tr>\n<tr>\n<td>7</td>\n<td>5</td>\n<td>1,080 gp</td>\n</tr>\n<tr>\n<td>8</td>\n<td>6</td>\n<td>1,500 gp</td>\n</tr>\n<tr>\n<td>9</td>\n<td>6</td>\n<td>2,100 gp</td>\n</tr>\n<tr>\n<td>10</td>\n<td>7</td>\n<td>3,000 gp</td>\n</tr>\n<tr>\n<td>11</td>\n<td>7</td>\n<td>4,200 gp</td>\n</tr>\n<tr>\n<td>12</td>\n<td>8</td>\n<td>6,000 gp</td>\n</tr>\n<tr>\n<td>13</td>\n<td>8</td>\n<td>9,000 gp</td>\n</tr>\n<tr>\n<td>14</td>\n<td>9</td>\n<td>13,500 gp</td>\n</tr>\n<tr>\n<td>15</td>\n<td>9</td>\n<td>19,500 gp</td>\n</tr>\n<tr>\n<td>16</td>\n<td>10</td>\n<td>30,000 gp</td>\n</tr>\n<tr>\n<td>17</td>\n<td>10</td>\n<td>45,000 gp</td>\n</tr>\n</tbody>\n</table>\n<p><strong>Critical Success</strong> The target becomes an undead creature of the appropriate type. If it's at least 4 levels lower than you, you can make it a minion. This gives it the minion trait, meaning it can use 2 actions when you command it, and commanding it is a single action that has the auditory and concentrate traits. You can have a maximum of four minions under your control. If it's intelligent and doesn't become a minion, the undead is helpful to you for awakening it, though it's still a horrid and evil creature. If it's unintelligent and doesn't become a minion, you can give it one simple command. It pursues that goal single-mindedly, ignoring any of your subsequent commands.</p>\n<p><strong>Success</strong> As critical success, except an intelligent undead that doesn't become your minion is only friendly to you, and an unintelligent undead that doesn't become your minion leaves you alone unless you attack it. It marauds the local area rather than following your command.</p>\n<p><strong>Failure</strong> You fail to create the undead.</p>\n<p><strong>Critical Failure</strong> You create the undead, but its soul, tortured by your foul necromancy, is full of nothing but hatred for you. It attempts to destroy you.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 2
-                },
-                "location": {
-                    "value": null
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "10 feet"
-                },
-                "requirements": "",
-                "ritual": {
-                    "primary": {
-                        "check": "Arcana (expert), Occultism (expert), or Religion (expert)"
-                    },
-                    "secondary": {
-                        "casters": 1,
-                        "checks": "Religion"
-                    }
-                },
-                "rules": [],
-                "slug": "create-undead",
-                "target": {
-                    "value": "1 dead creature"
-                },
-                "time": {
-                    "value": "1 day"
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [],
-                    "value": [
-                        "evil"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "Qx0PiuqL4YOJv828",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.9WGeBwIIbbUuWKq0"
-            },
-            "img": "systems/pf2e/icons/spells/animate-dead.webp",
-            "name": "Animate Dead",
-            "sort": 1100000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>Your magic dredges up a corpse or skeleton and fills it with necromantic life, and you force the dead to fight at your command. You summon a common creature that has the undead trait and whose level is -1; this creature gains the summoned trait. Heightening the spell increases the maximum level of creature you can summon.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> Level 1.</p>\n<p><strong>Heightened (3rd)</strong> Level 2.</p>\n<p><strong>Heightened (4th)</strong> Level 3.</p>\n<p><strong>Heightened (5th)</strong> Level 5.</p>\n<p><strong>Heightened (6th)</strong> Level 7.</p>\n<p><strong>Heightened (7th)</strong> Level 9.</p>\n<p><strong>Heightened (8th)</strong> Level 11.</p>\n<p><strong>Heightened (9th)</strong> Level 13.</p>\n<p><strong>Heightened (10th)</strong> Level 15.</p>"
-                },
-                "duration": {
-                    "sustained": true,
-                    "value": "1 minute"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "heightenedLevel": 4,
-                    "value": "vg2OCyGeOvfW1fuo"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "animate-dead",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "3"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "YvrtMbLK2HJ4ZqAn",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.HStu2Yhw3iQER9tY"
-            },
-            "img": "icons/creatures/magical/humanoid-silhouette-glowing-pink.webp",
-            "name": "Boost Eidolon",
-            "sort": 1200000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You focus deeply on the link between you and your eidolon and boost the power of your eidolon's attacks. Your eidolon gains a +2 status bonus to damage rolls with its unarmed attacks. If your eidolon's Strikes deal more than one weapon damage die, the status bonus increases to 2 per weapon damage die, to a maximum of +8 with four weapon damage dice.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Boost Eidolon]</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 round"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "DiZt608OsN2MK79y"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Secrets of Magic"
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "boost-eidolon",
-                "target": {
-                    "value": "your eidolon"
-                },
-                "time": {
-                    "value": "1"
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [],
-                    "value": [
-                        "cantrip",
-                        "concentrate",
-                        "summoner"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "Vvl6ugBYT7bzqNty",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.mAMEt4FFbdqoRnkN"
-            },
-            "img": "systems/pf2e/icons/spells/chill-touch.webp",
-            "name": "Chill Touch",
-            "sort": 1300000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": true,
-                        "category": null,
-                        "formula": "1d4",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "void"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": true,
-                        "statistic": "fortitude"
-                    }
-                },
-                "description": {
-                    "value": "<p>Siphoning void energy into yourself, your hand radiates a pale darkness. Your touch weakens the living and disorients undead, possibly even causing them to flee. The effect depends on whether the target is living or undead.</p>\n<ul>\n<li><strong>Living Creature</strong> The spell deals void damage equal to 1d4 plus your spellcasting modifier. The target attempts a basic Fortitude save, but is also @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 round on a critical failure.</li>\n<li><strong>Undead Creature</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round on a failed Fortitude save. On a critical failure, the target is also @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round unless it succeeds at a Will save.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+1)</strong> The void damage to living creatures increases by 1d4.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d4"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "vg2OCyGeOvfW1fuo"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "chill-touch",
-                "target": {
-                    "value": "1 living or undead creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult"
-                    ],
-                    "value": [
-                        "cantrip",
-                        "concentrate",
-                        "manipulate",
-                        "void"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "x4acr7HByuvcfhQ0",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.4gBIw4IDrSfFHik4"
-            },
-            "img": "systems/pf2e/icons/spells/daze.webp",
-            "name": "Daze",
-            "sort": 1400000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": true,
-                        "category": null,
-                        "formula": "0",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "mental"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": true,
-                        "statistic": "will"
-                    }
-                },
-                "description": {
-                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 round"
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 2,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "vg2OCyGeOvfW1fuo"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "60 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "daze",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult"
-                    ],
-                    "value": [
-                        "cantrip",
-                        "concentrate",
-                        "manipulate",
-                        "mental",
-                        "nonlethal"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "zk2lURHx9DcCfJQR",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.kBhaPuzLUSwS6vVf"
-            },
-            "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
-            "name": "Electric Arc",
-            "sort": 1500000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": true,
-                        "category": null,
-                        "formula": "1d4",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "electricity"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": true,
-                        "statistic": "reflex"
-                    }
-                },
-                "description": {
-                    "value": "<p>An arc of lightning leaps from one target to another. You deal electricity damage equal to 1d4 plus your spellcasting ability modifier.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d4"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "vg2OCyGeOvfW1fuo"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "electric-arc",
-                "target": {
-                    "value": "1 or 2 creatures"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "primal"
-                    ],
-                    "value": [
-                        "cantrip",
-                        "concentrate",
-                        "electricity",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "EosQ2sMmIwFTJ00q",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.RA7VKcen3p56rVyZ"
-            },
-            "img": "systems/pf2e/icons/spells/forbidding-ward.webp",
-            "name": "Forbidding Ward",
-            "sort": 1600000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You ward an ally against the attacks and hostile spells from the target enemy. The target ally gains a +1 status bonus to Armor Class and saving throws against the target enemy's attacks, spells, and other effects.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Forbidding Ward]</p>\n<hr />\n<p><strong>Heightened (6th)</strong> The status bonus increases to +2.</p>"
-                },
-                "duration": {
-                    "sustained": true,
-                    "value": "1 minute"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "vg2OCyGeOvfW1fuo"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "forbidding-ward",
-                "target": {
-                    "value": "1 ally and 1 enemy"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "divine",
-                        "occult"
-                    ],
-                    "value": [
-                        "cantrip",
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "n1k5jHFl4wHKY6qa",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.WBmvzNDfpwka3qT4"
-            },
-            "img": "systems/pf2e/icons/spells/light.webp",
-            "name": "Light",
-            "sort": 1700000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Light]</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "until the next time you make your daily preparations"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "vg2OCyGeOvfW1fuo"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "light",
-                "target": {
-                    "value": "1 object of 1 Bulk or less, either unattended or possessed by you or a willing ally"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ],
-                    "value": [
-                        "cantrip",
-                        "concentrate",
-                        "light",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "z4FQUCnq3NrI6lQV",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.TYbCj4dgXDOZou9k"
-            },
-            "img": "icons/environment/settlement/watchtower-silhouette-yellow.webp",
-            "name": "Reinforce Eidolon",
-            "sort": 1800000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You focus deeply on the link between you and your eidolon and reinforce your eidolon's defenses. Your eidolon gains a +1 status bonus to AC and saving throws, plus resistance to all damage equal to half the spell's rank. Your eidolon can benefit from either @UUID[Compendium.pf2e.spells-srd.Item.Boost Eidolon] or Reinforce Eidolon, but not both; if you cast one of these spells during the other's duration, the newer spell replaces the older one.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Reinforce Eidolon]</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 round"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "DiZt608OsN2MK79y"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Secrets of Magic"
-                },
-                "range": {
-                    "value": "100 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "reinforce-eidolon",
-                "target": {
-                    "value": "your eidolon"
-                },
-                "time": {
-                    "value": "1"
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [],
-                    "value": [
-                        "cantrip",
-                        "concentrate",
-                        "summoner"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "FKtW4MLx5LUQ5jBE",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.tOhoGvmCMw4JpWcS"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/spear.webp",
-            "name": "Spear",
-            "sort": 1900000,
-            "system": {
-                "baseItem": "spear",
-                "bonus": {
-                    "value": 0
-                },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "bulk": {
-                    "value": 1
-                },
-                "category": "simple",
-                "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d6"
-                },
-                "description": {
-                    "value": "<p>A long metal shaft ending with a metal spike, a spear can be used one-handed as a melee weapon and can be thrown.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "spear",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": "-"
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "spear",
-                "splashDamage": {
-                    "value": 0
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "thrown-20"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "weapon"
+            "type": "action"
         },
         {
             "_id": "Lv5C5J8tqN7ZRbCz",
@@ -1375,7 +181,7 @@
             },
             "img": "systems/pf2e/icons/equipment/wands/magic-wands/magic-wand.webp",
             "name": "Wand of Heal (Level 3)",
-            "sort": 2000000,
+            "sort": 600000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -1528,7 +334,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Spear",
-            "sort": 2100000,
+            "sort": 700000,
             "system": {
                 "attack": {
                     "value": ""
@@ -1570,156 +376,1177 @@
             "type": "melee"
         },
         {
-            "_id": "pj3l76rx3200el2x",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Siphon Life",
-            "sort": 2200000,
+            "_id": "hoDZKGZiHQij1XVR",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.eexkxcqnkXazsGfK"
+            },
+            "img": "systems/pf2e/icons/spells/enervation.webp",
+            "name": "Enervation",
+            "sort": 800000,
             "system": {
-                "actionType": {
-                    "value": "reaction"
+                "area": {
+                    "type": "line",
+                    "value": 30
                 },
-                "actions": {
-                    "value": null
+                "cost": {
+                    "value": ""
                 },
-                "category": "defensive",
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "fortitude"
+                    }
+                },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within 30 feet uses a spell or ability with the healing trait that restores Hit Points or is the target of a spell or ability with the healing trait that restores Hit Points</p><hr /><p><strong>Effect</strong> Ashen Swale seizes upon the healing magic, drawing a portion of it into himself instead of the intended target. The healing effect restores 10 fewer Hit Points to one of its targets and Ashen Swale is restored 10 Hit Points or the total amount of healing, whichever is less.</p>"
+                    "value": "<p>Extending a finger, you fire a beam of void energy that weakens the life force of any creature it touches. Each living creature in the line must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[(floor(@item.rank/2))d8[persistent,void]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[(floor(@item.rank/2)*2)d8[persistent,void]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[(floor(@item.rank/2)*2)d8[persistent,void]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} and @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The persistent void damage increases by 1d8 on a success, or by 2d8 on a failure or critical failure.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {}
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "value": "vg2OCyGeOvfW1fuo"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Advanced Player's Guide"
                 },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "enervation",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ],
                     "value": [
                         "concentrate",
-                        "primal",
-                        "vitality"
+                        "manipulate",
+                        "void"
                     ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "wrq2ffxoouebysd4",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Corpse Puppet",
-            "sort": 2300000,
+            "_id": "6uJuggbEAtOMm6aS",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.GUeRTriJkMlMlVrk"
+            },
+            "img": "systems/pf2e/icons/spells/bind-undead.webp",
+            "name": "Bind Undead",
+            "sort": 900000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p>Ashen Swale seizes control of the body of a creature within 30 feet that is dead or @UUID[Compendium.pf2e.conditionitems.Item.Unconscious]. The target must attempt a Will save. Dead creatures automatically fail this save. On a success, the target is permanently immune to Corpse Puppet. On a failure, the target is controlled by Ashen Swale. It gains the minion trait and can act as though it were alive and conscious as long as it's controlled by Ashen Swale. Controlling each target requires Ashen Swale to take an action to Command a Minion. The only actions the target can take during this time are Interact, Stride, and Strike.</p>\n<p>Ashen Swale retains control of the target for 10 minutes. This control ends immediately if the target loses the unconscious condition or the target is dealt an additional 50 damage since Ashen Swale took control (which destroys the body completely). After he has lost control of a target, that target is permanently immune to Corpse Puppet.</p>\n<p>Ashen Swale can control up to two targets with Corpse Puppet at a time.</p>"
+                    "value": "<p>With a word of power, you seize control of the target. It gains the minion trait. If you or an ally uses any hostile actions against the target, the spell ends.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Bind Undead]</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 day"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": {
+                    "value": "vg2OCyGeOvfW1fuo"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "bind-undead",
+                "target": {
+                    "value": "1 mindless undead creature with a level no greater than bind undead's spell rank"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "Ub668xAIATdP7BMn",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.VosLNn2M8S7JH67D"
+            },
+            "img": "icons/skills/wounds/injury-eyes-blood-red.webp",
+            "name": "Blindness",
+            "sort": 1000000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "fortitude"
+                    }
+                },
+                "description": {
+                    "value": "<p>You blind the target. The effect is determined by the target's Fortitude save. The target then becomes temporarily immune for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] until its next turn begins.</p>\n<p><strong>Failure</strong> The target is Blinded for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is Blinded permanently.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": {
+                    "value": "vg2OCyGeOvfW1fuo"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "blindness",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
                     "value": [
                         "concentrate",
                         "incapacitation",
-                        "manipulate",
-                        "primal"
+                        "manipulate"
                     ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "x83x9fjrppcc90jp",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Hasten Eidolon",
-            "sort": 2400000,
+            "_id": "NNUJ4Nm6PPU0RP4w",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.gWmLT5SkA0qH2mNE"
+            },
+            "img": "icons/creatures/mammals/elk-moose-marked-green.webp",
+            "name": "Envenom Companion",
+            "sort": 1100000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p>Ashen Swale focuses on the link he shares with Idovik to quicken his eidolon's actions. Idovik is @UUID[Compendium.pf2e.conditionitems.Item.Quickened] 1 until the beginning of Ashen Swale's next turn.</p>"
+                    "value": "<p>You envenom your companion or eidolon's attacks, which drip with highly toxic venom for the spell's duration. The first time each round the target hits a creature with an unarmed Strike that deals piercing or slashing damage, that Strike deals an additional 1d8 poison damage. A creature that is damaged by this poison must attempt a Fortitude save. On a failure, it's also @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 1 round. This spell can't target familiars.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Envenom Companion]</p>\n<hr />\n<p><strong>Heightened (+3)</strong> The poison damage increases by 1d8 and the clumsy value imposed on a failed save increases by 1.</p>"
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "duration": {
+                    "sustained": false,
+                    "value": "1 minute"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "6wpx2hvdygd0cx5k",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Manifest Eidolon",
-            "sort": 2500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "level": {
                     "value": 3
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Ashen Swale summons Idovik in an adjacent open space. If Idovik was already manifested, Ashen Swale chooses whether to unmanifest Idovik or to teleport Idovik to an adjacent open space. If Idovik unmanifested at 0 Hit Points, this process takes 1 minute instead of 3 actions, but Idovik regains 1 Hit Point when he remanifests.</p>"
+                "location": {
+                    "heightenedLevel": 3,
+                    "value": "vg2OCyGeOvfW1fuo"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Secrets of Magic"
                 },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "envenom-companion",
+                "target": {
+                    "value": "your companion or eidolon"
+                },
+                "time": {
+                    "value": "2"
+                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "primal"
+                    ],
                     "value": [
                         "concentrate",
-                        "magical",
                         "manipulate",
-                        "teleportation"
+                        "poison"
                     ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "5u5les4bbzduvczh",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Transpose",
-            "sort": 2600000,
+            "_id": "HkPKJwZAdlvMrXOs",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.N1Z1oLPdBxaSgrEE"
+            },
+            "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
+            "name": "Vampiric Touch",
+            "sort": 1200000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "category": null,
+                        "formula": "6d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "void"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "fortitude"
+                    }
+                },
+                "description": {
+                    "value": "<p>Your touch leeches the lifeblood out of a target to empower yourself. You deal 6d6 void damage to the target. You gain temporary Hit Points equal to half the void damage the target takes (after applying resistances and the like). You lose any remaining temporary Hit Points after 1 minute.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": {
+                    "value": "vg2OCyGeOvfW1fuo"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "vampiric-touch",
+                "target": {
+                    "value": "1 living creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "death",
+                        "manipulate",
+                        "void"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "8ii7COra6PaFBdl7",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.S708JF3E0kuhuRzG"
+            },
+            "img": "icons/commodities/bones/bones-stack-tan.webp",
+            "name": "Bone Spray",
+            "sort": 1300000,
+            "system": {
+                "area": {
+                    "type": "cone",
+                    "value": 15
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "2d10",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "piercing"
+                    },
+                    "1": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "1",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "bleed"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "reflex"
+                    }
+                },
+                "description": {
+                    "value": "<p>You fire a torrent of jagged bone shards from your hands, dealing 2d10 piercing damage and 1 persistent bleed damage to all creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The piercing damage increases by 1d10 and the persistent bleed damage increases by 1.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d10",
+                        "1": "1"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "heightenedLevel": 4,
+                    "value": "vg2OCyGeOvfW1fuo"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #176: Lost Mammoth Valley"
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "bone-spray",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "zolRr66biRwdkPyc",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.zdNUbHqqZzjA07oM"
+            },
+            "img": "icons/skills/wounds/bone-broken-marrow-red.webp",
+            "name": "Boneshaker",
+            "sort": 1400000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "ohmjnqzezb9q8i8x": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "3d8",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "bludgeoning"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "fortitude"
+                    }
+                },
+                "description": {
+                    "value": "<p>You reach out a hand and seize a creature's skeleton from afar, harming their body and potentially wrenching them by the bones to move them against their will. The number of actions you spend when Casting this Spell determines the spell's effects. Regardless of the number of actions spent to Cast this Spell, the target must attempt a Fortitude save.</p>\n<p><span class=\"action-glyph\">2</span> (somatic, verbal) You clench your fist, painfully compressing the target's bones and dealing 3d8 bludgeoning damage.</p>\n<p><span class=\"action-glyph\">3</span> (material, somatic, verbal) As the 2-action version, plus you pull the target's body by their bones, moving them around like an awkward marionette. This movement follows the rules for forced movement.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage. If you cast the 3-action version, you can move the target up to 5 feet; it can choose to fall @UUID[Compendium.pf2e.conditionitems.Item.Prone] to avoid moving.</p>\n<p><strong>Failure</strong> The target takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}. If you cast the 3-action version, you can move the target up to 15 feet; it can fall prone to avoid moving.</p>\n<p><strong>Critical Failure</strong> The target takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}. If you cast the 3-action version, you can move the target up to 25 feet, then knock the target prone; if you attempt to move the target to a hazardous location, such as into a pool of acid or off a cliff, it can fall prone to avoid moving.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 3d8.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "ohmjnqzezb9q8i8x": "3d8"
+                    },
+                    "interval": 2,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "heightenedLevel": 4,
+                    "value": "vg2OCyGeOvfW1fuo"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #176: Lost Mammoth Valley"
+                },
+                "range": {
+                    "value": "100 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "boneshaker",
+                "target": {
+                    "value": "1 creature with a skeleton"
+                },
+                "time": {
+                    "value": "2 or 3"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "primal"
+                    ],
+                    "value": []
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "NkOUAEmyxrjCc3bU",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.c3b6LdLlQDPngNIb"
+            },
+            "img": "systems/pf2e/icons/spells/create-undead.webp",
+            "name": "Create Undead",
+            "sort": 1500000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": "black onyx, see Table 7-1"
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You transform the target into an undead creature with a level up to that allowed in Table 7-1. There are many versions of this ritual, each specific to a particular type of undead (one ritual for all zombies, one for skeletons, one for ghouls, and so on), and the rituals that create rare undead are also rare. Some forms of undead, such as liches, form using their own unique methods and can't be created with a version of <em>create undead</em>.</p>\n<h2>Table 7-1: Creatures Creation Rituals</h2>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Creature Level</th>\n<th>Spell Rank Required</th>\n<th>Cost</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>-1 or 0</td>\n<td>2</td>\n<td>15 gp</td>\n</tr>\n<tr>\n<td>1</td>\n<td>2</td>\n<td>60 gp</td>\n</tr>\n<tr>\n<td>2</td>\n<td>3</td>\n<td>105 gp</td>\n</tr>\n<tr>\n<td>3</td>\n<td>3</td>\n<td>180 gp</td>\n</tr>\n<tr>\n<td>4</td>\n<td>4</td>\n<td>300 gp</td>\n</tr>\n<tr>\n<td>5</td>\n<td>4</td>\n<td>480 gp</td>\n</tr>\n<tr>\n<td>6</td>\n<td>5</td>\n<td>750 gp</td>\n</tr>\n<tr>\n<td>7</td>\n<td>5</td>\n<td>1,080 gp</td>\n</tr>\n<tr>\n<td>8</td>\n<td>6</td>\n<td>1,500 gp</td>\n</tr>\n<tr>\n<td>9</td>\n<td>6</td>\n<td>2,100 gp</td>\n</tr>\n<tr>\n<td>10</td>\n<td>7</td>\n<td>3,000 gp</td>\n</tr>\n<tr>\n<td>11</td>\n<td>7</td>\n<td>4,200 gp</td>\n</tr>\n<tr>\n<td>12</td>\n<td>8</td>\n<td>6,000 gp</td>\n</tr>\n<tr>\n<td>13</td>\n<td>8</td>\n<td>9,000 gp</td>\n</tr>\n<tr>\n<td>14</td>\n<td>9</td>\n<td>13,500 gp</td>\n</tr>\n<tr>\n<td>15</td>\n<td>9</td>\n<td>19,500 gp</td>\n</tr>\n<tr>\n<td>16</td>\n<td>10</td>\n<td>30,000 gp</td>\n</tr>\n<tr>\n<td>17</td>\n<td>10</td>\n<td>45,000 gp</td>\n</tr>\n</tbody>\n</table>\n<p><strong>Critical Success</strong> The target becomes an undead creature of the appropriate type. If it's at least 4 levels lower than you, you can make it a minion. This gives it the minion trait, meaning it can use 2 actions when you command it, and commanding it is a single action that has the auditory and concentrate traits. You can have a maximum of four minions under your control. If it's intelligent and doesn't become a minion, the undead is helpful to you for awakening it, though it's still a horrid and evil creature. If it's unintelligent and doesn't become a minion, you can give it one simple command. It pursues that goal single-mindedly, ignoring any of your subsequent commands.</p>\n<p><strong>Success</strong> As critical success, except an intelligent undead that doesn't become your minion is only friendly to you, and an unintelligent undead that doesn't become your minion leaves you alone unless you attack it. It marauds the local area rather than following your command.</p>\n<p><strong>Failure</strong> You fail to create the undead.</p>\n<p><strong>Critical Failure</strong> You create the undead, but its soul, tortured by your foul necromancy, is full of nothing but hatred for you. It attempts to destroy you.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "value": null
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "10 feet"
+                },
+                "requirements": "",
+                "ritual": {
+                    "primary": {
+                        "check": "Arcana (expert), Occultism (expert), or Religion (expert)"
+                    },
+                    "secondary": {
+                        "casters": 1,
+                        "checks": "Religion"
+                    }
+                },
+                "rules": [],
+                "slug": "create-undead",
+                "target": {
+                    "value": "1 dead creature"
+                },
+                "time": {
+                    "value": "1 day"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [],
+                    "value": [
+                        "evil"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "Qx0PiuqL4YOJv828",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.9WGeBwIIbbUuWKq0"
+            },
+            "img": "systems/pf2e/icons/spells/animate-dead.webp",
+            "name": "Animate Dead",
+            "sort": 1600000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>Your magic dredges up a corpse or skeleton and fills it with necromantic life, and you force the dead to fight at your command. You summon a common creature that has the undead trait and whose level is -1; this creature gains the summoned trait. Heightening the spell increases the maximum level of creature you can summon.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> Level 1.</p>\n<p><strong>Heightened (3rd)</strong> Level 2.</p>\n<p><strong>Heightened (4th)</strong> Level 3.</p>\n<p><strong>Heightened (5th)</strong> Level 5.</p>\n<p><strong>Heightened (6th)</strong> Level 7.</p>\n<p><strong>Heightened (7th)</strong> Level 9.</p>\n<p><strong>Heightened (8th)</strong> Level 11.</p>\n<p><strong>Heightened (9th)</strong> Level 13.</p>\n<p><strong>Heightened (10th)</strong> Level 15.</p>"
+                },
+                "duration": {
+                    "sustained": true,
+                    "value": "1 minute"
+                },
+                "level": {
                     "value": 1
                 },
-                "category": "offensive",
+                "location": {
+                    "heightenedLevel": 4,
+                    "value": "vg2OCyGeOvfW1fuo"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Advanced Player's Guide"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "animate-dead",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "3"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "YvrtMbLK2HJ4ZqAn",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.HStu2Yhw3iQER9tY"
+            },
+            "img": "icons/creatures/magical/humanoid-silhouette-glowing-pink.webp",
+            "name": "Boost Eidolon",
+            "sort": 1700000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p>With a flash, Ashen Swale and Idovik switch places, each teleporting to the other's position.</p>"
+                    "value": "<p>You focus deeply on the link between you and your eidolon and boost the power of your eidolon's attacks. Your eidolon gains a +2 status bonus to damage rolls with its unarmed attacks. If your eidolon's Strikes deal more than one weapon damage die, the status bonus increases to 2 per weapon damage die, to a maximum of +8 with four weapon damage dice.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Boost Eidolon]</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 round"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "DiZt608OsN2MK79y"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Secrets of Magic"
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "boost-eidolon",
+                "target": {
+                    "value": "your eidolon"
+                },
+                "time": {
+                    "value": "1"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "summoner"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "Vvl6ugBYT7bzqNty",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.mAMEt4FFbdqoRnkN"
+            },
+            "img": "systems/pf2e/icons/spells/chill-touch.webp",
+            "name": "Chill Touch",
+            "sort": 1800000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": true,
+                        "category": null,
+                        "formula": "1d4",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "void"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "fortitude"
+                    }
+                },
+                "description": {
+                    "value": "<p>Siphoning void energy into yourself, your hand radiates a pale darkness. Your touch weakens the living and disorients undead, possibly even causing them to flee. The effect depends on whether the target is living or undead.</p>\n<ul>\n<li><strong>Living Creature</strong> The spell deals void damage equal to 1d4 plus your spellcasting modifier. The target attempts a basic Fortitude save, but is also @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 round on a critical failure.</li>\n<li><strong>Undead Creature</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round on a failed Fortitude save. On a critical failure, the target is also @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round unless it succeeds at a Will save.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+1)</strong> The void damage to living creatures increases by 1d4.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "vg2OCyGeOvfW1fuo"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "chill-touch",
+                "target": {
+                    "value": "1 living or undead creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "manipulate",
+                        "void"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "x4acr7HByuvcfhQ0",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.4gBIw4IDrSfFHik4"
+            },
+            "img": "systems/pf2e/icons/spells/daze.webp",
+            "name": "Daze",
+            "sort": 1900000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": true,
+                        "category": null,
+                        "formula": "0",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "mental"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 round"
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 2,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "vg2OCyGeOvfW1fuo"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "60 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "daze",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "manipulate",
+                        "mental",
+                        "nonlethal"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "zk2lURHx9DcCfJQR",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.kBhaPuzLUSwS6vVf"
+            },
+            "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
+            "name": "Electric Arc",
+            "sort": 2000000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": true,
+                        "category": null,
+                        "formula": "1d4",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "electricity"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "reflex"
+                    }
+                },
+                "description": {
+                    "value": "<p>An arc of lightning leaps from one target to another. You deal electricity damage equal to 1d4 plus your spellcasting ability modifier.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "vg2OCyGeOvfW1fuo"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "electric-arc",
+                "target": {
+                    "value": "1 or 2 creatures"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "electricity",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "EosQ2sMmIwFTJ00q",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.RA7VKcen3p56rVyZ"
+            },
+            "img": "systems/pf2e/icons/spells/forbidding-ward.webp",
+            "name": "Forbidding Ward",
+            "sort": 2100000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You ward an ally against the attacks and hostile spells from the target enemy. The target ally gains a +1 status bonus to Armor Class and saving throws against the target enemy's attacks, spells, and other effects.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Forbidding Ward]</p>\n<hr />\n<p><strong>Heightened (6th)</strong> The status bonus increases to +2.</p>"
+                },
+                "duration": {
+                    "sustained": true,
+                    "value": "1 minute"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "vg2OCyGeOvfW1fuo"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "forbidding-ward",
+                "target": {
+                    "value": "1 ally and 1 enemy"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "divine",
+                        "occult"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "n1k5jHFl4wHKY6qa",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.WBmvzNDfpwka3qT4"
+            },
+            "img": "systems/pf2e/icons/spells/light.webp",
+            "name": "Light",
+            "sort": 2200000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Light]</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "until the next time you make your daily preparations"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "vg2OCyGeOvfW1fuo"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "light",
+                "target": {
+                    "value": "1 object of 1 Bulk or less, either unattended or possessed by you or a willing ally"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "light",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "z4FQUCnq3NrI6lQV",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.TYbCj4dgXDOZou9k"
+            },
+            "img": "icons/environment/settlement/watchtower-silhouette-yellow.webp",
+            "name": "Reinforce Eidolon",
+            "sort": 2300000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You focus deeply on the link between you and your eidolon and reinforce your eidolon's defenses. Your eidolon gains a +1 status bonus to AC and saving throws, plus resistance to all damage equal to half the spell's rank. Your eidolon can benefit from either @UUID[Compendium.pf2e.spells-srd.Item.Boost Eidolon] or Reinforce Eidolon, but not both; if you cast one of these spells during the other's duration, the newer spell replaces the older one.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Reinforce Eidolon]</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 round"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "DiZt608OsN2MK79y"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Secrets of Magic"
+                },
+                "range": {
+                    "value": "100 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "reinforce-eidolon",
+                "target": {
+                    "value": "your eidolon"
+                },
+                "time": {
+                    "value": "1"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "summoner"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "vg2OCyGeOvfW1fuo",
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Arcane Spontaneous Spells",
+            "sort": 2400000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -1727,18 +1554,191 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "Vvl6ugBYT7bzqNty"
+                            },
+                            {
+                                "id": "x4acr7HByuvcfhQ0"
+                            },
+                            {
+                                "id": "zk2lURHx9DcCfJQR"
+                            },
+                            {
+                                "id": "EosQ2sMmIwFTJ00q"
+                            },
+                            {
+                                "id": "n1k5jHFl4wHKY6qa"
+                            }
+                        ],
+                        "value": 5
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "6uJuggbEAtOMm6aS"
+                            },
+                            {
+                                "id": "Ub668xAIATdP7BMn"
+                            },
+                            {
+                                "id": "HkPKJwZAdlvMrXOs"
+                            }
+                        ],
+                        "value": 3
+                    },
+                    "slot4": {
+                        "max": 4,
+                        "prepared": [
+                            {
+                                "id": "Qx0PiuqL4YOJv828"
+                            },
+                            {
+                                "id": "hoDZKGZiHQij1XVR"
+                            }
+                        ],
+                        "value": 4
+                    }
+                },
                 "slug": null,
+                "spelldc": {
+                    "dc": 25,
+                    "item": 0,
+                    "mod": 0,
+                    "value": 17
+                },
+                "tradition": {
+                    "value": "divine"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "DiZt608OsN2MK79y",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Focus Spells",
+            "sort": 2500000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 25,
+                    "mod": 0,
+                    "value": 17
+                },
+                "tradition": {
+                    "value": "arcane"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "FKtW4MLx5LUQ5jBE",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.tOhoGvmCMw4JpWcS"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/spear.webp",
+            "name": "Spear",
+            "sort": 2600000,
+            "system": {
+                "baseItem": "spear",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6"
+                },
+                "description": {
+                    "value": "<p>A long metal shaft ending with a metal spike, a spear can be used one-handed as a melee weapon and can be thrown.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "spear",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": "-"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "spear",
+                "splashDamage": {
+                    "value": 0
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "concentrate",
-                        "manipulate",
-                        "primal",
-                        "teleportation"
+                        "thrown-20"
                     ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
                 }
             },
-            "type": "action"
+            "type": "weapon"
         }
     ],
     "name": "Ashen Swale",

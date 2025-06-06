@@ -4,13 +4,106 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "91iOrkVbzeP7cK2M",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Adhesive",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The mimic is coated in an adhesive slime. Any creature that hits the mimic, is hit by the mimic, or otherwise touches the mimic must succeed at a @Check[reflex|dc:23] save or become @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] (Escape DC 23). A weapon that hits the mimic is stuck to the mimic and can be removed with a successful @Check[athletics|dc:23] check (made as a single action).</p>\n<p>A mimic can have any number of objects or creatures stuck to it at a time. The mimic can release a stuck creature or object by using a single action, and the adhesive dissolves 1 minute after the mimic dies, releasing all stuck objects and creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "adhesive",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Ns2pok7e6UtuKUd6",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Object Lesson",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature touches or physically interacts with the mimic while the mimic is transformed using Mimic Object.</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature is automatically stuck by the mimic's adhesive (it receives no save). The mimic then makes a pseudopod Strike against any creature adjacent to the mimic.</p>\n<p>Object Lesson can't be used again until the mimic escapes and takes on a new disguise.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "M3QwWIU2rzRHWndo",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Mimic Object",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The mimic assumes the shape of any Medium object. This doesn't change the mimic's texture or overall size but can alter its coloration and visual appearance. It has an automatic result of 28 on Deception checks and DCs to pass as the object that it's mimicking.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "2X6OMr1DNXIsS8XD",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.1r6StS0irdvi5JHY"
             },
             "img": "icons/equipment/finger/ring-band-engraved-lines-bronze.webp",
             "name": "Ventriloquist's Ring",
-            "sort": 100000,
+            "sort": 400000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -72,10 +165,36 @@
             "type": "equipment"
         },
         {
+            "_id": "qGVF829Lwi4ZemA9",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Guldrege Lore",
+            "sort": 500000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 10
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "variants": {}
+            },
+            "type": "lore"
+        },
+        {
             "_id": "Af1bf54ub8OEzyPl",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Pseudopod",
-            "sort": 200000,
+            "sort": 600000,
             "system": {
                 "attack": {
                     "value": ""
@@ -116,125 +235,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "91iOrkVbzeP7cK2M",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Adhesive",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The mimic is coated in an adhesive slime. Any creature that hits the mimic, is hit by the mimic, or otherwise touches the mimic must succeed at a @Check[reflex|dc:23] save or become @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] (Escape DC 23). A weapon that hits the mimic is stuck to the mimic and can be removed with a successful @Check[athletics|dc:23] check (made as a single action).</p>\n<p>A mimic can have any number of objects or creatures stuck to it at a time. The mimic can release a stuck creature or object by using a single action, and the adhesive dissolves 1 minute after the mimic dies, releasing all stuck objects and creatures.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "adhesive",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Ns2pok7e6UtuKUd6",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Object Lesson",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature touches or physically interacts with the mimic while the mimic is transformed using Mimic Object.</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature is automatically stuck by the mimic's adhesive (it receives no save). The mimic then makes a pseudopod Strike against any creature adjacent to the mimic.</p>\n<p>Object Lesson can't be used again until the mimic escapes and takes on a new disguise.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "M3QwWIU2rzRHWndo",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Mimic Object",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The mimic assumes the shape of any Medium object. This doesn't change the mimic's texture or overall size but can alter its coloration and visual appearance. It has an automatic result of 28 on Deception checks and DCs to pass as the object that it's mimicking.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qGVF829Lwi4ZemA9",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Guldrege Lore",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "variants": {}
-            },
-            "type": "lore"
         }
     ],
     "name": "Zivzeb",

@@ -4,23 +4,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "735O6tGVpk8PcXiV",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Innate Arcane Spells",
+            "_id": "N85UwJsuAe8nwuWV",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Spell Circle",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
+                    "value": "<p>By performing an hour-long ritual, an elemental vessel can form a spell circle with an arcane or primal spellcaster. After the spell circle is formed, other spellcasters can join the spell circle by performing the same hour-long ritual while assisted by at least one spellcaster already in the spell circle. Each member of the spell circle must contribute at least one spell to the elemental vessel. The spellcaster permanently loses access to a spell slot equal to the spell's rank and the elemental vessel adds the contributed spell to its list of arcane innate spells (regardless of the spell's original type). An elemental vessel can be imbued with no more than three spells per spell rank. If the elemental vessel is destroyed, all members of the spell circle regain the spell slots they contributed to the creature. The arcane innate spells shown below represent a typical spell list for an elemental vessel, but each elemental vessel is likely to have different spells depending on what its spell circle has contributed.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -28,22 +25,219 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 38,
-                    "item": 0,
-                    "mod": 0,
-                    "value": 30
-                },
-                "tradition": {
-                    "value": "arcane"
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "fgprZ9vs1zfRUz3o",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Dispel Vulnerability",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Whenever a creature successfully counteracts one of its spells, the vessel permanently loses access to that spell and takes damage equal to 4 × the spell's rank. The spell circle member who contributed that spell regains access to their contributed spell slot.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jJSKOhaRoCp1WwP4",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Inhabit Vessel",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Any member of the elemental vessel's spell circle can spend 3 actions to mentally inhabit the vessel for 1 round. While they inhabit the vessel, the inhabiter controls the vessel's actions, and the vessel uses the inhabiter's Intelligence, Wisdom, and Charisma modifiers for all checks. Only one creature can inhabit an elemental vessel at a time.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6pCE969IqFRVqLzJ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.zU3Ovaet4xQ5Gmvy"
+            },
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Engulf",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Check[reflex|dc:35] save, no damage, @UUID[Compendium.pf2e.actionspf2e.Item.Escape] DC 35, Rupture 28</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Engulf]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "engulf",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "g8bRqHNpfEqsTYyx",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Internal Spell Strike",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The elemental vessel targets an engulfed creature with one of its spells. The spell must have a range of touch.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Iky2gPwt5DqOgbkl",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.t6cx9FOODmeZQNYl"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Push 10 feet",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Push]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "push",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4G2h2y2d0Zz3woFP",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Wave",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "push"
+                    ]
+                },
+                "bonus": {
+                    "value": 30
+                },
+                "damageRolls": {
+                    "0yst7p348hzcxt0zosln": {
+                        "damage": "3d12+12",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "CNGkToDd8GKxzxQO",
@@ -52,7 +246,7 @@
             },
             "img": "icons/magic/lightning/fist-unarmed-strike-blue.webp",
             "name": "Polar Ray",
-            "sort": 200000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -132,7 +326,7 @@
             },
             "img": "systems/pf2e/icons/spells/prismatic-spray.webp",
             "name": "Prismatic Spray",
-            "sort": 300000,
+            "sort": 900000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -197,7 +391,7 @@
             },
             "img": "systems/pf2e/icons/spells/volcanic-eruption.webp",
             "name": "Volcanic Eruption",
-            "sort": 400000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "cylinder",
@@ -284,7 +478,7 @@
             },
             "img": "systems/pf2e/icons/spells/purple-worm-sting.webp",
             "name": "Purple Worm Sting",
-            "sort": 500000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -361,7 +555,7 @@
             },
             "img": "icons/magic/water/wave-water-blue.webp",
             "name": "Mariner's Curse",
-            "sort": 600000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -429,7 +623,7 @@
             },
             "img": "icons/magic/water/barrier-ice-crystal-wall-jagged-blue.webp",
             "name": "Wall of Ice",
-            "sort": 700000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -509,7 +703,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door",
-            "sort": 800000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -571,7 +765,7 @@
             },
             "img": "icons/magic/fire/flame-burning-campfire-rocks.webp",
             "name": "Wall of Fire",
-            "sort": 900000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -650,7 +844,7 @@
             },
             "img": "icons/magic/earth/barrier-stone-explosion-debris.webp",
             "name": "Earthbind",
-            "sort": 1000000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -716,7 +910,7 @@
             },
             "img": "icons/magic/fire/projectile-fireball-orange-yellow.webp",
             "name": "Fireball",
-            "sort": 1100000,
+            "sort": 1700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -804,7 +998,7 @@
             },
             "img": "systems/pf2e/icons/spells/paralyze.webp",
             "name": "Paralyze",
-            "sort": 1200000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -872,7 +1066,7 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
             "name": "Vampiric Touch",
-            "sort": 1300000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -958,7 +1152,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 1400000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1021,7 +1215,7 @@
             },
             "img": "icons/magic/air/fog-gas-smoke-dense-white.webp",
             "name": "Obscuring Mist",
-            "sort": 1500000,
+            "sort": 2100000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1086,7 +1280,7 @@
             },
             "img": "systems/pf2e/icons/spells/touch-of-idiocy.webp",
             "name": "Touch of Idiocy",
-            "sort": 1600000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1153,7 +1347,7 @@
             },
             "img": "systems/pf2e/icons/spells/hydraulic-push.webp",
             "name": "Hydraulic Push",
-            "sort": 1700000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1233,7 +1427,7 @@
             },
             "img": "systems/pf2e/icons/spells/shocking-grasp.webp",
             "name": "Shocking Grasp",
-            "sort": 1800000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1314,7 +1508,7 @@
             },
             "img": "icons/creatures/invertebrates/tick-cross-glowing-purple.webp",
             "name": "Spider Sting",
-            "sort": 1900000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1386,240 +1580,46 @@
             "type": "spell"
         },
         {
-            "_id": "4G2h2y2d0Zz3woFP",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Wave",
-            "sort": 2000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "push"
-                    ]
-                },
-                "bonus": {
-                    "value": 30
-                },
-                "damageRolls": {
-                    "0yst7p348hzcxt0zosln": {
-                        "damage": "3d12+12",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "reach-10"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "N85UwJsuAe8nwuWV",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Spell Circle",
-            "sort": 2100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>By performing an hour-long ritual, an elemental vessel can form a spell circle with an arcane or primal spellcaster. After the spell circle is formed, other spellcasters can join the spell circle by performing the same hour-long ritual while assisted by at least one spellcaster already in the spell circle. Each member of the spell circle must contribute at least one spell to the elemental vessel. The spellcaster permanently loses access to a spell slot equal to the spell's rank and the elemental vessel adds the contributed spell to its list of arcane innate spells (regardless of the spell's original type). An elemental vessel can be imbued with no more than three spells per spell rank. If the elemental vessel is destroyed, all members of the spell circle regain the spell slots they contributed to the creature. The arcane innate spells shown below represent a typical spell list for an elemental vessel, but each elemental vessel is likely to have different spells depending on what its spell circle has contributed.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fgprZ9vs1zfRUz3o",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Dispel Vulnerability",
-            "sort": 2200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Whenever a creature successfully counteracts one of its spells, the vessel permanently loses access to that spell and takes damage equal to 4 × the spell's rank. The spell circle member who contributed that spell regains access to their contributed spell slot.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "jJSKOhaRoCp1WwP4",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Inhabit Vessel",
-            "sort": 2300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Any member of the elemental vessel's spell circle can spend 3 actions to mentally inhabit the vessel for 1 round. While they inhabit the vessel, the inhabiter controls the vessel's actions, and the vessel uses the inhabiter's Intelligence, Wisdom, and Charisma modifiers for all checks. Only one creature can inhabit an elemental vessel at a time.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "6pCE969IqFRVqLzJ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.zU3Ovaet4xQ5Gmvy"
-            },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Engulf",
-            "sort": 2400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Check[reflex|dc:35] save, no damage, @UUID[Compendium.pf2e.actionspf2e.Item.Escape] DC 35, Rupture 28</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Engulf]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "engulf",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "g8bRqHNpfEqsTYyx",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Internal Spell Strike",
-            "sort": 2500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The elemental vessel targets an engulfed creature with one of its spells. The spell must have a range of touch.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Iky2gPwt5DqOgbkl",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.t6cx9FOODmeZQNYl"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Push 10 feet",
+            "_id": "735O6tGVpk8PcXiV",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Innate Arcane Spells",
             "sort": 2600000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Push]</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": ""
                 },
                 "rules": [],
-                "slug": "push",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 38,
+                    "item": 0,
+                    "mod": 0,
+                    "value": 30
+                },
+                "tradition": {
+                    "value": "arcane"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Water Elemental Vessel",

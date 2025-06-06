@@ -4,10 +4,164 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "6FLJPX5aNUrFnuWr",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Desperation Vulnerability",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Sinmolds are aware that they're in a vulnerable state as formless \"newborn fiends\" and are desperate to become stronger before they become prey to more powerful demons. Whenever the sinmold is in a combat encounter and ends its turn without dealing damage to another creature, the sinmold takes @Damage[3d6[mental]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "no9JeqHYDCcPoIlD",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Digestion",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The first time in a round when the sinmold damages a creature with Engulf, the sinmold immediately restores Hit Points equal to the damage dealt, gaining Hit Points in excess of its maximum as temporary Hit Points that last for 1 hour. As long as the sinmold possesses these temporary Hit Points, its surface hardens, and its AC increases to 30.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "healing"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3GISQ73AHrryXuV0",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.zU3Ovaet4xQ5Gmvy"
+            },
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Engulf",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Check[reflex|dc:32], @Damage[3d10[acid]] damage plus digestion, Escape DC 32, Rupture 18</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.Engulf]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "engulf",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ChHQV3DvokqMb4HQ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sinmold Infestation",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:32]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[2d8[poison]] damage (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[3d8[poison]] damage and can hear the thoughts of root rotters within 30 feet as an imprecise sense (1 round)</p>\n<p><strong>Stage 3</strong> as stage 2, but @Damage[4d8[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} (1 round)</p>\n<p><strong>Stage 4</strong> as stage 3, and arise as a root rotter upon death (1 round)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CIQeKlHmGrKtUzcR",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spore Purge",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The sinmold has temporary Hit Points from digestion</p><hr /><p><strong>Effect</strong> The sinmold loses all temporary Hit Points and releases any creatures it currently has engulfed, pushing them into the nearest unoccupied spaces. It releases a cloud of spores from its body, dealing @Damage[5d8[poison]] damage (@Check[fortitude|dc:29|basic] save) in a @Template[type:emanation|distance:20]. Any creature that fails this save also must attempt a save against sinmold infestation.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "g67BUMCmKViqL47S",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Pseudopod",
-            "sort": 100000,
+            "sort": 600000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -49,7 +203,7 @@
             "_id": "njHUglbN0dpYEuhc",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Tendril",
-            "sort": 200000,
+            "sort": 700000,
             "system": {
                 "attackEffects": {
                     "value": [
@@ -85,160 +239,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "6FLJPX5aNUrFnuWr",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Desperation Vulnerability",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Sinmolds are aware that they're in a vulnerable state as formless \"newborn fiends\" and are desperate to become stronger before they become prey to more powerful demons. Whenever the sinmold is in a combat encounter and ends its turn without dealing damage to another creature, the sinmold takes @Damage[3d6[mental]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "no9JeqHYDCcPoIlD",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Digestion",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The first time in a round when the sinmold damages a creature with Engulf, the sinmold immediately restores Hit Points equal to the damage dealt, gaining Hit Points in excess of its maximum as temporary Hit Points that last for 1 hour. As long as the sinmold possesses these temporary Hit Points, its surface hardens, and its AC increases to 30.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "healing"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "3GISQ73AHrryXuV0",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.zU3Ovaet4xQ5Gmvy"
-            },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Engulf",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Check[reflex|dc:32], @Damage[3d10[acid]] damage plus digestion, Escape DC 32, Rupture 18</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.Engulf]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "engulf",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ChHQV3DvokqMb4HQ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Sinmold Infestation",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:32]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[2d8[poison]] damage (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[3d8[poison]] damage and can hear the thoughts of root rotters within 30 feet as an imprecise sense (1 round)</p>\n<p><strong>Stage 3</strong> as stage 2, but @Damage[4d8[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} (1 round)</p>\n<p><strong>Stage 4</strong> as stage 3, and arise as a root rotter upon death (1 round)</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CIQeKlHmGrKtUzcR",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Spore Purge",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The sinmold has temporary Hit Points from digestion</p><hr /><p><strong>Effect</strong> The sinmold loses all temporary Hit Points and releases any creatures it currently has engulfed, pushing them into the nearest unoccupied spaces. It releases a cloud of spores from its body, dealing @Damage[5d8[poison]] damage (@Check[fortitude|dc:29|basic] save) in a @Template[type:emanation|distance:20]. Any creature that fails this save also must attempt a save against sinmold infestation.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Sinmold",

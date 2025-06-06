@@ -4,21 +4,318 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "ZjNfpSyrUsZyAJbW",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Innate Divine Spells",
+            "_id": "2UNkDYcwscqgKwQr",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Link Swords",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Jin-Hae is wielding two hook swords</p>\n<hr />\n<p><strong>Effect</strong> Jin-Hae either links her swords together or unlinks them. If the swords are linked, she can make linked hook sword Strikes; if the swords are unlinked, she can make hook sword Strikes.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "flourish",
+                        "stance"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1qhPVrJ7tn06SChZ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HmDiAydG0MgtIyWv",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "-1 status penalty to all saves vs. death effects",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "death"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": -1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rBl3k47pZFHBcfeL",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XtZNfC6y3SjJfLRV",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Susceptible to Death",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Though phantoms aren't alive, neither are they undead, and they are uniquely vulnerable to the effects of death.</p>\n<p>A phantom whose Hit Points are reduced to 0 as a result of a death effect (such as from a spell like @UUID[Compendium.pf2e.spells-srd.Item.Execute]) is immediately whisked away to the River of Souls, where their soul resumes the usual path to the afterlife.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Tf20x9qyDw2JrK6d",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Call a Battle Echo",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Effect</strong> Jin-Hae pulls one of the battle echoes to her hand. She is fully aware of every echo and can always pull the one she wants, but she cannot call an echo that has already been unsealed.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "649J99sHGfAk6ttN",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Combined Charge",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> Cloudsplitter Strides or Tramples within 5 feet of Jin-Hae</p>\n<hr />\n<p><strong>Effect</strong> Jin-Hae leaps onto Cloudsplitter's back as he charges. She can make a single melee attack against any target they pass during Cloudsplitter's movement.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "move"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Q3bc2SmSgtyMmrvw",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Wind-Fire Charge",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Jin-Hae is wielding her feng huo lun</p>\n<hr />\n<p><strong>Effect</strong> Jin-Hae blasts off on her feng huo lun, leaving an elemental trail in her wake. She Strides up to twice her Speed and makes a feng huo lun Strike at any point during her movement. The path left by her movement is filled with her choice of an 8th-rank @UUID[Compendium.pf2e.spells-srd.Item.Wall of Wind] or @UUID[Compendium.pf2e.spells-srd.Item.Wall of Fire] spell. Jin-Hae is unaffected by any walls she creates with this ability. She cannot use Wind-Fire Charge again for [[/gmr 1d4 #rounds]]{1d4 rounds}. If she uses Wind-Fire Charge again, the wall created by her previous Wind-Fire Charge disappears as soon as her action is completed.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jxhSxvZHv6uyEaoK",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Wind-Fire Chariot",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Jin-Hae is wielding two feng huo lun</p>\n<hr />\n<p><strong>Effect</strong> Jin-Hae's feng huo lun float by her feet, giving her the benefits of 7th- level @UUID[Compendium.pf2e.spells-srd.Item.Migration]. While this lasts, she can wield her feng huo lun even while her hands are full by kicking with them, and her feng huo lun gain the thrown 20 feet trait as well as the effects of a returning rune.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "l3zZK95n0Fz1Eofn",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Warfare Lore",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 38
+                },
+                "proficient": {
                     "value": 0
                 },
                 "publication": {
@@ -27,18 +324,215 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 40,
-                    "mod": 0,
-                    "value": 32
-                },
-                "tradition": {
-                    "value": "divine"
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "nl7k5HK7TqZfntnR",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "NtJHFwQeHn8lF6Z2"
                 }
             },
-            "type": "spellcastingEntry"
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Hook Sword",
+            "sort": 1100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 35
+                },
+                "damageRolls": {
+                    "7q1f0f3177lrpv8ryh6c": {
+                        "damage": "6d6+20",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "disarm",
+                        "magical",
+                        "parry",
+                        "trip",
+                        "twin"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "yIoJFTEAk52gbWvj",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "NtJHFwQeHn8lF6Z2"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Linked Hook Swords",
+            "sort": 1200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 35
+                },
+                "damageRolls": {
+                    "pu61pfdha7c6jgp20o01": {
+                        "damage": "6d6+20",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "reach-10",
+                        "sweep"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Yxwxe78W9UbBRxTS",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "aDN0RcvG4E7jcGLL"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Feng Huo Lun",
+            "sort": 1300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 35
+                },
+                "damageRolls": {
+                    "8t7ztn7e9zthlqizuxph": {
+                        "damage": "3d6+15",
+                        "damageType": "slashing"
+                    },
+                    "0fla6a58nqbfnfb4za6d": {
+                        "damage": "3d6",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "disarm",
+                        "finesse",
+                        "magical",
+                        "parry",
+                        "thrown-20",
+                        "twin",
+                        "versatile-p"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "vIH92Hp3erXeDW0K",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Vacuum Slash",
+            "sort": 1400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 35
+                },
+                "damageRolls": {
+                    "zvybk0a2x0lin7vpngu7": {
+                        "damage": "6d6+10",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "air",
+                        "divine",
+                        "range-increment-60"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "TgYAHrGdRGoHoeBu",
@@ -47,7 +541,7 @@
             },
             "img": "icons/magic/water/wave-water-teal.webp",
             "name": "Air Walk (Constant)",
-            "sort": 200000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -102,13 +596,50 @@
             "type": "spell"
         },
         {
+            "_id": "ZjNfpSyrUsZyAJbW",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Innate Divine Spells",
+            "sort": 1600000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 40,
+                    "mod": 0,
+                    "value": 32
+                },
+                "tradition": {
+                    "value": "divine"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "NtJHFwQeHn8lF6Z2",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.O3XAH3VkOx9a0FyD"
             },
             "img": "systems/pf2e/icons/default-icons/weapon.svg",
             "name": "Hook Sword",
-            "sort": 300000,
+            "sort": 1700000,
             "system": {
                 "baseItem": null,
                 "bonus": {
@@ -197,7 +728,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/weapon.svg",
             "name": "Feng Huo Lun",
-            "sort": 400000,
+            "sort": 1800000,
             "system": {
                 "baseItem": null,
                 "bonus": {
@@ -279,537 +810,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "nl7k5HK7TqZfntnR",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "NtJHFwQeHn8lF6Z2"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Hook Sword",
-            "sort": 500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 35
-                },
-                "damageRolls": {
-                    "7q1f0f3177lrpv8ryh6c": {
-                        "damage": "6d6+20",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "disarm",
-                        "magical",
-                        "parry",
-                        "trip",
-                        "twin"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "yIoJFTEAk52gbWvj",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "NtJHFwQeHn8lF6Z2"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Linked Hook Swords",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 35
-                },
-                "damageRolls": {
-                    "pu61pfdha7c6jgp20o01": {
-                        "damage": "6d6+20",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "reach-10",
-                        "sweep"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Yxwxe78W9UbBRxTS",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "aDN0RcvG4E7jcGLL"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Feng Huo Lun",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 35
-                },
-                "damageRolls": {
-                    "8t7ztn7e9zthlqizuxph": {
-                        "damage": "3d6+15",
-                        "damageType": "slashing"
-                    },
-                    "0fla6a58nqbfnfb4za6d": {
-                        "damage": "3d6",
-                        "damageType": "fire"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "disarm",
-                        "finesse",
-                        "magical",
-                        "parry",
-                        "thrown-20",
-                        "twin",
-                        "versatile-p"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "vIH92Hp3erXeDW0K",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Vacuum Slash",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 35
-                },
-                "damageRolls": {
-                    "zvybk0a2x0lin7vpngu7": {
-                        "damage": "6d6+10",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "air",
-                        "divine",
-                        "range-increment-60"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "2UNkDYcwscqgKwQr",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Link Swords",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Jin-Hae is wielding two hook swords</p>\n<hr />\n<p><strong>Effect</strong> Jin-Hae either links her swords together or unlinks them. If the swords are linked, she can make linked hook sword Strikes; if the swords are unlinked, she can make hook sword Strikes.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "flourish",
-                        "stance"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "1qhPVrJ7tn06SChZ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "HmDiAydG0MgtIyWv",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "-1 status penalty to all saves vs. death effects",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "death"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": -1
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rBl3k47pZFHBcfeL",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "XtZNfC6y3SjJfLRV",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Susceptible to Death",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Though phantoms aren't alive, neither are they undead, and they are uniquely vulnerable to the effects of death.</p>\n<p>A phantom whose Hit Points are reduced to 0 as a result of a death effect (such as from a spell like @UUID[Compendium.pf2e.spells-srd.Item.Execute]) is immediately whisked away to the River of Souls, where their soul resumes the usual path to the afterlife.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Tf20x9qyDw2JrK6d",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Call a Battle Echo",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Effect</strong> Jin-Hae pulls one of the battle echoes to her hand. She is fully aware of every echo and can always pull the one she wants, but she cannot call an echo that has already been unsealed.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "649J99sHGfAk6ttN",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Combined Charge",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> Cloudsplitter Strides or Tramples within 5 feet of Jin-Hae</p>\n<hr />\n<p><strong>Effect</strong> Jin-Hae leaps onto Cloudsplitter's back as he charges. She can make a single melee attack against any target they pass during Cloudsplitter's movement.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "move"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Q3bc2SmSgtyMmrvw",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Wind-Fire Charge",
-            "sort": 1600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Jin-Hae is wielding her feng huo lun</p>\n<hr />\n<p><strong>Effect</strong> Jin-Hae blasts off on her feng huo lun, leaving an elemental trail in her wake. She Strides up to twice her Speed and makes a feng huo lun Strike at any point during her movement. The path left by her movement is filled with her choice of an 8th-rank @UUID[Compendium.pf2e.spells-srd.Item.Wall of Wind] or @UUID[Compendium.pf2e.spells-srd.Item.Wall of Fire] spell. Jin-Hae is unaffected by any walls she creates with this ability. She cannot use Wind-Fire Charge again for [[/gmr 1d4 #rounds]]{1d4 rounds}. If she uses Wind-Fire Charge again, the wall created by her previous Wind-Fire Charge disappears as soon as her action is completed.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "jxhSxvZHv6uyEaoK",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Wind-Fire Chariot",
-            "sort": 1700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Jin-Hae is wielding two feng huo lun</p>\n<hr />\n<p><strong>Effect</strong> Jin-Hae's feng huo lun float by her feet, giving her the benefits of 7th- level @UUID[Compendium.pf2e.spells-srd.Item.Migration]. While this lasts, she can wield her feng huo lun even while her hands are full by kicking with them, and her feng huo lun gain the thrown 20 feet trait as well as the effects of a returning rune.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "l3zZK95n0Fz1Eofn",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Warfare Lore",
-            "sort": 1800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 38
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Jin-hae",

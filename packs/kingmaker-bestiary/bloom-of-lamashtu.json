@@ -3,10 +3,192 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "ihGm6kH3jaNxYb3p",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Precise) 30 feet",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "m5He7mR6hyUEterZ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regeneration 30 (Deactivated by Fire or Holy)",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "fire",
+                            "holy"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 30
+                    }
+                ],
+                "slug": "regeneration",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "R6qqK2TgPEbgEcH0",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Defensive Burst",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The bloom takes slashing damage.</p>\n<p><strong>Effect</strong> The bloom of Lamashtu sprays a gout of acid against an adjacent creature, inflicting @Damage[9d6[acid]] damage (@Check[reflex|dc:26|basic]). The bloom can't use Defensive Burst for [[/gmr 1d4 #Recharge Defensive Burst]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wO3hSmCvgcCzSah3",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Bloom Curse",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A living creature is exposed to the bloom curse if it eats any portion of a bloom of Lamashtu, fails a save against the bloom's seed pod, or is critically hit by the bloom's thorny vine Strike. Unlike the bloom curse contracted from secondary sources, there is no onset time for this version of the curse, and the creature spawned by the victim's death may be much more powerful and is always chaotic evil.</p>\n<hr />\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:29]</p>\n<p><strong>Stage 1</strong> no ill effects (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 day)</p>\n<p><strong>Stage 3</strong> enfeebled 1 and @Damage[2d6[poison]] damage (8 hours)</p>\n<p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] and @Damage[4d6[poison]] damage (10 minutes)</p>\n<p><strong>Stage 5</strong> death;</p>\n<p><strong>Special</strong> A creature that dies from the bloom curse explodes in a blast of First World foliage and releases a monster into the world. This creature is a chaotic evil low-intelligence beast or dragon (chosen by the GM) of the same level as the dead creature.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "thorny-vine-attack",
+                        "text": "On a critical hit the creature is exposed to Bloom Curse"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "curse",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "z3giiwwqKX9RBgD8",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Spew Seed Pod",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The bloom of Lamashtu's central stalk disgorges a pulsing seed pod from its flower, spitting it at a range of up to 60 feet and creating a @Template[burst|distance:20] when the seed pod explodes into a spray of supernatural acidic poison. All creatures in this area must attempt a @Check[reflex|dc:29] save. The bloom of Lamashtu can't Spew Seed Pod for [[/gmr 1d4 #Recharge Spew Seed Pod]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[3d6[acid]] damage and @Damage[3d6[poison]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[5d6[acid]] damage and @Damage[5d6[poison]] damage and is exposed to the bloom curse.</p>\n<p><strong>Critical Failure</strong> As failure, but @Damage[10d6[acid]] damage and @Damage[10d6[poison]] damage, plus knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] by the force of the blast.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "poison",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "mc4qvML9Y9Vngpwo",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Thorny Vine",
-            "sort": 100000,
+            "sort": 600000,
             "system": {
                 "attack": {
                     "value": ""
@@ -54,7 +236,7 @@
             "_id": "ftnV0syBwJfqGk6Z",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Thorn",
-            "sort": 200000,
+            "sort": 700000,
             "system": {
                 "attack": {
                     "value": ""
@@ -97,188 +279,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "ihGm6kH3jaNxYb3p",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Tremorsense (Precise) 30 feet",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "tremorsense",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "m5He7mR6hyUEterZ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 30 (Deactivated by Fire or Holy)",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "deactivatedBy": [
-                            "fire",
-                            "holy"
-                        ],
-                        "key": "FastHealing",
-                        "type": "regeneration",
-                        "value": 30
-                    }
-                ],
-                "slug": "regeneration",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "R6qqK2TgPEbgEcH0",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Defensive Burst",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The bloom takes slashing damage.</p>\n<p><strong>Effect</strong> The bloom of Lamashtu sprays a gout of acid against an adjacent creature, inflicting @Damage[9d6[acid]] damage (@Check[reflex|dc:26|basic]). The bloom can't use Defensive Burst for [[/gmr 1d4 #Recharge Defensive Burst]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "wO3hSmCvgcCzSah3",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Bloom Curse",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A living creature is exposed to the bloom curse if it eats any portion of a bloom of Lamashtu, fails a save against the bloom's seed pod, or is critically hit by the bloom's thorny vine Strike. Unlike the bloom curse contracted from secondary sources, there is no onset time for this version of the curse, and the creature spawned by the victim's death may be much more powerful and is always chaotic evil.</p>\n<hr />\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:29]</p>\n<p><strong>Stage 1</strong> no ill effects (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 day)</p>\n<p><strong>Stage 3</strong> enfeebled 1 and @Damage[2d6[poison]] damage (8 hours)</p>\n<p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] and @Damage[4d6[poison]] damage (10 minutes)</p>\n<p><strong>Stage 5</strong> death;</p>\n<p><strong>Special</strong> A creature that dies from the bloom curse explodes in a blast of First World foliage and releases a monster into the world. This creature is a chaotic evil low-intelligence beast or dragon (chosen by the GM) of the same level as the dead creature.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "thorny-vine-attack",
-                        "text": "On a critical hit the creature is exposed to Bloom Curse"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "curse",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "z3giiwwqKX9RBgD8",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Spew Seed Pod",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The bloom of Lamashtu's central stalk disgorges a pulsing seed pod from its flower, spitting it at a range of up to 60 feet and creating a @Template[burst|distance:20] when the seed pod explodes into a spray of supernatural acidic poison. All creatures in this area must attempt a @Check[reflex|dc:29] save. The bloom of Lamashtu can't Spew Seed Pod for [[/gmr 1d4 #Recharge Spew Seed Pod]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[3d6[acid]] damage and @Damage[3d6[poison]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[5d6[acid]] damage and @Damage[5d6[poison]] damage and is exposed to the bloom curse.</p>\n<p><strong>Critical Failure</strong> As failure, but @Damage[10d6[acid]] damage and @Damage[10d6[poison]] damage, plus knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] by the force of the blast.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "poison",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Bloom of Lamashtu",

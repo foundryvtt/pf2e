@@ -4,10 +4,178 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "KIFYepNGGRJpLsiE",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 Feet",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "magical",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HpudEpcOqFqLYTgd",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Telepathic Bond",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A slime puppeteer maintains a strong telepathic bond with the alghollthu that created it. This bond has planetary reach, but the puppeteer is blind and deaf while accessing this bond.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "w9bSgqjjV0wbRAs0",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Stinky Sweat",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>10 feet. When a slime puppeteer takes fire damage, they form a layer of pungent slime on their skin that remains until washed away. While the layer is present, creatures adjacent to the slime puppeteer must attempt a @Check[fortitude|dc:24] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. A creature that succeeds at its save is immune to the puppeteer's sweat for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 10,
+                        "slug": "stinky-sweat",
+                        "traits": [
+                            "air"
+                        ]
+                    }
+                ],
+                "slug": "stinky-sweat",
+                "traits": {
+                    "value": [
+                        "aura",
+                        "olfactory"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KT6hnY5efIVYGJ1s",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Envelop",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The puppeteer wraps their body around an adjacent target (@Check[reflex|dc:24] negates). The target is @UUID[Compendium.pf2e.conditionitems.Item.Restrained] and the puppeteer is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized]. The puppeteer can make only tail Strikes against the restrained creature and can only engulf a single Medium or Large creature. The puppeteer can end an Envelop as a free action.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "attack",
+                        "incapacitation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QxbJonUa7k7TTcVI",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Mimic Form",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The puppeteer can take on the form of a corpse they have enveloped. This takes one hour, during which time the puppeteer can't move or attack and has an AC of 16. Once the target's form has been taken, the puppeteer cannot use its Envelop, fly speed, and swim speed abilities until Mimic Form ends. The puppeteer only has access to their wing Strike while using Mimic Form. The puppeteer can end Mimic Form as a three-action manipulate activity.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "aW8o96YFXBJwioGR",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Tail",
-            "sort": 100000,
+            "sort": 600000,
             "system": {
                 "attack": {
                     "value": ""
@@ -54,7 +222,7 @@
             "_id": "A8UW73tmT4DVdhnb",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Wing",
-            "sort": 200000,
+            "sort": 700000,
             "system": {
                 "attack": {
                     "value": ""
@@ -92,174 +260,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "KIFYepNGGRJpLsiE",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 100 Feet",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "HpudEpcOqFqLYTgd",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Telepathic Bond",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A slime puppeteer maintains a strong telepathic bond with the alghollthu that created it. This bond has planetary reach, but the puppeteer is blind and deaf while accessing this bond.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "w9bSgqjjV0wbRAs0",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Stinky Sweat",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>10 feet. When a slime puppeteer takes fire damage, they form a layer of pungent slime on their skin that remains until washed away. While the layer is present, creatures adjacent to the slime puppeteer must attempt a @Check[fortitude|dc:24] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. A creature that succeeds at its save is immune to the puppeteer's sweat for 1 minute.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 10,
-                        "slug": "stinky-sweat",
-                        "traits": [
-                            "air"
-                        ]
-                    }
-                ],
-                "slug": "stinky-sweat",
-                "traits": {
-                    "value": [
-                        "aura",
-                        "olfactory"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "KT6hnY5efIVYGJ1s",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Envelop",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The puppeteer wraps their body around an adjacent target (@Check[reflex|dc:24] negates). The target is @UUID[Compendium.pf2e.conditionitems.Item.Restrained] and the puppeteer is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized]. The puppeteer can make only tail Strikes against the restrained creature and can only engulf a single Medium or Large creature. The puppeteer can end an Envelop as a free action.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "attack",
-                        "incapacitation"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "QxbJonUa7k7TTcVI",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Mimic Form",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The puppeteer can take on the form of a corpse they have enveloped. This takes one hour, during which time the puppeteer can't move or attack and has an AC of 16. Once the target's form has been taken, the puppeteer cannot use its Envelop, fly speed, and swim speed abilities until Mimic Form ends. The puppeteer only has access to their wing Strike while using Mimic Form. The puppeteer can end Mimic Form as a three-action manipulate activity.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Slime Puppeteer",

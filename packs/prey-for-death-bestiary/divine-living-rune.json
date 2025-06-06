@@ -3,22 +3,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "VSLTIQMCHCfLxq1H",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
+            "_id": "DLKqB3QVep4jRNGS",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Truescript",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>A living rune can't speak, but it can sculpt its form into complicated scripts and pictographs that can be understood by any creature with the ability to read written language. A living rune can also understand any written or spoken language.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -26,21 +24,110 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 35,
-                    "value": 27
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "2cVkSactyUiKGzdD",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Backdrop",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When a creature attempts to Strike a living rune and critically misses, the attacker hits the surface (a canvas, wall, or so on) behind the living rune. This might damage the surface or the attacker's weapon, at the GM's discretion.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Dy4ItmxMvWZNtvIJ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Surface-Bound",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A living rune can move only along flat surfaces. If the surface it's on is destroyed (such as a portrait hit by a @UUID[Compendium.pf2e.spells-srd.Item.Fireball] spell or a wall being smashed), the rune takes [[/r {7d6}]]{7d6 damage} and is shunted to the nearest flat surface. If there is no flat surface within 5 feet, the rune is destroyed.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Tp8OXXguuWM7iKK6",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Electrical Blast",
+            "sort": 400000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 25
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "4d12",
+                        "damageType": "electricity"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "electricity",
+                        "range-increment-60"
+                    ]
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "PzKC0pIXopCu1ctq",
@@ -49,7 +136,7 @@
             },
             "img": "icons/magic/unholy/hand-claw-fog-green.webp",
             "name": "Execute",
-            "sort": 200000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -165,7 +252,7 @@
             },
             "img": "icons/magic/fire/explosion-embers-orange.webp",
             "name": "Divine Immolation",
-            "sort": 300000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -258,7 +345,7 @@
             },
             "img": "icons/environment/wilderness/terrain-stone-stalagtite.webp",
             "name": "Sawtooth Terrain",
-            "sort": 400000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -347,7 +434,7 @@
             },
             "img": "icons/magic/light/projectile-beam-yellow.webp",
             "name": "Divine Wrath",
-            "sort": 500000,
+            "sort": 800000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -440,7 +527,7 @@
             },
             "img": "icons/magic/control/debuff-chains-red.webp",
             "name": "Mantis's Grasp",
-            "sort": 600000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -528,7 +615,7 @@
             },
             "img": "systems/pf2e/icons/spells/blood-vendetta.webp",
             "name": "Blood Vendetta",
-            "sort": 700000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -613,7 +700,7 @@
             },
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
-            "sort": 800000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -802,57 +889,22 @@
             "type": "spell"
         },
         {
-            "_id": "Tp8OXXguuWM7iKK6",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Electrical Blast",
-            "sort": 900000,
+            "_id": "VSLTIQMCHCfLxq1H",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
+            "sort": 1200000,
             "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 25
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "4d12",
-                        "damageType": "electricity"
-                    }
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "electricity",
-                        "range-increment-60"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "DLKqB3QVep4jRNGS",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Truescript",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A living rune can't speak, but it can sculpt its form into complicated scripts and pictographs that can be understood by any creature with the ability to read written language. A living rune can also understand any written or spoken language.</p>"
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -860,73 +912,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
+                "spelldc": {
+                    "dc": 35,
+                    "value": 27
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "action"
-        },
-        {
-            "_id": "2cVkSactyUiKGzdD",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Backdrop",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>When a creature attempts to Strike a living rune and critically misses, the attacker hits the surface (a canvas, wall, or so on) behind the living rune. This might damage the surface or the attacker's weapon, at the GM's discretion.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Dy4ItmxMvWZNtvIJ",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Surface-Bound",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A living rune can move only along flat surfaces. If the surface it's on is destroyed (such as a portrait hit by a @UUID[Compendium.pf2e.spells-srd.Item.Fireball] spell or a wall being smashed), the rune takes [[/r {7d6}]]{7d6 damage} and is shunted to the nearest flat surface. If there is no flat surface within 5 feet, the rune is destroyed.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Divine Living Rune",

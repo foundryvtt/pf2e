@@ -4,10 +4,144 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "roVzfImlMLmqQTZT",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Light Weakness",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>An object shedding magical light (such as from the @UUID[Compendium.pf2e.spells-srd.Item.Light] spell) deals additional damage to the shadow wisp.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "L6e4GFT5hbd57CeJ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "PsjwOHj53WzpVuM0",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Shroud",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The shadow wisp's previous action was a hit against an adjacent creature with its shadow tendril Strike.</p>\n<hr />\n<p><strong>Effect</strong> The shadow wisp @UUID[Compendium.pf2e.actionspf2e.Item.Step]{Steps} into the creature's space and attempts an @Check[acrobatics|defense:reflex] check against the target's Reflex DC to attach itself to the target's shadow.</p>\n<p>As long as it remains attached, it moves with the target and is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to attacks from the target. The target can spend a move action on its turn to attempt a Reflex save against the wisp's Acrobatics DC to escape the shroud.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UQLU4oGuKYLB11Xt",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Stretch Shadow",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The shadow wisp is attached to a living creature.</p>\n<hr />\n<p><strong>Effect</strong> The shadow wisp slips into the attached creature's shadow, dealing it @Damage[1d6[void]] damage. It can use the attached creature's shadow to make a shadow tendril Strike against another target up to 10 feet away</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "jbmHcEdQww3j0lGb",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Shadow Tendril",
-            "sort": 100000,
+            "sort": 500000,
             "system": {
                 "attack": {
                     "value": ""
@@ -46,140 +180,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "roVzfImlMLmqQTZT",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Light Weakness",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>An object shedding magical light (such as from the @UUID[Compendium.pf2e.spells-srd.Item.Light] spell) deals additional damage to the shadow wisp.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "L6e4GFT5hbd57CeJ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "PsjwOHj53WzpVuM0",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Shroud",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The shadow wisp's previous action was a hit against an adjacent creature with its shadow tendril Strike.</p>\n<hr />\n<p><strong>Effect</strong> The shadow wisp @UUID[Compendium.pf2e.actionspf2e.Item.Step]{Steps} into the creature's space and attempts an @Check[acrobatics|defense:reflex] check against the target's Reflex DC to attach itself to the target's shadow.</p>\n<p>As long as it remains attached, it moves with the target and is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to attacks from the target. The target can spend a move action on its turn to attempt a Reflex save against the wisp's Acrobatics DC to escape the shroud.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "UQLU4oGuKYLB11Xt",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Stretch Shadow",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The shadow wisp is attached to a living creature.</p>\n<hr />\n<p><strong>Effect</strong> The shadow wisp slips into the attached creature's shadow, dealing it @Damage[1d6[void]] damage. It can use the attached creature's shadow to make a shadow tendril Strike against another target up to 10 feet away</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Shadow Wisp",

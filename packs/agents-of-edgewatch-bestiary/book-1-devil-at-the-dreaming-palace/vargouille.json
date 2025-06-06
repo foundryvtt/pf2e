@@ -4,10 +4,138 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "AQMbWGVUpkE6QLbs",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Kiss",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The vargouille kisses an adjacent creature that's asleep, @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], or @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], exposing it to the vargouille transformation disease.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XKe1YQHD2E6lSSDn",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Shriek",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The vargouille shrieks, its scream so terrible that all non-vargouilles within 60 feet must succeed at a @Check[fortitude|dc:16] save or be @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 3 rounds.</p>\n<p>The effect ends early for a creature if the vargouille moves out of sight, moves farther than 60 feet from the creature, or attacks the creature with its fangs.</p>\n<p>After attempting its save, a creature is immune to that particular vargouille's Shriek for 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "auditory",
+                        "concentrate",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tMhjT7tf9r9vZX4C",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Vargouille Transformation",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Exposing the victim to sunlight or any light spell of 3rd level or higher pauses the progression of the disease until the victim is no longer in light.</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:18]</p>\n<p><strong>Stage 1</strong> carrier with no effect ([[/gmr 1d6 #hours]] hours)</p>\n<p><strong>Stage 2</strong> victim's hair falls out ([[/gmr 1d6 #hours]] hours)</p>\n<p><strong>Stage 3</strong> victim's ears grow into leathery wings, tentacles sprout on the chin and scalp, and the teeth become long, pointed fangs (1 day)</p>\n<p><strong>Stage 4</strong> victim's mind regresses to a vicious and unintelligent shell of its former self ([[/gmr 1d6 #hours]] hours)</p>\n<p><strong>Stage 5</strong> victim's head breaks free of the body (which dies) and becomes a new vargouille</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "disease"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IiO8ytUL6tJgUAXR",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Vargouille Venom",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:18|name:Vargouile Venom]</p>\n<p><strong>Stage 1</strong> Damage the victim has taken from vargouille fangs can't be healed magically.</p>\n<p>Once all vargouille fang damage has been healed nonmagically, the poison ends.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "vargouille-venom",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "bfsuL0uIFF1F4Guy",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fangs",
-            "sort": 100000,
+            "sort": 500000,
             "system": {
                 "attack": {
                     "value": ""
@@ -49,134 +177,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "AQMbWGVUpkE6QLbs",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Kiss",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The vargouille kisses an adjacent creature that's asleep, @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], or @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], exposing it to the vargouille transformation disease.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "XKe1YQHD2E6lSSDn",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Shriek",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The vargouille shrieks, its scream so terrible that all non-vargouilles within 60 feet must succeed at a @Check[fortitude|dc:16] save or be @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 3 rounds.</p>\n<p>The effect ends early for a creature if the vargouille moves out of sight, moves farther than 60 feet from the creature, or attacks the creature with its fangs.</p>\n<p>After attempting its save, a creature is immune to that particular vargouille's Shriek for 24 hours.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "auditory",
-                        "concentrate",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "tMhjT7tf9r9vZX4C",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Vargouille Transformation",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Exposing the victim to sunlight or any light spell of 3rd level or higher pauses the progression of the disease until the victim is no longer in light.</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:18]</p>\n<p><strong>Stage 1</strong> carrier with no effect ([[/gmr 1d6 #hours]] hours)</p>\n<p><strong>Stage 2</strong> victim's hair falls out ([[/gmr 1d6 #hours]] hours)</p>\n<p><strong>Stage 3</strong> victim's ears grow into leathery wings, tentacles sprout on the chin and scalp, and the teeth become long, pointed fangs (1 day)</p>\n<p><strong>Stage 4</strong> victim's mind regresses to a vicious and unintelligent shell of its former self ([[/gmr 1d6 #hours]] hours)</p>\n<p><strong>Stage 5</strong> victim's head breaks free of the body (which dies) and becomes a new vargouille</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "disease"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "IiO8ytUL6tJgUAXR",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Vargouille Venom",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:18|name:Vargouile Venom]</p>\n<p><strong>Stage 1</strong> Damage the victim has taken from vargouille fangs can't be healed magically.</p>\n<p>Once all vargouille fang damage has been healed nonmagically, the poison ends.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "vargouille-venom",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Vargouille",

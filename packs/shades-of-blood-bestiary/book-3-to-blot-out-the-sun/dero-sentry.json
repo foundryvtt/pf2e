@@ -4,22 +4,263 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "BcWvykbv12iALN9g",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "uldVZLVdwiLD1q6v",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Vulnerable to Sunlight",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A dero sentry takes @Damage[10[untyped]] damage for every hour they're exposed to sunlight.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qwNhCiHQVyMkQrfX",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Dero Medicine",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The dero is wearing a cytillesh toolkit and has a hand free</p><hr /><p><strong>Effect</strong> The dero excises damaged flesh and crudely stitches wounds shut, healing themself or an ally in reach for @Damage[(2d8+10)[healing]] Hit Points. For 1 hour, the target has slashing weakness 2 and is immune to Dero Medicine.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Dero Medicine]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "healing",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UDbuH3ideIzovA2c",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Focused Blow",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The dero sentry winds up, readying themselves to take a massive swing with their weapon. If the next action the dero sentry takes is a melee Strike, they deal an additional 1d8 damage with that Strike.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "focused-blow",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "focused-blow"
+                        ],
+                        "selector": "melee-strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "flourish"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5FAcH80ikKQRfRvC",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.u6pDaIxMIimhQx7X"
+            },
+            "img": "icons/containers/bags/pouch-gold-green.webp",
+            "name": "Cytillesh Toolkit",
+            "sort": 400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>These @UUID[Compendium.pf2e.equipment-srd.Item.Healer's Toolkit]{healer's toolkits} are collections of crystalline scalpels and gritty salves made of cytillesh. They all glow the same sickly blue. While the toolkit is outside its opaque container, it sheds dim light in a 5-foot radius. Any non-dero using or wearing the toolkit is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} until 1 hour after they've stopped, which cannot be reduced during that time.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "cytillesh-toolkit",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "JZxh0tTFrERJ8jCL",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.v6J6LjXazHCHResN"
+            },
+            "img": "icons/commodities/treasure/medal-ribbon-gold-blue.webp",
+            "name": "Security Badge",
+            "sort": 500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "gm": "<p>A creature wearing an invested security badge within En-Gokal gains additional benefits, as noted in the adventure text.</p>",
+                    "value": "<p>When displayed prominently, this iron badge grants you authority and gravitas. You gain a +1 item bonus to Intimidation checks.</p>\n<p><strong>Activate—Authoritative Command</strong> <span class=\"action-glyph\">1</span> (auditory, concentrate, incapacitation, linguistic, mental)</p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> You shout at a foe within 60 feet, compelling them to stand in place and drop everything they're holding. The target attempts a @Check[will|dc:23] save with the following results.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} as it does one of the following at the beginning of its next turn: stand in place or release what it's holding.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} as it stands in place and releases what it's holding at the beginning of its next turn.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 3} as it spends its next turn to stand in place, release what it's holding, and place its hands in the air.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 7
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 360
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder #215: To Blot Out the Sun"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "intimidation",
+                        "type": "item",
+                        "value": 1
+                    }
+                ],
+                "size": "med",
+                "slug": "security-badge",
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "worn"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "jZNxZsKaxVzAYobY",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "8FBURAOaQM8efuzn"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Greatclub",
+            "sort": 600000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "4GKyMHJ4Qkx8X6hX": {
+                        "damage": "1d10+8",
+                        "damageType": "bludgeoning"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,21 +268,58 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 22,
-                    "value": 14
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
+                "slug": "greatclub",
+                "traits": {
+                    "value": [
+                        "backswing",
+                        "shove"
+                    ]
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "YuJBFcokrOpcJgs6",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "XA3U2vwiNq68lqKJ"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Bola",
+            "sort": 700000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 13
+                },
+                "damageRolls": {
+                    "Zg4cZ63TBE9K7hJT": {
+                        "damage": "1d6+8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "bola",
+                "traits": {
+                    "value": [
+                        "nonlethal",
+                        "ranged-trip",
+                        "thrown-20"
+                    ]
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "1NQzcWEqGKURlAlS",
@@ -51,7 +329,7 @@
             "folder": "lPzcDrjGDFbzuF2r",
             "img": "systems/pf2e/icons/spells/darkness.webp",
             "name": "Darkness",
-            "sort": 200000,
+            "sort": 800000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -119,7 +397,7 @@
             "folder": "lPzcDrjGDFbzuF2r",
             "img": "systems/pf2e/icons/spells/glitterdust.webp",
             "name": "Revealing Light",
-            "sort": 300000,
+            "sort": 900000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -192,7 +470,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 400000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -280,7 +558,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 500000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -345,7 +623,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 600000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -418,13 +696,53 @@
             "type": "spell"
         },
         {
+            "_id": "BcWvykbv12iALN9g",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
+            "sort": 1300000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 22,
+                    "value": 14
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "XA3U2vwiNq68lqKJ",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.YUzPv0i8d8p2J9yx"
             },
             "img": "icons/weapons/thrown/bolas-stone.webp",
             "name": "Bola",
-            "sort": 700000,
+            "sort": 1400000,
             "system": {
                 "baseItem": "bola",
                 "bonus": {
@@ -512,7 +830,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/greatclub.webp",
             "name": "Greatclub",
-            "sort": 800000,
+            "sort": 1500000,
             "system": {
                 "baseItem": "greatclub",
                 "bonus": {
@@ -590,324 +908,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "5FAcH80ikKQRfRvC",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.u6pDaIxMIimhQx7X"
-            },
-            "img": "icons/containers/bags/pouch-gold-green.webp",
-            "name": "Cytillesh Toolkit",
-            "sort": 900000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>These @UUID[Compendium.pf2e.equipment-srd.Item.Healer's Toolkit]{healer's toolkits} are collections of crystalline scalpels and gritty salves made of cytillesh. They all glow the same sickly blue. While the toolkit is outside its opaque container, it sheds dim light in a 5-foot radius. Any non-dero using or wearing the toolkit is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} until 1 hour after they've stopped, which cannot be reduced during that time.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 5
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "cytillesh-toolkit",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "other"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "JZxh0tTFrERJ8jCL",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.v6J6LjXazHCHResN"
-            },
-            "img": "icons/commodities/treasure/medal-ribbon-gold-blue.webp",
-            "name": "Security Badge",
-            "sort": 1000000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "gm": "<p>A creature wearing an invested security badge within En-Gokal gains additional benefits, as noted in the adventure text.</p>",
-                    "value": "<p>When displayed prominently, this iron badge grants you authority and gravitas. You gain a +1 item bonus to Intimidation checks.</p>\n<p><strong>Activate—Authoritative Command</strong> <span class=\"action-glyph\">1</span> (auditory, concentrate, incapacitation, linguistic, mental)</p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> You shout at a foe within 60 feet, compelling them to stand in place and drop everything they're holding. The target attempts a @Check[will|dc:23] save with the following results.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} as it does one of the following at the beginning of its next turn: stand in place or release what it's holding.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} as it stands in place and releases what it's holding at the beginning of its next turn.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 3} as it spends its next turn to stand in place, release what it's holding, and place its hands in the air.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 7
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 360
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder #215: To Blot Out the Sun"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": "intimidation",
-                        "type": "item",
-                        "value": 1
-                    }
-                ],
-                "size": "med",
-                "slug": "security-badge",
-                "traits": {
-                    "rarity": "uncommon",
-                    "value": [
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "worn"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "jZNxZsKaxVzAYobY",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "8FBURAOaQM8efuzn"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Greatclub",
-            "sort": 1100000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 15
-                },
-                "damageRolls": {
-                    "4GKyMHJ4Qkx8X6hX": {
-                        "damage": "1d10+8",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "greatclub",
-                "traits": {
-                    "value": [
-                        "backswing",
-                        "shove"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "YuJBFcokrOpcJgs6",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "XA3U2vwiNq68lqKJ"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Bola",
-            "sort": 1200000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 13
-                },
-                "damageRolls": {
-                    "Zg4cZ63TBE9K7hJT": {
-                        "damage": "1d6+8",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "bola",
-                "traits": {
-                    "value": [
-                        "nonlethal",
-                        "ranged-trip",
-                        "thrown-20"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "uldVZLVdwiLD1q6v",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Vulnerable to Sunlight",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A dero sentry takes @Damage[10[untyped]] damage for every hour they're exposed to sunlight.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qwNhCiHQVyMkQrfX",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Dero Medicine",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The dero is wearing a cytillesh toolkit and has a hand free</p><hr /><p><strong>Effect</strong> The dero excises damaged flesh and crudely stitches wounds shut, healing themself or an ally in reach for @Damage[(2d8+10)[healing]] Hit Points. For 1 hour, the target has slashing weakness 2 and is immune to Dero Medicine.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Dero Medicine]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "healing",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "UDbuH3ideIzovA2c",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Focused Blow",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The dero sentry winds up, readying themselves to take a massive swing with their weapon. If the next action the dero sentry takes is a melee Strike, they deal an additional 1d8 damage with that Strike.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "focused-blow",
-                        "toggleable": true
-                    },
-                    {
-                        "diceNumber": 1,
-                        "dieSize": "d8",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "focused-blow"
-                        ],
-                        "selector": "melee-strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "flourish"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Dero Sentry",

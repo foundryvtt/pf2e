@@ -3,108 +3,66 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "7ERyflHHinGfODO2",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Prepared Spells",
+            "_id": "9PUgsYyJWDJ9J0sE",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status vs. Poison",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Bestiary"
                 },
-                "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "evxEHJt60TUfoar0"
-                            },
-                            {
-                                "id": "mU6cDt19JdnCeE6O"
-                            },
-                            {
-                                "id": "pW9xVNuXrUUYQKDr"
-                            },
-                            {
-                                "id": "8OOREwCypnP9Kf1V"
-                            },
-                            {
-                                "id": "zKU7p4x9xsqKoSo7"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "0pY9wp8J8VOuDeCa"
-                            },
-                            {
-                                "id": "JpIn4oPnlvBrZuYB"
-                            },
-                            {
-                                "id": "iIFvG8Y9p1J2k2Fo"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "ASfy3bFiwKpHXfNu"
-                            },
-                            {
-                                "id": "5LKwDDxXRYOJTg0W"
-                            },
-                            {
-                                "id": "iIFvG8Y9p1J2k2Fo"
-                            }
-                        ]
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "poison"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
                     }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 21,
-                    "value": 12
-                },
-                "tradition": {
-                    "value": "primal"
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "VzrK9L3fTzGmyHto",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Druid Order Spells",
+            "_id": "Jn2HBbRFuiRxKRbB",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.pathfinder-bestiary.jVZRROs0GzDjVrgi.Item.czwGWW73rkPW7vBg"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Goblin Scuttle",
             "sort": 200000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p><strong>Trigger</strong> A goblin ally ends a move action adjacent to the goblin.</p>\n<hr />\n<p><strong>Effect</strong> The goblin @UUID[Compendium.pf2e.actionspf2e.Item.Step]{Steps}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -112,17 +70,287 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 21,
-                    "value": 12
-                },
-                "tradition": {
-                    "value": "primal"
+                "slug": "",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "xYyZLfzVCUdoVnQn",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Reach Spell",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If the next action Lickweed takes is to @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell] that has a range, increase that spell's range by 30 feet.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "spellshape"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dEj5HxpnzeRCKekU",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.vJZ49cgi8szuQXAD"
+            },
+            "img": "systems/pf2e/icons/equipment/wands/magic-wands/magic-wand.webp",
+            "name": "Wand of Glitterdust (Level 2)",
+            "sort": 400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "wand",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Revealing Light]</p><hr /><p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 5
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 160
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "magic-wand-2nd-level-spell",
+                "spell": {
+                    "_id": "57zmXc0qnYln5REO",
+                    "flags": {
+                        "core": {
+                            "sourceId": "Compendium.pf2e.spells-srd.Item.0qaqksrGGDj74HXE"
+                        }
+                    },
+                    "img": "systems/pf2e/icons/spells/glitterdust.webp",
+                    "name": "Glitterdust",
+                    "sort": 0,
+                    "system": {
+                        "area": {
+                            "type": "burst",
+                            "value": 10
+                        },
+                        "cost": {
+                            "value": ""
+                        },
+                        "counteraction": false,
+                        "damage": {},
+                        "defense": {
+                            "save": {
+                                "basic": false,
+                                "statistic": "reflex"
+                            }
+                        },
+                        "description": {
+                            "value": "<p>Creatures in the area are outlined by glittering dust. Each creature must attempt a Reflex save. If a creature has its invisibility negated by this spell, it is @UUID[Compendium.pf2e.conditionitems.Item.Concealed] instead of @UUID[Compendium.pf2e.conditionitems.Item.Invisible]. This applies both if the creature was already Invisible and if it benefits from new invisibility effects before the end of the invisibility negation effect from this spell.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target's invisibility is negated for 2 rounds.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 minute and its invisibility is negated for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round and Dazzled for 10 minutes. Its invisibility is negated for 10 minutes.</p>"
+                        },
+                        "duration": {
+                            "sustained": false,
+                            "value": ""
+                        },
+                        "level": {
+                            "value": 2
+                        },
+                        "location": {
+                            "heightenedLevel": 2,
+                            "value": ""
+                        },
+                        "publication": {
+                            "license": "OGL",
+                            "remaster": false,
+                            "title": "Pathfinder Core Rulebook"
+                        },
+                        "range": {
+                            "value": "120 feet"
+                        },
+                        "requirements": "",
+                        "rules": [],
+                        "slug": "glitterdust",
+                        "target": {
+                            "value": ""
+                        },
+                        "time": {
+                            "value": "2"
+                        },
+                        "traits": {
+                            "rarity": "common",
+                            "traditions": [
+                                "arcane",
+                                "primal"
+                            ],
+                            "value": [
+                                "concentrate",
+                                "manipulate"
+                            ]
+                        }
+                    },
+                    "type": "spell"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "magical",
+                        "primal",
+                        "wand"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": false,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "PLl0lrfdaaqgezrn",
+            "img": "systems/pf2e/icons/default-icons/equipment.svg",
+            "name": "Clothing and Crown made of thorny vines and weeds",
+            "sort": 500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "MxQXSU7ZH7FLyYf5",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "hR8N7nCtmoPv9TFY"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Scythe",
+            "sort": 600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "8y9sjCLXIZZX5QHR": {
+                        "damage": "1d10+1",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "deadly-d10",
+                        "trip"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "ASfy3bFiwKpHXfNu",
@@ -131,7 +359,7 @@
             },
             "img": "systems/pf2e/icons/spells/acid-arrow.webp",
             "name": "Acid Arrow",
-            "sort": 300000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -211,7 +439,7 @@
             },
             "img": "icons/magic/earth/orb-lava-ball-yellow.webp",
             "name": "Flaming Sphere",
-            "sort": 400000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -294,7 +522,7 @@
             },
             "img": "icons/magic/acid/projectile-smoke-glowing.webp",
             "name": "Acid Splash",
-            "sort": 500000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -455,7 +683,7 @@
             },
             "img": "systems/pf2e/icons/spells/burning-hands.webp",
             "name": "Burning Hands",
-            "sort": 600000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -541,7 +769,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
             "name": "Electric Arc",
-            "sort": 700000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -626,7 +854,7 @@
             },
             "img": "icons/magic/unholy/hand-claw-fog-green.webp",
             "name": "Goblin Pox",
-            "sort": 800000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -692,7 +920,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 900000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -888,7 +1116,7 @@
             },
             "img": "icons/magic/fire/flame-burning-earth-orange.webp",
             "name": "Produce Flame",
-            "sort": 1000000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -969,7 +1197,7 @@
             },
             "img": "icons/magic/movement/trail-streak-impact-blue.webp",
             "name": "Ray of Frost",
-            "sort": 1100000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1050,7 +1278,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tanglefoot",
-            "sort": 1200000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1113,7 +1341,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-cloud-gray.webp",
             "name": "Tempest Surge",
-            "sort": 1300000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1190,13 +1418,135 @@
             "type": "spell"
         },
         {
+            "_id": "7ERyflHHinGfODO2",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Prepared Spells",
+            "sort": 1800000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "evxEHJt60TUfoar0"
+                            },
+                            {
+                                "id": "mU6cDt19JdnCeE6O"
+                            },
+                            {
+                                "id": "pW9xVNuXrUUYQKDr"
+                            },
+                            {
+                                "id": "8OOREwCypnP9Kf1V"
+                            },
+                            {
+                                "id": "zKU7p4x9xsqKoSo7"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "0pY9wp8J8VOuDeCa"
+                            },
+                            {
+                                "id": "JpIn4oPnlvBrZuYB"
+                            },
+                            {
+                                "id": "iIFvG8Y9p1J2k2Fo"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "ASfy3bFiwKpHXfNu"
+                            },
+                            {
+                                "id": "5LKwDDxXRYOJTg0W"
+                            },
+                            {
+                                "id": "iIFvG8Y9p1J2k2Fo"
+                            }
+                        ]
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 21,
+                    "value": 12
+                },
+                "tradition": {
+                    "value": "primal"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "VzrK9L3fTzGmyHto",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Druid Order Spells",
+            "sort": 1900000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 21,
+                    "value": 12
+                },
+                "tradition": {
+                    "value": "primal"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "hR8N7nCtmoPv9TFY",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.H74vYwHJ8XT4qOPI"
             },
             "img": "systems/pf2e/icons/equipment/weapons/scythe.webp",
             "name": "Scythe",
-            "sort": 1400000,
+            "sort": 2000000,
             "system": {
                 "baseItem": "scythe",
                 "bonus": {
@@ -1274,356 +1624,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "PLl0lrfdaaqgezrn",
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "Clothing and Crown made of thorny vines and weeds",
-            "sort": 1500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "dEj5HxpnzeRCKekU",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.vJZ49cgi8szuQXAD"
-            },
-            "img": "systems/pf2e/icons/equipment/wands/magic-wands/magic-wand.webp",
-            "name": "Wand of Glitterdust (Level 2)",
-            "sort": 1600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "wand",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Revealing Light]</p><hr /><p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 5
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 160
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "magic-wand-2nd-level-spell",
-                "spell": {
-                    "_id": "57zmXc0qnYln5REO",
-                    "flags": {
-                        "core": {
-                            "sourceId": "Compendium.pf2e.spells-srd.Item.0qaqksrGGDj74HXE"
-                        }
-                    },
-                    "img": "systems/pf2e/icons/spells/glitterdust.webp",
-                    "name": "Glitterdust",
-                    "sort": 0,
-                    "system": {
-                        "area": {
-                            "type": "burst",
-                            "value": 10
-                        },
-                        "cost": {
-                            "value": ""
-                        },
-                        "counteraction": false,
-                        "damage": {},
-                        "defense": {
-                            "save": {
-                                "basic": false,
-                                "statistic": "reflex"
-                            }
-                        },
-                        "description": {
-                            "value": "<p>Creatures in the area are outlined by glittering dust. Each creature must attempt a Reflex save. If a creature has its invisibility negated by this spell, it is @UUID[Compendium.pf2e.conditionitems.Item.Concealed] instead of @UUID[Compendium.pf2e.conditionitems.Item.Invisible]. This applies both if the creature was already Invisible and if it benefits from new invisibility effects before the end of the invisibility negation effect from this spell.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target's invisibility is negated for 2 rounds.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 minute and its invisibility is negated for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round and Dazzled for 10 minutes. Its invisibility is negated for 10 minutes.</p>"
-                        },
-                        "duration": {
-                            "sustained": false,
-                            "value": ""
-                        },
-                        "level": {
-                            "value": 2
-                        },
-                        "location": {
-                            "heightenedLevel": 2,
-                            "value": ""
-                        },
-                        "publication": {
-                            "license": "OGL",
-                            "remaster": false,
-                            "title": "Pathfinder Core Rulebook"
-                        },
-                        "range": {
-                            "value": "120 feet"
-                        },
-                        "requirements": "",
-                        "rules": [],
-                        "slug": "glitterdust",
-                        "target": {
-                            "value": ""
-                        },
-                        "time": {
-                            "value": "2"
-                        },
-                        "traits": {
-                            "rarity": "common",
-                            "traditions": [
-                                "arcane",
-                                "primal"
-                            ],
-                            "value": [
-                                "concentrate",
-                                "manipulate"
-                            ]
-                        }
-                    },
-                    "type": "spell"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "magical",
-                        "primal",
-                        "wand"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": false,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "MxQXSU7ZH7FLyYf5",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "hR8N7nCtmoPv9TFY"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Scythe",
-            "sort": 1700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "8y9sjCLXIZZX5QHR": {
-                        "damage": "1d10+1",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "deadly-d10",
-                        "trip"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "9PUgsYyJWDJ9J0sE",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status vs. Poison",
-            "sort": 1800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "poison"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Jn2HBbRFuiRxKRbB",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.pathfinder-bestiary.jVZRROs0GzDjVrgi.Item.czwGWW73rkPW7vBg"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Goblin Scuttle",
-            "sort": 1900000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A goblin ally ends a move action adjacent to the goblin.</p>\n<hr />\n<p><strong>Effect</strong> The goblin @UUID[Compendium.pf2e.actionspf2e.Item.Step]{Steps}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xYyZLfzVCUdoVnQn",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Reach Spell",
-            "sort": 2000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>If the next action Lickweed takes is to @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell] that has a range, increase that spell's range by 30 feet.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "spellshape"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Lickweed",

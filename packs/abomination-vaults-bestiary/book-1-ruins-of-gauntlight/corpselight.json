@@ -4,10 +4,206 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "uItSOCTzoCrocBon",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Corpse Sense (Precise) 30 feet",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A corpselight can sense dead bodies within range. This is a precise sense that functions through solid barriers less than 5 feet thick.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "khhjOlnkRw4wzweC",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sunlight Powerlessness",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A corpselight exposed to sunlight is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2} and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2}, and cannot Claim a Corpse.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3RI2spwyiEWuXdgF",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NBuJOqDORlJbI3m9",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Wisp Form",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>When a corpselight is reduced to 0 Hit Points while merged with a corpse, it is instead reduced to 1 Hit Point as the corpse collapses to the ground and the corpselight emerges in its wisp form.</p>\n<p>While in wisp form, a corpselight is Tiny and can take no actions other than Claim Corpse or Fly.</p>\n<p>A corpselight that starts its turn in wisp form must attempt a @Check[flat|dc:16|immutable:true] at the end of its turn; if it fails, it loses 1 Hit Point. A corpselight reduced to 0 Hit Points while in wisp form is destroyed.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Y0gOm1Uz3dMu6Q4W",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Claim Corpse",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Prerequisites</strong> The corpselight is in wisp form and is adjacent to a Medium or Small corpse that hasn't been claimed by a corpselight in the past 24 hours</p>\n<hr />\n<p><strong>Effect</strong> The corpselight merges with the corpse, causes the corpse to Stand, and regains @Damage[3d6[healing]] Hit Points.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Claim Corpse - Fleshy]</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Claim Corpse - Skeletal]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mA7HIkvCJVI5uu1m",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Death Light",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Prerequisites</strong> The corpselight is in a corpse</p>\n<hr />\n<p><strong>Effect</strong> The corpselight emits a sickly blue beam of light from its mouth and eyes in a @Template[cone|distance:20]. All living creatures in this area must attempt a @Check[fortitude|dc:18|traits:damaging-effect] saving throw. If at least 1 creature fails its save, the corpselight regains @Damage[2d6[healing]] Hit Points, gaining any that exceed its maximum as temporary Hit Points that last for 1 minute.</p>\n<p>The corpselight can't use again for [[/gmr 1d4 #Recharge Death Light]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[1d6[void]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[2d6[void]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[4d6[void]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "emotion",
+                        "fear",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "i68AZkuUsYHLKLWd",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
-            "sort": 100000,
+            "sort": 700000,
             "system": {
                 "attack": {
                     "value": ""
@@ -50,7 +246,7 @@
             "_id": "wImzz2Ucpz9gqh2J",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
-            "sort": 200000,
+            "sort": 800000,
             "system": {
                 "attack": {
                     "value": ""
@@ -89,202 +285,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "uItSOCTzoCrocBon",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Corpse Sense (Precise) 30 feet",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A corpselight can sense dead bodies within range. This is a precise sense that functions through solid barriers less than 5 feet thick.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "khhjOlnkRw4wzweC",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sunlight Powerlessness",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A corpselight exposed to sunlight is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2} and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2}, and cannot Claim a Corpse.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "3RI2spwyiEWuXdgF",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "NBuJOqDORlJbI3m9",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Wisp Form",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>When a corpselight is reduced to 0 Hit Points while merged with a corpse, it is instead reduced to 1 Hit Point as the corpse collapses to the ground and the corpselight emerges in its wisp form.</p>\n<p>While in wisp form, a corpselight is Tiny and can take no actions other than Claim Corpse or Fly.</p>\n<p>A corpselight that starts its turn in wisp form must attempt a @Check[flat|dc:16|immutable:true] at the end of its turn; if it fails, it loses 1 Hit Point. A corpselight reduced to 0 Hit Points while in wisp form is destroyed.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Y0gOm1Uz3dMu6Q4W",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Claim Corpse",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Prerequisites</strong> The corpselight is in wisp form and is adjacent to a Medium or Small corpse that hasn't been claimed by a corpselight in the past 24 hours</p>\n<hr />\n<p><strong>Effect</strong> The corpselight merges with the corpse, causes the corpse to Stand, and regains @Damage[3d6[healing]] Hit Points.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Claim Corpse - Fleshy]</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Claim Corpse - Skeletal]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "mA7HIkvCJVI5uu1m",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Death Light",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Prerequisites</strong> The corpselight is in a corpse</p>\n<hr />\n<p><strong>Effect</strong> The corpselight emits a sickly blue beam of light from its mouth and eyes in a @Template[cone|distance:20]. All living creatures in this area must attempt a @Check[fortitude|dc:18|traits:damaging-effect] saving throw. If at least 1 creature fails its save, the corpselight regains @Damage[2d6[healing]] Hit Points, gaining any that exceed its maximum as temporary Hit Points that last for 1 minute.</p>\n<p>The corpselight can't use again for [[/gmr 1d4 #Recharge Death Light]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[1d6[void]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[2d6[void]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[4d6[void]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "emotion",
-                        "fear",
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Corpselight",

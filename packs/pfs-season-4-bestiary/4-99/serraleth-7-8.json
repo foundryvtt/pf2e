@@ -4,22 +4,53 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "ROSZvh4spODKkdYM",
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Divine Innate Spells",
+            "_id": "AVgx9GEdYELu9Z9I",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
                 },
-                "proficiency": {
-                    "value": 0
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lo4ykwnhgn0sqzrn",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Disobedience Vulnerability",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The first time each round an attempt to Command an Animal fails within 60 feet of Serraleth, she takes @Damage[5d6[mental]] damage (@Damage[11d6[mental]] if Serraleth failed the attempt).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,39 +58,218 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot2": {
-                        "max": 1,
-                        "value": 1
-                    },
-                    "slot4": {
-                        "max": 1,
-                        "value": 1
-                    },
-                    "slot5": {
-                        "max": 1,
-                        "value": 1
-                    },
-                    "slot6": {
-                        "max": 1,
-                        "value": 1
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 28,
-                    "item": 0,
-                    "mod": 0,
-                    "value": 20
-                },
-                "tradition": {
-                    "value": "divine"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "gafle2cabrnckhdn",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Predatory Aura",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. An animal or beast entering or starting its turn in the emanation must succeed at a @Check[will|dc:28] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (frightened 2 on a critical failure). Frightened animals within the emanation can't attack Serraleth. A creature that succeeds at a saving throw against predatory aura is immune for 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "predatory-aura"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "or225f5ibefcz90w",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Incite Ferocity",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Serraleth focuses her corruption on an animal or beast it can see within 30 feet. The creature must succeed at a @Check[will|dc:28] save or become @UUID[Compendium.pf2e.conditionitems.Item.Confused] for [[/gmr 1d4 #rounds]]{1d4 rounds}. The confused creature can't attack Serraleth. A creature that succeeds at its saving throw is temporarily immune to Incite Ferocity for 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vfnb5vr7qkm2nzme",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Wear Pelt",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Serraleth dons the pelt of an adjacent dead animal, transforming into its lookalike. She becomes the same size and gains the same Speeds as the target animal. Serraleth loses her claw and jaws unarmed Strikes and gains the types of melee Strikes of the animal whose pelt she wears. The Strike deals damage equal to her jaws Strike or, if the Strike has the agile trait, her claw Strike. Either way, the damage type changes to match the new unarmed attack. While Serraleth wears a pelt, half of physical damage dealt to her is instead dealt to the pelt. A pelt has Hardness 5 and 25 HP. When a pelt reaches 0 HP, she's immediately expelled from the pelt and it's destroyed.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "y0gym5wp5wn6iznu",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "9SV7gs6ayNy9v2Kv": {
+                        "damage": "2d10+9",
+                        "damageType": "piercing"
+                    },
+                    "l4rfswdb9aemaqhi5qat": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "unarmed",
+                        "unholy"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "sr2tiu618w7bc6sv",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "TzSlVuTbpV6IvqDu": {
+                        "damage": "2d6+9",
+                        "damageType": "slashing"
+                    },
+                    "qpuoiapo4oglf6xoczjy": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "unarmed",
+                        "unholy"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "1k8csUGVSUjB6bUk",
@@ -68,7 +278,7 @@
             },
             "img": "systems/pf2e/icons/spells/dominate.webp",
             "name": "Dominate (Animals Only)",
-            "sort": 200000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -136,7 +346,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door",
-            "sort": 300000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -198,7 +408,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door (At Will)",
-            "sort": 400000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -259,7 +469,7 @@
             },
             "img": "icons/creatures/mammals/ox-buffalo-horned-green.webp",
             "name": "Speak with Animals (Constant)",
-            "sort": 500000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -318,7 +528,7 @@
             },
             "img": "icons/sundries/scrolls/scroll-writing-tan-grey.webp",
             "name": "Abyssal Pact",
-            "sort": 600000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -375,255 +585,22 @@
             "type": "spell"
         },
         {
-            "_id": "y0gym5wp5wn6iznu",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 21
-                },
-                "damageRolls": {
-                    "9SV7gs6ayNy9v2Kv": {
-                        "damage": "2d10+9",
-                        "damageType": "piercing"
-                    },
-                    "l4rfswdb9aemaqhi5qat": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "unarmed",
-                        "unholy"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "sr2tiu618w7bc6sv",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 21
-                },
-                "damageRolls": {
-                    "TzSlVuTbpV6IvqDu": {
-                        "damage": "2d6+9",
-                        "damageType": "slashing"
-                    },
-                    "qpuoiapo4oglf6xoczjy": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "unarmed",
-                        "unholy"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "AVgx9GEdYELu9Z9I",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "lo4ykwnhgn0sqzrn",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Disobedience Vulnerability",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The first time each round an attempt to Command an Animal fails within 60 feet of Serraleth, she takes @Damage[5d6[mental]] damage (@Damage[11d6[mental]] if Serraleth failed the attempt).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "gafle2cabrnckhdn",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Predatory Aura",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>30 feet. An animal or beast entering or starting its turn in the emanation must succeed at a @Check[will|dc:28] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (frightened 2 on a critical failure). Frightened animals within the emanation can't attack Serraleth. A creature that succeeds at a saving throw against predatory aura is immune for 24 hours.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "slug": "predatory-aura"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "or225f5ibefcz90w",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Incite Ferocity",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Serraleth focuses her corruption on an animal or beast it can see within 30 feet. The creature must succeed at a @Check[will|dc:28] save or become @UUID[Compendium.pf2e.conditionitems.Item.Confused] for [[/gmr 1d4 #rounds]]{1d4 rounds}. The confused creature can't attack Serraleth. A creature that succeeds at its saving throw is temporarily immune to Incite Ferocity for 24 hours.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "vfnb5vr7qkm2nzme",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Wear Pelt",
+            "_id": "ROSZvh4spODKkdYM",
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Divine Innate Spells",
             "sort": 1300000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>Serraleth dons the pelt of an adjacent dead animal, transforming into its lookalike. She becomes the same size and gains the same Speeds as the target animal. Serraleth loses her claw and jaws unarmed Strikes and gains the types of melee Strikes of the animal whose pelt she wears. The Strike deals damage equal to her jaws Strike or, if the Strike has the agile trait, her claw Strike. Either way, the damage type changes to match the new unarmed attack. While Serraleth wears a pelt, half of physical damage dealt to her is instead dealt to the pelt. A pelt has Hardness 5 and 25 HP. When a pelt reaches 0 HP, she's immediately expelled from the pelt and it's destroyed.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -631,16 +608,39 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {
+                    "slot2": {
+                        "max": 1,
+                        "value": 1
+                    },
+                    "slot4": {
+                        "max": 1,
+                        "value": 1
+                    },
+                    "slot5": {
+                        "max": 1,
+                        "value": 1
+                    },
+                    "slot6": {
+                        "max": 1,
+                        "value": 1
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine",
-                        "manipulate"
-                    ]
+                "spelldc": {
+                    "dc": 28,
+                    "item": 0,
+                    "mod": 0,
+                    "value": 20
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Serraleth (7-8)",

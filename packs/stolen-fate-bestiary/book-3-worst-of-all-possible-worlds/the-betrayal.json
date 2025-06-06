@@ -4,22 +4,24 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "aLhWdKoUI0wcntZE",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "M6uZHjygjsmiPjbx",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Twist Fate",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
+                    "value": "<p><strong>Frequency</strong> once per minute</p>\n<p><strong>Trigger</strong> A creature critically hits the Betrayal</p>\n<hr />\n<p><strong>Effect</strong> The Betrayal manipulates fortune in her favor. The triggering attack becomes a hit instead.</p>"
                 },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1M"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,20 +29,331 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 42,
-                    "value": 34
-                },
-                "tradition": {
-                    "value": "occult"
+                "slug": "",
+                "traits": {
+                    "value": [
+                        "fortune",
+                        "occult"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "hXhR6v6GVUf3AFw4",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.Zt1p0dh8ZUXIMxEt"
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Harrowkin Suit (Crowns)",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Each harrowkin is connected one specific harrow suit and has the following shared abilities.</p>\n<p>@UUID[Compendium.pf2e.bestiary-family-ability-glossary.Item.(Harrowkin) Defensive Suit]</p>\n<p>@UUID[Compendium.pf2e.bestiary-family-ability-glossary.Item.(Harrowkin) Shuffle the Deck]</p>\n<p>@UUID[Compendium.pf2e.bestiary-family-ability-glossary.Item.(Harrowkin) Read the Cards]</p>\n<hr />\n<p><em>Note: This ability enables additional automation for the listed abilities.</em></p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #192: Worst of All Possible Worlds"
+                },
+                "rules": [
+                    {
+                        "choices": [
+                            {
+                                "label": "PF2E.SpecificRule.HarrowDeck.HarrowSuits.Books",
+                                "value": "books"
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.HarrowDeck.HarrowSuits.Crowns",
+                                "value": "crowns"
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.HarrowDeck.HarrowSuits.Hammers",
+                                "value": "hammers"
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.HarrowDeck.HarrowSuits.Keys",
+                                "value": "keys"
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.HarrowDeck.HarrowSuits.Shields",
+                                "value": "shields"
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.HarrowDeck.HarrowSuits.Stars",
+                                "value": "stars"
+                            }
+                        ],
+                        "flag": "harrowkinHarrowkinSuit",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.HarrowCourt.BooksSuitPrompt",
+                        "rollOption": "harrow-suit",
+                        "selection": "crowns"
+                    }
+                ],
+                "slug": "harrowkin-harrowkin-suit",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "cdpLGzDfds4rBbyb",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.nJBaRtGMGVcQNg6Z"
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Read the Cards",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The harrowkin is about to roll initiative</p>\n<hr />\n<p><strong>Effect</strong> The harrowkin attempts to rewrite destiny. Roll 1d6 to determine a suit. The harrowkin gains the effects of the suit for 1 minute. If the suit matches the harrowkin's suit, the value is doubled.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Read the Cards]</p>\n<p><strong>Hammers</strong> The harrowkin gains a +2 status bonus to damage rolls.</p>\n<p><strong>Keys</strong> The harrowkin gains a +1 status bonus to AC.</p>\n<p><strong>Shields</strong> The harrowkin gains fast healing 5.</p>\n<p><strong>Books</strong> The harrowkin gains a +1 status bonus to skill checks.</p>\n<p><strong>Stars</strong> The harrowkin gains a +1 status bonus to saving throws.</p>\n<p><strong>Crown</strong> The harrowkin can reroll 1 check within the next minute and take the higher result. This is a fortune effect.</p>\n<hr />\n<p><em>Note: The effect will roll the d6 automatically on placement.</em></p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #192: Worst of All Possible Worlds"
+                },
+                "rules": [],
+                "slug": "harrowkin-read-the-cards",
+                "traits": {
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2SmQZWYN5O7GoJex",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Shift Reality",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If the Betrayal is in the Harrowing Room, she vanishes and then reappears at any location she chooses in Sonnorae's Library. If she's in the library, she vanishes and reappears in a space of her choice in the Harrowing Room.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "",
+                "traits": {
+                    "value": [
+                        "occult",
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1tuSsTFtVjincv5M",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.bpoyTnJ7zn3kG6Y9"
+            },
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Shuffle the Deck",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> The harrowkin has rolled initiative</p>\n<hr />\n<p><strong>Effect</strong> At the end of the current round, all creatures currently in initiative reroll their initiative, using the same modifiers as their original initiative roll, and use the new initiative values for all following rounds..</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #192: Worst of All Possible Worlds"
+                },
+                "rules": [],
+                "slug": "harrowkin-shuffle-the-deck",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6thrgvyLSmSIsiki",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.C1j0Zs26TPVjplbs"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/harrow-deck-simple.webp",
+            "name": "Harrow Deck (Simple)",
+            "sort": 600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>Used by gamblers and seers alike, this deck of cards comes in several varieties.</p>\n<hr />\n<p>Simple harrow decks are made from low-quality paper and typically have only an icon and a number to signify the suit and alignment. These simple decks are mostly used for games of chance, as the actual image and significance of the cards are irrelevant for such games.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #160: Assault on Hunting Lodge Seven"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "harrow-deck-simple",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "HRN7fsfOYyaSxRow",
+            "_stats": {
+                "compendiumSource": "Actor.GzkJGkSYO512zr80.Item.HRN7fsfOYyaSxRow"
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claws",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 37
+                },
+                "damageRolls": {
+                    "enDqhNSoeJDyHsGC": {
+                        "damage": "4d12+15",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "",
+                "traits": {
+                    "value": [
+                        "magical",
+                        "versatile-p"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "C3jZKp3lxoQ5oLNI",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Harrow Card",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 30
+                },
+                "damageRolls": {
+                    "UNZ3q8jc0nhY1FAj": {
+                        "damage": "3d6+15",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical",
+                        "range-increment-20",
+                        "thrown"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "fzV52YoTqanlk24M",
@@ -49,7 +362,7 @@
             },
             "img": "icons/magic/perception/orb-eye-scrying.webp",
             "name": "Foresight",
-            "sort": 200000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -113,7 +426,7 @@
             },
             "img": "systems/pf2e/icons/spells/wail-of-the-banshee.webp",
             "name": "Wail of the Banshee",
-            "sort": 300000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -195,7 +508,7 @@
             },
             "img": "icons/environment/settlement/watchtower-cliff.webp",
             "name": "Discern Location",
-            "sort": 400000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -258,7 +571,7 @@
             },
             "img": "systems/pf2e/icons/spells/maze.webp",
             "name": "Maze",
-            "sort": 500000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -321,7 +634,7 @@
             },
             "img": "systems/pf2e/icons/spells/uncontrollable-dance.webp",
             "name": "Uncontrollable Dance",
-            "sort": 600000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -389,7 +702,7 @@
             },
             "img": "systems/pf2e/icons/spells/prismatic-spray.webp",
             "name": "Prismatic Spray",
-            "sort": 700000,
+            "sort": 1400000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -454,7 +767,7 @@
             },
             "img": "systems/pf2e/icons/spells/visions-of-danger.webp",
             "name": "Visions of Danger",
-            "sort": 800000,
+            "sort": 1500000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -542,7 +855,7 @@
             },
             "img": "systems/pf2e/icons/spells/warp-mind.webp",
             "name": "Warp Mind",
-            "sort": 900000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -611,7 +924,7 @@
             },
             "img": "systems/pf2e/icons/spells/feeblemind.webp",
             "name": "Feeblemind",
-            "sort": 1000000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -680,7 +993,7 @@
             },
             "img": "systems/pf2e/icons/spells/spiritual-blast.webp",
             "name": "Spirit Blast",
-            "sort": 1100000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -765,7 +1078,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing",
-            "sort": 1200000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -829,7 +1142,7 @@
             },
             "img": "icons/magic/unholy/beam-impact-purple.webp",
             "name": "Shadow Blast",
-            "sort": 1300000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -939,7 +1252,7 @@
             },
             "img": "icons/magic/air/wind-vortex-swirl-purple.webp",
             "name": "Shadow Siphon",
-            "sort": 1400000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1001,7 +1314,7 @@
             },
             "img": "systems/pf2e/icons/spells/synesthesia.webp",
             "name": "Synesthesia",
-            "sort": 1500000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1077,7 +1390,7 @@
             },
             "img": "systems/pf2e/icons/spells/confusion.webp",
             "name": "Confusion",
-            "sort": 1600000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1155,7 +1468,7 @@
             },
             "img": "systems/pf2e/icons/spells/phantasmal-killer.webp",
             "name": "Phantasmal Killer",
-            "sort": 1700000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1243,7 +1556,7 @@
             },
             "img": "systems/pf2e/icons/spells/suggestion.webp",
             "name": "Suggestion",
-            "sort": 1800000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1322,7 +1635,7 @@
             },
             "img": "icons/skills/wounds/injury-eyes-blood-red.webp",
             "name": "Blindness",
-            "sort": 1900000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1391,7 +1704,7 @@
             },
             "img": "systems/pf2e/icons/spells/hypnotic-pattern.webp",
             "name": "Hypnotic Pattern",
-            "sort": 2000000,
+            "sort": 2700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1461,7 +1774,7 @@
             },
             "img": "systems/pf2e/icons/spells/paralyze.webp",
             "name": "Paralyze",
-            "sort": 2100000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1539,7 +1852,7 @@
             },
             "img": "systems/pf2e/icons/spells/augury.webp",
             "name": "Augury",
-            "sort": 2200000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1601,7 +1914,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 2300000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1664,7 +1977,7 @@
             },
             "img": "systems/pf2e/icons/spells/hideous-laughter.webp",
             "name": "Hideous Laughter",
-            "sort": 2400000,
+            "sort": 3100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1732,7 +2045,7 @@
             },
             "img": "systems/pf2e/icons/spells/mirror-image.webp",
             "name": "Mirror Image",
-            "sort": 2500000,
+            "sort": 3200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1795,7 +2108,7 @@
             },
             "img": "icons/magic/control/buff-luck-fortune-rainbow.webp",
             "name": "Color Spray",
-            "sort": 2600000,
+            "sort": 3300000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -1867,7 +2180,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 2700000,
+            "sort": 3400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1954,7 +2267,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 2800000,
+            "sort": 3500000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -2021,7 +2334,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Ghost Sound",
-            "sort": 2900000,
+            "sort": 3600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2099,7 +2412,7 @@
             },
             "img": "icons/sundries/lights/candles-lit-red-evil.webp",
             "name": "Ill Omen",
-            "sort": 3000000,
+            "sort": 3700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2166,7 +2479,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Ray of Enfeeblement",
-            "sort": 3100000,
+            "sort": 3800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2234,7 +2547,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 3200000,
+            "sort": 3900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2352,356 +2665,43 @@
             "type": "spell"
         },
         {
-            "_id": "6thrgvyLSmSIsiki",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.C1j0Zs26TPVjplbs"
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/harrow-deck-simple.webp",
-            "name": "Harrow Deck (Simple)",
-            "sort": 3300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>Used by gamblers and seers alike, this deck of cards comes in several varieties.</p>\n<hr />\n<p>Simple harrow decks are made from low-quality paper and typically have only an icon and a number to signify the suit and alignment. These simple decks are mostly used for games of chance, as the actual image and significance of the cards are irrelevant for such games.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #160: Assault on Hunting Lodge Seven"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "harrow-deck-simple",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "HRN7fsfOYyaSxRow",
-            "_stats": {
-                "compendiumSource": "Actor.GzkJGkSYO512zr80.Item.HRN7fsfOYyaSxRow"
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claws",
-            "sort": 3400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 37
-                },
-                "damageRolls": {
-                    "enDqhNSoeJDyHsGC": {
-                        "damage": "4d12+15",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "",
-                "traits": {
-                    "value": [
-                        "magical",
-                        "versatile-p"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "C3jZKp3lxoQ5oLNI",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Harrow Card",
-            "sort": 3500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 30
-                },
-                "damageRolls": {
-                    "UNZ3q8jc0nhY1FAj": {
-                        "damage": "3d6+15",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "magical",
-                        "range-increment-20",
-                        "thrown"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "M6uZHjygjsmiPjbx",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Twist Fate",
-            "sort": 3600000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per minute</p>\n<p><strong>Trigger</strong> A creature critically hits the Betrayal</p>\n<hr />\n<p><strong>Effect</strong> The Betrayal manipulates fortune in her favor. The triggering attack becomes a hit instead.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "PT1M"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "",
-                "traits": {
-                    "value": [
-                        "fortune",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "hXhR6v6GVUf3AFw4",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.Zt1p0dh8ZUXIMxEt"
-            },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Harrowkin Suit (Crowns)",
-            "sort": 3700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Each harrowkin is connected one specific harrow suit and has the following shared abilities.</p>\n<p>@UUID[Compendium.pf2e.bestiary-family-ability-glossary.Item.(Harrowkin) Defensive Suit]</p>\n<p>@UUID[Compendium.pf2e.bestiary-family-ability-glossary.Item.(Harrowkin) Shuffle the Deck]</p>\n<p>@UUID[Compendium.pf2e.bestiary-family-ability-glossary.Item.(Harrowkin) Read the Cards]</p>\n<hr />\n<p><em>Note: This ability enables additional automation for the listed abilities.</em></p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #192: Worst of All Possible Worlds"
-                },
-                "rules": [
-                    {
-                        "choices": [
-                            {
-                                "label": "PF2E.SpecificRule.HarrowDeck.HarrowSuits.Books",
-                                "value": "books"
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.HarrowDeck.HarrowSuits.Crowns",
-                                "value": "crowns"
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.HarrowDeck.HarrowSuits.Hammers",
-                                "value": "hammers"
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.HarrowDeck.HarrowSuits.Keys",
-                                "value": "keys"
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.HarrowDeck.HarrowSuits.Shields",
-                                "value": "shields"
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.HarrowDeck.HarrowSuits.Stars",
-                                "value": "stars"
-                            }
-                        ],
-                        "flag": "harrowkinHarrowkinSuit",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.HarrowCourt.BooksSuitPrompt",
-                        "rollOption": "harrow-suit",
-                        "selection": "crowns"
-                    }
-                ],
-                "slug": "harrowkin-harrowkin-suit",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "cdpLGzDfds4rBbyb",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.nJBaRtGMGVcQNg6Z"
-            },
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Read the Cards",
-            "sort": 3800000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The harrowkin is about to roll initiative</p>\n<hr />\n<p><strong>Effect</strong> The harrowkin attempts to rewrite destiny. Roll 1d6 to determine a suit. The harrowkin gains the effects of the suit for 1 minute. If the suit matches the harrowkin's suit, the value is doubled.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Read the Cards]</p>\n<p><strong>Hammers</strong> The harrowkin gains a +2 status bonus to damage rolls.</p>\n<p><strong>Keys</strong> The harrowkin gains a +1 status bonus to AC.</p>\n<p><strong>Shields</strong> The harrowkin gains fast healing 5.</p>\n<p><strong>Books</strong> The harrowkin gains a +1 status bonus to skill checks.</p>\n<p><strong>Stars</strong> The harrowkin gains a +1 status bonus to saving throws.</p>\n<p><strong>Crown</strong> The harrowkin can reroll 1 check within the next minute and take the higher result. This is a fortune effect.</p>\n<hr />\n<p><em>Note: The effect will roll the d6 automatically on placement.</em></p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #192: Worst of All Possible Worlds"
-                },
-                "rules": [],
-                "slug": "harrowkin-read-the-cards",
-                "traits": {
-                    "value": [
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "2SmQZWYN5O7GoJex",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Shift Reality",
-            "sort": 3900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>If the Betrayal is in the Harrowing Room, she vanishes and then reappears at any location she chooses in Sonnorae's Library. If she's in the library, she vanishes and reappears in a space of her choice in the Harrowing Room.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "",
-                "traits": {
-                    "value": [
-                        "occult",
-                        "teleportation"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "1tuSsTFtVjincv5M",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.bpoyTnJ7zn3kG6Y9"
-            },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Shuffle the Deck",
+            "_id": "aLhWdKoUI0wcntZE",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 4000000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> The harrowkin has rolled initiative</p>\n<hr />\n<p><strong>Effect</strong> At the end of the current round, all creatures currently in initiative reroll their initiative, using the same modifiers as their original initiative roll, and use the new initiative values for all following rounds..</p>"
+                    "value": ""
                 },
-                "frequency": {
-                    "max": 1,
-                    "per": "day"
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder #192: Worst of All Possible Worlds"
+                    "title": ""
                 },
                 "rules": [],
-                "slug": "harrowkin-shuffle-the-deck",
-                "traits": {
-                    "value": []
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 42,
+                    "value": 34
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "The Betrayal",

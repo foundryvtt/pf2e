@@ -4,10 +4,88 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "DRg8mqWXs2XtBhxq",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Breath Weapon",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The Azmakian effigy exhales rusting gas in a @Template[cone|distance:15]. The gas deals @Damage[2d6|options:area-damage] damage to the highest-level metal item carried by every creature in the area, ignoring these items' Hardness (@Check[fortitude|dc:22|basic|options:area-effect]); unattended metal items in the area take this damage automatically. The Azmakian effigy can't use its Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VR1LdQMTDyoCvk0h",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Powerful Charge",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The Azmakian effigy Strides twice and then makes a horn Strike. If it moved at least 20 feet from its starting position, the Strike's damage is increased to @Damage[(3d10+10)[piercing]] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "powerful-charge",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "powerful-charge"
+                        ],
+                        "selector": "horns-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "RUg3D9O5xbV2Ew9T",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Horn",
-            "sort": 100000,
+            "sort": 300000,
             "system": {
                 "attack": {
                     "value": ""
@@ -51,7 +129,7 @@
             "_id": "rZu3iZJmCOAdpNYm",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Hoof",
-            "sort": 200000,
+            "sort": 400000,
             "system": {
                 "attack": {
                     "value": ""
@@ -90,84 +168,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "DRg8mqWXs2XtBhxq",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Breath Weapon",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The Azmakian effigy exhales rusting gas in a @Template[cone|distance:15]. The gas deals @Damage[2d6|options:area-damage] damage to the highest-level metal item carried by every creature in the area, ignoring these items' Hardness (@Check[fortitude|dc:22|basic|options:area-effect]); unattended metal items in the area take this damage automatically. The Azmakian effigy can't use its Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "VR1LdQMTDyoCvk0h",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Powerful Charge",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The Azmakian effigy Strides twice and then makes a horn Strike. If it moved at least 20 feet from its starting position, the Strike's damage is increased to @Damage[(3d10+10)[piercing]] damage.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "powerful-charge",
-                        "toggleable": true
-                    },
-                    {
-                        "diceNumber": 1,
-                        "dieSize": "d10",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "powerful-charge"
-                        ],
-                        "selector": "horns-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Azmakian Effigy",

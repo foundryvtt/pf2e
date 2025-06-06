@@ -4,22 +4,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "V6Z7cQHF4SLEwdPU",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "Rm9z6DErUjpp4kHO",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Soul Shred",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>Creatures killed by a kagekuma are difficult to bring back to life or animate as undead. The kagekuma automatically attempts to counteract any attempt to resurrect or animate as undead any creature that it has killed (counteract modifier [[/r 1d20+16 #Counteract]]{+16}, counteract rank 4). If the kagekuma who slew the creature is slain, the creature can be brought back from death or become undead normally.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,21 +25,265 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 26,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AlahV5QjTIJz9SC9",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Manifest Bundle",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> The kagekuma manifests a large bundle of straw, reeds, rope, yarn, hair, or the like, all lashed together with cords and strapped to its back. The kagekuma's AC increases to 27 as long as its bundle remains manifested, but its Speed is reduced to 15 feet.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "manifest-bundle",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "manifest-bundle"
+                        ],
+                        "selector": "ac",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "manifest-bundle"
+                        ],
+                        "selector": "land-speed",
+                        "value": -10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "B44h5TmcIyzvolZd",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Ruin Wielder",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When a kagekuma wields a broken, non-magical weapon, they don't take any of the disadvantages of the weapon being broken. While the kagekuma wields it, the weapon becomes a <em>+1 striking weapon</em>, and it deals an additional 1d6 mental damage on a successful hit.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CjzYp6wpU5EhN45o",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Shadow Bite",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The kagekuma is casting a shadow</p>\n<hr />\n<p><strong>Effect</strong> The kagekuma targets an adjacent creature that's casting a shadow, then its shadow feeds on that creature's shadow. If the kagekuma has a manifested bundle, observers (including the creature whose shadow is being bitten) can notice the kagekuma's Shadow Bite only if they succeed at a @Check[perception|dc:38] check. The target must succeed at a @Check[fortitude|dc:26] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (@UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QpNtaCLLdgHDywU0",
+            "_stats": {
+                "compendiumSource": "Actor.183L006AcuLnHJbY.Item.QpNtaCLLdgHDywU0"
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Shed Bundle",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The kagekuma has a manifested bundle</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The kagekuma causes its bundle to vanish, Strides, and then attempts a kusarigama Strike and a bite Strike.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Q95mGgDNF6Oq1IQc",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "yggkrr6G0vHQNoP0"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Kusarigama",
+            "sort": 600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "2sKdrVlOBJJekqwN": {
+                        "damage": "1d6",
+                        "damageType": "mental"
+                    },
+                    "AyqaJc7rt1f2unrS": {
+                        "damage": "2d8+7",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "kusarigama",
+                "traits": {
+                    "value": [
+                        "disarm",
+                        "monk",
+                        "reach-10",
+                        "trip",
+                        "versatile-b"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "r8eBActQHPikCQc1",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Bite",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
                     "value": 18
                 },
-                "tradition": {
-                    "value": "occult"
+                "damageRolls": {
+                    "eIad9QBvOyoiO9d6": {
+                        "damage": "2d6+7",
+                        "damageType": "piercing"
+                    },
+                    "ox36EiMcL0Z3FU9v": {
+                        "damage": "1d6",
+                        "damageType": "mental"
+                    }
                 },
-                "traits": {}
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
         },
         {
             "_id": "MY09AufmDFMuECRw",
@@ -50,7 +292,7 @@
             },
             "img": "systems/pf2e/icons/spells/modify-memory.webp",
             "name": "Rewrite Memory",
-            "sort": 200000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -122,7 +364,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Translocate",
-            "sort": 300000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -194,7 +436,7 @@
             },
             "img": "icons/environment/settlement/lighthouse-rock-red.webp",
             "name": "Veil of Privacy",
-            "sort": 400000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -256,7 +498,7 @@
             },
             "img": "systems/pf2e/icons/spells/blur.webp",
             "name": "Blur",
-            "sort": 500000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -319,7 +561,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 600000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -406,7 +648,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 700000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -487,7 +729,7 @@
             },
             "img": "systems/pf2e/icons/spells/item-facade.webp",
             "name": "Item Facade",
-            "sort": 800000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -550,7 +792,7 @@
             },
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
-            "sort": 900000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -626,7 +868,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 1000000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -744,13 +986,53 @@
             "type": "spell"
         },
         {
+            "_id": "V6Z7cQHF4SLEwdPU",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
+            "sort": 1700000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 26,
+                    "value": 18
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "yggkrr6G0vHQNoP0",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.D6E4VaKVG05G26Rm"
             },
             "img": "systems/pf2e/icons/equipment/weapons/kama.webp",
             "name": "Broken Kusarigama",
-            "sort": 1100000,
+            "sort": 1800000,
             "system": {
                 "baseItem": "kusarigama",
                 "bonus": {
@@ -831,288 +1113,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "Q95mGgDNF6Oq1IQc",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "yggkrr6G0vHQNoP0"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Kusarigama",
-            "sort": 1200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "2sKdrVlOBJJekqwN": {
-                        "damage": "1d6",
-                        "damageType": "mental"
-                    },
-                    "AyqaJc7rt1f2unrS": {
-                        "damage": "2d8+7",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "kusarigama",
-                "traits": {
-                    "value": [
-                        "disarm",
-                        "monk",
-                        "reach-10",
-                        "trip",
-                        "versatile-b"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "r8eBActQHPikCQc1",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Bite",
-            "sort": 1300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 18
-                },
-                "damageRolls": {
-                    "eIad9QBvOyoiO9d6": {
-                        "damage": "2d6+7",
-                        "damageType": "piercing"
-                    },
-                    "ox36EiMcL0Z3FU9v": {
-                        "damage": "1d6",
-                        "damageType": "mental"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "reach-10"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Rm9z6DErUjpp4kHO",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Soul Shred",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Creatures killed by a kagekuma are difficult to bring back to life or animate as undead. The kagekuma automatically attempts to counteract any attempt to resurrect or animate as undead any creature that it has killed (counteract modifier [[/r 1d20+16 #Counteract]]{+16}, counteract rank 4). If the kagekuma who slew the creature is slain, the creature can be brought back from death or become undead normally.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "AlahV5QjTIJz9SC9",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Manifest Bundle",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> The kagekuma manifests a large bundle of straw, reeds, rope, yarn, hair, or the like, all lashed together with cords and strapped to its back. The kagekuma's AC increases to 27 as long as its bundle remains manifested, but its Speed is reduced to 15 feet.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "manifest-bundle",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "manifest-bundle"
-                        ],
-                        "selector": "ac",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "manifest-bundle"
-                        ],
-                        "selector": "land-speed",
-                        "value": -10
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "B44h5TmcIyzvolZd",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Ruin Wielder",
-            "sort": 1600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When a kagekuma wields a broken, non-magical weapon, they don't take any of the disadvantages of the weapon being broken. While the kagekuma wields it, the weapon becomes a <em>+1 striking weapon</em>, and it deals an additional 1d6 mental damage on a successful hit.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CjzYp6wpU5EhN45o",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Shadow Bite",
-            "sort": 1700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The kagekuma is casting a shadow</p>\n<hr />\n<p><strong>Effect</strong> The kagekuma targets an adjacent creature that's casting a shadow, then its shadow feeds on that creature's shadow. If the kagekuma has a manifested bundle, observers (including the creature whose shadow is being bitten) can notice the kagekuma's Shadow Bite only if they succeed at a @Check[perception|dc:38] check. The target must succeed at a @Check[fortitude|dc:26] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (@UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} on a critical failure).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "QpNtaCLLdgHDywU0",
-            "_stats": {
-                "compendiumSource": "Actor.183L006AcuLnHJbY.Item.QpNtaCLLdgHDywU0"
-            },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Shed Bundle",
-            "sort": 1800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The kagekuma has a manifested bundle</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The kagekuma causes its bundle to vanish, Strides, and then attempts a kusarigama Strike and a bite Strike.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Kagekuma",

@@ -4,22 +4,122 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "0U2lVdWErxEWzhR5",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
+            "_id": "y6OOfJKVywuuZxfY",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Troop Defenses",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.TroopDefenses]</p>"
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder NPC Core"
                 },
-                "proficiency": {
+                "rules": [],
+                "slug": "troop-defenses",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "10NIbFTHYeYJMem1",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Troop Movement",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.TroopMovement]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder NPC Core"
+                },
+                "rules": [],
+                "slug": "troop-movement",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0wQdmUzsUG06v1ea",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Unseasonable Cold",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Wherever the frosthunt goes, winter follows. The temperature within a quarter mile of a frosthunt drops to mild cold, then to severe cold within 500 feet, and extreme cold within 50 feet.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "effects": [],
+                        "key": "Aura",
+                        "radius": 50,
+                        "traits": []
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "cold",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZDzU7OGDwh9lQTjx",
+            "img": "systems/pf2e/icons/actions/OneThreeActions.webp",
+            "name": "Icy Japes",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
                     "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The beirans descend on their prey, biting and clawing at each enemy in a @Template[type:emanation|distance:5], with a @Check[reflex|dc:17|basic] save. The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[1d6[slashing]] damage plus @Damage[1[cold]] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(2d6+2)[slashing]] damage plus @Damage[1d4[cold]] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(2d6+5)[cold]] damage plus @Damage[1d4[cold]] damage</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,25 +127,21 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 17,
-                    "value": 0
-                },
-                "tradition": {
-                    "value": "primal"
-                },
-                "traits": {}
+                "traits": {
+                    "value": [
+                        "cold"
+                    ]
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
             "_id": "hqbe7H8WH3gSdiV6",
             "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "systems/pf2e/icons/spells/chilling-spray.webp",
             "name": "Chilling Spray",
-            "sort": 200000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -136,7 +232,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "icons/magic/movement/trail-streak-impact-blue.webp",
             "name": "Frostbite",
-            "sort": 300000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -215,122 +311,22 @@
             "type": "spell"
         },
         {
-            "_id": "y6OOfJKVywuuZxfY",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Troop Defenses",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.TroopDefenses]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder NPC Core"
-                },
-                "rules": [],
-                "slug": "troop-defenses",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "10NIbFTHYeYJMem1",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Troop Movement",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.TroopMovement]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder NPC Core"
-                },
-                "rules": [],
-                "slug": "troop-movement",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "0wQdmUzsUG06v1ea",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Unseasonable Cold",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Wherever the frosthunt goes, winter follows. The temperature within a quarter mile of a frosthunt drops to mild cold, then to severe cold within 500 feet, and extreme cold within 50 feet.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "effects": [],
-                        "key": "Aura",
-                        "radius": 50,
-                        "traits": []
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "cold",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ZDzU7OGDwh9lQTjx",
-            "img": "systems/pf2e/icons/actions/OneThreeActions.webp",
-            "name": "Icy Japes",
+            "_id": "0U2lVdWErxEWzhR5",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 700000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The beirans descend on their prey, biting and clawing at each enemy in a @Template[type:emanation|distance:5], with a @Check[reflex|dc:17|basic] save. The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[1d6[slashing]] damage plus @Damage[1[cold]] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(2d6+2)[slashing]] damage plus @Damage[1d4[cold]] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(2d6+5)[cold]] damage plus @Damage[1d4[cold]] damage</p>"
+                    "value": ""
                 },
-                "frequency": {
-                    "max": 1,
-                    "per": "round"
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -338,14 +334,18 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "cold"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 17,
+                    "value": 0
+                },
+                "tradition": {
+                    "value": "primal"
+                },
+                "traits": {}
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Beiran",

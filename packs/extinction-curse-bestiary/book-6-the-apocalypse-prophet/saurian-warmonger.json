@@ -4,22 +4,53 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "h9wGVkU8tCqqBBXU",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
+            "_id": "r3gz4OYV1y7jbwTj",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "bNJHQZLJcksGVWsc",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Boneshaking Roar",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The saurian warmonger bellows, evoking the power of the primordial world.</p>\n<p>Non-dinosaur creatures within @Template[emanation|distance:30]{30 feet} take @Damage[10d6[sonic]|options:area-damage] damage (@Check[fortitude|dc:34|basic|options:area-effect] save). On a failed save, a creature is also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} for 1 round (@UUID[Compendium.pf2e.conditionitems.Item.Stunned] [[/r 1d4 #Stunned Value]]{1d4} on a critical failure).</p>\n<p>The saurian can't use Boneshaking Roar again for [[/gmr 1d4 #Recharge Boneshaking Roar]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,374 +58,139 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 37,
-                    "value": 29
-                },
-                "tradition": {
-                    "value": "primal"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "m1ss1RzIj36k6Qae",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.b5sGjGlBf58f8jn0"
-            },
-            "img": "icons/magic/water/wave-water-teal.webp",
-            "name": "Air Walk",
-            "sort": 200000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>The target can walk on air as if it were solid ground. It can ascend and descend in this way at a maximum of a 45-degree angle.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "5 minutes"
-                },
-                "level": {
-                    "value": 4
-                },
-                "location": {
-                    "heightenedLevel": 4,
-                    "value": "h9wGVkU8tCqqBBXU"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "air-walk",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
                 "traits": {
                     "rarity": "common",
-                    "traditions": [
-                        "divine",
-                        "primal"
-                    ],
                     "value": [
-                        "air",
-                        "concentrate",
-                        "manipulate"
+                        "incapacitation",
+                        "sonic"
                     ]
                 }
             },
-            "type": "spell"
+            "type": "action"
         },
         {
-            "_id": "UOtcq8C7cvf4ZBlr",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.1HfusQ8NDWutGvMx"
-            },
-            "img": "icons/creatures/mammals/dog-husky-white-blue.webp",
-            "name": "Animal Vision (At Will) (Dinosaurs Only)",
+            "_id": "1Rnw0tm3ktKN04Sv",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Primordial Balance",
             "sort": 300000,
             "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
+                "actionType": {
+                    "value": "passive"
                 },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>You tap into the target's senses, allowing you to see, hear, and otherwise sense whatever it senses for the spell's duration. If the target wishes to prevent you from doing so, it can attempt a Will save, negating the spell on a success, but most animals don't bother to do so. While tapping into the target's senses, you can't use your own body's senses, but you can change back and forth from your body's senses to the target's senses using a single action, which has the concentrate trait.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 hour"
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": {
-                    "heightenedLevel": 3,
-                    "value": "h9wGVkU8tCqqBBXU"
+                    "value": "<p>A warmonger wields their <em>mancatcher</em> in one hand.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": ""
                 },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
                 "rules": [],
-                "slug": "animal-vision",
-                "target": {
-                    "value": "1 animal"
-                },
-                "time": {
-                    "value": "1 minute"
-                },
+                "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "traditions": [
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate",
-                        "mental"
-                    ]
+                    "value": []
                 }
             },
-            "type": "spell"
+            "type": "action"
         },
         {
-            "_id": "D6Xun7rk5Brir0IF",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.BBvV7qoXGdw09q1C"
-            },
-            "img": "icons/creatures/mammals/ox-buffalo-horned-green.webp",
-            "name": "Speak with Animals (Constant)",
+            "_id": "jsL5jhGaz2pctkeU",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Restrain",
             "sort": 400000,
             "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
+                "actionType": {
+                    "value": "passive"
                 },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>You can ask questions of, receive answers from, and use the Diplomacy skill with animals. The spell doesn't make them more friendly than normal. Cunning animals are likely to be terse and evasive, while less intelligent ones often make inane comments.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "10 minutes"
-                },
-                "level": {
-                    "value": 2
-                },
-                "location": {
-                    "heightenedLevel": 2,
-                    "value": "h9wGVkU8tCqqBBXU"
+                    "value": "<p>When the warmonger makes a successful mancatcher Strike, their target must succeed at a @Check[reflex|dc:34] save or become @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] until the end of the warmonger's next turn.</p>\n<p>Each time the creature fails an attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] the warmonger, it takes @Damage[2d6[piercing]] damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": ""
                 },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
                 "rules": [],
-                "slug": "speak-with-animals",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
+                "slug": "restrain",
                 "traits": {
                     "rarity": "common",
-                    "traditions": [
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate"
-                    ]
+                    "value": []
                 }
             },
-            "type": "spell"
+            "type": "action"
         },
         {
-            "_id": "ftRL4ZW49NsWC8tu",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.tOhoGvmCMw4JpWcS"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/spear.webp",
-            "name": "Spear",
+            "_id": "XKYMPRy9Hv28Tbkk",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Three-Limbed Lunge",
             "sort": 500000,
             "system": {
-                "baseItem": "spear",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "action"
                 },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "bulk": {
+                "actions": {
                     "value": 1
                 },
-                "category": "simple",
-                "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d6"
-                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>A long metal shaft ending with a metal spike, a spear can be used one-handed as a melee weapon and can be thrown.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "spear",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
+                    "value": "<p>The saurian warmonger makes three Strikes: one Strike each with the weapons in their hands and one Strike with their tail. They can perform these attacks in any order, though each counts toward their multiple attack penalty as normal.</p>\n<p>After making a Three-Limbed Lunge, the warmonger is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the beginning of their next turn.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": "-"
+                    "title": ""
                 },
                 "rules": [],
-                "runes": {
-                    "potency": 2,
-                    "property": [],
-                    "striking": 2
-                },
-                "size": "huge",
-                "slug": "spear",
-                "splashDamage": {
-                    "value": 0
-                },
+                "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "value": [
-                        "thrown-20"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": []
                 }
             },
-            "type": "weapon"
+            "type": "action"
         },
         {
-            "_id": "6j7TXX4foQ6J6jT6",
+            "_id": "FbbJSkeiW59zMcZe",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FbquJr6FuXL3K373"
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
             },
-            "img": "icons/weapons/staves/staff-forked-wood.webp",
-            "name": "+1 Striking Mancatcher",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
             "sort": 600000,
             "system": {
-                "baseItem": "gill-hook",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "action"
                 },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "bulk": {
+                "actions": {
                     "value": 1
                 },
-                "category": "martial",
-                "containerId": null,
-                "damage": {
-                    "damageType": "slashing",
-                    "dice": 1,
-                    "die": "d6"
-                },
+                "category": "offensive",
                 "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "spear",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder #156: The Apocalypse Prophet"
-                },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": ""
+                    "title": "Pathfinder Bestiary"
                 },
                 "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [],
-                    "striking": 1
-                },
-                "size": "huge",
-                "slug": "gill-hook",
-                "splashDamage": {
-                    "value": 0
-                },
+                "slug": "grab",
                 "traits": {
-                    "rarity": "uncommon",
-                    "value": [
-                        "grapple",
-                        "reach"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "weapon"
+            "type": "action"
         },
         {
             "_id": "gm6hPWtBc8jdA73f",
@@ -706,116 +502,205 @@
             "type": "melee"
         },
         {
-            "_id": "r3gz4OYV1y7jbwTj",
+            "_id": "m1ss1RzIj36k6Qae",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.b5sGjGlBf58f8jn0"
             },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
+            "img": "icons/magic/water/wave-water-teal.webp",
+            "name": "Air Walk",
             "sort": 1300000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                    "value": "<p>The target can walk on air as if it were solid ground. It can ascend and descend in this way at a maximum of a 45-degree angle.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "5 minutes"
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "heightenedLevel": 4,
+                    "value": "h9wGVkU8tCqqBBXU"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": "Pathfinder Core Rulebook"
                 },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
                 "rules": [],
-                "slug": "constant-spells",
+                "slug": "air-walk",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
                 "traits": {
                     "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "bNJHQZLJcksGVWsc",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Boneshaking Roar",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The saurian warmonger bellows, evoking the power of the primordial world.</p>\n<p>Non-dinosaur creatures within @Template[emanation|distance:30]{30 feet} take @Damage[10d6[sonic]|options:area-damage] damage (@Check[fortitude|dc:34|basic|options:area-effect] save). On a failed save, a creature is also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} for 1 round (@UUID[Compendium.pf2e.conditionitems.Item.Stunned] [[/r 1d4 #Stunned Value]]{1d4} on a critical failure).</p>\n<p>The saurian can't use Boneshaking Roar again for [[/gmr 1d4 #Recharge Boneshaking Roar]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
+                    "traditions": [
+                        "divine",
+                        "primal"
+                    ],
                     "value": [
-                        "incapacitation",
-                        "sonic"
+                        "air",
+                        "concentrate",
+                        "manipulate"
                     ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "1Rnw0tm3ktKN04Sv",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Primordial Balance",
+            "_id": "UOtcq8C7cvf4ZBlr",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.1HfusQ8NDWutGvMx"
+            },
+            "img": "icons/creatures/mammals/dog-husky-white-blue.webp",
+            "name": "Animal Vision (At Will) (Dinosaurs Only)",
+            "sort": 1400000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You tap into the target's senses, allowing you to see, hear, and otherwise sense whatever it senses for the spell's duration. If the target wishes to prevent you from doing so, it can attempt a Will save, negating the spell on a success, but most animals don't bother to do so. While tapping into the target's senses, you can't use your own body's senses, but you can change back and forth from your body's senses to the target's senses using a single action, which has the concentrate trait.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 hour"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": {
+                    "heightenedLevel": 3,
+                    "value": "h9wGVkU8tCqqBBXU"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "animal-vision",
+                "target": {
+                    "value": "1 animal"
+                },
+                "time": {
+                    "value": "1 minute"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "D6Xun7rk5Brir0IF",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.BBvV7qoXGdw09q1C"
+            },
+            "img": "icons/creatures/mammals/ox-buffalo-horned-green.webp",
+            "name": "Speak with Animals (Constant)",
             "sort": 1500000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p>A warmonger wields their <em>mancatcher</em> in one hand.</p>"
+                    "value": "<p>You can ask questions of, receive answers from, and use the Diplomacy skill with animals. The spell doesn't make them more friendly than normal. Cunning animals are likely to be terse and evasive, while less intelligent ones often make inane comments.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "10 minutes"
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "heightenedLevel": 2,
+                    "value": "h9wGVkU8tCqqBBXU"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "speak-with-animals",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "traditions": [
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "jsL5jhGaz2pctkeU",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Restrain",
+            "_id": "h9wGVkU8tCqqBBXU",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 1600000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>When the warmonger makes a successful mancatcher Strike, their target must succeed at a @Check[reflex|dc:34] save or become @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] until the end of the warmonger's next turn.</p>\n<p>Each time the creature fails an attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] the warmonger, it takes @Damage[2d6[piercing]] damage.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -823,76 +708,191 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": "restrain",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 37,
+                    "value": 29
+                },
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "XKYMPRy9Hv28Tbkk",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Three-Limbed Lunge",
+            "_id": "ftRL4ZW49NsWC8tu",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.tOhoGvmCMw4JpWcS"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/spear.webp",
+            "name": "Spear",
             "sort": 1700000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "baseItem": "spear",
+                "bonus": {
+                    "value": 0
                 },
-                "actions": {
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
                     "value": 1
                 },
-                "category": "offensive",
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6"
+                },
                 "description": {
-                    "value": "<p>The saurian warmonger makes three Strikes: one Strike each with the weapons in their hands and one Strike with their tail. They can perform these attacks in any order, though each counts toward their multiple attack penalty as normal.</p>\n<p>After making a Three-Limbed Lunge, the warmonger is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the beginning of their next turn.</p>"
+                    "value": "<p>A long metal shaft ending with a metal spike, a spear can be used one-handed as a melee weapon and can be thrown.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "spear",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": "-"
                 },
                 "rules": [],
-                "slug": null,
+                "runes": {
+                    "potency": 2,
+                    "property": [],
+                    "striking": 2
+                },
+                "size": "huge",
+                "slug": "spear",
+                "splashDamage": {
+                    "value": 0
+                },
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "thrown-20"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
                 }
             },
-            "type": "action"
+            "type": "weapon"
         },
         {
-            "_id": "FbbJSkeiW59zMcZe",
+            "_id": "6j7TXX4foQ6J6jT6",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FbquJr6FuXL3K373"
             },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
+            "img": "icons/weapons/staves/staff-forked-wood.webp",
+            "name": "+1 Striking Mancatcher",
             "sort": 1800000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "baseItem": "gill-hook",
+                "bonus": {
+                    "value": 0
                 },
-                "actions": {
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
                     "value": 1
                 },
-                "category": "offensive",
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d6"
+                },
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "spear",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": "Pathfinder #156: The Apocalypse Prophet"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
                 },
                 "rules": [],
-                "slug": "grab",
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "striking": 1
+                },
+                "size": "huge",
+                "slug": "gill-hook",
+                "splashDamage": {
+                    "value": 0
+                },
                 "traits": {
-                    "rarity": "common",
-                    "value": []
+                    "rarity": "uncommon",
+                    "value": [
+                        "grapple",
+                        "reach"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
                 }
             },
-            "type": "action"
+            "type": "weapon"
         }
     ],
     "name": "Saurian Warmonger",

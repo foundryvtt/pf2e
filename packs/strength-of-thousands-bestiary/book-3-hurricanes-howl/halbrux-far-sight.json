@@ -4,23 +4,25 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "qGMP0gN9KUtEEMF9",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Spontaneous Divine Spells",
+            "_id": "xo8i3ja1q3n1u3pf",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Flash of History",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
+                    "value": "<p><strong>Frequency</strong> three times per day</p>\n<p><strong>Trigger</strong> Halbrux is about to attempt a skill check</p>\n<hr />\n<p><strong>Effect</strong> Halbrux peers into lore of the past and increases the level of success by one step (for example, a success becomes a critical success).</p>"
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 0
+                "frequency": {
+                    "max": 3,
+                    "per": "day",
+                    "value": 3
                 },
                 "publication": {
                     "license": "OGL",
@@ -28,59 +30,298 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot1": {
-                        "value": 3
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot5": {
-                        "value": 3
-                    },
-                    "slot6": {
-                        "max": 2,
-                        "value": 2
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 30,
-                    "mod": 0,
-                    "value": 22
-                },
-                "tradition": {
-                    "value": "divine"
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fortune",
+                        "occult"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "Kbqbbqa27wRXzhZx",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Focus Divine Spells",
+            "_id": "m7gnh3byd6frbkkv",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Resolve",
             "sort": 200000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When Halbrux rolls a success on a Will save, she gets a critical success instead.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "adjustment": {
+                            "success": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "selector": "will"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "k033kr4ite954wop",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Curse of Torrential Knowledge",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When halbrux uses her revelation spells, her mind fills with a flood of disorienting information.</p>\n<p>The first time Halbrux casts one of her revelation spells in a day, she takes a -4 penalty to initiative rolls until the next time she makes her daily preparations.</p>\n<p>The second time Halbrux casts one of her revelation spells in a day, she is also @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the next time she makes her daily preparations.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "Curse of Torrential Knowledge - Initiative Demerit",
+                        "option": "curse-torrential-knowledge",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "curse-torrential-knowledge"
+                        ],
+                        "selector": "initiative",
+                        "value": -4
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "c5u8stvcew53sws7",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Predictive Blows",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Halbrux's turn begins</p>\n<hr />\n<p><strong>Effect</strong> Halbrux identifies the immediate movements of a creature she can see and attempts a @Check[fortune-telling-lore|defense:reflex]{Fortune-Telling Lore} check against that creature's Reflex DC.</p>\n<p>On a success, Halbrux's melee Strikes deal an additional 4d6 precision damage (6d6 precision damage on a critical success) to the creature until the end of Halbrux's turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "predictive-blows",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.Check.Result.Degree.Check.success",
+                                "value": "4"
+                            },
+                            {
+                                "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                                "value": "6"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": "@item.flags.pf2e.rulesSelections.predictiveBlows",
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "predictive-blows"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "occult",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "km24nwckr7mfjzhx",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Quickened Casting",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> If Halbrux's next action is to cast a cantrip or a 4th-rank or lower spell, reduce the number of actions to cast it by 1 (minimum of 1 action).</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8k5gl1t2crs9n9kf",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Steady Spellcasting",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If a reaction would disrupt Halbrux's spellcasting action, she attempts a @Check[flat|dc:15|showDC:owner] check. On a success, the action isn't disrupted.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SWV2yQUH3JQRme8U",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.lWeADBqMFwFlVIuV"
+            },
+            "img": "icons/sundries/survival/cuffs-shackles-steel.webp",
+            "name": "Manacles (Average)",
+            "sort": 700000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>You can manacle someone who is willing or otherwise at your mercy as an exploration activity taking 10-30 seconds depending on the creature's size and how many manacles you apply. A two-legged creature with its legs bound takes a -15-foot circumstance penalty to its Speeds, and a two-handed creature with its wrists bound has to succeed at a @Check[flat|dc:5] any time it uses a manipulate action or else that action fails. This DC may be higher depending on how tightly the manacles constrain the hands. A creature bound to a stationary object is immobilized. For creatures with more or fewer limbs, the GM determines what effect manacles have, if any. Freeing a creature from average manacles requires four successful @Check[thievery|dc:27|traits:action:pick-a-lock] checks.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 20
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 4,
+                "rules": [],
+                "size": "med",
+                "slug": "manacles-average",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "bpt83m86ldem407m",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Fortune-Telling Lore",
+            "sort": 800000,
+            "system": {
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "focus"
+                "mod": {
+                    "value": 22
                 },
-                "proficiency": {
+                "proficient": {
                     "value": 0
                 },
                 "publication": {
@@ -89,18 +330,85 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 30,
-                    "mod": 0,
-                    "value": 22
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "dq6tb33z0kfl2t23",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Ghol-Gan Lore",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
                 },
-                "tradition": {
-                    "value": "divine"
+                "mod": {
+                    "value": 24
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "bdsdmdbbwlkshnkc",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "mhuA6UAcDfudGoIv"
                 }
             },
-            "type": "spellcastingEntry"
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Greatclub",
+            "sort": 1000000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "p9vt4vhNQpSoCufD": {
+                        "damage": "2d10+9",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "backswing",
+                        "magical",
+                        "shove"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "VQtrFkaGlTUo1CCL",
@@ -109,7 +417,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing",
-            "sort": 300000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -173,7 +481,7 @@
             },
             "img": "icons/magic/fire/explosion-embers-orange.webp",
             "name": "Flame Strike",
-            "sort": 400000,
+            "sort": 1200000,
             "system": {
                 "area": {
                     "details": "10-foot radius, 40-foot-tall cylinder",
@@ -261,7 +569,7 @@
             },
             "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
             "name": "Freedom of Movement",
-            "sort": 500000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -323,7 +631,7 @@
             },
             "img": "systems/pf2e/icons/spells/globe-of-invulnerability.webp",
             "name": "Globe of Invulnerability",
-            "sort": 600000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -385,7 +693,7 @@
             },
             "img": "icons/creatures/slimes/slime-face-melting-green.webp",
             "name": "Outcast's Curse",
-            "sort": 700000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -455,7 +763,7 @@
             },
             "img": "icons/sundries/gaming/playing-cards-black.webp",
             "name": "Read Omens",
-            "sort": 800000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -517,7 +825,7 @@
             },
             "img": "icons/magic/defensive/armor-stone-skin.webp",
             "name": "Stoneskin",
-            "sort": 900000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -579,7 +887,7 @@
             },
             "img": "icons/skills/wounds/injury-eyes-blood-red.webp",
             "name": "Blindness",
-            "sort": 1000000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -648,7 +956,7 @@
             },
             "img": "systems/pf2e/icons/spells/haste.webp",
             "name": "Haste",
-            "sort": 1100000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -710,7 +1018,7 @@
             },
             "img": "icons/magic/life/ankh-gold-blue.webp",
             "name": "Heroism",
-            "sort": 1200000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -772,7 +1080,7 @@
             },
             "img": "icons/consumables/fruit/berry-clustered-white.webp",
             "name": "Neutralize Poison",
-            "sort": 1300000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -834,7 +1142,7 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
             "name": "Vampiric Touch",
-            "sort": 1400000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -920,7 +1228,7 @@
             },
             "img": "icons/environment/wilderness/terrain-river-road-gray.webp",
             "name": "Wanderer's Guide",
-            "sort": 1500000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -981,7 +1289,7 @@
             },
             "img": "systems/pf2e/icons/spells/augury.webp",
             "name": "Augury",
-            "sort": 1600000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1043,7 +1351,7 @@
             },
             "img": "icons/magic/light/torch-fire-orange.webp",
             "name": "Continual Flame",
-            "sort": 1700000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1107,7 +1415,7 @@
             },
             "img": "systems/pf2e/icons/spells/death-knell.webp",
             "name": "Death Knell",
-            "sort": 1800000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1174,7 +1482,7 @@
             },
             "img": "systems/pf2e/icons/spells/vision-of-weakness.webp",
             "name": "Vision of Weakness",
-            "sort": 1900000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1233,7 +1541,7 @@
             },
             "img": "systems/pf2e/icons/spells/brain-drain.webp",
             "name": "Brain Drain",
-            "sort": 2000000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1316,7 +1624,7 @@
             },
             "img": "systems/pf2e/icons/spells/create-water.webp",
             "name": "Create Water",
-            "sort": 2100000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1379,7 +1687,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 2200000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1466,7 +1774,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 2300000,
+            "sort": 3100000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1533,7 +1841,7 @@
             },
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
-            "sort": 2400000,
+            "sort": 3200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1728,7 +2036,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 2500000,
+            "sort": 3300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1925,7 +2233,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 2600000,
+            "sort": 3400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2122,7 +2430,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 2700000,
+            "sort": 3500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2186,7 +2494,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 2800000,
+            "sort": 3600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2249,7 +2557,7 @@
             },
             "img": "icons/magic/nature/leaf-glow-maple-teal.webp",
             "name": "Purify Food and Drink",
-            "sort": 2900000,
+            "sort": 3700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2310,7 +2618,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Ray of Enfeeblement",
-            "sort": 3000000,
+            "sort": 3800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2378,7 +2686,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 3100000,
+            "sort": 3900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2442,7 +2750,7 @@
             },
             "img": "systems/pf2e/icons/spells/sanctuary.webp",
             "name": "Sanctuary",
-            "sort": 3200000,
+            "sort": 4000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2503,7 +2811,7 @@
             },
             "img": "icons/commodities/treasure/token-cross-gem-yellow.webp",
             "name": "Scholarly Recollection",
-            "sort": 3300000,
+            "sort": 4100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2561,7 +2869,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 3400000,
+            "sort": 4200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2617,13 +2925,112 @@
             "type": "spell"
         },
         {
+            "_id": "qGMP0gN9KUtEEMF9",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Spontaneous Divine Spells",
+            "sort": 4300000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot1": {
+                        "value": 3
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot5": {
+                        "value": 3
+                    },
+                    "slot6": {
+                        "max": 2,
+                        "value": 2
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 30,
+                    "mod": 0,
+                    "value": 22
+                },
+                "tradition": {
+                    "value": "divine"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "Kbqbbqa27wRXzhZx",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Focus Divine Spells",
+            "sort": 4400000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 30,
+                    "mod": 0,
+                    "value": 22
+                },
+                "tradition": {
+                    "value": "divine"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "mhuA6UAcDfudGoIv",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.kdGqnqbrwPzQfTsm"
             },
             "img": "systems/pf2e/icons/equipment/weapons/greatclub.webp",
             "name": "Greatclub",
-            "sort": 3500000,
+            "sort": 4500000,
             "system": {
                 "baseItem": "greatclub",
                 "bonus": {
@@ -2701,413 +3108,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "SWV2yQUH3JQRme8U",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.lWeADBqMFwFlVIuV"
-            },
-            "img": "icons/sundries/survival/cuffs-shackles-steel.webp",
-            "name": "Manacles (Average)",
-            "sort": 3600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>You can manacle someone who is willing or otherwise at your mercy as an exploration activity taking 10-30 seconds depending on the creature's size and how many manacles you apply. A two-legged creature with its legs bound takes a -15-foot circumstance penalty to its Speeds, and a two-handed creature with its wrists bound has to succeed at a @Check[flat|dc:5] any time it uses a manipulate action or else that action fails. This DC may be higher depending on how tightly the manacles constrain the hands. A creature bound to a stationary object is immobilized. For creatures with more or fewer limbs, the GM determines what effect manacles have, if any. Freeing a creature from average manacles requires four successful @Check[thievery|dc:27|traits:action:pick-a-lock] checks.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 20
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 4,
-                "rules": [],
-                "size": "med",
-                "slug": "manacles-average",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "bdsdmdbbwlkshnkc",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "mhuA6UAcDfudGoIv"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Greatclub",
-            "sort": 3700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 24
-                },
-                "damageRolls": {
-                    "p9vt4vhNQpSoCufD": {
-                        "damage": "2d10+9",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "backswing",
-                        "magical",
-                        "shove"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "xo8i3ja1q3n1u3pf",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Flash of History",
-            "sort": 3800000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> three times per day</p>\n<p><strong>Trigger</strong> Halbrux is about to attempt a skill check</p>\n<hr />\n<p><strong>Effect</strong> Halbrux peers into lore of the past and increases the level of success by one step (for example, a success becomes a critical success).</p>"
-                },
-                "frequency": {
-                    "max": 3,
-                    "per": "day",
-                    "value": 3
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "fortune",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "m7gnh3byd6frbkkv",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Resolve",
-            "sort": 3900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>When Halbrux rolls a success on a Will save, she gets a critical success instead.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "adjustment": {
-                            "success": "one-degree-better"
-                        },
-                        "key": "AdjustDegreeOfSuccess",
-                        "selector": "will"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "k033kr4ite954wop",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Curse of Torrential Knowledge",
-            "sort": 4000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When halbrux uses her revelation spells, her mind fills with a flood of disorienting information.</p>\n<p>The first time Halbrux casts one of her revelation spells in a day, she takes a -4 penalty to initiative rolls until the next time she makes her daily preparations.</p>\n<p>The second time Halbrux casts one of her revelation spells in a day, she is also @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the next time she makes her daily preparations.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "Curse of Torrential Knowledge - Initiative Demerit",
-                        "option": "curse-torrential-knowledge",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "curse-torrential-knowledge"
-                        ],
-                        "selector": "initiative",
-                        "value": -4
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "c5u8stvcew53sws7",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Predictive Blows",
-            "sort": 4100000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> Halbrux's turn begins</p>\n<hr />\n<p><strong>Effect</strong> Halbrux identifies the immediate movements of a creature she can see and attempts a @Check[fortune-telling-lore|defense:reflex]{Fortune-Telling Lore} check against that creature's Reflex DC.</p>\n<p>On a success, Halbrux's melee Strikes deal an additional 4d6 precision damage (6d6 precision damage on a critical success) to the creature until the end of Halbrux's turn.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "predictive-blows",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.Check.Result.Degree.Check.success",
-                                "value": "4"
-                            },
-                            {
-                                "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
-                                "value": "6"
-                            }
-                        ],
-                        "toggleable": true
-                    },
-                    {
-                        "category": "precision",
-                        "diceNumber": "@item.flags.pf2e.rulesSelections.predictiveBlows",
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "predictive-blows"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "occult",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "km24nwckr7mfjzhx",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Quickened Casting",
-            "sort": 4200000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> If Halbrux's next action is to cast a cantrip or a 4th-rank or lower spell, reduce the number of actions to cast it by 1 (minimum of 1 action).</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8k5gl1t2crs9n9kf",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Steady Spellcasting",
-            "sort": 4300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>If a reaction would disrupt Halbrux's spellcasting action, she attempts a @Check[flat|dc:15|showDC:owner] check. On a success, the action isn't disrupted.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "bpt83m86ldem407m",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Fortune-Telling Lore",
-            "sort": 4400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 22
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "dq6tb33z0kfl2t23",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Ghol-Gan Lore",
-            "sort": 4500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 24
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Halbrux Far-sight",

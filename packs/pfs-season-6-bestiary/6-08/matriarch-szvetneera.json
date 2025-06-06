@@ -4,95 +4,62 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "vw93LDaG34VW00ox",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Prepared Spells",
+            "_id": "3kzVpiCNnEO5HFe1",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Winter's Bite",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>30 feet, @Check[fortitude|dc:18] save. Hostile creatures within this aura gain weakness 3 to cold. A successful Fortitude save negates this effect for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Winter's Bite]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "VtUpS1K0Rel7Gu8p"
-                            },
-                            {
-                                "id": "yCiaTl3GnCkbKxaE"
-                            },
-                            {
-                                "id": "TRkG4COVv834Fe3D"
-                            },
-                            {
-                                "id": "yvsMWzzEZtHGlw9d"
-                            },
-                            {
-                                "id": "G5oz4nCzBkJeu7kH"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "cEKXXHIHCJVwSriD"
-                            },
-                            {
-                                "id": "Fh2a33ZdR2kWufcJ"
-                            },
-                            {
-                                "id": "Fh2a33ZdR2kWufcJ"
-                            }
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "traits": [
+                            "cold",
+                            "primal"
                         ]
                     }
-                },
+                ],
                 "slug": null,
-                "spelldc": {
-                    "dc": 18,
-                    "value": 10
-                },
-                "tradition": {
-                    "value": "primal"
-                },
-                "traits": {}
+                "traits": {
+                    "value": [
+                        "aura",
+                        "cold",
+                        "primal"
+                    ]
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "V4xMiLdjs7U150Lt",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Focus Spells",
+            "_id": "CGcV9WktSMSuX1m5",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Icy Protection",
             "sort": 200000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>Whenever Szvetneera Casts a Spell with the cold trait, she can choose to grant one of her bodyguards resistance to cold 3 until the beginning of Szvetneera's next turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Icy Protection]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -100,18 +67,82 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 18,
-                    "value": 10
-                },
-                "tradition": {
-                    "value": "primal"
-                },
-                "traits": {}
+                "traits": {
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "XcH3Td3YLnfdNhHT",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Shackling Cold",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Matriarch Szvetneera uses her mastery of ice magic to hobble a target. If her next action is to Cast a Spell with the cold trait, that spell also gives the target a –10 circumstance penalty to their Speed until the beginning of Szvetneera's next turn if they are affected.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Shackling Cold]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "primal",
+                        "spellshape"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ti596LZYE3xdsoad",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 400000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {
+                    "f3cs1W1e2GUxTZUz": {
+                        "damage": "2d4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "cEKXXHIHCJVwSriD",
@@ -120,7 +151,7 @@
             },
             "img": "systems/pf2e/icons/spells/chilling-spray.webp",
             "name": "Chilling Spray",
-            "sort": 300000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -207,7 +238,7 @@
             },
             "img": "icons/magic/water/barrier-ice-crystal-wall-faceted.webp",
             "name": "Clinging Ice",
-            "sort": 400000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -290,7 +321,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
             "name": "Electric Arc",
-            "sort": 500000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -375,7 +406,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 600000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -455,7 +486,7 @@
             },
             "img": "icons/magic/movement/trail-streak-impact-blue.webp",
             "name": "Frostbite",
-            "sort": 700000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -540,7 +571,7 @@
             },
             "img": "icons/creatures/claws/claw-hooked-curved.webp",
             "name": "Gouging Claw",
-            "sort": 800000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -662,7 +693,7 @@
             },
             "img": "systems/pf2e/icons/spells/guidance.webp",
             "name": "Guidance",
-            "sort": 900000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -723,7 +754,7 @@
             },
             "img": "icons/magic/fire/explosion-embers-evade-silhouette.webp",
             "name": "Ignition",
-            "sort": 1000000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -830,129 +861,95 @@
             "type": "spell"
         },
         {
-            "_id": "ti596LZYE3xdsoad",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 1100000,
+            "_id": "vw93LDaG34VW00ox",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Prepared Spells",
+            "sort": 1300000,
             "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 7
-                },
-                "damageRolls": {
-                    "f3cs1W1e2GUxTZUz": {
-                        "damage": "2d4",
-                        "damageType": "piercing"
-                    }
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
                 },
-                "rules": [],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "3kzVpiCNnEO5HFe1",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Winter's Bite",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>30 feet, @Check[fortitude|dc:18] save. Hostile creatures within this aura gain weakness 3 to cold. A successful Fortitude save negates this effect for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Winter's Bite]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "traits": [
-                            "cold",
-                            "primal"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "cold",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CGcV9WktSMSuX1m5",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Icy Protection",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Whenever Szvetneera Casts a Spell with the cold trait, she can choose to grant one of her bodyguards resistance to cold 3 until the beginning of Szvetneera's next turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Icy Protection]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "XcH3Td3YLnfdNhHT",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Shackling Cold",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "VtUpS1K0Rel7Gu8p"
+                            },
+                            {
+                                "id": "yCiaTl3GnCkbKxaE"
+                            },
+                            {
+                                "id": "TRkG4COVv834Fe3D"
+                            },
+                            {
+                                "id": "yvsMWzzEZtHGlw9d"
+                            },
+                            {
+                                "id": "G5oz4nCzBkJeu7kH"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "cEKXXHIHCJVwSriD"
+                            },
+                            {
+                                "id": "Fh2a33ZdR2kWufcJ"
+                            },
+                            {
+                                "id": "Fh2a33ZdR2kWufcJ"
+                            }
+                        ]
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 18,
+                    "value": 10
+                },
+                "tradition": {
+                    "value": "primal"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "V4xMiLdjs7U150Lt",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Focus Spells",
+            "sort": 1400000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
-                    "value": "<p>Matriarch Szvetneera uses her mastery of ice magic to hobble a target. If her next action is to Cast a Spell with the cold trait, that spell also gives the target a –10 circumstance penalty to their Speed until the beginning of Szvetneera's next turn if they are affected.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Shackling Cold]</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -960,15 +957,18 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "primal",
-                        "spellshape"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 18,
+                    "value": 10
+                },
+                "tradition": {
+                    "value": "primal"
+                },
+                "traits": {}
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Matriarch Szvetneera",

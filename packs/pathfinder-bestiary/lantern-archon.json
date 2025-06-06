@@ -3,22 +3,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "xlUnQcjrxeMXu5Cd",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
+            "_id": "3aQmojgOn0OyqrYB",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Retributive Strike",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
+                    "value": "<p><strong>Damage Reduction</strong> 3</p>\n<p>A lantern archon can also make a Retributive Strike with its light ray.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.RetributiveStrike]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -26,21 +24,134 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 17,
-                    "mod": 0,
-                    "value": 9
-                },
-                "tradition": {
-                    "value": "divine"
+                "slug": "retributive-strike",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "4ESvAYPL0OBd4s6Q",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Gestalt",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Nine lantern archons can use this activity, all within 1 round of the first, to merge together to form a composite being for 7 rounds that appears as a glowing warrior of light.</p>\n<p>The @UUID[Compendium.pf2e.pathfinder-bestiary.Actor.Lantern Archon (Gestalt)]{Gestalt} has the base statistics of a legion archon (AC, saving throws, attacks, skills, Speeds, and so on) but the spells and special abilities of a lantern archon. Additionally, it has a ranged light ray Strike ([[/r 1d20+18 #Light Ray]]{Light Ray +18}, Damage @Damage[3d4[fire],3d4[spirit]]{3d4 fire and 3d4 spirit}), and the bonus from its Lantern of Hope increases to +3.</p>\n<p>When the gestalt separates, its remaining Hit Points are divided evenly among the lantern archons, and if the gestalt had fewer than 9 HP, some of the lantern archons die.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "divine",
+                        "holy"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Gs9kfR3NhiKWAumE",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Lantern of Hope",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The lantern archon shines as a beacon of hope.</p>\n<p>Good allies within @Template[emanation|distance:30]{30 feet} gain a +1 status bonus to damage rolls and to saving throws against @UUID[Compendium.pf2e.spells-srd.Item.Wave of Despair].</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Lantern of Hope]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "divine",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uK5eIAdOWiayEgWr",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Light Ray",
+            "sort": 400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 8
+                },
+                "damageRolls": {
+                    "h3q5t2t60155drfvc4as": {
+                        "damage": "1d4",
+                        "damageType": "fire"
+                    },
+                    "zigup8b64lelddhxmcrc": {
+                        "damage": "1d4",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "fire",
+                        "good",
+                        "holy",
+                        "magical",
+                        "range-increment-30"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "mN2rMyaZQV7fbZC5",
@@ -49,7 +160,7 @@
             },
             "img": "icons/sundries/gaming/playing-cards-black.webp",
             "name": "Read Omens",
-            "sort": 200000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -111,7 +222,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-alignment.webp",
             "name": "Detect Alignment (At Will) (Evil Only)",
-            "sort": 300000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -176,7 +287,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 400000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -373,7 +484,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 500000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -431,137 +542,22 @@
             "type": "spell"
         },
         {
-            "_id": "uK5eIAdOWiayEgWr",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Light Ray",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 8
-                },
-                "damageRolls": {
-                    "h3q5t2t60155drfvc4as": {
-                        "damage": "1d4",
-                        "damageType": "fire"
-                    },
-                    "zigup8b64lelddhxmcrc": {
-                        "damage": "1d4",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "fire",
-                        "good",
-                        "holy",
-                        "magical",
-                        "range-increment-30"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "3aQmojgOn0OyqrYB",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Retributive Strike",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Damage Reduction</strong> 3</p>\n<p>A lantern archon can also make a Retributive Strike with its light ray.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.RetributiveStrike]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "retributive-strike",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "4ESvAYPL0OBd4s6Q",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Gestalt",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Nine lantern archons can use this activity, all within 1 round of the first, to merge together to form a composite being for 7 rounds that appears as a glowing warrior of light.</p>\n<p>The @UUID[Compendium.pf2e.pathfinder-bestiary.Actor.Lantern Archon (Gestalt)]{Gestalt} has the base statistics of a legion archon (AC, saving throws, attacks, skills, Speeds, and so on) but the spells and special abilities of a lantern archon. Additionally, it has a ranged light ray Strike ([[/r 1d20+18 #Light Ray]]{Light Ray +18}, Damage @Damage[3d4[fire],3d4[spirit]]{3d4 fire and 3d4 spirit}), and the bonus from its Lantern of Hope increases to +3.</p>\n<p>When the gestalt separates, its remaining Hit Points are divided evenly among the lantern archons, and if the gestalt had fewer than 9 HP, some of the lantern archons die.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "divine",
-                        "holy"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Gs9kfR3NhiKWAumE",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Lantern of Hope",
+            "_id": "xlUnQcjrxeMXu5Cd",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 900000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>The lantern archon shines as a beacon of hope.</p>\n<p>Good allies within @Template[emanation|distance:30]{30 feet} gain a +1 status bonus to damage rolls and to saving throws against @UUID[Compendium.pf2e.spells-srd.Item.Wave of Despair].</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Lantern of Hope]</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -569,17 +565,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "divine",
-                        "mental"
-                    ]
+                "spelldc": {
+                    "dc": 17,
+                    "mod": 0,
+                    "value": 9
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Lantern Archon",

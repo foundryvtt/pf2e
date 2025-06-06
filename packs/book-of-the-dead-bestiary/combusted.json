@@ -3,10 +3,155 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "fczuoyvm5wqij2to",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Intense Heat",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>5 feet. @Damage[2d6[fire]], @Check[reflex|dc:17|basic]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 5,
+                        "slug": "intense-heat",
+                        "traits": [
+                            "fire"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "fire"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "40McFjcRX4SifzsC",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2fv011dfxayfhevz",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Water Vulnerability",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When a combusted is dealt damage by a water effect, the combusted is wracked by pain, becoming @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}. Water can't douse a combusted's flames.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gocrv4xvdtl8n7hl",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Blazing Howl",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The combusted screams in agony, causing creatures in a @Template[emanation|distance:15] to burst into flame, which deals @Damage[4d6[fire]|options:area-damage] damage to each creature in the area (@Check[will|dc:17|basic|options:area-effect]). A creature that critically fails its save is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}; this frightened condition is an emotion, fear, and mental effect.</p>\n<p>The combusted can't use Blazing Howl for [[/gmr 1d4 #Recharge Blazing Howl]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fire",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "mc334q1nfka7sngl",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fire Fist",
-            "sort": 100000,
+            "sort": 500000,
             "system": {
                 "attack": {
                     "value": ""
@@ -53,7 +198,7 @@
             "_id": "udo3xq7mjc590h1k",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fire Mote",
-            "sort": 200000,
+            "sort": 600000,
             "system": {
                 "attack": {
                     "value": ""
@@ -97,151 +242,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "fczuoyvm5wqij2to",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Intense Heat",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>5 feet. @Damage[2d6[fire]], @Check[reflex|dc:17|basic]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 5,
-                        "slug": "intense-heat",
-                        "traits": [
-                            "fire"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "fire"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "40McFjcRX4SifzsC",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "2fv011dfxayfhevz",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Water Vulnerability",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>When a combusted is dealt damage by a water effect, the combusted is wracked by pain, becoming @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}. Water can't douse a combusted's flames.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "gocrv4xvdtl8n7hl",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Blazing Howl",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The combusted screams in agony, causing creatures in a @Template[emanation|distance:15] to burst into flame, which deals @Damage[4d6[fire]|options:area-damage] damage to each creature in the area (@Check[will|dc:17|basic|options:area-effect]). A creature that critically fails its save is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}; this frightened condition is an emotion, fear, and mental effect.</p>\n<p>The combusted can't use Blazing Howl for [[/gmr 1d4 #Recharge Blazing Howl]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "fire",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Combusted",

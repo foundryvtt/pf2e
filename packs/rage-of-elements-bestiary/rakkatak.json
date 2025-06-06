@@ -3,10 +3,135 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "hPZzRiHQXCiYgo2g",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Exploding Guts",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When the rakkatak is critically hit or critically fails a Fortitude save, one of its organs bursts. Roll [[/gmr 1d4]] to determine what effect this has.</p>\n<p><strong>1</strong> Trapped noxious gas rushes out. The rakkatak is pushed 10 feet away from the source of the triggering attack or effect.</p>\n<p><strong>2</strong> Pus showers those nearby. Each creature in a @Template[emanation|distance:5] is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>3</strong> The damage is severe. The rakkatak takes @Damage[1d6[persistent,bleed]] damage.</p>\n<p><strong>4</strong> Gelatinous rakkatak eggs explode forth and instantly hatch. Each creature in a @Template[emanation|distance:5] takes @Damage[1d6[persistent,piercing]] damage from the ravenous larvae.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SDDRm9yPKg3NJ4SU",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Predator's Stare",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The rakkatak turns its grotesque yet mesmerizing eyes upon one creature it can see within 30 feet. That creature must succeed at a @Check[will|dc:22] save or become @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] with the rakkatak. While fascinated, the creature must spend at least 1 action each round moving closer to the rakkatak as expediently as possible, and can't intentionally move away from it. The fascination ends after 1 minute or when the rakkatak uses Predator's Stare again, whichever comes first.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "emotion",
+                        "mental",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LYRBEN7zrqeXVWSQ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Suck Innards",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> A @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], @UUID[Compendium.pf2e.conditionitems.Item.Restrained], @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], or willing creature is within the rakkatak's reach</p>\n<hr />\n<p><strong>Effect</strong> The rakkatak deals @Damage[3d6[untyped]] damage to the target (@Check[fortitude|dc:22|basic] save). If the creature takes at least 12 damage, the rakkatak regains @Damage[10[healing]] HP.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "F1ncMskvR2aUTSNT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "y67GedpPM4l09L7g",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Mouth",
-            "sort": 100000,
+            "sort": 500000,
             "system": {
                 "attack": {
                     "value": ""
@@ -49,7 +174,7 @@
             "_id": "JRw824QsxUsPx75n",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Leg",
-            "sort": 200000,
+            "sort": 600000,
             "system": {
                 "attack": {
                     "value": ""
@@ -86,131 +211,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "hPZzRiHQXCiYgo2g",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Exploding Guts",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>When the rakkatak is critically hit or critically fails a Fortitude save, one of its organs bursts. Roll [[/gmr 1d4]] to determine what effect this has.</p>\n<p><strong>1</strong> Trapped noxious gas rushes out. The rakkatak is pushed 10 feet away from the source of the triggering attack or effect.</p>\n<p><strong>2</strong> Pus showers those nearby. Each creature in a @Template[emanation|distance:5] is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>3</strong> The damage is severe. The rakkatak takes @Damage[1d6[persistent,bleed]] damage.</p>\n<p><strong>4</strong> Gelatinous rakkatak eggs explode forth and instantly hatch. Each creature in a @Template[emanation|distance:5] takes @Damage[1d6[persistent,piercing]] damage from the ravenous larvae.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "SDDRm9yPKg3NJ4SU",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Predator's Stare",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The rakkatak turns its grotesque yet mesmerizing eyes upon one creature it can see within 30 feet. That creature must succeed at a @Check[will|dc:22] save or become @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] with the rakkatak. While fascinated, the creature must spend at least 1 action each round moving closer to the rakkatak as expediently as possible, and can't intentionally move away from it. The fascination ends after 1 minute or when the rakkatak uses Predator's Stare again, whichever comes first.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "emotion",
-                        "mental",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "LYRBEN7zrqeXVWSQ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Suck Innards",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> A @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], @UUID[Compendium.pf2e.conditionitems.Item.Restrained], @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], or willing creature is within the rakkatak's reach</p>\n<hr />\n<p><strong>Effect</strong> The rakkatak deals @Damage[3d6[untyped]] damage to the target (@Check[fortitude|dc:22|basic] save). If the creature takes at least 12 damage, the rakkatak regains @Damage[10[healing]] HP.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "F1ncMskvR2aUTSNT",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "grab",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Rakkatak",

@@ -3,22 +3,144 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "vdcv4s3CzGpAj5KB",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "9Jcz4Yr2wdXvPymK",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Believe the Lie",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
+                    "value": "<p>The tikbalang takes a -2 circumstance penalty to saves against illusion spells, and to their Will DC against checks to @UUID[Compendium.pf2e.actionspf2e.Item.Lie] to them.</p>"
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "magical",
+                            "illusion"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "circumstance",
+                        "value": -2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JZeE5BqCANDTf6hq",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
                     "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The tikbalang takes on the appearance of any Medium or Large humanoid. This doesn't change the tikbalang's Speed or their attack and damage modifiers with their Strikes.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "change-shape",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "occult",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AG5uVa2pIKuc9bfQ",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Flailing Thrash",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The tikbalang makes two fist Strikes, with each Strike dealing an extra 1d6 damage against creatures grabbing or @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by the tikbalang. The multiple attack penalty doesn't increase until after both attacks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "strike-damage",
+                        "key": "RollOption",
+                        "option": "flailing-thrash",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "flailing-thrash"
+                        ],
+                        "selector": "fist-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IRV6fBqa828pUJvZ",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Unnatural Leap",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The tikbalang jumps up to their Speed horizontally, or half that vertically.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -26,219 +148,13 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 29,
-                    "value": 21
-                },
-                "tradition": {
-                    "value": "occult"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "J5Is1PpCXNmzaN0y",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.Oj1PJBMQD9vuwCv7"
-            },
-            "img": "systems/pf2e/icons/spells/maze.webp",
-            "name": "Maze (Once per Week)",
-            "sort": 200000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You transport the target into an extradimensional maze of eldritch origin and trap it there. Once each turn, the target can spend 1 action to attempt a Survival check or Perception check against your spell DC to escape the maze. The possible outcomes are as follows. Teleportation magic doesn't help the creature escape unless the magic can transport across planes, such as plane shift. When the spell ends, either because the target escaped or the duration ran out, the target returns to the space it occupied when it was banished, or to the nearest space if the original is now filled.</p>\n<hr /><p><strong>Critical Success</strong> The target escapes and the spell ends.</p>\n<p><strong>Success</strong> The target is on the right path to the exit. If the target was already on the right path, it escapes the maze and the spell ends.</p>\n<p><strong>Failure</strong> The target makes no progress toward escape.</p>\n<p><strong>Critical Failure</strong> The target makes no progress toward escape, and if it was on the right path, it no longer is.</p>"
-                },
-                "duration": {
-                    "sustained": true,
-                    "value": ""
-                },
-                "level": {
-                    "value": 8
-                },
-                "location": {
-                    "heightenedLevel": 8,
-                    "value": "vdcv4s3CzGpAj5KB"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "maze",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
                 "traits": {
                     "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "extradimensional",
-                        "manipulate",
-                        "teleportation"
-                    ]
+                    "value": []
                 }
             },
-            "type": "spell"
-        },
-        {
-            "_id": "P01eMcq1QMlpDNHb",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.HBJPsonQnWcC3qdX"
-            },
-            "img": "systems/pf2e/icons/spells/hallucinatory-terrain.webp",
-            "name": "Hallucinatory Terrain",
-            "sort": 300000,
-            "system": {
-                "area": {
-                    "type": "burst",
-                    "value": 50
-                },
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You create an illusion that causes natural terrain to look, sound, feel, and smell like a different kind of terrain. This doesn't disguise any structures or creatures in the area. Any creature that touches the illusion or uses the Seek action to examine it can attempt to disbelieve your illusion.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> Your image can also disguise structures or create illusory structures (but still doesn't disguise creatures).</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "until the next time you make your daily preparations"
-                },
-                "level": {
-                    "value": 4
-                },
-                "location": {
-                    "heightenedLevel": 4,
-                    "value": "vdcv4s3CzGpAj5KB"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "500 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "hallucinatory-terrain",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "10 minutes"
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [
-                        "arcane",
-                        "occult",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "illusion",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "eLZrJ1B7wPO4p3qd",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.K2WpC3FFoHrqX9Q5"
-            },
-            "img": "systems/pf2e/icons/spells/hypnotic-pattern.webp",
-            "name": "Hypnotic Pattern",
-            "sort": 400000,
-            "system": {
-                "area": {
-                    "type": "burst",
-                    "value": 10
-                },
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "will"
-                    }
-                },
-                "description": {
-                    "value": "<p>You create a pattern of shifting colors that hovers in the air in a geometric cloud. Creatures are @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] while inside the pattern. In addition, a creature must attempt a Will saving throw if it is inside the pattern when you cast it, when it enters the pattern, when it ends its turn within the pattern, or if it uses a Seek or Interact action on the pattern. A creature currently @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] by the pattern doesn't attempt new saves.</p>\n<hr />\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target is Fascinated by the pattern.</p>\n<p><strong>Critical Failure</strong> The target is Fascinated by the pattern. While it remains Fascinated, it can't use reactions.</p>"
-                },
-                "duration": {
-                    "sustained": true,
-                    "value": "1 minute"
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": {
-                    "heightenedLevel": 4,
-                    "value": "vdcv4s3CzGpAj5KB"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "hypnotic-pattern",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "illusion",
-                        "manipulate",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "spell"
+            "type": "action"
         },
         {
             "_id": "ozof8R0i6Gx0GTeA",
@@ -330,144 +246,221 @@
             "type": "melee"
         },
         {
-            "_id": "9Jcz4Yr2wdXvPymK",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Believe the Lie",
+            "_id": "J5Is1PpCXNmzaN0y",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.Oj1PJBMQD9vuwCv7"
+            },
+            "img": "systems/pf2e/icons/spells/maze.webp",
+            "name": "Maze (Once per Week)",
             "sort": 700000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p>The tikbalang takes a -2 circumstance penalty to saves against illusion spells, and to their Will DC against checks to @UUID[Compendium.pf2e.actionspf2e.Item.Lie] to them.</p>"
+                    "value": "<p>You transport the target into an extradimensional maze of eldritch origin and trap it there. Once each turn, the target can spend 1 action to attempt a Survival check or Perception check against your spell DC to escape the maze. The possible outcomes are as follows. Teleportation magic doesn't help the creature escape unless the magic can transport across planes, such as plane shift. When the spell ends, either because the target escaped or the duration ran out, the target returns to the space it occupied when it was banished, or to the nearest space if the original is now filled.</p>\n<hr /><p><strong>Critical Success</strong> The target escapes and the spell ends.</p>\n<p><strong>Success</strong> The target is on the right path to the exit. If the target was already on the right path, it escapes the maze and the spell ends.</p>\n<p><strong>Failure</strong> The target makes no progress toward escape.</p>\n<p><strong>Critical Failure</strong> The target makes no progress toward escape, and if it was on the right path, it no longer is.</p>"
+                },
+                "duration": {
+                    "sustained": true,
+                    "value": ""
+                },
+                "level": {
+                    "value": 8
+                },
+                "location": {
+                    "heightenedLevel": 8,
+                    "value": "vdcv4s3CzGpAj5KB"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "magical",
-                            "illusion"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "circumstance",
-                        "value": -2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "JZeE5BqCANDTf6hq",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
+                "range": {
+                    "value": "30 feet"
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The tikbalang takes on the appearance of any Medium or Large humanoid. This doesn't change the tikbalang's Speed or their attack and damage modifiers with their Strikes.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
+                "requirements": "",
                 "rules": [],
-                "slug": "change-shape",
+                "slug": "maze",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
                     "value": [
                         "concentrate",
-                        "occult",
-                        "polymorph"
+                        "extradimensional",
+                        "manipulate",
+                        "teleportation"
                     ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "AG5uVa2pIKuc9bfQ",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Flailing Thrash",
-            "sort": 900000,
+            "_id": "P01eMcq1QMlpDNHb",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.HBJPsonQnWcC3qdX"
+            },
+            "img": "systems/pf2e/icons/spells/hallucinatory-terrain.webp",
+            "name": "Hallucinatory Terrain",
+            "sort": 800000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "area": {
+                    "type": "burst",
+                    "value": 50
                 },
-                "actions": {
-                    "value": 2
+                "cost": {
+                    "value": ""
                 },
-                "category": "offensive",
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p>The tikbalang makes two fist Strikes, with each Strike dealing an extra 1d6 damage against creatures grabbing or @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by the tikbalang. The multiple attack penalty doesn't increase until after both attacks.</p>"
+                    "value": "<p>You create an illusion that causes natural terrain to look, sound, feel, and smell like a different kind of terrain. This doesn't disguise any structures or creatures in the area. Any creature that touches the illusion or uses the Seek action to examine it can attempt to disbelieve your illusion.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> Your image can also disguise structures or create illusory structures (but still doesn't disguise creatures).</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "until the next time you make your daily preparations"
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "heightenedLevel": 4,
+                    "value": "vdcv4s3CzGpAj5KB"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "domain": "strike-damage",
-                        "key": "RollOption",
-                        "option": "flailing-thrash",
-                        "toggleable": true
-                    },
-                    {
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "flailing-thrash"
-                        ],
-                        "selector": "fist-damage"
-                    }
-                ],
-                "slug": null,
+                "range": {
+                    "value": "500 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "hallucinatory-terrain",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "10 minutes"
+                },
                 "traits": {
-                    "rarity": "common",
-                    "value": []
+                    "rarity": "uncommon",
+                    "traditions": [
+                        "arcane",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "illusion",
+                        "manipulate"
+                    ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "IRV6fBqa828pUJvZ",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Unnatural Leap",
+            "_id": "eLZrJ1B7wPO4p3qd",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.K2WpC3FFoHrqX9Q5"
+            },
+            "img": "systems/pf2e/icons/spells/hypnotic-pattern.webp",
+            "name": "Hypnotic Pattern",
+            "sort": 900000,
+            "system": {
+                "area": {
+                    "type": "burst",
+                    "value": 10
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>You create a pattern of shifting colors that hovers in the air in a geometric cloud. Creatures are @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] while inside the pattern. In addition, a creature must attempt a Will saving throw if it is inside the pattern when you cast it, when it enters the pattern, when it ends its turn within the pattern, or if it uses a Seek or Interact action on the pattern. A creature currently @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] by the pattern doesn't attempt new saves.</p>\n<hr />\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target is Fascinated by the pattern.</p>\n<p><strong>Critical Failure</strong> The target is Fascinated by the pattern. While it remains Fascinated, it can't use reactions.</p>"
+                },
+                "duration": {
+                    "sustained": true,
+                    "value": "1 minute"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": {
+                    "heightenedLevel": 4,
+                    "value": "vdcv4s3CzGpAj5KB"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "hypnotic-pattern",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "illusion",
+                        "manipulate",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "vdcv4s3CzGpAj5KB",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 1000000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>The tikbalang jumps up to their Speed horizontally, or half that vertically.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -475,13 +468,20 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 29,
+                    "value": 21
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Tikbalang",

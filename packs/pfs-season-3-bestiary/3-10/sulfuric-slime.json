@@ -4,10 +4,86 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "KLD35gEpW1Fw8D9G",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Motion Sense 60 feet",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A sulfuric slime can sense nearby motion through vibration and air movement.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tyVcBApYe4ZMohxU",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "One With the Mud",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The slime takes piercing or slashing damage while touching water or mud</p>\n<hr />\n<p><strong>Effect</strong> The slime temporarily shrinks in size as part of its body seeps out through its wounds. It thrashes in the nearby sludge, making it more difficult to determine where the boundaries of its body end. It becomes @UUID[Compendium.pf2e.conditionitems.Item.Concealed] and gains a +2 circumstance bonus to its AC until the beginning of its next turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "one-with-the-mud",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "one-with-the-mud"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "Pq15orhyKDc2xuUB",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Sulfur Spout",
-            "sort": 100000,
+            "sort": 300000,
             "system": {
                 "attack": {
                     "value": ""
@@ -49,82 +125,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "KLD35gEpW1Fw8D9G",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Motion Sense 60 feet",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A sulfuric slime can sense nearby motion through vibration and air movement.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "tyVcBApYe4ZMohxU",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "One With the Mud",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The slime takes piercing or slashing damage while touching water or mud</p>\n<hr />\n<p><strong>Effect</strong> The slime temporarily shrinks in size as part of its body seeps out through its wounds. It thrashes in the nearby sludge, making it more difficult to determine where the boundaries of its body end. It becomes @UUID[Compendium.pf2e.conditionitems.Item.Concealed] and gains a +2 circumstance bonus to its AC until the beginning of its next turn.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "one-with-the-mud",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "one-with-the-mud"
-                        ],
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Sulfuric Slime",

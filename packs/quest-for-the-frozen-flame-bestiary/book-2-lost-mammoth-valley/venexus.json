@@ -4,73 +4,63 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "e5UQsdHPEOLqM7Og",
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Arcane Innate Spells",
+            "_id": "1J0zCph0qSldSm6L",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot1": {
-                        "max": 1,
-                        "value": 1
-                    },
-                    "slot2": {
-                        "max": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
                         "value": 1
                     }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "item": 0,
-                    "mod": 0,
-                    "value": 17
-                },
-                "tradition": {
-                    "value": "divine"
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "DBv8Jg4gW0OpeZyt",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
+            "_id": "8wheh4h9m404k8j5",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Freezing Blood",
             "sort": 200000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
+                    "value": "<p><strong>Trigger</strong> An adjacent creature deals piercing or slashing damage to Venexus</p>\n<hr />\n<p><strong>Effect</strong> Venexus's blood splatters onto the triggering creature, dealing @Damage[2d6[cold]] damage. A creature that takes cold damage in this way is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -78,21 +68,531 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "mod": 0,
-                    "value": 17
-                },
-                "tradition": {
-                    "value": "primal"
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "cold"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "qY45ei7oDmaONXN0",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Frightful Presence",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>90 feet. @Check[will|dc:25]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 90,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": "frightful-presence",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9ubt92fzzcafkzi3",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Mist Shroud",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>10 feet. The <em>Primordial Flame</em> continually heats the cold emanating from Venexus's body, surrounding the dragon in a thin veil of fog. Creatures in the aura are @UUID[Compendium.pf2e.conditionitems.Item.Concealed], and other creatures are concealed to creatures in the area. Venexus's storm vision allows her to see through this concealment, however. If wind disperses the aura, it returns automatically at the start of Venexus's turn. The aura is suppressed in water.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 10,
+                        "slug": "mist-shroud",
+                        "traits": [
+                            "arcane",
+                            "water"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "aura",
+                        "water"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rg4ykcfb9xmv1h4d",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Storm Vision",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Inclement weather doesn't impair Venexus's vision; she ignores concealment from fog, mist, rain, and snowfall.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xS4YXBaky6mWCicb",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Breath Weapon",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Venexus breathes a cloud of frost that deals @Damage[10d6[cold]|options:area-damage] damage in a @Template[cone|distance:40] (@Check[reflex|dc:28|basic|options:area-effect]). She can't use Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "cold"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MsHmQ9OkmqFu7qkY",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Draconic Frenzy",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Venexus makes two claw Strikes and one tail Strike in any order.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NO23Irs0daeoCsp1",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Draconic Momentum",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When Venexus scores a critical hit with a Strike, she recharges her Breath Weapon.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AvCPKP5z2YrJjhag",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Ice Climb 30 feet",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Venexus can climb on ice as though she had the listed climb Speed. She ignores difficult terrain and greater difficult terrain from ice and snow and doesn't risk falling when crossing ice.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mTcwd3GcpOGmsNTW",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Shape Ice",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Venexus magically reshapes a cube of ice or snow she touches, up to 10 feet across. Any creature standing atop the ice must succeed at a @Check[reflex|dc:15] save or Acrobatics check. On a failure, the creature falls @UUID[Compendium.pf2e.conditionitems.Item.Prone] on the ice; on a critical failure, it falls off the ice entirely and is also prone.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "water"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dgv7kV7i49q94CZb",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Snuff",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Venexus releases a wave of sleet, which douses open flames within 30 feet. All non-magical fire is automatically extinguished. All creatures in the area suffering from persistent fire damage immediately attempt a @Check[flat|dc:10] to end the persistent damage. If Snuff overlaps with an ongoing fire effect, Snuff attempts to counteract the fire effect.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "water"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "N4LXORL4ZXPxcONL",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8q9ylEH525g6XqFC"
+            },
+            "img": "icons/magic/light/torch-fire-orange.webp",
+            "name": "Primordial Flame",
+            "sort": 1200000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>Created by the Kellid goddess Sister Cinder to lead her believers out of the Age of Darkness, this hand-held lamp is constructed from animal bone, hide, and sinew, and it contains an eternal flame that requires neither fuel nor oxygen to burn. The lamp's flame can be covered or hidden, but it can't be smothered or quenched. While uncovered, the <em>Primordial Flame</em> sheds bright light in a 100-foot radius (and dim light for the next 100 feet). If the light passes through an area of magical darkness or targets a creature affected by magical darkness, the <em>Primordial Flame</em> attempts to counteract the darkness with a counteract rank of 10 and a counteract modifier of [[/r 1d20+35 #Counteract]]{+35}.</p>\n<p>The presence of the <em>Primordial Flame</em> alters the surrounding environment, changing weather patterns, temperature, climate, and even seasons. Within a 10-mile radius of the <em>Primordial Flame</em>, the temperature remains 70° F (21° C) during the day and 60° F (16° C) at night. The weather is calm and free from extreme weather conditions (such as blizzards, hail, thunderstorms, and tornadoes), and the sky remains clear. Plants in the area flourish as if they were receiving optimal sunlight, water, and nutrients for their species, despite the lack of precipitation. If the <em>Primordial Flame</em> remains in the same region for an extended time, the area of this effect increases (typically by 1 mile each year, though terrain and other factors might alter this limit). During the time Venexus carried the <em>Primordial Flame</em>, its environmental reach expanded to cover the entirety of Lost Mammoth Valley.</p>\n<p><strong>Cursed</strong> The <em>Primordial Flame</em> was cursed by Syarstik Painted-Tiger, the guardian spirit of Red Cat Cave. As long as it remains cursed, a creature that holds the <em>Primordial Flame</em> can't willingly give up possession. A creature that has held the <em>Primordial Flame</em> and no longer has it in their possession is wracked with mental anguish, becoming @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 4}, @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 4}, @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 4}, and @UUID[Compendium.pf2e.conditionitems.Item.Fatigued]; these conditions can't be reduced or removed until the creature regains possession of the <em>Primordial Flame</em> or the curse is removed. The curse can be removed only by avenging Syarstik.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">3</span> command, Interact</p>\n<p><strong>Frequency</strong> once per week</p>\n<hr />\n<p><strong>Effect</strong> The <em>Primordial Flame</em>'s light intensifies, shedding bright sunlight in a 10-mile radius (and dim light to the next mile) for 1 hour. If the light passes through an area of magical darkness or targets a creature affected by magical darkness, the <em>Primordial Flame</em> attempts to counteract the darkness with a counteract rank of 10 and a counteract modifier of [[/r 1d20+35 #Counteract]]{+35}.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> command, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The <em>Primordial Flame</em> casts a 7th-rank @UUID[Compendium.pf2e.spells-srd.Item.Sunburst] spell. If you can cast spells higher than 7th level, the <em>Primordial Flame</em> automatically heightens sunburst to half your level rounded up.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> command, Interact</p>\n<hr />\n<p><strong>Effect</strong> The <em>Primordial Flame</em> casts a 5th-rank @UUID[Compendium.pf2e.spells-srd.Item.Ignition] spell. If you can cast spells higher than 5th level, the <em>Primordial Flame</em> automatically heightens produce flame to half your level rounded up.</p>\n<hr />\n<p><strong>Destruction</strong> If used to slay a herald of Sister Cinder while on the Shadow Plane, the <em>Primordial Flame</em> is destroyed.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 23
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #176: Lost Mammoth Valley"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "primordial-flame",
+                "traits": {
+                    "rarity": "unique",
+                    "value": [
+                        "artifact",
+                        "cursed",
+                        "fire",
+                        "light",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "4cl2b6xpw78njea7",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 1300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "e0hEUb4wc3t5DAXj": {
+                        "damage": "2d10+10",
+                        "damageType": "piercing"
+                    },
+                    "27mykuzu2vwgfu3z4d5p": {
+                        "damage": "1d6",
+                        "damageType": "cold"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cold",
+                        "magical",
+                        "reach-10",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "98cbsdk4eeps5wqp",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 1400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "umJnPHpIWPh4SF7w": {
+                        "damage": "2d8+10",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ddwre0nrpsrcsq90",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 1500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "dERvfn6zQkRDOglT": {
+                        "damage": "2d6+8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "tail",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "reach-15"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "xfpaKpE24nhPZazv",
@@ -101,7 +601,7 @@
             },
             "img": "systems/pf2e/icons/spells/sunburst.webp",
             "name": "Sunburst",
-            "sort": 300000,
+            "sort": 1600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -190,7 +690,7 @@
             },
             "img": "icons/magic/air/fog-gas-smoke-dense-white.webp",
             "name": "Obscuring Mist (At Will)",
-            "sort": 400000,
+            "sort": 1700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -255,7 +755,7 @@
             },
             "img": "systems/pf2e/icons/spells/gust-of-wind.webp",
             "name": "Gust of Wind (At Will)",
-            "sort": 500000,
+            "sort": 1800000,
             "system": {
                 "area": {
                     "type": "line",
@@ -325,7 +825,7 @@
             },
             "img": "icons/magic/fire/flame-burning-earth-orange.webp",
             "name": "Produce Flame",
-            "sort": 600000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -400,545 +900,22 @@
             "type": "spell"
         },
         {
-            "_id": "N4LXORL4ZXPxcONL",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8q9ylEH525g6XqFC"
-            },
-            "img": "icons/magic/light/torch-fire-orange.webp",
-            "name": "Primordial Flame",
-            "sort": 700000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>Created by the Kellid goddess Sister Cinder to lead her believers out of the Age of Darkness, this hand-held lamp is constructed from animal bone, hide, and sinew, and it contains an eternal flame that requires neither fuel nor oxygen to burn. The lamp's flame can be covered or hidden, but it can't be smothered or quenched. While uncovered, the <em>Primordial Flame</em> sheds bright light in a 100-foot radius (and dim light for the next 100 feet). If the light passes through an area of magical darkness or targets a creature affected by magical darkness, the <em>Primordial Flame</em> attempts to counteract the darkness with a counteract rank of 10 and a counteract modifier of [[/r 1d20+35 #Counteract]]{+35}.</p>\n<p>The presence of the <em>Primordial Flame</em> alters the surrounding environment, changing weather patterns, temperature, climate, and even seasons. Within a 10-mile radius of the <em>Primordial Flame</em>, the temperature remains 70° F (21° C) during the day and 60° F (16° C) at night. The weather is calm and free from extreme weather conditions (such as blizzards, hail, thunderstorms, and tornadoes), and the sky remains clear. Plants in the area flourish as if they were receiving optimal sunlight, water, and nutrients for their species, despite the lack of precipitation. If the <em>Primordial Flame</em> remains in the same region for an extended time, the area of this effect increases (typically by 1 mile each year, though terrain and other factors might alter this limit). During the time Venexus carried the <em>Primordial Flame</em>, its environmental reach expanded to cover the entirety of Lost Mammoth Valley.</p>\n<p><strong>Cursed</strong> The <em>Primordial Flame</em> was cursed by Syarstik Painted-Tiger, the guardian spirit of Red Cat Cave. As long as it remains cursed, a creature that holds the <em>Primordial Flame</em> can't willingly give up possession. A creature that has held the <em>Primordial Flame</em> and no longer has it in their possession is wracked with mental anguish, becoming @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 4}, @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 4}, @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 4}, and @UUID[Compendium.pf2e.conditionitems.Item.Fatigued]; these conditions can't be reduced or removed until the creature regains possession of the <em>Primordial Flame</em> or the curse is removed. The curse can be removed only by avenging Syarstik.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">3</span> command, Interact</p>\n<p><strong>Frequency</strong> once per week</p>\n<hr />\n<p><strong>Effect</strong> The <em>Primordial Flame</em>'s light intensifies, shedding bright sunlight in a 10-mile radius (and dim light to the next mile) for 1 hour. If the light passes through an area of magical darkness or targets a creature affected by magical darkness, the <em>Primordial Flame</em> attempts to counteract the darkness with a counteract rank of 10 and a counteract modifier of [[/r 1d20+35 #Counteract]]{+35}.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> command, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The <em>Primordial Flame</em> casts a 7th-rank @UUID[Compendium.pf2e.spells-srd.Item.Sunburst] spell. If you can cast spells higher than 7th level, the <em>Primordial Flame</em> automatically heightens sunburst to half your level rounded up.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> command, Interact</p>\n<hr />\n<p><strong>Effect</strong> The <em>Primordial Flame</em> casts a 5th-rank @UUID[Compendium.pf2e.spells-srd.Item.Ignition] spell. If you can cast spells higher than 5th level, the <em>Primordial Flame</em> automatically heightens produce flame to half your level rounded up.</p>\n<hr />\n<p><strong>Destruction</strong> If used to slay a herald of Sister Cinder while on the Shadow Plane, the <em>Primordial Flame</em> is destroyed.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 23
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #176: Lost Mammoth Valley"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "primordial-flame",
-                "traits": {
-                    "rarity": "unique",
-                    "value": [
-                        "artifact",
-                        "cursed",
-                        "fire",
-                        "light",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "4cl2b6xpw78njea7",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 21
-                },
-                "damageRolls": {
-                    "e0hEUb4wc3t5DAXj": {
-                        "damage": "2d10+10",
-                        "damageType": "piercing"
-                    },
-                    "27mykuzu2vwgfu3z4d5p": {
-                        "damage": "1d6",
-                        "damageType": "cold"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "cold",
-                        "magical",
-                        "reach-10",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "98cbsdk4eeps5wqp",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 21
-                },
-                "damageRolls": {
-                    "umJnPHpIWPh4SF7w": {
-                        "damage": "2d8+10",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "ddwre0nrpsrcsq90",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tail",
-            "sort": 1000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "dERvfn6zQkRDOglT": {
-                        "damage": "2d6+8",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "tail",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "reach-15"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "1J0zCph0qSldSm6L",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8wheh4h9m404k8j5",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Freezing Blood",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An adjacent creature deals piercing or slashing damage to Venexus</p>\n<hr />\n<p><strong>Effect</strong> Venexus's blood splatters onto the triggering creature, dealing @Damage[2d6[cold]] damage. A creature that takes cold damage in this way is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "cold"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qY45ei7oDmaONXN0",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Frightful Presence",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>90 feet. @Check[will|dc:25]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 90,
-                        "slug": "frightful-presence",
-                        "traits": [
-                            "emotion",
-                            "fear",
-                            "mental"
-                        ]
-                    }
-                ],
-                "slug": "frightful-presence",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "emotion",
-                        "fear",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "9ubt92fzzcafkzi3",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Mist Shroud",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>10 feet. The <em>Primordial Flame</em> continually heats the cold emanating from Venexus's body, surrounding the dragon in a thin veil of fog. Creatures in the aura are @UUID[Compendium.pf2e.conditionitems.Item.Concealed], and other creatures are concealed to creatures in the area. Venexus's storm vision allows her to see through this concealment, however. If wind disperses the aura, it returns automatically at the start of Venexus's turn. The aura is suppressed in water.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 10,
-                        "slug": "mist-shroud",
-                        "traits": [
-                            "arcane",
-                            "water"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "aura",
-                        "water"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rg4ykcfb9xmv1h4d",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Storm Vision",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Inclement weather doesn't impair Venexus's vision; she ignores concealment from fog, mist, rain, and snowfall.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xS4YXBaky6mWCicb",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Breath Weapon",
-            "sort": 1600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Venexus breathes a cloud of frost that deals @Damage[10d6[cold]|options:area-damage] damage in a @Template[cone|distance:40] (@Check[reflex|dc:28|basic|options:area-effect]). She can't use Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "cold"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "MsHmQ9OkmqFu7qkY",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Draconic Frenzy",
-            "sort": 1700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Venexus makes two claw Strikes and one tail Strike in any order.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "NO23Irs0daeoCsp1",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Draconic Momentum",
-            "sort": 1800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When Venexus scores a critical hit with a Strike, she recharges her Breath Weapon.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "AvCPKP5z2YrJjhag",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Ice Climb 30 feet",
-            "sort": 1900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Venexus can climb on ice as though she had the listed climb Speed. She ignores difficult terrain and greater difficult terrain from ice and snow and doesn't risk falling when crossing ice.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "mTcwd3GcpOGmsNTW",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Shape Ice",
+            "_id": "e5UQsdHPEOLqM7Og",
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Arcane Innate Spells",
             "sort": 2000000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>Venexus magically reshapes a cube of ice or snow she touches, up to 10 feet across. Any creature standing atop the ice must succeed at a @Check[reflex|dc:15] save or Acrobatics check. On a failure, the creature falls @UUID[Compendium.pf2e.conditionitems.Item.Prone] on the ice; on a critical failure, it falls off the ice entirely and is also prone.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -946,32 +923,50 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {
+                    "slot1": {
+                        "max": 1,
+                        "value": 1
+                    },
+                    "slot2": {
+                        "max": 1,
+                        "value": 1
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "water"
-                    ]
+                "spelldc": {
+                    "dc": 25,
+                    "item": 0,
+                    "mod": 0,
+                    "value": 17
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "dgv7kV7i49q94CZb",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Snuff",
+            "_id": "DBv8Jg4gW0OpeZyt",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 2100000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>Venexus releases a wave of sleet, which douses open flames within 30 feet. All non-magical fire is automatically extinguished. All creatures in the area suffering from persistent fire damage immediately attempt a @Check[flat|dc:10] to end the persistent damage. If Snuff overlaps with an ongoing fire effect, Snuff attempts to counteract the fire effect.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -979,16 +974,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "water"
-                    ]
+                "spelldc": {
+                    "dc": 25,
+                    "mod": 0,
+                    "value": 17
+                },
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Venexus",

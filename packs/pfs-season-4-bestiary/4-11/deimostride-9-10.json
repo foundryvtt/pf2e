@@ -4,23 +4,59 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "jW0BtgVKN8XQhLKs",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
+            "_id": "nbWXPfh7WyVCERN9",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Smoke",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
+                    "value": "<p>20 feet. Deimostride continually exhales black smoke that creates @UUID[Compendium.pf2e.conditionitems.Item.Concealed]{Concealment} in an aura around him. Deimostride and his riders can see through this smoke. A creature that begins its turn in the area becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} (@Check[fortitude|dc:23] negates) and is then temporarily immune sickness from the smoke for 1 minute. Deimostride, his rider, any creature currently holding its breath (or that does not need to breathe), and any creature immune to poison are immune to the aura's sickened effect but not the concealment.</p>"
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
-                    "value": 0
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 15,
+                        "slug": "smoke",
+                        "traits": []
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Huqh2NJEkx1xBpoO",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Flaming Gallop",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Deimostride Strides or Flies up to triple its Speed. Its hooves burst with intense flame, dealing @Damage[(6d6-2)[fire]] damage (@Check[reflex|dc:28|basic] save) once to each creature other than his rider that he moves adjacent to during its gallop.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -28,160 +64,48 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 26,
-                    "mod": 0,
-                    "value": 18
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "JfWJhxJIqLwnBsMc",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.D2nPKbIS67m9199U"
-            },
-            "img": "systems/pf2e/icons/spells/etheral-jaunt.webp",
-            "name": "Ethereal Jaunt (Self and Rider Only)",
-            "sort": 200000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You travel to the Ethereal Plane, which overlaps the Material Plane. Material Plane creatures can't see you, and you can move through things on the Material Plane. You move at half your normal Speeds, but can move in any direction (including up and down). You can see onto the Material Plane within a radius of 60 feet; it is gray, hazy, and @UUID[Compendium.pf2e.conditionitems.Item.Concealed] from you. You can't affect the Material Plane, and you can't be affected by the Material Plane except by force effects and abjurations originating there. When the spell ends, you return to the Material Plane. If you're in the air, you fall (unless you can fly), and if you're inside an object, you're pushed into the nearest open space and take 1d6 damage per 5 feet you were pushed. If you cast this spell when not on the Material Plane, it is lost.</p>\n<hr />\n<p><strong>Heightened (9th)</strong> You can target up to five additional willing creatures at a range of 30 feet. The duration is up to 10 minutes.</p>"
-                },
-                "duration": {
-                    "sustained": true,
-                    "value": "1 minute"
-                },
-                "heightening": {
-                    "levels": {
-                        "9": {
-                            "range": {
-                                "value": "30 feet"
-                            },
-                            "target": {
-                                "value": "you and up to five additional willing creatures"
-                            }
-                        }
-                    },
-                    "type": "fixed"
-                },
-                "level": {
-                    "value": 7
-                },
-                "location": {
-                    "heightenedLevel": 7,
-                    "value": "jW0BtgVKN8XQhLKs"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "ethereal-jaunt",
-                "target": {
-                    "value": "self and rider"
-                },
-                "time": {
-                    "value": "2"
-                },
                 "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [
-                        "divine",
-                        "occult"
-                    ],
+                    "rarity": "common",
                     "value": [
-                        "concentrate",
-                        "manipulate",
-                        "teleportation"
+                        "fire"
                     ]
                 }
             },
-            "type": "spell"
+            "type": "action"
         },
         {
-            "_id": "aFTYkeNI6jd2TfGi",
+            "_id": "47C5abLcM5XGTt9T",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.5bTt2CvYHPvaR7QQ"
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.UNah0bxXxkcZjxO3"
             },
-            "img": "icons/magic/lightning/bolt-strike-explosion-purple.webp",
-            "name": "Plane Shift (Self and Rider Only)",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Trample",
             "sort": 300000,
             "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
+                "actionType": {
+                    "value": "action"
                 },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>You and your allies traverse the barriers between planes of existence. The targets move to another plane, such as the Plane of Fire, the Netherworld, or the Outer Rifts. You must have specific knowledge of the destination plane and use a magic tuning fork created from material from that plane as a focus for the spell. While the tuning forks for most prominent planes are uncommon, just like the spell plane shift, more obscure planes and demiplanes often have rare tuning forks. The spell is highly imprecise, and you appear 1d20x25 miles from the last place one of the targets (of your choice) was located the last time that target traveled to the plane. If it's the first time traveling to a particular plane for all targets, you appear at a random location on the plane. Plane shift doesn't provide a means of return travel, though casting plane shift again allows you to return to your previous plane unless there are extenuating circumstances.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 7
-                },
-                "location": {
-                    "heightenedLevel": 7,
-                    "value": "jW0BtgVKN8XQhLKs"
+                    "value": "<p>Large or smaller, hoof, @Check[reflex|dc:28|basic]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": "Pathfinder Bestiary"
                 },
-                "range": {
-                    "value": "touch"
-                },
-                "requirements": "",
                 "rules": [],
-                "slug": "plane-shift",
-                "target": {
-                    "value": "self and rider"
-                },
-                "time": {
-                    "value": "10 minutes"
-                },
+                "slug": "trample",
                 "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate",
-                        "teleportation"
-                    ]
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spell"
+            "type": "action"
         },
         {
             "_id": "hvrW7fEOtezPrmRv",
@@ -290,59 +214,162 @@
             "type": "melee"
         },
         {
-            "_id": "nbWXPfh7WyVCERN9",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Smoke",
+            "_id": "JfWJhxJIqLwnBsMc",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.D2nPKbIS67m9199U"
+            },
+            "img": "systems/pf2e/icons/spells/etheral-jaunt.webp",
+            "name": "Ethereal Jaunt (Self and Rider Only)",
             "sort": 600000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p>20 feet. Deimostride continually exhales black smoke that creates @UUID[Compendium.pf2e.conditionitems.Item.Concealed]{Concealment} in an aura around him. Deimostride and his riders can see through this smoke. A creature that begins its turn in the area becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} (@Check[fortitude|dc:23] negates) and is then temporarily immune sickness from the smoke for 1 minute. Deimostride, his rider, any creature currently holding its breath (or that does not need to breathe), and any creature immune to poison are immune to the aura's sickened effect but not the concealment.</p>"
+                    "value": "<p>You travel to the Ethereal Plane, which overlaps the Material Plane. Material Plane creatures can't see you, and you can move through things on the Material Plane. You move at half your normal Speeds, but can move in any direction (including up and down). You can see onto the Material Plane within a radius of 60 feet; it is gray, hazy, and @UUID[Compendium.pf2e.conditionitems.Item.Concealed] from you. You can't affect the Material Plane, and you can't be affected by the Material Plane except by force effects and abjurations originating there. When the spell ends, you return to the Material Plane. If you're in the air, you fall (unless you can fly), and if you're inside an object, you're pushed into the nearest open space and take 1d6 damage per 5 feet you were pushed. If you cast this spell when not on the Material Plane, it is lost.</p>\n<hr />\n<p><strong>Heightened (9th)</strong> You can target up to five additional willing creatures at a range of 30 feet. The duration is up to 10 minutes.</p>"
+                },
+                "duration": {
+                    "sustained": true,
+                    "value": "1 minute"
+                },
+                "heightening": {
+                    "levels": {
+                        "9": {
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "target": {
+                                "value": "you and up to five additional willing creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
+                "level": {
+                    "value": 7
+                },
+                "location": {
+                    "heightenedLevel": 7,
+                    "value": "jW0BtgVKN8XQhLKs"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 15,
-                        "slug": "smoke",
-                        "traits": []
-                    }
-                ],
-                "slug": null,
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "ethereal-jaunt",
+                "target": {
+                    "value": "self and rider"
+                },
+                "time": {
+                    "value": "2"
+                },
                 "traits": {
-                    "rarity": "common",
+                    "rarity": "uncommon",
+                    "traditions": [
+                        "divine",
+                        "occult"
+                    ],
                     "value": [
-                        "aura"
+                        "concentrate",
+                        "manipulate",
+                        "teleportation"
                     ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "Huqh2NJEkx1xBpoO",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Flaming Gallop",
+            "_id": "aFTYkeNI6jd2TfGi",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.5bTt2CvYHPvaR7QQ"
+            },
+            "img": "icons/magic/lightning/bolt-strike-explosion-purple.webp",
+            "name": "Plane Shift (Self and Rider Only)",
             "sort": 700000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p>Deimostride Strides or Flies up to triple its Speed. Its hooves burst with intense flame, dealing @Damage[(6d6-2)[fire]] damage (@Check[reflex|dc:28|basic] save) once to each creature other than his rider that he moves adjacent to during its gallop.</p>"
+                    "value": "<p>You and your allies traverse the barriers between planes of existence. The targets move to another plane, such as the Plane of Fire, the Netherworld, or the Outer Rifts. You must have specific knowledge of the destination plane and use a magic tuning fork created from material from that plane as a focus for the spell. While the tuning forks for most prominent planes are uncommon, just like the spell plane shift, more obscure planes and demiplanes often have rare tuning forks. The spell is highly imprecise, and you appear 1d20x25 miles from the last place one of the targets (of your choice) was located the last time that target traveled to the plane. If it's the first time traveling to a particular plane for all targets, you appear at a random location on the plane. Plane shift doesn't provide a means of return travel, though casting plane shift again allows you to return to your previous plane unless there are extenuating circumstances.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 7
+                },
+                "location": {
+                    "heightenedLevel": 7,
+                    "value": "jW0BtgVKN8XQhLKs"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "plane-shift",
+                "target": {
+                    "value": "self and rider"
+                },
+                "time": {
+                    "value": "10 minutes"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "jW0BtgVKN8XQhLKs",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
+            "sort": 800000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -350,48 +377,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "fire"
-                    ]
+                "spelldc": {
+                    "dc": 26,
+                    "mod": 0,
+                    "value": 18
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "action"
-        },
-        {
-            "_id": "47C5abLcM5XGTt9T",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.UNah0bxXxkcZjxO3"
-            },
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Trample",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Large or smaller, hoof, @Check[reflex|dc:28|basic]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "trample",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Deimostride (9-10)",

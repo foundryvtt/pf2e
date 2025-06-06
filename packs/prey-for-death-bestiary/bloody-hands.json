@@ -3,22 +3,107 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "5IxcLiRGj4pR51Cj",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
+            "_id": "AkyhPDco1VF0GXkN",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Mo1twgOLgSRnqrCS",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Battle Reek",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>30 feet. Bloody Hands exudes the carrion stink of a sprawling battlefield—a cloying mixture of death and mud. Any creature entering the aura or starting its turn in the aura must succeed at a @Check[fortitude|dc:34] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (plus @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for as long as it's sickened on a critical failure). While within the aura, affected creatures take a –2 circumstance penalty to saves against fear and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "traits": [
+                            "olfactory"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "olfactory"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "K1YTFhgtVKiWAkzf",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Bloody Mess",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> Bloody Hands slashes his claws out in all directions, causing blood from all living creatures within a @Template[emanation|distance:20]{20-foot-radius} to leap out and fill the air with a fine red mist. All creatures in the area must attempt a @Check[fortitude|dc:37|options:damaging-effect] save—creatures that are already wounded take a –2 penalty to this saving throw. If more than 3 creatures fail this saving throw, the 20-foot-radius becomes so thick with bloody mist that all creatures in the area become @UUID[Compendium.pf2e.conditionitems.Item.Concealed] until the end of Bloody Hands' next turn.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[8d6[slashing]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[8d6[slashing]] damage, @Damage[4d6[persistent,bleed]] damage, and becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} from blood loss for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[12d6[persistent,bleed]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} from blood loss.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
                 },
                 "publication": {
                     "license": "OGL",
@@ -26,21 +111,129 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 34,
-                    "value": 26
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
+                "traits": {
+                    "value": [
+                        "divine"
+                    ]
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "LNJ1t0z1m0fk7TKy",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Leaping Slam",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Bloody Hands Strides, then makes a @UUID[Compendium.pf2e.actionspf2e.Item.High Jump] or a @UUID[Compendium.pf2e.actionspf2e.Item.Long Jump], and can land in a space occupied by creatures. All creatures in the 10-foot space he lands in must attempt a @Check[reflex|dc:37|options:damaging-effect] save.</p><hr /><p><strong>Critical Success</strong> The creature dodges aside and takes no damage, and it can choose any square adjacent to Bloody Hands to immediately move into; this movement does not trigger reactions.</p>\n<p><strong>Success</strong> The creature takes @Damage[4d6[bludgeoning]] damage and is pushed into an adjacent space of Bloody Hands' choice.</p>\n<p><strong>Failure</strong> The creature takes @Damage[8d6[bludgeoning]] damage, is pushed into an adjacent space of Bloody Hands' choice, and is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[8d6[bludgeoning]] damage, is knocked prone, and becomes pinned by Bloody Hands.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "incapacitation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7MO0c2l4G7iEpKXJ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 500000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "8rpc2zHVuOIwx5wU": {
+                        "damage": "3d12+17",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "reach-10",
+                        "unarmed",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "cKrnX5QZNwsnkK5f",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 600000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "JB1ZbtqoTDedbRZt": {
+                        "category": "persistent",
+                        "damage": "1d6",
+                        "damageType": "bleed"
+                    },
+                    "lThHxd2IdC16r1S6": {
+                        "damage": "3d6+17",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical",
+                        "reach-10",
+                        "unarmed",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "0j9vzEGgor1LnBVa",
@@ -49,7 +242,7 @@
             },
             "img": "icons/sundries/documents/document-sealed-signatures-red.webp",
             "name": "Divine Decree",
-            "sort": 200000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -137,7 +330,7 @@
             },
             "img": "icons/magic/earth/explosion-lava-stone-red.webp",
             "name": "Phantasmal Calamity",
-            "sort": 300000,
+            "sort": 800000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -226,7 +419,7 @@
             },
             "img": "icons/magic/light/projectile-beam-yellow.webp",
             "name": "Divine Wrath",
-            "sort": 400000,
+            "sort": 900000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -315,7 +508,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Translocate",
-            "sort": 500000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -387,7 +580,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Translocate (At Will)",
-            "sort": 600000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -459,7 +652,7 @@
             },
             "img": "systems/pf2e/icons/spells/divine-lance.webp",
             "name": "Divine Lance",
-            "sort": 700000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -541,7 +734,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 800000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -659,222 +852,22 @@
             "type": "spell"
         },
         {
-            "_id": "7MO0c2l4G7iEpKXJ",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 900000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 33
-                },
-                "damageRolls": {
-                    "8rpc2zHVuOIwx5wU": {
-                        "damage": "3d12+17",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "reach-10",
-                        "unarmed",
-                        "unholy"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "cKrnX5QZNwsnkK5f",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 1000000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 33
-                },
-                "damageRolls": {
-                    "JB1ZbtqoTDedbRZt": {
-                        "category": "persistent",
-                        "damage": "1d6",
-                        "damageType": "bleed"
-                    },
-                    "lThHxd2IdC16r1S6": {
-                        "damage": "3d6+17",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "magical",
-                        "reach-10",
-                        "unarmed",
-                        "unholy"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "AkyhPDco1VF0GXkN",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Mo1twgOLgSRnqrCS",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Battle Reek",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>30 feet. Bloody Hands exudes the carrion stink of a sprawling battlefield—a cloying mixture of death and mud. Any creature entering the aura or starting its turn in the aura must succeed at a @Check[fortitude|dc:34] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (plus @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for as long as it's sickened on a critical failure). While within the aura, affected creatures take a –2 circumstance penalty to saves against fear and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "traits": [
-                            "olfactory"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "olfactory"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "K1YTFhgtVKiWAkzf",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Bloody Mess",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> Bloody Hands slashes his claws out in all directions, causing blood from all living creatures within a @Template[emanation|distance:20]{20-foot-radius} to leap out and fill the air with a fine red mist. All creatures in the area must attempt a @Check[fortitude|dc:37|options:damaging-effect] save—creatures that are already wounded take a –2 penalty to this saving throw. If more than 3 creatures fail this saving throw, the 20-foot-radius becomes so thick with bloody mist that all creatures in the area become @UUID[Compendium.pf2e.conditionitems.Item.Concealed] until the end of Bloody Hands' next turn.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[8d6[slashing]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[8d6[slashing]] damage, @Damage[4d6[persistent,bleed]] damage, and becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} from blood loss for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[12d6[persistent,bleed]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} from blood loss.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "LNJ1t0z1m0fk7TKy",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Leaping Slam",
+            "_id": "5IxcLiRGj4pR51Cj",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 1400000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>Bloody Hands Strides, then makes a @UUID[Compendium.pf2e.actionspf2e.Item.High Jump] or a @UUID[Compendium.pf2e.actionspf2e.Item.Long Jump], and can land in a space occupied by creatures. All creatures in the 10-foot space he lands in must attempt a @Check[reflex|dc:37|options:damaging-effect] save.</p><hr /><p><strong>Critical Success</strong> The creature dodges aside and takes no damage, and it can choose any square adjacent to Bloody Hands to immediately move into; this movement does not trigger reactions.</p>\n<p><strong>Success</strong> The creature takes @Damage[4d6[bludgeoning]] damage and is pushed into an adjacent space of Bloody Hands' choice.</p>\n<p><strong>Failure</strong> The creature takes @Damage[8d6[bludgeoning]] damage, is pushed into an adjacent space of Bloody Hands' choice, and is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[8d6[bludgeoning]] damage, is knocked prone, and becomes pinned by Bloody Hands.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -882,14 +875,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "incapacitation"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 34,
+                    "value": 26
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Bloody Hands",

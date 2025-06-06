@@ -4,23 +4,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "PRlM665eBML0IQ2l",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Prepared Spells",
+            "_id": "VQNPHotvY6aogCDS",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Slip from the Back",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "actionType": {
+                    "value": "action"
                 },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
+                "actions": {
                     "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Firmagor directs his gang members to concentrate their actions to defend him. Until the start of his next turn, when an attack against Firmagor misses, Firmagor or another friendly creature within 30 feet may use their reaction to Stride.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -28,93 +25,359 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 6,
-                        "prepared": [
-                            {
-                                "id": "WGLe3LicBwWkqCim"
-                            },
-                            {
-                                "id": "3416TSDhbtqHau3h"
-                            },
-                            {
-                                "id": "CGCTz6gvgO5o0Kmz"
-                            },
-                            {
-                                "id": "ZnikV3cciHPZILww"
-                            },
-                            {
-                                "id": "iAxLvx9fwS4L8OPO"
-                            },
-                            {
-                                "id": "4HzFbb80eGjlNeZK"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 4,
-                        "prepared": [
-                            {
-                                "id": "ZetQVjybkj5w81ZK"
-                            },
-                            {
-                                "id": "AEXMgumyepVRBi6w"
-                            },
-                            {
-                                "id": "RhMYEOATwIFEpQtZ"
-                            },
-                            {
-                                "id": "uisVBD6yEbBs0Hob"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 4,
-                        "prepared": [
-                            {
-                                "id": "RuOiRh0nnDiKhoAm"
-                            },
-                            {
-                                "id": "v8aujEBH2PvLTZA6"
-                            },
-                            {
-                                "id": "G6Xcq1yzQFtygzwp"
-                            },
-                            {
-                                "id": "n4ZsKqe4lQBOaAYc"
-                            }
-                        ]
-                    },
-                    "slot3": {
-                        "max": 4,
-                        "prepared": [
-                            {
-                                "id": "YekSC2eoY4oqVh6P"
-                            },
-                            {
-                                "id": "pE76whZFqtFoBvFa"
-                            },
-                            {
-                                "id": "FuwogELUfDFaV6Uk"
-                            },
-                            {
-                                "id": "IuBjF30zQoEGTEPh"
-                            }
-                        ]
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 24,
-                    "value": 16
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wvIJZGXRhWF8vzyG",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sneaky Cast",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
                 },
-                "tradition": {
-                    "value": "arcane"
+                "actions": {
+                    "value": null
                 },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Foes @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to Firmagor take a –2 circumstance penalty on their saving throws against his spells.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "nmkdgqptVVQyu1bB",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spell-effects.Item.qkwb5DD3zmKwvbk0"
+            },
+            "img": "systems/pf2e/icons/spells/mage-armor.webp",
+            "name": "Spell Effect: Mystic Armor",
+            "sort": 300000,
+            "system": {
+                "description": {
+                    "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Mystic Armor]</p>\n<p>You ward yourself with shimmering magical energy, gaining a +1 item bonus to AC and a maximum Dexterity modifier of +5. While wearing <em>mystic armor</em>, you use your unarmored proficiency to calculate your AC.</p>"
+                },
+                "duration": {
+                    "expiry": "turn-start",
+                    "sustained": false,
+                    "unit": "days",
+                    "value": 1
+                },
+                "level": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "fromEquipment": false,
+                        "key": "FlatModifier",
+                        "selector": "ac",
+                        "slug": "mage-armor",
+                        "type": "item",
+                        "value": {
+                            "brackets": [
+                                {
+                                    "end": 5,
+                                    "value": 1
+                                },
+                                {
+                                    "end": 9,
+                                    "start": 6,
+                                    "value": 2
+                                },
+                                {
+                                    "start": 10,
+                                    "value": 3
+                                }
+                            ],
+                            "field": "item|system.level.value"
+                        }
+                    },
+                    {
+                        "fromEquipment": false,
+                        "key": "FlatModifier",
+                        "selector": "saving-throw",
+                        "slug": "mage-armor",
+                        "type": "item",
+                        "value": {
+                            "brackets": [
+                                {
+                                    "end": 7,
+                                    "start": 4,
+                                    "value": 1
+                                },
+                                {
+                                    "end": 9,
+                                    "start": 8,
+                                    "value": 2
+                                },
+                                {
+                                    "start": 10,
+                                    "value": 3
+                                }
+                            ],
+                            "field": "item|system.level.value"
+                        }
+                    },
+                    {
+                        "key": "DexterityModifierCap",
+                        "value": 5
+                    }
+                ],
+                "slug": "spell-effect-mystic-armor",
+                "start": {
+                    "initiative": null,
+                    "value": 630
+                },
+                "tokenIcon": {
+                    "show": true
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "effect"
+        },
+        {
+            "_id": "vzqqtloHd3jtIrDI",
+            "img": "icons/equipment/finger/ring-band-engraved-scrolls-bronze.webp",
+            "name": "Bonded Ring",
+            "sort": 400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "GNLxY4nQZyW8Wy5n",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Thassilonian Lore",
+            "sort": 500000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 15
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
                 "traits": {}
             },
-            "type": "spellcastingEntry"
+            "type": "lore"
+        },
+        {
+            "_id": "yVO8fmsEIk8TLC5R",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "dQCbEEJM9punVXyL"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "r1QLbBEyhiNkgqL4": {
+                        "damage": "1d4+6",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ENYvN4vFkITXzAVP",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "Pk3kXURyXyoZv21u": {
+                        "damage": "1d4+6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "tl23yr0Wp4cFpKNk",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "dQCbEEJM9punVXyL"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "ex6XLPcNadVl7fUQ": {
+                        "damage": "1d4+6",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "YekSC2eoY4oqVh6P",
@@ -123,7 +386,7 @@
             },
             "img": "icons/skills/wounds/injury-eyes-blood-red.webp",
             "name": "Blindness",
-            "sort": 200000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -191,7 +454,7 @@
             },
             "img": "systems/pf2e/icons/spells/gravity-well.webp",
             "name": "Gravity Well",
-            "sort": 300000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "details": "30-foot-radius burst",
@@ -260,7 +523,7 @@
             },
             "img": "icons/commodities/stone/paver-brick-blue.webp",
             "name": "Phantom Prison",
-            "sort": 400000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -339,7 +602,7 @@
             },
             "img": "icons/magic/time/hourglass-tilted-gray.webp",
             "name": "Slow",
-            "sort": 500000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -415,7 +678,7 @@
             },
             "img": "systems/pf2e/icons/spells/false-life.webp",
             "name": "False Vitality",
-            "sort": 600000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -475,7 +738,7 @@
             },
             "img": "icons/magic/defensive/illusion-evasion-echo-purple.webp",
             "name": "Mirror Image",
-            "sort": 700000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -537,7 +800,7 @@
             },
             "img": "icons/creatures/webs/web-spider-glowing-pink.webp",
             "name": "Web",
-            "sort": 800000,
+            "sort": 1500000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -619,7 +882,7 @@
             },
             "img": "icons/magic/acid/projectile-smoke-glowing.webp",
             "name": "Acid Splash",
-            "sort": 900000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -780,7 +1043,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1000000,
+            "sort": 1700000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -847,7 +1110,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
             "name": "Electric Arc",
-            "sort": 1100000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -932,7 +1195,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Enfeeble",
-            "sort": 1200000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -998,7 +1261,7 @@
             },
             "img": "icons/magic/light/orb-shadow-blue.webp",
             "name": "Gale Blast",
-            "sort": 1300000,
+            "sort": 2000000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1086,7 +1349,7 @@
             },
             "img": "icons/commodities/materials/feather-damaged-brown.webp",
             "name": "Gentle Landing",
-            "sort": 1400000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1146,7 +1409,7 @@
             },
             "img": "systems/pf2e/icons/spells/grim-tendrils.webp",
             "name": "Grim Tendrils",
-            "sort": 1500000,
+            "sort": 2200000,
             "system": {
                 "area": {
                     "type": "line",
@@ -1233,7 +1496,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-armor.webp",
             "name": "Mystic Armor",
-            "sort": 1600000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1295,7 +1558,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 1700000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1357,7 +1620,7 @@
             },
             "img": "icons/creatures/invertebrates/tick-cross-glowing-purple.webp",
             "name": "Spider Sting",
-            "sort": 1800000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1434,7 +1697,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tangle Vine",
-            "sort": 1900000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1492,13 +1755,126 @@
             "type": "spell"
         },
         {
+            "_id": "PRlM665eBML0IQ2l",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Prepared Spells",
+            "sort": 2700000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot0": {
+                        "max": 6,
+                        "prepared": [
+                            {
+                                "id": "WGLe3LicBwWkqCim"
+                            },
+                            {
+                                "id": "3416TSDhbtqHau3h"
+                            },
+                            {
+                                "id": "CGCTz6gvgO5o0Kmz"
+                            },
+                            {
+                                "id": "ZnikV3cciHPZILww"
+                            },
+                            {
+                                "id": "iAxLvx9fwS4L8OPO"
+                            },
+                            {
+                                "id": "4HzFbb80eGjlNeZK"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 4,
+                        "prepared": [
+                            {
+                                "id": "ZetQVjybkj5w81ZK"
+                            },
+                            {
+                                "id": "AEXMgumyepVRBi6w"
+                            },
+                            {
+                                "id": "RhMYEOATwIFEpQtZ"
+                            },
+                            {
+                                "id": "uisVBD6yEbBs0Hob"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 4,
+                        "prepared": [
+                            {
+                                "id": "RuOiRh0nnDiKhoAm"
+                            },
+                            {
+                                "id": "v8aujEBH2PvLTZA6"
+                            },
+                            {
+                                "id": "G6Xcq1yzQFtygzwp"
+                            },
+                            {
+                                "id": "n4ZsKqe4lQBOaAYc"
+                            }
+                        ]
+                    },
+                    "slot3": {
+                        "max": 4,
+                        "prepared": [
+                            {
+                                "id": "YekSC2eoY4oqVh6P"
+                            },
+                            {
+                                "id": "pE76whZFqtFoBvFa"
+                            },
+                            {
+                                "id": "FuwogELUfDFaV6Uk"
+                            },
+                            {
+                                "id": "IuBjF30zQoEGTEPh"
+                            }
+                        ]
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 24,
+                    "value": 16
+                },
+                "tradition": {
+                    "value": "arcane"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "dQCbEEJM9punVXyL",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "icons/weapons/daggers/dagger-straight-blue.webp",
             "name": "Dagger",
-            "sort": 2000000,
+            "sort": 2800000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -1579,382 +1955,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "vzqqtloHd3jtIrDI",
-            "img": "icons/equipment/finger/ring-band-engraved-scrolls-bronze.webp",
-            "name": "Bonded Ring",
-            "sort": 2100000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "nmkdgqptVVQyu1bB",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spell-effects.Item.qkwb5DD3zmKwvbk0"
-            },
-            "img": "systems/pf2e/icons/spells/mage-armor.webp",
-            "name": "Spell Effect: Mystic Armor",
-            "sort": 2200000,
-            "system": {
-                "description": {
-                    "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Mystic Armor]</p>\n<p>You ward yourself with shimmering magical energy, gaining a +1 item bonus to AC and a maximum Dexterity modifier of +5. While wearing <em>mystic armor</em>, you use your unarmored proficiency to calculate your AC.</p>"
-                },
-                "duration": {
-                    "expiry": "turn-start",
-                    "sustained": false,
-                    "unit": "days",
-                    "value": 1
-                },
-                "level": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "rules": [
-                    {
-                        "fromEquipment": false,
-                        "key": "FlatModifier",
-                        "selector": "ac",
-                        "slug": "mage-armor",
-                        "type": "item",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 5,
-                                    "value": 1
-                                },
-                                {
-                                    "end": 9,
-                                    "start": 6,
-                                    "value": 2
-                                },
-                                {
-                                    "start": 10,
-                                    "value": 3
-                                }
-                            ],
-                            "field": "item|system.level.value"
-                        }
-                    },
-                    {
-                        "fromEquipment": false,
-                        "key": "FlatModifier",
-                        "selector": "saving-throw",
-                        "slug": "mage-armor",
-                        "type": "item",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 7,
-                                    "start": 4,
-                                    "value": 1
-                                },
-                                {
-                                    "end": 9,
-                                    "start": 8,
-                                    "value": 2
-                                },
-                                {
-                                    "start": 10,
-                                    "value": 3
-                                }
-                            ],
-                            "field": "item|system.level.value"
-                        }
-                    },
-                    {
-                        "key": "DexterityModifierCap",
-                        "value": 5
-                    }
-                ],
-                "slug": "spell-effect-mystic-armor",
-                "start": {
-                    "initiative": null,
-                    "value": 630
-                },
-                "tokenIcon": {
-                    "show": true
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "effect"
-        },
-        {
-            "_id": "yVO8fmsEIk8TLC5R",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "dQCbEEJM9punVXyL"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 2300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 12
-                },
-                "damageRolls": {
-                    "r1QLbBEyhiNkgqL4": {
-                        "damage": "1d4+6",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "ENYvN4vFkITXzAVP",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 2400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 11
-                },
-                "damageRolls": {
-                    "Pk3kXURyXyoZv21u": {
-                        "damage": "1d4+6",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "tl23yr0Wp4cFpKNk",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "dQCbEEJM9punVXyL"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 2500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "ex6XLPcNadVl7fUQ": {
-                        "damage": "1d4+6",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "VQNPHotvY6aogCDS",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Slip from the Back",
-            "sort": 2600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Firmagor directs his gang members to concentrate their actions to defend him. Until the start of his next turn, when an attack against Firmagor misses, Firmagor or another friendly creature within 30 feet may use their reaction to Stride.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "wvIJZGXRhWF8vzyG",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Sneaky Cast",
-            "sort": 2700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Foes @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to Firmagor take a –2 circumstance penalty on their saving throws against his spells.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "GNLxY4nQZyW8Wy5n",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Thassilonian Lore",
-            "sort": 2800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
         }
     ],
     "name": "Enraged Firmagor",

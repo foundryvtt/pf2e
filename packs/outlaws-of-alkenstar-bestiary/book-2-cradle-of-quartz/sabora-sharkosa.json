@@ -4,13 +4,547 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "zYUEFdRcMpCGE7Wv",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Quickest Draw",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Sharkosa is aware of at least one of her enemies and not @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard]</p>\n<p><strong>Trigger</strong> Sharkosa rolls for initiative</p>\n<hr />\n<p><strong>Effect</strong> Sharkosa makes two melee Strikes, or draws her pistol and makes a ranged Strike, against an enemy she is aware of.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "EjC0CKCjP1kK6nFo",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Concussive Fist",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A living creature hit by Sharkosa's knuckle duster must attempt a @Check[fortitude|dc:23] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is immune to this ability for the next 24 hours.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature is confused for 1 round and falls @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "incapacitation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "u81y3oK61ZhSGxUA",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Golden Bullets",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Sharkosa's supernatural connection to gold allows her to alter the trajectory of her gold-cased bullets in flight. As long as her target is within 120 feet, Sharkosa gains a +1 circumstance bonus to ranged Strikes against targets with lesser cover and a +2 circumstance bonus to ranged Strikes against targets with standard or greater cover.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "target:distance",
+                                    120
+                                ]
+                            },
+                            {
+                                "or": [
+                                    "target:cover-bonus:2",
+                                    "target:cover-bonus:4"
+                                ]
+                            }
+                        ],
+                        "selector": "dueling-pistol-attack",
+                        "slug": "golden-bullets",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "target:distance",
+                                    120
+                                ]
+                            },
+                            "target:cover-bonus:1"
+                        ],
+                        "selector": "dueling-pistol-attack",
+                        "slug": "golden-bullets-lesser",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rerHlLMsQdMsCKCG",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "One-Two Punch",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Sharkosa makes three melee Strikes with her <em>knuckle duster</em>. Each Strike counts against her multiple attack penalty as usual.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "PEJZS0qEa7eLnJKy",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Reload Trick",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> No enemies are within 60 feet of Sharkosa and her dueling pistol is loaded</p>\n<p><strong>Frequency</strong> once per minute</p>\n<hr />\n<p><strong>Effect</strong> Sharkosa makes two dueling pistol Strikes, reloading after each shot.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1M"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9BS8utslHvSgmS2v",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Sharkosa deals an extra 2d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "OkkammnzgSk5DnSJ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FKPuzveKRNJhA1mi"
+            },
+            "img": "icons/weapons/ammunition/shot-round-lead.webp",
+            "name": "Rounds (Dueling Pistol)",
+            "sort": 700000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "quantity": 10,
+                "rules": [],
+                "size": "med",
+                "slug": "rounds-dueling-pistol",
+                "stackGroup": "rounds10",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "MMMsA6a3p8Tfiaga",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.2Rnw5hTlMd0YSozb"
+            },
+            "img": "systems/pf2e/icons/equipment/consumables/ammunition/meteor-shot.webp",
+            "name": "Meteor Shot",
+            "sort": 800000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Ammunition</strong> round</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p>\n<p>This craggy stone ammunition is warm to the touch. When you fire an activated meteor shot, it explodes into a small swarm of meteors as it reaches its target, scorching nearby creatures and littering the ground with rubble. In addition to the weapon's normal damage, the meteor shot deals fire damage and the ground in the area becomes difficult terrain.</p>\n<p>The ammunition deals @Damage[3d6[fire]] damage in a @Template[emanation|distance:5] around the target (@Check[reflex|dc:23|basic] save).</p>\n<p>In addition, the Strike gains the following critical failure effect.</p>\n<hr />\n<p><strong>Critical Failure</strong> The weapon misfires.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 7
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 70
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "failure",
+                            "success"
+                        ],
+                        "selector": "{item|_id}-attack",
+                        "text": "PF2E.AmmunitionNotes.MeteorShot.Normal.Text",
+                        "title": "PF2E.AmmunitionNotes.MeteorShot.Normal.Title"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalFailure"
+                        ],
+                        "selector": "{item|_id}-attack",
+                        "text": "PF2E.AmmunitionNotes.MeteorShot.CriticalFailureText",
+                        "title": "PF2E.AmmunitionNotes.MeteorShot.Normal.Title"
+                    }
+                ],
+                "size": "med",
+                "slug": "meteor-shot",
+                "stackGroup": "rounds10",
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "fire",
+                        "magical",
+                        "splash"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "UStiAI0VV3rqf9y3",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Alkenstar Lore",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "U6ZXPrxC0712GRcG",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "dK02tHlJNkttoFWN"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Knuckle Duster",
+            "sort": 1000000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "concussive-fist"
+                    ]
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "z7kdel1ztgcmj651xd0b": {
+                        "damage": "2d4+10",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "free-hand",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "TYyNLoEd1bOnNdsl",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "2gXWVhNGDOZHZnLl"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dueling Pistol",
+            "sort": 1100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "mpbwtrm2pkhzjmw4k8y3": {
+                        "damage": "2d6+6",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concealable",
+                        "concussive",
+                        "fatal-d10",
+                        "magical",
+                        "range-increment-60",
+                        "reload-1"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
             "_id": "dK02tHlJNkttoFWN",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.dgXjUcaoQDAY6ZpO"
             },
             "img": "systems/pf2e/icons/equipment/weapons/knuckle-duster.webp",
             "name": "Knuckle Duster",
-            "sort": 100000,
+            "sort": 1200000,
             "system": {
                 "baseItem": "knuckle-duster",
                 "bonus": {
@@ -97,7 +631,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/dueling-pistol.webp",
             "name": "Dueling Pistol",
-            "sort": 200000,
+            "sort": 1300000,
             "system": {
                 "baseItem": "dueling-pistol",
                 "bonus": {
@@ -176,540 +710,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "OkkammnzgSk5DnSJ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FKPuzveKRNJhA1mi"
-            },
-            "img": "icons/weapons/ammunition/shot-round-lead.webp",
-            "name": "Rounds (Dueling Pistol)",
-            "sort": 300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Guns & Gears"
-                },
-                "quantity": 10,
-                "rules": [],
-                "size": "med",
-                "slug": "rounds-dueling-pistol",
-                "stackGroup": "rounds10",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "MMMsA6a3p8Tfiaga",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.2Rnw5hTlMd0YSozb"
-            },
-            "img": "systems/pf2e/icons/equipment/consumables/ammunition/meteor-shot.webp",
-            "name": "Meteor Shot",
-            "sort": 400000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p><strong>Ammunition</strong> round</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p>\n<p>This craggy stone ammunition is warm to the touch. When you fire an activated meteor shot, it explodes into a small swarm of meteors as it reaches its target, scorching nearby creatures and littering the ground with rubble. In addition to the weapon's normal damage, the meteor shot deals fire damage and the ground in the area becomes difficult terrain.</p>\n<p>The ammunition deals @Damage[3d6[fire]] damage in a @Template[emanation|distance:5] around the target (@Check[reflex|dc:23|basic] save).</p>\n<p>In addition, the Strike gains the following critical failure effect.</p>\n<hr />\n<p><strong>Critical Failure</strong> The weapon misfires.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 7
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 70
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Guns & Gears"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess",
-                            "failure",
-                            "success"
-                        ],
-                        "selector": "{item|_id}-attack",
-                        "text": "PF2E.AmmunitionNotes.MeteorShot.Normal.Text",
-                        "title": "PF2E.AmmunitionNotes.MeteorShot.Normal.Title"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalFailure"
-                        ],
-                        "selector": "{item|_id}-attack",
-                        "text": "PF2E.AmmunitionNotes.MeteorShot.CriticalFailureText",
-                        "title": "PF2E.AmmunitionNotes.MeteorShot.Normal.Title"
-                    }
-                ],
-                "size": "med",
-                "slug": "meteor-shot",
-                "stackGroup": "rounds10",
-                "traits": {
-                    "rarity": "uncommon",
-                    "value": [
-                        "alchemical",
-                        "consumable",
-                        "fire",
-                        "magical",
-                        "splash"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "U6ZXPrxC0712GRcG",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "dK02tHlJNkttoFWN"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Knuckle Duster",
-            "sort": 500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "concussive-fist"
-                    ]
-                },
-                "bonus": {
-                    "value": 16
-                },
-                "damageRolls": {
-                    "z7kdel1ztgcmj651xd0b": {
-                        "damage": "2d4+10",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "free-hand",
-                        "magical"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "TYyNLoEd1bOnNdsl",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "2gXWVhNGDOZHZnLl"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dueling Pistol",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 16
-                },
-                "damageRolls": {
-                    "mpbwtrm2pkhzjmw4k8y3": {
-                        "damage": "2d6+6",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concealable",
-                        "concussive",
-                        "fatal-d10",
-                        "magical",
-                        "range-increment-60",
-                        "reload-1"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "zYUEFdRcMpCGE7Wv",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Quickest Draw",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Sharkosa is aware of at least one of her enemies and not @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard]</p>\n<p><strong>Trigger</strong> Sharkosa rolls for initiative</p>\n<hr />\n<p><strong>Effect</strong> Sharkosa makes two melee Strikes, or draws her pistol and makes a ranged Strike, against an enemy she is aware of.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "EjC0CKCjP1kK6nFo",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Concussive Fist",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A living creature hit by Sharkosa's knuckle duster must attempt a @Check[fortitude|dc:23] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is immune to this ability for the next 24 hours.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature is confused for 1 round and falls @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "incapacitation"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "u81y3oK61ZhSGxUA",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Golden Bullets",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Sharkosa's supernatural connection to gold allows her to alter the trajectory of her gold-cased bullets in flight. As long as her target is within 120 feet, Sharkosa gains a +1 circumstance bonus to ranged Strikes against targets with lesser cover and a +2 circumstance bonus to ranged Strikes against targets with standard or greater cover.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "lte": [
-                                    "target:distance",
-                                    120
-                                ]
-                            },
-                            {
-                                "or": [
-                                    "target:cover-bonus:2",
-                                    "target:cover-bonus:4"
-                                ]
-                            }
-                        ],
-                        "selector": "dueling-pistol-attack",
-                        "slug": "golden-bullets",
-                        "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "lte": [
-                                    "target:distance",
-                                    120
-                                ]
-                            },
-                            "target:cover-bonus:1"
-                        ],
-                        "selector": "dueling-pistol-attack",
-                        "slug": "golden-bullets-lesser",
-                        "type": "circumstance",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rerHlLMsQdMsCKCG",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "One-Two Punch",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Sharkosa makes three melee Strikes with her <em>knuckle duster</em>. Each Strike counts against her multiple attack penalty as usual.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "PEJZS0qEa7eLnJKy",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Reload Trick",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> No enemies are within 60 feet of Sharkosa and her dueling pistol is loaded</p>\n<p><strong>Frequency</strong> once per minute</p>\n<hr />\n<p><strong>Effect</strong> Sharkosa makes two dueling pistol Strikes, reloading after each shot.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "PT1M"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "9BS8utslHvSgmS2v",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sneak Attack",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Sharkosa deals an extra 2d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 2,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    }
-                ],
-                "slug": "sneak-attack",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "UStiAI0VV3rqf9y3",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Alkenstar Lore",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Sabora Sharkosa",

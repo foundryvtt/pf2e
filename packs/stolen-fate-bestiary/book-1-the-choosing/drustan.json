@@ -4,22 +4,111 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "U2etkbX8DS3RNjWV",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Focus Spells",
+            "_id": "W9i1kbSKuN1hPOaY",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+3 to Reflex vs. Damaging Effects",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "focus"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "damaging-effect"
+                        ],
+                        "selector": "reflex",
+                        "value": 3
+                    }
+                ],
+                "slug": "3-to-reflex-vs-damaging-effects",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zBUpfRfxuUBF9E5S",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Iron Command",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An enemy within 15 feet damages Drustan</p><hr /><p><strong>Effect</strong> Drustan commands the triggering enemy to kneel before him in obedience. If they dare to refuse, they must pay the price in pain and anguish. The triggering enemy and each other enemy within 15 feet of Drustan must choose one of the following options.</p><ul><li>The enemy kneels, dropping @UUID[Compendium.pf2e.conditionitems.Item.Prone] as a free action.</li><li>The enemy refuses, and Drustan deals @Damage[4[mental]] damage to the enemy (the triggering enemy instead takes @Damage[4d6[mental],5[persistent,spirit]] damage).</li></ul><p>Drustan also deals an additional 2 spirit damage with his Strikes against the triggering enemy until the end of Drustan's next turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "iron-command",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "spirit",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "iron-command"
+                        ],
+                        "selector": "strike-damage",
+                        "value": 2
+                    }
+                ],
+                "slug": "iron-command",
+                "traits": {
+                    "value": [
+                        "divine",
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IOcWE5RDaolD089V",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Divine Ally",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Drustan's divine ally is his bastard sword. He gains its critical specialization effect, and the weapon gains the <em>@UUID[Compendium.pf2e.equipment-srd.Item.Flaming]</em> property rune.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,444 +116,57 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 31,
-                    "value": 23
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "wsZ7vrX7BQW66Wd5",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.tYP8unoR0a5Dq9EA"
-            },
-            "img": "icons/consumables/food/cooked-ribs-rack-glazed-bones-brown-white.webp",
-            "name": "Litany of Depravity",
-            "sort": 200000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>Your litany calls into question the morals your foe claims to hold dear. The target gains weakness 7 to unholy, then becomes temporarily immune to all your litanies for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Litany of Depravity]</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The weakness increases by 1.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 round"
-                },
-                "level": {
-                    "value": 7
-                },
-                "location": {
-                    "value": "U2etkbX8DS3RNjWV"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "litany-of-depravity",
-                "target": {
-                    "value": "1 good creature"
-                },
-                "time": {
-                    "value": "1"
-                },
                 "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [],
-                    "value": [
-                        "champion",
-                        "concentrate",
-                        "evil",
-                        "focus",
-                        "litany"
-                    ]
+                    "value": []
                 }
             },
-            "type": "spell"
+            "type": "action"
         },
         {
-            "_id": "o7i0yi6VkHBdCQZt",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.jFmWSIpJGGebim6y"
-            },
-            "img": "systems/pf2e/icons/spells/touch-of-corruption.webp",
-            "name": "Touch of Corruption",
-            "sort": 300000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You infuse the target with void energy. If the target is living, this deals 1d6 void damage (basic Fortitude save); on a failed save, the target also takes a –2 status penalty to AC for 1 round.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Touch of the Void]{Spell Effect: Touch of Corruption}</p>\n<p>If the target is a willing undead creature, the target instead regains 6 Hit Points, and if you are the undead target, you also gain a +2 status bonus to damage rolls for 1 round.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Touch of the Void]{Spell Effect: Touch of Corruption (Healing)}</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage dealt to a living creature by 1d6 or increase the Hit Points regained by undead by 6.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "U2etkbX8DS3RNjWV"
-                },
-                "overlays": {
-                    "2a6Vm4mIjBgrzlO2": {
-                        "name": "Touch of Corruption (Vs. Living)",
-                        "overlayType": "override",
-                        "sort": 2,
-                        "system": {
-                            "damage": {
-                                "Esn7klJ9WRsIFnrE": {
-                                    "applyMod": false,
-                                    "category": null,
-                                    "formula": "1d6",
-                                    "kinds": [
-                                        "damage"
-                                    ],
-                                    "materials": [],
-                                    "type": "void"
-                                }
-                            },
-                            "defense": {
-                                "save": {
-                                    "basic": true,
-                                    "statistic": "fortitude"
-                                }
-                            },
-                            "heightening": {
-                                "damage": {
-                                    "Esn7klJ9WRsIFnrE": "1d6"
-                                },
-                                "interval": 1,
-                                "type": "interval"
-                            }
-                        }
-                    },
-                    "gHIOzknAtexc6GUE": {
-                        "name": "Touch of Corruption (Healing)",
-                        "overlayType": "override",
-                        "sort": 1,
-                        "system": {
-                            "damage": {
-                                "cM137DAlBX1LcWAX": {
-                                    "applyMod": false,
-                                    "category": null,
-                                    "formula": "6",
-                                    "kinds": [
-                                        "healing"
-                                    ],
-                                    "materials": [],
-                                    "type": "untyped"
-                                }
-                            },
-                            "defense": null,
-                            "heightening": {
-                                "damage": {
-                                    "cM137DAlBX1LcWAX": "6"
-                                },
-                                "interval": 1,
-                                "type": "interval"
-                            }
-                        }
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "touch-of-corruption",
-                "target": {
-                    "value": "1 willing undead creature or 1 living creature"
-                },
-                "time": {
-                    "value": "1"
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [],
-                    "value": [
-                        "champion",
-                        "focus",
-                        "manipulate",
-                        "void"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "i5vaCM4vthBnC414",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.6KWYmeRMxsQfWhhJ"
-            },
-            "img": "icons/weapons/swords/greatsword-crossguard-silver.webp",
-            "name": "Bastard Sword",
+            "_id": "BZNxjsgY155td88X",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Smite Good",
             "sort": 400000,
             "system": {
-                "baseItem": "bastard-sword",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "action"
                 },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "bulk": {
+                "actions": {
                     "value": 1
                 },
-                "category": "martial",
-                "containerId": null,
-                "damage": {
-                    "damageType": "slashing",
-                    "dice": 1,
-                    "die": "d8"
-                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>This broad-bladed sword, sometimes called the hand-and-a-half sword, has a longer grip so it can be held in one hand or used with two hands to provide extra piercing or slashing power.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "sword",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 4
-                    }
+                    "value": "<p>Drustan selects one enemy he can see. Until the start of his next turn, his bastard sword Strikes against that foe deal an additional @Damage[6[spirit]]. If the chosen enemy attacks Drustan before the start of his next turn, the duration extends to the end of that enemy's next turn.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": ""
                 },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": ""
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 2,
-                    "property": [
-                        "wounding"
-                    ],
-                    "striking": 2
-                },
-                "size": "med",
-                "slug": "bastard-sword",
-                "splashDamage": {
-                    "value": 0
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "two-hand-d12"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "weapon"
-        },
-        {
-            "_id": "H88CDk82YP653bX6",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.dUC8Fsa6FZtVikS3"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/composite-longbow.webp",
-            "name": "Composite Longbow",
-            "sort": 500000,
-            "system": {
-                "baseItem": "composite-longbow",
-                "bonus": {
-                    "value": 0
-                },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "bulk": {
-                    "value": 2
-                },
-                "category": "martial",
-                "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d8"
-                },
-                "description": {
-                    "value": "<p>This projectile weapon is made from horn, wood, and sinew laminated together to increase the power of its pull and the force of its projectile. Like all longbows, its great size also increases the bow's range and power. You must use two hands to fire it, and it cannot be used while mounted. Any time an ability is specifically restricted to a longbow, such as Erastil's favored weapon, it also applies to composite longbows unless otherwise stated.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "bow",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 20
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "range": 100,
-                "reload": {
-                    "value": "0"
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [],
-                    "striking": 1
-                },
-                "size": "med",
-                "slug": "composite-longbow",
-                "splashDamage": {
-                    "value": 0
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "deadly-d10",
-                        "propulsive",
-                        "volley-30"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-plus-hands"
-                }
-            },
-            "type": "weapon"
-        },
-        {
-            "_id": "x9k1Fq6J7B44Gqae",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.pNQJ9PTOEHxEZCgp"
-            },
-            "img": "systems/pf2e/icons/equipment/shields/specific-shields/sturdy-shield.webp",
-            "name": "Sturdy Shield (Moderate)",
-            "sort": 600000,
-            "system": {
-                "acBonus": 2,
-                "baseItem": "steel-shield",
-                "bulk": {
-                    "value": 1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>With a superior design and excellent craftsmanship, this steel shield has higher Hardness than its non-magical counterparts, making it harder to break and destroy.</p>\n<p>The shield has Hardness 13, HP 104, and BT 52.</p>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
-                    "invested": null
-                },
-                "hardness": 13,
-                "hp": {
-                    "max": 104,
-                    "value": 104
-                },
-                "level": {
-                    "value": 10
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 1000
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "reinforcing": 0
-                },
-                "size": "med",
-                "slug": "sturdy-shield-moderate",
-                "specific": {
-                    "integrated": null,
-                    "material": {
-                        "grade": null,
-                        "type": null
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "smite-good",
+                        "toggleable": true
                     },
-                    "runes": {
-                        "reinforcing": 0
+                    {
+                        "damageType": "spirit",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "smite-good"
+                        ],
+                        "selector": "bastard-sword-damage",
+                        "value": 6
                     }
-                },
-                "speedPenalty": 0,
+                ],
+                "slug": null,
                 "traits": {
-                    "integrated": null,
-                    "rarity": "common",
-                    "value": [
-                        "magical"
-                    ]
+                    "value": []
                 }
             },
-            "type": "shield"
+            "type": "action"
         },
         {
             "_id": "AWaC753HPonwjVzq",
@@ -473,7 +175,7 @@
             },
             "img": "icons/equipment/chest/breastplate-layered-steel-green.webp",
             "name": "Full Plate",
-            "sort": 700000,
+            "sort": 500000,
             "system": {
                 "acBonus": 6,
                 "baseItem": "full-plate",
@@ -535,6 +237,140 @@
                 }
             },
             "type": "armor"
+        },
+        {
+            "_id": "TV3bKrq1PVi8TdsW",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.w2ENw2VMPcsbif8g"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
+            "name": "Arrows",
+            "sort": 600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 20,
+                "rules": [],
+                "size": "med",
+                "slug": "arrows",
+                "stackGroup": "arrows",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "G6hUNSvm3cmO0lff",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.KlJSw919hpN6V9oK"
+            },
+            "img": "systems/pf2e/icons/equipment/consumables/potions/potion-of-flying.webp",
+            "name": "Potion of Flying (Standard)",
+            "sort": 700000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "potion",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Upon drinking this effervescent concoction, you gain a fly Speed of 40 feet for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Potion of Flying (Standard)]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 8
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 100
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 3,
+                "rules": [],
+                "size": "med",
+                "slug": "potion-of-flying-standard",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "magical",
+                        "potion"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
         },
         {
             "_id": "N5Svyr7LIYS7LIFk",
@@ -773,140 +609,6 @@
             "type": "equipment"
         },
         {
-            "_id": "TV3bKrq1PVi8TdsW",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.w2ENw2VMPcsbif8g"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
-            "name": "Arrows",
-            "sort": 1100000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 20,
-                "rules": [],
-                "size": "med",
-                "slug": "arrows",
-                "stackGroup": "arrows",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "G6hUNSvm3cmO0lff",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.KlJSw919hpN6V9oK"
-            },
-            "img": "systems/pf2e/icons/equipment/consumables/potions/potion-of-flying.webp",
-            "name": "Potion of Flying (Standard)",
-            "sort": 1200000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "potion",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Upon drinking this effervescent concoction, you gain a fly Speed of 40 feet for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Potion of Flying (Standard)]</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 8
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 100
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 3,
-                "rules": [],
-                "size": "med",
-                "slug": "potion-of-flying-standard",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "consumable",
-                        "magical",
-                        "potion"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
             "_id": "Td4ZWdQhTgBNT889",
             "flags": {
                 "pf2e": {
@@ -915,7 +617,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Bastard Sword",
-            "sort": 1300000,
+            "sort": 1100000,
             "system": {
                 "attack": {
                     "value": ""
@@ -975,111 +677,275 @@
             "type": "melee"
         },
         {
-            "_id": "W9i1kbSKuN1hPOaY",
+            "_id": "x9k1Fq6J7B44Gqae",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.pNQJ9PTOEHxEZCgp"
             },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+3 to Reflex vs. Damaging Effects",
-            "sort": 1400000,
+            "img": "systems/pf2e/icons/equipment/shields/specific-shields/sturdy-shield.webp",
+            "name": "Sturdy Shield (Moderate)",
+            "sort": 1200000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "acBonus": 2,
+                "baseItem": "steel-shield",
+                "bulk": {
+                    "value": 1
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
+                "containerId": null,
                 "description": {
-                    "value": ""
+                    "value": "<p>With a superior design and excellent craftsmanship, this steel shield has higher Hardness than its non-magical counterparts, making it harder to break and destroy.</p>\n<p>The shield has Hardness 13, HP 104, and BT 52.</p>"
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1,
+                    "invested": null
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "damaging-effect"
-                        ],
-                        "selector": "reflex",
-                        "value": 3
+                "hardness": 13,
+                "hp": {
+                    "max": 104,
+                    "value": 104
+                },
+                "level": {
+                    "value": 10
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1000
                     }
-                ],
-                "slug": "3-to-reflex-vs-damaging-effects",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "zBUpfRfxuUBF9E5S",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Iron Command",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An enemy within 15 feet damages Drustan</p><hr /><p><strong>Effect</strong> Drustan commands the triggering enemy to kneel before him in obedience. If they dare to refuse, they must pay the price in pain and anguish. The triggering enemy and each other enemy within 15 feet of Drustan must choose one of the following options.</p><ul><li>The enemy kneels, dropping @UUID[Compendium.pf2e.conditionitems.Item.Prone] as a free action.</li><li>The enemy refuses, and Drustan deals @Damage[4[mental]] damage to the enemy (the triggering enemy instead takes @Damage[4d6[mental],5[persistent,spirit]] damage).</li></ul><p>Drustan also deals an additional 2 spirit damage with his Strikes against the triggering enemy until the end of Drustan's next turn.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "iron-command",
-                        "toggleable": true
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "reinforcing": 0
+                },
+                "size": "med",
+                "slug": "sturdy-shield-moderate",
+                "specific": {
+                    "integrated": null,
+                    "material": {
+                        "grade": null,
+                        "type": null
                     },
-                    {
-                        "damageType": "spirit",
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "iron-command"
-                        ],
-                        "selector": "strike-damage",
-                        "value": 2
+                    "runes": {
+                        "reinforcing": 0
                     }
-                ],
-                "slug": "iron-command",
+                },
+                "speedPenalty": 0,
                 "traits": {
+                    "integrated": null,
+                    "rarity": "common",
                     "value": [
-                        "divine",
-                        "emotion",
-                        "mental"
+                        "magical"
                     ]
                 }
             },
-            "type": "action"
+            "type": "shield"
         },
         {
-            "_id": "IOcWE5RDaolD089V",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Divine Ally",
-            "sort": 1600000,
+            "_id": "wsZ7vrX7BQW66Wd5",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.tYP8unoR0a5Dq9EA"
+            },
+            "img": "icons/consumables/food/cooked-ribs-rack-glazed-bones-brown-white.webp",
+            "name": "Litany of Depravity",
+            "sort": 1300000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>Your litany calls into question the morals your foe claims to hold dear. The target gains weakness 7 to unholy, then becomes temporarily immune to all your litanies for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Litany of Depravity]</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The weakness increases by 1.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 round"
+                },
+                "level": {
+                    "value": 7
+                },
+                "location": {
+                    "value": "U2etkbX8DS3RNjWV"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Advanced Player's Guide"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "litany-of-depravity",
+                "target": {
+                    "value": "1 good creature"
+                },
+                "time": {
+                    "value": "1"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [],
+                    "value": [
+                        "champion",
+                        "concentrate",
+                        "evil",
+                        "focus",
+                        "litany"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "o7i0yi6VkHBdCQZt",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.jFmWSIpJGGebim6y"
+            },
+            "img": "systems/pf2e/icons/spells/touch-of-corruption.webp",
+            "name": "Touch of Corruption",
+            "sort": 1400000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You infuse the target with void energy. If the target is living, this deals 1d6 void damage (basic Fortitude save); on a failed save, the target also takes a –2 status penalty to AC for 1 round.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Touch of the Void]{Spell Effect: Touch of Corruption}</p>\n<p>If the target is a willing undead creature, the target instead regains 6 Hit Points, and if you are the undead target, you also gain a +2 status bonus to damage rolls for 1 round.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Touch of the Void]{Spell Effect: Touch of Corruption (Healing)}</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage dealt to a living creature by 1d6 or increase the Hit Points regained by undead by 6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "U2etkbX8DS3RNjWV"
+                },
+                "overlays": {
+                    "2a6Vm4mIjBgrzlO2": {
+                        "name": "Touch of Corruption (Vs. Living)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "damage": {
+                                "Esn7klJ9WRsIFnrE": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "1d6",
+                                    "kinds": [
+                                        "damage"
+                                    ],
+                                    "materials": [],
+                                    "type": "void"
+                                }
+                            },
+                            "defense": {
+                                "save": {
+                                    "basic": true,
+                                    "statistic": "fortitude"
+                                }
+                            },
+                            "heightening": {
+                                "damage": {
+                                    "Esn7klJ9WRsIFnrE": "1d6"
+                                },
+                                "interval": 1,
+                                "type": "interval"
+                            }
+                        }
+                    },
+                    "gHIOzknAtexc6GUE": {
+                        "name": "Touch of Corruption (Healing)",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "damage": {
+                                "cM137DAlBX1LcWAX": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "6",
+                                    "kinds": [
+                                        "healing"
+                                    ],
+                                    "materials": [],
+                                    "type": "untyped"
+                                }
+                            },
+                            "defense": null,
+                            "heightening": {
+                                "damage": {
+                                    "cM137DAlBX1LcWAX": "6"
+                                },
+                                "interval": 1,
+                                "type": "interval"
+                            }
+                        }
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Advanced Player's Guide"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "touch-of-corruption",
+                "target": {
+                    "value": "1 willing undead creature or 1 living creature"
+                },
+                "time": {
+                    "value": "1"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [],
+                    "value": [
+                        "champion",
+                        "focus",
+                        "manipulate",
+                        "void"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "U2etkbX8DS3RNjWV",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Focus Spells",
+            "sort": 1500000,
+            "system": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>Drustan's divine ally is his bastard sword. He gains its critical specialization effect, and the weapon gains the <em>@UUID[Compendium.pf2e.equipment-srd.Item.Flaming]</em> property rune.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -1087,57 +953,191 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": []
+                "spelldc": {
+                    "dc": 31,
+                    "value": 23
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "BZNxjsgY155td88X",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Smite Good",
-            "sort": 1700000,
+            "_id": "i5vaCM4vthBnC414",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.6KWYmeRMxsQfWhhJ"
+            },
+            "img": "icons/weapons/swords/greatsword-crossguard-silver.webp",
+            "name": "Bastard Sword",
+            "sort": 1600000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "baseItem": "bastard-sword",
+                "bonus": {
+                    "value": 0
                 },
-                "actions": {
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
                     "value": 1
                 },
-                "category": "offensive",
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d8"
+                },
                 "description": {
-                    "value": "<p>Drustan selects one enemy he can see. Until the start of his next turn, his bastard sword Strikes against that foe deal an additional @Damage[6[spirit]]. If the chosen enemy attacks Drustan before the start of his next turn, the duration extends to the end of that enemy's next turn.</p>"
+                    "value": "<p>This broad-bladed sword, sometimes called the hand-and-a-half sword, has a longer grip so it can be held in one hand or used with two hands to provide extra piercing or slashing power.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "sword",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 4
+                    }
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "smite-good",
-                        "toggleable": true
-                    },
-                    {
-                        "damageType": "spirit",
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "smite-good"
-                        ],
-                        "selector": "bastard-sword-damage",
-                        "value": 6
-                    }
-                ],
-                "slug": null,
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 2,
+                    "property": [
+                        "wounding"
+                    ],
+                    "striking": 2
+                },
+                "size": "med",
+                "slug": "bastard-sword",
+                "splashDamage": {
+                    "value": 0
+                },
                 "traits": {
-                    "value": []
+                    "rarity": "common",
+                    "value": [
+                        "two-hand-d12"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
                 }
             },
-            "type": "action"
+            "type": "weapon"
+        },
+        {
+            "_id": "H88CDk82YP653bX6",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.dUC8Fsa6FZtVikS3"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/composite-longbow.webp",
+            "name": "Composite Longbow",
+            "sort": 1700000,
+            "system": {
+                "baseItem": "composite-longbow",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 2
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d8"
+                },
+                "description": {
+                    "value": "<p>This projectile weapon is made from horn, wood, and sinew laminated together to increase the power of its pull and the force of its projectile. Like all longbows, its great size also increases the bow's range and power. You must use two hands to fire it, and it cannot be used while mounted. Any time an ability is specifically restricted to a longbow, such as Erastil's favored weapon, it also applies to composite longbows unless otherwise stated.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "bow",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 20
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "range": 100,
+                "reload": {
+                    "value": "0"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "striking": 1
+                },
+                "size": "med",
+                "slug": "composite-longbow",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "deadly-d10",
+                        "propulsive",
+                        "volley-30"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-plus-hands"
+                }
+            },
+            "type": "weapon"
         }
     ],
     "name": "Drustan",

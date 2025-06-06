@@ -3,87 +3,62 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "QMmJuIUWKM5Bverl",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.c58wczIzH2gzeXQL"
-            },
-            "img": "icons/weapons/clubs/club-banded-brown.webp",
-            "name": "Club",
+            "_id": "fRaI1Z66oWzSAz2Q",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Hit 'Em Hard",
             "sort": 100000,
             "system": {
-                "baseItem": "club",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "action"
                 },
-                "bonusDamage": {
-                    "value": 0
+                "actions": {
+                    "value": 2
                 },
-                "bulk": {
-                    "value": 1
-                },
-                "category": "simple",
-                "containerId": null,
-                "damage": {
-                    "damageType": "bludgeoning",
-                    "dice": 1,
-                    "die": "d6"
-                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>This is a piece of stout wood shaped or repurposed to bludgeon an enemy. Clubs can be intricately carved pieces of martial art or as simple as a tree branch or piece of wood.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "club",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
+                    "value": "<p>Auchs unleashes a particularly powerful attack and makes a melee club Strike that counts as two attacks when calculating his multiple attack penalty. If this strike hits, he deals an extra 1d6 points of damage; on a critical hit, the creature struck must succeed at a @Check[fortitude|dc:18] save or be knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": ""
                 },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": "-"
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "club",
-                "splashDamage": {
-                    "value": 0
-                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "hit-em-hard",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "hit-em-hard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "hit-em-hard"
+                        ],
+                        "selector": "strike-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "value": [
-                        "thrown-10"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": []
                 }
             },
-            "type": "weapon"
+            "type": "action"
         },
         {
             "_id": "lcb0jYCdAcQKoNEe",
@@ -227,10 +202,104 @@
             "type": "consumable"
         },
         {
+            "_id": "axy7Bj9PMjBKlFdd",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "QMmJuIUWKM5Bverl"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Club",
+            "sort": 400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "QUQOOC5FVmmzdDnn": {
+                        "damage": "1d6+6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "T1dMCJU34dJYVgZw",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "QMmJuIUWKM5Bverl"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Club",
+            "sort": 500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "DQeySZf3RH9b7UD5": {
+                        "damage": "1d6+6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "thrown-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
             "_id": "ItuwvVtjFsk5P6Rk",
             "img": "systems/pf2e/icons/equipment/treasure/art-objects/lesser-art-object/quality-sculpture-by-an-unknown.webp",
             "name": "Knight and Dragon Toys",
-            "sort": 400000,
+            "sort": 600000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -281,7 +350,7 @@
             "_id": "5c6243RybWvondkY",
             "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/cordelias-construct-key.webp",
             "name": "Silver Stag Lord Amulet",
-            "sort": 500000,
+            "sort": 700000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -329,156 +398,87 @@
             "type": "treasure"
         },
         {
-            "_id": "axy7Bj9PMjBKlFdd",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "QMmJuIUWKM5Bverl"
-                }
+            "_id": "QMmJuIUWKM5Bverl",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.c58wczIzH2gzeXQL"
             },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "img": "icons/weapons/clubs/club-banded-brown.webp",
             "name": "Club",
-            "sort": 600000,
+            "sort": 800000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
+                "baseItem": "club",
                 "bonus": {
-                    "value": 10
+                    "value": 0
                 },
-                "damageRolls": {
-                    "QUQOOC5FVmmzdDnn": {
-                        "damage": "1d6+6",
-                        "damageType": "bludgeoning"
-                    }
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "bludgeoning",
+                    "dice": 1,
+                    "die": "d6"
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>This is a piece of stout wood shaped or repurposed to bludgeon an enemy. Clubs can be intricately carved pieces of martial art or as simple as a tree branch or piece of wood.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "club",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": "-"
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
                 },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "T1dMCJU34dJYVgZw",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "QMmJuIUWKM5Bverl"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Club",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
+                "size": "med",
+                "slug": "club",
+                "splashDamage": {
+                    "value": 0
                 },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 10
-                },
-                "damageRolls": {
-                    "DQeySZf3RH9b7UD5": {
-                        "damage": "1d6+6",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
                 "traits": {
                     "rarity": "common",
                     "value": [
                         "thrown-10"
                     ]
                 },
-                "weaponType": {
-                    "value": "ranged"
+                "usage": {
+                    "value": "held-in-one-hand"
                 }
             },
-            "type": "melee"
-        },
-        {
-            "_id": "fRaI1Z66oWzSAz2Q",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Hit 'Em Hard",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Auchs unleashes a particularly powerful attack and makes a melee club Strike that counts as two attacks when calculating his multiple attack penalty. If this strike hits, he deals an extra 1d6 points of damage; on a critical hit, the creature struck must succeed at a @Check[fortitude|dc:18] save or be knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "hit-em-hard",
-                        "toggleable": true
-                    },
-                    {
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "hit-em-hard"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": [
-                            "hit-em-hard"
-                        ],
-                        "selector": "strike-damage",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
+            "type": "weapon"
         }
     ],
     "name": "Auchs",

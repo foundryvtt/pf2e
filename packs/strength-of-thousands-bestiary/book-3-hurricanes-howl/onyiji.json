@@ -4,23 +4,164 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "IiUfBDnqBfCVIAgR",
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Arcane Prepared Spells",
+            "_id": "eE5N1vPm1xizTXu4",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "q3iiuioxoja6dk4q",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Orc Superstition",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Onyiji is about to make a saving throw against a spell or magical effect</p><hr />\n<p><strong>Effect</strong> Onyiji gains a +1 circumstance bonus to the triggering save.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "saving-throw",
+                        "key": "RollOption",
+                        "option": "orc-superstition",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "orc-superstition"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "93mg0jw3efbc6prt",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Spellstrike",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> twice per day</p><hr />\n<p><strong>Effect</strong> Onyiji casts a spell and couples it with a staff Strike. She casts @UUID[Compendium.pf2e.spells-srd.Item.Ignition], @UUID[Compendium.pf2e.spells-srd.Item.Ray of Frost], or @UUID[Compendium.pf2e.spells-srd.Item.Shocking Grasp], but the effects don't occur immediately. She makes a melee Strike with her staff and uses the attack roll result as the effect of both the Strike and the spell.</p>\n<p>This counts as two attacks towards her multiple attack penalty, but the penalties don't apply until after the Spellstrike.</p>"
+                },
+                "frequency": {
+                    "max": 2,
+                    "per": "day",
+                    "value": 2
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ayacm2lkwvhcnv2z",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Twisting Tree",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When Onyiji wields a staff in one hand, it gains the agile trait and its damage die size increases to d6 (these adjustments are reflected in the Strike above). When she wields a staff in two hands, it gains the parry, reach, and trip traits.</p>\n<p>She can Interact to Release or change her grip on her staff as a free action when she Strikes with the staff (including Strikes made in a Spellstrike).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5jievuabeme33svh",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Warfare Lore",
+            "sort": 500000,
+            "system": {
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "label": "Spellcasting Type",
-                    "type": "String",
-                    "value": "prepared"
+                "mod": {
+                    "value": 16
                 },
-                "proficiency": {
+                "proficient": {
                     "value": 0
                 },
                 "publication": {
@@ -29,60 +170,80 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 4,
-                        "prepared": [
-                            {
-                                "id": "FFrXeVfj4eRhKeKs"
-                            },
-                            {
-                                "id": "8TzMzClC86zazRKN"
-                            },
-                            {
-                                "id": "tk0t0Ox8TEBu3NwN"
-                            },
-                            {
-                                "id": "92cbn25qEpVZ5fHk"
-                            }
-                        ],
-                        "value": 4
-                    },
-                    "slot1": {
-                        "max": 1,
-                        "prepared": [
-                            {
-                                "id": "wRF9eH2nBfxvQ6js"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 1,
-                        "prepared": [
-                            {
-                                "id": "MbFoBKUTv93VhPD9"
-                            }
-                        ],
-                        "value": 2
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 26,
-                    "item": 0,
-                    "label": "Class DC",
-                    "mod": 0,
-                    "type": "String",
-                    "value": 18
-                },
-                "tradition": {
-                    "value": "divine"
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "hcwryh8toa5n1b2x",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "fdKCuY92ty2LlbWo"
                 }
             },
-            "type": "spellcastingEntry"
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Staff",
+            "sort": 600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "aWNJ4I2BEsuN1kQO": {
+                        "damage": "2d6+8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "option": "two-handed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "{item|_id}-damage"
+                        ],
+                        "slug": "base",
+                        "value": 8
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "two-hand-d8"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "FFrXeVfj4eRhKeKs",
@@ -91,7 +252,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 200000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -158,7 +319,7 @@
             },
             "img": "icons/magic/fire/flame-burning-earth-orange.webp",
             "name": "Produce Flame",
-            "sort": 300000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -239,7 +400,7 @@
             },
             "img": "icons/magic/movement/trail-streak-impact-blue.webp",
             "name": "Ray of Frost",
-            "sort": 400000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -320,7 +481,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 500000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -382,7 +543,7 @@
             },
             "img": "systems/pf2e/icons/spells/shocking-grasp.webp",
             "name": "Shocking Grasp",
-            "sort": 600000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -462,7 +623,7 @@
             },
             "img": "icons/skills/melee/strike-blade-scimitar-gray-red.webp",
             "name": "True Strike",
-            "sort": 700000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -516,13 +677,94 @@
             "type": "spell"
         },
         {
+            "_id": "IiUfBDnqBfCVIAgR",
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Arcane Prepared Spells",
+            "sort": 1300000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "label": "Spellcasting Type",
+                    "type": "String",
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {
+                    "slot0": {
+                        "max": 4,
+                        "prepared": [
+                            {
+                                "id": "FFrXeVfj4eRhKeKs"
+                            },
+                            {
+                                "id": "8TzMzClC86zazRKN"
+                            },
+                            {
+                                "id": "tk0t0Ox8TEBu3NwN"
+                            },
+                            {
+                                "id": "92cbn25qEpVZ5fHk"
+                            }
+                        ],
+                        "value": 4
+                    },
+                    "slot1": {
+                        "max": 1,
+                        "prepared": [
+                            {
+                                "id": "wRF9eH2nBfxvQ6js"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 1,
+                        "prepared": [
+                            {
+                                "id": "MbFoBKUTv93VhPD9"
+                            }
+                        ],
+                        "value": 2
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 26,
+                    "item": 0,
+                    "label": "Class DC",
+                    "mod": 0,
+                    "type": "String",
+                    "value": 18
+                },
+                "tradition": {
+                    "value": "divine"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "fdKCuY92ty2LlbWo",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FVjTuBCIefAgloUU"
             },
             "img": "icons/weapons/staves/staff-simple.webp",
             "name": "Staff",
-            "sort": 800000,
+            "sort": 1400000,
             "system": {
                 "baseItem": "staff",
                 "bonus": {
@@ -597,248 +839,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "hcwryh8toa5n1b2x",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "fdKCuY92ty2LlbWo"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Staff",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "aWNJ4I2BEsuN1kQO": {
-                        "damage": "2d6+8",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
-                        "option": "two-handed",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "DamageAlteration",
-                        "mode": "upgrade",
-                        "predicate": [
-                            "two-handed"
-                        ],
-                        "property": "dice-faces",
-                        "selectors": [
-                            "{item|_id}-damage"
-                        ],
-                        "slug": "base",
-                        "value": 8
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "two-hand-d8"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "eE5N1vPm1xizTXu4",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "q3iiuioxoja6dk4q",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Orc Superstition",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> Onyiji is about to make a saving throw against a spell or magical effect</p><hr />\n<p><strong>Effect</strong> Onyiji gains a +1 circumstance bonus to the triggering save.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "saving-throw",
-                        "key": "RollOption",
-                        "option": "orc-superstition",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "orc-superstition"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "circumstance",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "93mg0jw3efbc6prt",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Spellstrike",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> twice per day</p><hr />\n<p><strong>Effect</strong> Onyiji casts a spell and couples it with a staff Strike. She casts @UUID[Compendium.pf2e.spells-srd.Item.Ignition], @UUID[Compendium.pf2e.spells-srd.Item.Ray of Frost], or @UUID[Compendium.pf2e.spells-srd.Item.Shocking Grasp], but the effects don't occur immediately. She makes a melee Strike with her staff and uses the attack roll result as the effect of both the Strike and the spell.</p>\n<p>This counts as two attacks towards her multiple attack penalty, but the penalties don't apply until after the Spellstrike.</p>"
-                },
-                "frequency": {
-                    "max": 2,
-                    "per": "day",
-                    "value": 2
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ayacm2lkwvhcnv2z",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Twisting Tree",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When Onyiji wields a staff in one hand, it gains the agile trait and its damage die size increases to d6 (these adjustments are reflected in the Strike above). When she wields a staff in two hands, it gains the parry, reach, and trip traits.</p>\n<p>She can Interact to Release or change her grip on her staff as a free action when she Strikes with the staff (including Strikes made in a Spellstrike).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "5jievuabeme33svh",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Warfare Lore",
-            "sort": 1400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 16
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Onyiji",

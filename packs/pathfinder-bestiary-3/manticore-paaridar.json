@@ -3,21 +3,54 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "aVCE3zDK0cQohDQM",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Monk Ki Spells",
+            "_id": "7wxTRall7vLvrVdI",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Sharp Riposte",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
+                    "value": "<p><strong>Trigger</strong> An adjacent creature targets the paaridar with a melee attack</p>\n<hr />\n<p><strong>Effect</strong> The paaridar blocks the attack with their claws. The paaridar gains resistance 5 to physical damage from the attack, and if the attack hits, the attacker takes @Damage[(1d8+4)[slashing]] damage.</p>"
                 },
-                "prepared": {
-                    "value": "focus"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vcbazPs6B9bMeBpm",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Flurry of Blows",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The paaridar makes two unarmed Strikes or two spike Strikes. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round",
                     "value": 1
                 },
                 "publication": {
@@ -26,319 +59,98 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 24,
-                    "value": 16
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "a2yR0jzspRdwAKia",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.qJZZdYBdNaWRJFER"
-            },
-            "img": "systems/pf2e/icons/spells/wholeness-of-body.webp",
-            "name": "Wholeness of Body",
-            "sort": 200000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": true,
-                "damage": {
-                    "0": {
-                        "category": null,
-                        "formula": "8",
-                        "kinds": [
-                            "healing"
-                        ],
-                        "materials": [],
-                        "type": "untyped"
-                    }
-                },
-                "defense": null,
-                "description": {
-                    "value": "<p>You heal yourself in one of the following ways, chosen by you when you cast the spell.</p>\n<ul>\n<li>You regain 8 Hit Points.</li>\n<li>You attempt to cure one poison or disease afflicting you; attempt to counteract the affliction.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+1)</strong> If you choose to regain Hit Points, the Hit Points regained increase by 8.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "8"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 2
-                },
-                "location": {
-                    "value": "aVCE3zDK0cQohDQM"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "wholeness-of-body",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "1"
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [],
-                    "value": [
-                        "concentrate",
-                        "focus",
-                        "healing",
-                        "monk",
-                        "vitality"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "mPatSnuRWStpVxCd",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.ps0nmhclT6aIXgd8"
-            },
-            "img": "systems/pf2e/icons/spells/ki-rush.webp",
-            "name": "Ki Rush",
-            "sort": 300000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>Accelerated by your ki, you move with such speed you become a blur. Move two times: two Strides, two Steps, or one Stride and one Step (in either order).</p>\n<p>You gain the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition during this movement and until the start of your next turn.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "aVCE3zDK0cQohDQM"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "ki-rush",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "1"
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [],
-                    "value": [
-                        "concentrate",
-                        "focus",
-                        "monk"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "TZgQQXZDUV4KuODk",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.ZL8NTvB22NeEWhVG"
-            },
-            "img": "systems/pf2e/icons/spells/ki-strike.webp",
-            "name": "Ki Strike",
-            "sort": 400000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": false,
-                        "category": null,
-                        "formula": "1d6",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "untyped"
-                    }
-                },
-                "defense": null,
-                "description": {
-                    "value": "<p>You focus your ki into magical attacks. Make an unarmed Strike or Flurry of Blows (this doesn't change the limit on using only one flourish per turn).</p>\n<p>You gain a +1 status bonus to your attack rolls with the Strikes, and the Strikes deal 1d6 extra damage. This damage can be any of the following types of your choice, chosen each time you Strike: force, lawful (only if you're lawful), negative, or positive.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Inner Upheaval]{Spell Effect: Ki Strike}</p>\n<hr />\n<p><strong>Heightened (+4)</strong> The extra damage increases by 1d6.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 4,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "aVCE3zDK0cQohDQM"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "ki-strike",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "1"
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [],
-                    "value": [
-                        "concentrate",
-                        "focus",
-                        "monk"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "wA8VVomLPk1zjrds",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FNDq4NFSN0g2HKWO"
-            },
-            "img": "icons/equipment/hand/gauntlet-simple-leather-brown-gold.webp",
-            "name": "Handwraps of Mighty Blows",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bonus": {
-                    "value": 1
-                },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "bulk": {
-                    "value": 0
-                },
-                "category": "unarmed",
-                "containerId": null,
-                "damage": {
-                    "damageType": "bludgeoning",
-                    "dice": 1,
-                    "die": "d4"
-                },
-                "description": {
-                    "value": "<p>As you invest these embroidered strips of cloth, you must meditate and slowly wrap them around your hands. These handwraps have weapon runes etched into them to give your unarmed attacks the benefits of those runes, making your unarmed attacks work like magic weapons. For example, <em>+1 striking handwraps of mighty blows</em> would give you a +1 item bonus to attack rolls with your unarmed attacks and increase the damage of your unarmed attacks from one weapon die to two (normally 2d4 instead of 1d4, but if your fists have a different weapon damage die or you have other unarmed attacks, use two of that die size instead).</p>\n<p>You can upgrade, add, and transfer runes to and from the handwraps just as you would for a weapon, and you can attach talismans to the handwraps. Treat the handwraps as melee weapons of the brawling group with light Bulk for these purposes. Property runes apply only when they would be applicable to the unarmed attack you're using. For example, a property that must be applied to a slashing weapon wouldn't function when you attacked with a fist, but you would gain its benefits if you attacked with a claw or some other slashing unarmed attack.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": null
-                },
-                "group": "brawling",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 2
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 35
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": ""
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "handwraps-of-mighty-blows",
-                "splashDamage": {
-                    "value": 0
-                },
                 "traits": {
                     "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "invested",
-                        "magical",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                },
-                "usage": {
-                    "value": "worngloves"
+                    "value": []
                 }
             },
-            "type": "weapon"
+            "type": "action"
+        },
+        {
+            "_id": "gk6ccJsfW8SnQ1XT",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Limited Flight",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The manticore paaridar's wings are small and weak, insufficient to keep them in the air. If the paaridar Flies using their wings, they fall at the end of their turn if they haven't landed.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5h2xMj0CQYOauzxy",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Monk Ki Spells",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The Paaridar's ki flow is unnaturally disrupted, causing them to take @Damage[1d6[void]] damage each time they cast a ki spell.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Ran96W84fw5Bh3Y3",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Manticore Lore",
+            "sort": 500000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 14
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         },
         {
             "_id": "ZlMkrt960OMod6zh",
@@ -477,144 +289,233 @@
             "type": "melee"
         },
         {
-            "_id": "7wxTRall7vLvrVdI",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Sharp Riposte",
+            "_id": "a2yR0jzspRdwAKia",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.qJZZdYBdNaWRJFER"
+            },
+            "img": "systems/pf2e/icons/spells/wholeness-of-body.webp",
+            "name": "Wholeness of Body",
             "sort": 900000,
             "system": {
-                "actionType": {
-                    "value": "reaction"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": null
+                "counteraction": true,
+                "damage": {
+                    "0": {
+                        "category": null,
+                        "formula": "8",
+                        "kinds": [
+                            "healing"
+                        ],
+                        "materials": [],
+                        "type": "untyped"
+                    }
                 },
-                "category": "defensive",
+                "defense": null,
                 "description": {
-                    "value": "<p><strong>Trigger</strong> An adjacent creature targets the paaridar with a melee attack</p>\n<hr />\n<p><strong>Effect</strong> The paaridar blocks the attack with their claws. The paaridar gains resistance 5 to physical damage from the attack, and if the attack hits, the attacker takes @Damage[(1d8+4)[slashing]] damage.</p>"
+                    "value": "<p>You heal yourself in one of the following ways, chosen by you when you cast the spell.</p>\n<ul>\n<li>You regain 8 Hit Points.</li>\n<li>You attempt to cure one poison or disease afflicting you; attempt to counteract the affliction.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+1)</strong> If you choose to regain Hit Points, the Hit Points regained increase by 8.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "value": "aVCE3zDK0cQohDQM"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "wholeness-of-body",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "1"
+                },
                 "traits": {
-                    "rarity": "common",
-                    "value": []
+                    "rarity": "uncommon",
+                    "traditions": [],
+                    "value": [
+                        "concentrate",
+                        "focus",
+                        "healing",
+                        "monk",
+                        "vitality"
+                    ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "vcbazPs6B9bMeBpm",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Flurry of Blows",
+            "_id": "mPatSnuRWStpVxCd",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.ps0nmhclT6aIXgd8"
+            },
+            "img": "systems/pf2e/icons/spells/ki-rush.webp",
+            "name": "Ki Rush",
             "sort": 1000000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The paaridar makes two unarmed Strikes or two spike Strikes. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses.</p>"
+                    "value": "<p>Accelerated by your ki, you move with such speed you become a blur. Move two times: two Strides, two Steps, or one Stride and one Step (in either order).</p>\n<p>You gain the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition during this movement and until the start of your next turn.</p>"
                 },
-                "frequency": {
-                    "max": 1,
-                    "per": "round",
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
                     "value": 1
+                },
+                "location": {
+                    "value": "aVCE3zDK0cQohDQM"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "ki-rush",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "1"
+                },
                 "traits": {
-                    "rarity": "common",
-                    "value": []
+                    "rarity": "uncommon",
+                    "traditions": [],
+                    "value": [
+                        "concentrate",
+                        "focus",
+                        "monk"
+                    ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "gk6ccJsfW8SnQ1XT",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Limited Flight",
+            "_id": "TZgQQXZDUV4KuODk",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.ZL8NTvB22NeEWhVG"
+            },
+            "img": "systems/pf2e/icons/spells/ki-strike.webp",
+            "name": "Ki Strike",
             "sort": 1100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": null
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "1d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "untyped"
+                    }
                 },
-                "category": "offensive",
+                "defense": null,
                 "description": {
-                    "value": "<p>The manticore paaridar's wings are small and weak, insufficient to keep them in the air. If the paaridar Flies using their wings, they fall at the end of their turn if they haven't landed.</p>"
+                    "value": "<p>You focus your ki into magical attacks. Make an unarmed Strike or Flurry of Blows (this doesn't change the limit on using only one flourish per turn).</p>\n<p>You gain a +1 status bonus to your attack rolls with the Strikes, and the Strikes deal 1d6 extra damage. This damage can be any of the following types of your choice, chosen each time you Strike: force, lawful (only if you're lawful), negative, or positive.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Inner Upheaval]{Spell Effect: Ki Strike}</p>\n<hr />\n<p><strong>Heightened (+4)</strong> The extra damage increases by 1d6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 4,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "aVCE3zDK0cQohDQM"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "ki-strike",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "1"
+                },
                 "traits": {
-                    "rarity": "common",
-                    "value": []
+                    "rarity": "uncommon",
+                    "traditions": [],
+                    "value": [
+                        "concentrate",
+                        "focus",
+                        "monk"
+                    ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "5h2xMj0CQYOauzxy",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "_id": "aVCE3zDK0cQohDQM",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Monk Ki Spells",
             "sort": 1200000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The Paaridar's ki flow is unnaturally disrupted, causing them to take @Damage[1d6[void]] damage each time they cast a ki spell.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Ran96W84fw5Bh3Y3",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Manticore Lore",
-            "sort": 1300000,
-            "system": {
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 14
+                "prepared": {
+                    "value": "focus"
                 },
-                "proficient": {
-                    "value": 0
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -622,9 +523,108 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 24,
+                    "value": 16
+                },
+                "tradition": {
+                    "value": "divine"
+                }
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "wA8VVomLPk1zjrds",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FNDq4NFSN0g2HKWO"
+            },
+            "img": "icons/equipment/hand/gauntlet-simple-leather-brown-gold.webp",
+            "name": "Handwraps of Mighty Blows",
+            "sort": 1300000,
+            "system": {
+                "baseItem": null,
+                "bonus": {
+                    "value": 1
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0
+                },
+                "category": "unarmed",
+                "containerId": null,
+                "damage": {
+                    "damageType": "bludgeoning",
+                    "dice": 1,
+                    "die": "d4"
+                },
+                "description": {
+                    "value": "<p>As you invest these embroidered strips of cloth, you must meditate and slowly wrap them around your hands. These handwraps have weapon runes etched into them to give your unarmed attacks the benefits of those runes, making your unarmed attacks work like magic weapons. For example, <em>+1 striking handwraps of mighty blows</em> would give you a +1 item bonus to attack rolls with your unarmed attacks and increase the damage of your unarmed attacks from one weapon die to two (normally 2d4 instead of 1d4, but if your fists have a different weapon damage die or you have other unarmed attacks, use two of that die size instead).</p>\n<p>You can upgrade, add, and transfer runes to and from the handwraps just as you would for a weapon, and you can attach talismans to the handwraps. Treat the handwraps as melee weapons of the brawling group with light Bulk for these purposes. Property runes apply only when they would be applicable to the unarmed attack you're using. For example, a property that must be applied to a slashing weapon wouldn't function when you attacked with a fist, but you would gain its benefits if you attacked with a claw or some other slashing unarmed attack.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "group": "brawling",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 2
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 35
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "handwraps-of-mighty-blows",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "invested",
+                        "magical",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                },
+                "usage": {
+                    "value": "worngloves"
+                }
+            },
+            "type": "weapon"
         }
     ],
     "name": "Manticore Paaridar",

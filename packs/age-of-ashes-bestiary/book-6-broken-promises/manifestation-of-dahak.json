@@ -4,21 +4,510 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "vfDhFBTrynIBoAmF",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Prepared Divine Spells",
+            "_id": "RgYma4kYCK90TSJD",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Imprisoned",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Dahak's manifestation can't physically exit the Adamantine Fen until conditions are right. Planar travel effects do not allow it to escape, nor can they banish it from the Adamantine Fen.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QD3U7kcL3GCOpa3y",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Smoke Vision",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Smoke doesn't impair a red dragon's vision; it ignores the concealed condition from smoke.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VlCgM24yW7fJGoEX",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Status to All Saves vs. Magic",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "prepared"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ekJjxL6yjWuexk2l",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity (Jaws Only)",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Jaws only</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "RBix0BOrbHGTntW9",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Dragonstorm Aura",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>10 feet. @Check[reflex|dc:45|basic]</p>\n<hr />\n<p>@Damage[2d6[acid],2d6[cold],2d6[electricity],2d6[fire],2d6[poison]]{10d6 damage split evenly between acid, cold electricity, fire, and poison}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 10,
+                        "slug": "dragonstorm-aura",
+                        "traits": [
+                            "divine"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "WsUJjMncNN9DWybk",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Frightful Presence",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>120 feet. @Check[will|dc:45]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 120,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": "frightful-presence",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rGBruApiTZDc1HuB",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Redirect Energy",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within 100 feet casts an acid, cold, fire, electricity, or poison spell, or such a spell otherwise comes into effect from a source within 100 feet</p>\n<hr />\n<p><strong>Effect</strong> The manifestation of Dahak makes all the choices to determine the targets, destination, or other effects of the spell, as though it were the caster.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6CJRM2LT3a7O3Hhp",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.g26YiEIfSHCpLocV"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Constrict",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Damage[(2d10+10)[bludgeoning],2d6[fire]]{2d10+10 bludgeoning damage plus 2d6 fire damage}, @Check[fortitude|dc:48|basic]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constrict",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fBvRbrhTqjBsWGVa",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Draconic Frenzy",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The dragon makes two claw Strikes and one wing Strike in any order.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wt7Ds9r5d3F2v34T",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Draconic Momentum",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The dragon recharges its Breath Weapon whenever it scores a critical hit with a Strike.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "attack",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Xnas07kWC3ZCJmY4",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Dragonstorm Breath",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The manifestation of Dahak breathes a blast of dragonstorm energy that deals @Damage[5d6[acid],5d6[cold],5d6[electricity],5d6[fire],5d6[poison]|options:area-damage]{5d6 acid, 5d6 cold, 5d6 electricity, 5d6 fire, and 5d6 poison damage} in a @Template[cone|distance:60] (@Check[reflex|dc:48|basic|traits:fire,acid,cold,electricity,poison|options:area-effect] save). It can't use Dragonstorm Breath again for [[/gmr 1d4 #Recharge Dragonstorm Breath]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BDUlQffqQeFK7d1K",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Focused Breath Weapon",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The manifestation breathes a blast of energy that deals 12d12 damage in a @Template[line|distance:90] (@Check[reflex|dc:44|basic|options:area-effect] save). The type of damage this Breath Weapon deals can be @Damage[12d12[acid]|options:area-damage]{acid}, @Damage[12d12[cold]|options:area-damage]{cold}, @Damage[12d12[electricity]|options:area-damage]{electricity}, @Damage[12d12[fire]|options:area-damage]{fire}, or @Damage[12d12[poison]|options:area-damage]{poison}, as chosen by the manifestation when it attacks. The manifestation can't use its focused Breath Weapon again for 2 rounds, and the next time it uses its Breath Weapon, it must deal a different type of damage than the previous usage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VGLGaYgY8xICa8nV",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Grab",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "improved-grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zhwIQhGc33778Khq",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.6l7e7CHQLESlI57U"
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Push",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedPush]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "improved-push",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "S7uX0GFBE6GEwURU",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Dragon Lore",
+            "sort": 1500000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 48
+                },
+                "proficient": {
                     "value": 0
                 },
                 "publication": {
@@ -27,167 +516,198 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "N4iWbXZwm99JOhYW"
-                            },
-                            {
-                                "id": "j3SJsv4Yzu2xrBE9"
-                            },
-                            {
-                                "id": "zJsDe5NQxa9jxbwM"
-                            },
-                            {
-                                "id": "rXMg5nUCnTK74UOF"
-                            },
-                            {
-                                "id": "tKTWVF45BpCiwPIm"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "PxwC0P976nZMD9Cj"
-                            },
-                            {
-                                "id": "PxwC0P976nZMD9Cj"
-                            },
-                            {
-                                "id": "ILhp9om0TyL8rPs8"
-                            }
-                        ]
-                    },
-                    "slot10": {
-                        "max": 1,
-                        "prepared": [
-                            {
-                                "id": "cFu6SN4TzP5KHbUs"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "T1frhhWm9qn3dXcv"
-                            },
-                            {
-                                "id": "T1frhhWm9qn3dXcv"
-                            },
-                            {
-                                "id": "4AdNG36F3Lsgoqop"
-                            }
-                        ]
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "5SKqm753F7LnQmhL"
-                            },
-                            {
-                                "id": "uWUzDIGedI7gkZI6"
-                            },
-                            {
-                                "id": "9PvTYhYlL8jmYmox"
-                            }
-                        ]
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "eXhwxLOj5yodAfqF"
-                            },
-                            {
-                                "id": "T1frhhWm9qn3dXcv"
-                            },
-                            {
-                                "id": "T1frhhWm9qn3dXcv"
-                            }
-                        ]
-                    },
-                    "slot5": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "KlTAwdkfxnWt6Je5"
-                            },
-                            {
-                                "id": "T1frhhWm9qn3dXcv"
-                            },
-                            {
-                                "id": "z3ZGGnw0L0tjqheO"
-                            }
-                        ]
-                    },
-                    "slot6": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "gHZyihePJ9MAGxvD"
-                            },
-                            {
-                                "id": "ySH4wKwIMKT6ZqwE"
-                            },
-                            {
-                                "id": "gHZyihePJ9MAGxvD"
-                            }
-                        ]
-                    },
-                    "slot7": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "Nc1xZY204cfSZ7aK"
-                            },
-                            {
-                                "id": "FXD3GKw1pY9yIx8H"
-                            },
-                            {
-                                "id": "Od8ZXMe6MUXA71IK"
-                            }
-                        ]
-                    },
-                    "slot8": {
-                        "max": 2,
-                        "prepared": [
-                            {
-                                "id": "T1frhhWm9qn3dXcv"
-                            },
-                            {
-                                "id": "gSyJuZ1GdT8L1IkH"
-                            }
-                        ]
-                    },
-                    "slot9": {
-                        "max": 2,
-                        "prepared": [
-                            {
-                                "id": "36kgjmyXoBtx42Yp"
-                            },
-                            {
-                                "id": "7VdMCd73xTCd0WLv"
-                            }
-                        ]
-                    }
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "8BX0w5bbGwyCsIQB",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 1600000,
+            "system": {
+                "attack": {
+                    "value": ""
                 },
-                "slug": null,
-                "spelldc": {
-                    "dc": 48,
-                    "mod": 0,
+                "attackEffects": {
+                    "value": [
+                        "improved-grab"
+                    ]
+                },
+                "bonus": {
                     "value": 44
                 },
-                "tradition": {
-                    "value": "divine"
+                "damageRolls": {
+                    "2cfln7tnbir2b4j0snr7": {
+                        "damage": "5d10+10",
+                        "damageType": "piercing"
+                    },
+                    "eapxgkr07wd75pzg3voa": {
+                        "damage": "4d6",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fire",
+                        "magical",
+                        "reach-20",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "HzVWIyzzAWGlhGDC",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 1700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 44
+                },
+                "damageRolls": {
+                    "afjlmstpfh6a1z1yxbob": {
+                        "damage": "8d8+8",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "reach-15",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "rU9gIiMETSDDnipL",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 1800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": [
+                        "improved-push"
+                    ]
+                },
+                "bonus": {
+                    "value": 43
+                },
+                "damageRolls": {
+                    "elg7skcorahhmn7y85x8": {
+                        "damage": "6d10+12",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "tail",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "reach-25"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "rWg63VpAt6JzaV7z",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Wing",
+            "sort": 1900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 43
+                },
+                "damageRolls": {
+                    "zpdeg0xodz9iakgnfps9": {
+                        "damage": "8d8+8",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "reach-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "cFu6SN4TzP5KHbUs",
@@ -196,7 +716,7 @@
             },
             "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
             "name": "Miracle",
-            "sort": 200000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -255,7 +775,7 @@
             },
             "img": "systems/pf2e/icons/spells/massacre.webp",
             "name": "Massacre",
-            "sort": 300000,
+            "sort": 2100000,
             "system": {
                 "area": {
                     "type": "line",
@@ -353,7 +873,7 @@
             },
             "img": "systems/pf2e/icons/spells/telepathic-demand.webp",
             "name": "Telepathic Demand",
-            "sort": 400000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -422,7 +942,7 @@
             },
             "img": "systems/pf2e/icons/spells/eclipse-burst.webp",
             "name": "Eclipse Burst",
-            "sort": 500000,
+            "sort": 2300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -523,7 +1043,7 @@
             },
             "img": "icons/magic/unholy/hand-claw-fog-green.webp",
             "name": "Finger of Death",
-            "sort": 600000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -607,7 +1127,7 @@
             },
             "img": "icons/skills/melee/strike-dagger-white-orange.webp",
             "name": "Blade Barrier",
-            "sort": 700000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -689,7 +1209,7 @@
             },
             "img": "systems/pf2e/icons/spells/spiritual-blast.webp",
             "name": "Spirit Blast",
-            "sort": 800000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -773,7 +1293,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-purple.webp",
             "name": "Abyssal Plague",
-            "sort": 900000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -841,7 +1361,7 @@
             },
             "img": "systems/pf2e/icons/spells/drop-dead.webp",
             "name": "Drop Dead",
-            "sort": 1000000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -902,7 +1422,7 @@
             },
             "img": "icons/magic/light/projectile-beam-yellow.webp",
             "name": "Divine Wrath",
-            "sort": 1100000,
+            "sort": 2900000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -990,7 +1510,7 @@
             },
             "img": "icons/skills/wounds/injury-eyes-blood-red.webp",
             "name": "Blindness",
-            "sort": 1200000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1058,7 +1578,7 @@
             },
             "img": "systems/pf2e/icons/spells/chilling-darkness.webp",
             "name": "Chilling Darkness",
-            "sort": 1300000,
+            "sort": 3100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1138,7 +1658,7 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
             "name": "Vampiric Touch",
-            "sort": 1400000,
+            "sort": 3200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1223,7 +1743,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 1500000,
+            "sort": 3300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1285,7 +1805,7 @@
             },
             "img": "systems/pf2e/icons/spells/see-invisibility.webp",
             "name": "See Invisibility",
-            "sort": 1600000,
+            "sort": 3400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1347,7 +1867,7 @@
             },
             "img": "systems/pf2e/icons/spells/command.webp",
             "name": "Command",
-            "sort": 1700000,
+            "sort": 3500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1426,7 +1946,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1800000,
+            "sort": 3600000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1493,7 +2013,7 @@
             },
             "img": "systems/pf2e/icons/spells/divine-lance.webp",
             "name": "Divine Lance",
-            "sort": 1900000,
+            "sort": 3700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1574,7 +2094,7 @@
             },
             "img": "systems/pf2e/icons/spells/guidance.webp",
             "name": "Guidance",
-            "sort": 2000000,
+            "sort": 3800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1635,7 +2155,7 @@
             },
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
-            "sort": 2100000,
+            "sort": 3900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1829,7 +2349,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 2200000,
+            "sort": 4000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2025,7 +2545,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Ray of Enfeeblement",
-            "sort": 2300000,
+            "sort": 4100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2092,7 +2612,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 2400000,
+            "sort": 4200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2171,7 +2691,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 2500000,
+            "sort": 4300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2227,699 +2747,21 @@
             "type": "spell"
         },
         {
-            "_id": "8BX0w5bbGwyCsIQB",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 2600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": [
-                        "improved-grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 44
-                },
-                "damageRolls": {
-                    "2cfln7tnbir2b4j0snr7": {
-                        "damage": "5d10+10",
-                        "damageType": "piercing"
-                    },
-                    "eapxgkr07wd75pzg3voa": {
-                        "damage": "4d6",
-                        "damageType": "fire"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "fire",
-                        "magical",
-                        "reach-20",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "HzVWIyzzAWGlhGDC",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 2700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 44
-                },
-                "damageRolls": {
-                    "afjlmstpfh6a1z1yxbob": {
-                        "damage": "8d8+8",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "reach-15",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "rU9gIiMETSDDnipL",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tail",
-            "sort": 2800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": [
-                        "improved-push"
-                    ]
-                },
-                "bonus": {
-                    "value": 43
-                },
-                "damageRolls": {
-                    "elg7skcorahhmn7y85x8": {
-                        "damage": "6d10+12",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "tail",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "reach-25"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "rWg63VpAt6JzaV7z",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Wing",
-            "sort": 2900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 43
-                },
-                "damageRolls": {
-                    "zpdeg0xodz9iakgnfps9": {
-                        "damage": "8d8+8",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "reach-20"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "RgYma4kYCK90TSJD",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Imprisoned",
-            "sort": 3000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Dahak's manifestation can't physically exit the Adamantine Fen until conditions are right. Planar travel effects do not allow it to escape, nor can they banish it from the Adamantine Fen.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "QD3U7kcL3GCOpa3y",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Smoke Vision",
-            "sort": 3100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Smoke doesn't impair a red dragon's vision; it ignores the concealed condition from smoke.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "VlCgM24yW7fJGoEX",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 Status to All Saves vs. Magic",
-            "sort": 3200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 2
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ekJjxL6yjWuexk2l",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity (Jaws Only)",
-            "sort": 3300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Jaws only</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "RBix0BOrbHGTntW9",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Dragonstorm Aura",
-            "sort": 3400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>10 feet. @Check[reflex|dc:45|basic]</p>\n<hr />\n<p>@Damage[2d6[acid],2d6[cold],2d6[electricity],2d6[fire],2d6[poison]]{10d6 damage split evenly between acid, cold electricity, fire, and poison}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 10,
-                        "slug": "dragonstorm-aura",
-                        "traits": [
-                            "divine"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "WsUJjMncNN9DWybk",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Frightful Presence",
-            "sort": 3500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>120 feet. @Check[will|dc:45]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 120,
-                        "slug": "frightful-presence",
-                        "traits": [
-                            "emotion",
-                            "fear",
-                            "mental"
-                        ]
-                    }
-                ],
-                "slug": "frightful-presence",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "emotion",
-                        "fear",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rGBruApiTZDc1HuB",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Redirect Energy",
-            "sort": 3600000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within 100 feet casts an acid, cold, fire, electricity, or poison spell, or such a spell otherwise comes into effect from a source within 100 feet</p>\n<hr />\n<p><strong>Effect</strong> The manifestation of Dahak makes all the choices to determine the targets, destination, or other effects of the spell, as though it were the caster.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "6CJRM2LT3a7O3Hhp",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.g26YiEIfSHCpLocV"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Constrict",
-            "sort": 3700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Damage[(2d10+10)[bludgeoning],2d6[fire]]{2d10+10 bludgeoning damage plus 2d6 fire damage}, @Check[fortitude|dc:48|basic]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constrict",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fBvRbrhTqjBsWGVa",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Draconic Frenzy",
-            "sort": 3800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The dragon makes two claw Strikes and one wing Strike in any order.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "wt7Ds9r5d3F2v34T",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Draconic Momentum",
-            "sort": 3900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The dragon recharges its Breath Weapon whenever it scores a critical hit with a Strike.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "attack",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Xnas07kWC3ZCJmY4",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Dragonstorm Breath",
-            "sort": 4000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The manifestation of Dahak breathes a blast of dragonstorm energy that deals @Damage[5d6[acid],5d6[cold],5d6[electricity],5d6[fire],5d6[poison]|options:area-damage]{5d6 acid, 5d6 cold, 5d6 electricity, 5d6 fire, and 5d6 poison damage} in a @Template[cone|distance:60] (@Check[reflex|dc:48|basic|traits:fire,acid,cold,electricity,poison|options:area-effect] save). It can't use Dragonstorm Breath again for [[/gmr 1d4 #Recharge Dragonstorm Breath]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "BDUlQffqQeFK7d1K",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Focused Breath Weapon",
-            "sort": 4100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The manifestation breathes a blast of energy that deals 12d12 damage in a @Template[line|distance:90] (@Check[reflex|dc:44|basic|options:area-effect] save). The type of damage this Breath Weapon deals can be @Damage[12d12[acid]|options:area-damage]{acid}, @Damage[12d12[cold]|options:area-damage]{cold}, @Damage[12d12[electricity]|options:area-damage]{electricity}, @Damage[12d12[fire]|options:area-damage]{fire}, or @Damage[12d12[poison]|options:area-damage]{poison}, as chosen by the manifestation when it attacks. The manifestation can't use its focused Breath Weapon again for 2 rounds, and the next time it uses its Breath Weapon, it must deal a different type of damage than the previous usage.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "VGLGaYgY8xICa8nV",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
-            },
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Improved Grab",
-            "sort": 4200000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "improved-grab",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "zhwIQhGc33778Khq",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.6l7e7CHQLESlI57U"
-            },
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Improved Push",
-            "sort": 4300000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedPush]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "improved-push",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "S7uX0GFBE6GEwURU",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Dragon Lore",
+            "_id": "vfDhFBTrynIBoAmF",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Prepared Divine Spells",
             "sort": 4400000,
             "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 48
+                "prepared": {
+                    "value": "prepared"
                 },
-                "proficient": {
+                "proficiency": {
                     "value": 0
                 },
                 "publication": {
@@ -2928,9 +2770,167 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "N4iWbXZwm99JOhYW"
+                            },
+                            {
+                                "id": "j3SJsv4Yzu2xrBE9"
+                            },
+                            {
+                                "id": "zJsDe5NQxa9jxbwM"
+                            },
+                            {
+                                "id": "rXMg5nUCnTK74UOF"
+                            },
+                            {
+                                "id": "tKTWVF45BpCiwPIm"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "PxwC0P976nZMD9Cj"
+                            },
+                            {
+                                "id": "PxwC0P976nZMD9Cj"
+                            },
+                            {
+                                "id": "ILhp9om0TyL8rPs8"
+                            }
+                        ]
+                    },
+                    "slot10": {
+                        "max": 1,
+                        "prepared": [
+                            {
+                                "id": "cFu6SN4TzP5KHbUs"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "T1frhhWm9qn3dXcv"
+                            },
+                            {
+                                "id": "T1frhhWm9qn3dXcv"
+                            },
+                            {
+                                "id": "4AdNG36F3Lsgoqop"
+                            }
+                        ]
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "5SKqm753F7LnQmhL"
+                            },
+                            {
+                                "id": "uWUzDIGedI7gkZI6"
+                            },
+                            {
+                                "id": "9PvTYhYlL8jmYmox"
+                            }
+                        ]
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "eXhwxLOj5yodAfqF"
+                            },
+                            {
+                                "id": "T1frhhWm9qn3dXcv"
+                            },
+                            {
+                                "id": "T1frhhWm9qn3dXcv"
+                            }
+                        ]
+                    },
+                    "slot5": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "KlTAwdkfxnWt6Je5"
+                            },
+                            {
+                                "id": "T1frhhWm9qn3dXcv"
+                            },
+                            {
+                                "id": "z3ZGGnw0L0tjqheO"
+                            }
+                        ]
+                    },
+                    "slot6": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "gHZyihePJ9MAGxvD"
+                            },
+                            {
+                                "id": "ySH4wKwIMKT6ZqwE"
+                            },
+                            {
+                                "id": "gHZyihePJ9MAGxvD"
+                            }
+                        ]
+                    },
+                    "slot7": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "Nc1xZY204cfSZ7aK"
+                            },
+                            {
+                                "id": "FXD3GKw1pY9yIx8H"
+                            },
+                            {
+                                "id": "Od8ZXMe6MUXA71IK"
+                            }
+                        ]
+                    },
+                    "slot8": {
+                        "max": 2,
+                        "prepared": [
+                            {
+                                "id": "T1frhhWm9qn3dXcv"
+                            },
+                            {
+                                "id": "gSyJuZ1GdT8L1IkH"
+                            }
+                        ]
+                    },
+                    "slot9": {
+                        "max": 2,
+                        "prepared": [
+                            {
+                                "id": "36kgjmyXoBtx42Yp"
+                            },
+                            {
+                                "id": "7VdMCd73xTCd0WLv"
+                            }
+                        ]
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 48,
+                    "mod": 0,
+                    "value": 44
+                },
+                "tradition": {
+                    "value": "divine"
+                }
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Manifestation Of Dahak",

@@ -3,21 +3,264 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "XEk3qVgQOYlGTNiG",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Innate Divine Spells",
+            "_id": "Bu3EUUlbn17nZdKq",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.sebk9XseMCRkDqRg"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Lifesense 60 feet",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "lifesense",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zaePCGVy6RdZ31CZ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "See Magic",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>An algea can see magic auras on creatures or objects that it can observe; it can't see magic auras on creatures or objects that are hidden from its view. It learns the schools of magic for all spells affecting creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gOTq88NERumC1U4Q",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
-                "proficiency": {
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "iAp1BgBeTFhgvNEP",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Grieving Aura",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. A creature that begins its turn in the aura must attempt a @Check[will|dc:27] save. Undead take a -2 circumstance penalty to this saving throw. The creature is then temporarily immune to the grieving aura for 1 hour.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> For 1 round, the creature can't use reactions and is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for that turn as it sobs uncontrollably.</p>\n<p><strong>Critical Failure</strong> As failure, but the effects lasts while the creature remains in the aura plus 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "grieving-aura",
+                        "traits": [
+                            "divine",
+                            "emotion",
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divine",
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "idd2T28Lmct79QDu",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Drain Magic",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Whenever a creature fails its save against Frenzied Beaks, the algea attempts to counter a spell effect active on that creature (6th level, counteract check +22). The algea can choose which effect to attempt to counteract for each creature.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fmcgopzl3nvrBJkz",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Frenzied Beaks",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Each foe in the swarm's space takes @Damage[5d6[piercing]|traits:item:rune:property:ghost-touch] damage (@Check[reflex|dc:30|basic]) and is exposed to drain magic. This damage affects incorporeal creatures as if it had the effects of a ghost touch property rune.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dCra4dM2DaOP8GAK",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Soul Cage",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>An incorporeal undead damaged by Frenzied Beaks must attempt a @Check[will|dc:30] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The undead is unaffected and is temporarily immune for 24 hours.</p>\n<p><strong>Success</strong> The undead takes a -10-foot status penalty to Speeds for 1 round.</p>\n<p><strong>Failure</strong> As success, but the undead is also @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] for 1 round, although it can attempt to Escape (DC 30).</p>\n<p><strong>Critical Failure</strong> The undead is restrained for 1 round. The algea can attempt to plane shift with the @UUID[Compendium.pf2e.conditionitems.Item.Restrained] creature even if that creature isn't willing, but an unwilling creature can attempt a Will save to resist @UUID[Compendium.pf2e.spells-srd.Item.Interplanar Teleport]. If it succeeds, the algea plane shifts and leaves the incorporeal creature behind, which is then no longer restrained.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "incapacitation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "moosBrxtijnM7YuU",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Boneyard Lore",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 21
+                },
+                "proficient": {
                     "value": 0
                 },
                 "publication": {
@@ -26,31 +269,9 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot2": {
-                        "max": 1,
-                        "value": 1
-                    },
-                    "slot4": {
-                        "max": 2,
-                        "value": 2
-                    },
-                    "slot7": {
-                        "max": 1,
-                        "value": 1
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 30,
-                    "mod": 0,
-                    "value": 22
-                },
-                "tradition": {
-                    "value": "divine"
-                }
+                "slug": null
             },
-            "type": "spellcastingEntry"
+            "type": "lore"
         },
         {
             "_id": "MMUnQ4sqzntfVl13",
@@ -59,7 +280,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-explosion-purple.webp",
             "name": "Plane Shift (Self and soul caged creatures only, to the Boneyard only)",
-            "sort": 200000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -122,7 +343,7 @@
             },
             "img": "icons/magic/death/undead-ghost-scream-teal.webp",
             "name": "Call Spirit",
-            "sort": 300000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -185,7 +406,7 @@
             },
             "img": "systems/pf2e/icons/spells/confusion.webp",
             "name": "Confusion",
-            "sort": 400000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -252,7 +473,7 @@
             },
             "img": "systems/pf2e/icons/spells/talking-corpse.webp",
             "name": "Talking Corpse",
-            "sort": 500000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -312,7 +533,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility",
-            "sort": 600000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -366,264 +587,21 @@
             "type": "spell"
         },
         {
-            "_id": "Bu3EUUlbn17nZdKq",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.sebk9XseMCRkDqRg"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Lifesense 60 feet",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "lifesense",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "zaePCGVy6RdZ31CZ",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "See Magic",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>An algea can see magic auras on creatures or objects that it can observe; it can't see magic auras on creatures or objects that are hidden from its view. It learns the schools of magic for all spells affecting creatures.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "gOTq88NERumC1U4Q",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "iAp1BgBeTFhgvNEP",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Grieving Aura",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>30 feet. A creature that begins its turn in the aura must attempt a @Check[will|dc:27] save. Undead take a -2 circumstance penalty to this saving throw. The creature is then temporarily immune to the grieving aura for 1 hour.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> For 1 round, the creature can't use reactions and is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for that turn as it sobs uncontrollably.</p>\n<p><strong>Critical Failure</strong> As failure, but the effects lasts while the creature remains in the aura plus 1 minute.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "slug": "grieving-aura",
-                        "traits": [
-                            "divine",
-                            "emotion",
-                            "mental"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "divine",
-                        "emotion",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "idd2T28Lmct79QDu",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Drain Magic",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Whenever a creature fails its save against Frenzied Beaks, the algea attempts to counter a spell effect active on that creature (6th level, counteract check +22). The algea can choose which effect to attempt to counteract for each creature.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fmcgopzl3nvrBJkz",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Frenzied Beaks",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Each foe in the swarm's space takes @Damage[5d6[piercing]|traits:item:rune:property:ghost-touch] damage (@Check[reflex|dc:30|basic]) and is exposed to drain magic. This damage affects incorporeal creatures as if it had the effects of a ghost touch property rune.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "dCra4dM2DaOP8GAK",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Soul Cage",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>An incorporeal undead damaged by Frenzied Beaks must attempt a @Check[will|dc:30] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The undead is unaffected and is temporarily immune for 24 hours.</p>\n<p><strong>Success</strong> The undead takes a -10-foot status penalty to Speeds for 1 round.</p>\n<p><strong>Failure</strong> As success, but the undead is also @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] for 1 round, although it can attempt to Escape (DC 30).</p>\n<p><strong>Critical Failure</strong> The undead is restrained for 1 round. The algea can attempt to plane shift with the @UUID[Compendium.pf2e.conditionitems.Item.Restrained] creature even if that creature isn't willing, but an unwilling creature can attempt a Will save to resist @UUID[Compendium.pf2e.spells-srd.Item.Interplanar Teleport]. If it succeeds, the algea plane shifts and leaves the incorporeal creature behind, which is then no longer restrained.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine",
-                        "incapacitation"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "moosBrxtijnM7YuU",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Boneyard Lore",
+            "_id": "XEk3qVgQOYlGTNiG",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Innate Divine Spells",
             "sort": 1400000,
             "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 21
+                "prepared": {
+                    "value": "innate"
                 },
-                "proficient": {
+                "proficiency": {
                     "value": 0
                 },
                 "publication": {
@@ -632,9 +610,31 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slots": {
+                    "slot2": {
+                        "max": 1,
+                        "value": 1
+                    },
+                    "slot4": {
+                        "max": 2,
+                        "value": 2
+                    },
+                    "slot7": {
+                        "max": 1,
+                        "value": 1
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 30,
+                    "mod": 0,
+                    "value": 22
+                },
+                "tradition": {
+                    "value": "divine"
+                }
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Algea",

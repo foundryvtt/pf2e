@@ -3,10 +3,151 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "CfzB5r8CSHETuXfA",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.BcSlVpaN72LoQ5BV"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Site Bound",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A ghost can stray no more than 120 feet from where it was killed or the place it haunts. Some are bound to items or creatures that were special to them rather than a location.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "ghost-site-bound",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "soQbbQbVd6xMuJl6",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Incorporeal",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A ghost has no body and can pass through physical objects, though it can't end its turn inside one. Most checks that use Strength and require a body, such as @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] and @UUID[Compendium.pf2e.actionspf2e.Item.Shove], don't work against a ghost, and a ghost can't attempt such checks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "type": "precision"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HvOzFzF3j47WTzIv",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.unR8VVR4yyRnsmnB"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Rejuvenation",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>Setting right the injustice that led to the ghost's death allows it to move on to the afterlife. Otherwise, when destroyed, the ghost re-forms after [[/br 2d4 #Rejuvenation]]{2d4 days} within the location it's bound to, fully healed.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "ghost-rejuvenation",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uYQrEbjjw3XIQ1cO",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.aiwlPSmNY9b6Psvd"
+            },
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Frightful Moan",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Each living creature within @Template[emanation|distance:30]{30 feet} who hears the ghost must attempt a @Check[will|dc:21] save. On a failure, a creature gains the @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} condition (or @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} on a critical failure).</p>\n<p>On a success, a creature can't be affected by this ghost's Frightful Moan for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "ghost-frightful-moan",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "nWtiD4ASp2FFsobD",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Ghostly Hand",
-            "sort": 100000,
+            "sort": 500000,
             "system": {
                 "attack": {
                     "value": ""
@@ -47,147 +188,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "CfzB5r8CSHETuXfA",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.BcSlVpaN72LoQ5BV"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Site Bound",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A ghost can stray no more than 120 feet from where it was killed or the place it haunts. Some are bound to items or creatures that were special to them rather than a location.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "ghost-site-bound",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "soQbbQbVd6xMuJl6",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Incorporeal",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A ghost has no body and can pass through physical objects, though it can't end its turn inside one. Most checks that use Strength and require a body, such as @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] and @UUID[Compendium.pf2e.actionspf2e.Item.Shove], don't work against a ghost, and a ghost can't attempt such checks.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Immunity",
-                        "type": "precision"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "HvOzFzF3j47WTzIv",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.unR8VVR4yyRnsmnB"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Rejuvenation",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>Setting right the injustice that led to the ghost's death allows it to move on to the afterlife. Otherwise, when destroyed, the ghost re-forms after [[/br 2d4 #Rejuvenation]]{2d4 days} within the location it's bound to, fully healed.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "ghost-rejuvenation",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "uYQrEbjjw3XIQ1cO",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.aiwlPSmNY9b6Psvd"
-            },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Frightful Moan",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Each living creature within @Template[emanation|distance:30]{30 feet} who hears the ghost must attempt a @Check[will|dc:21] save. On a failure, a creature gains the @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} condition (or @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} on a critical failure).</p>\n<p>On a success, a creature can't be affected by this ghost's Frightful Moan for 1 minute.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "ghost-frightful-moan",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine",
-                        "fear",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Ghost Commoner (BB)",

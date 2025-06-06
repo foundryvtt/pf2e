@@ -4,21 +4,356 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "mujbtzw2w6ou044c",
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Arcane Innate Spells",
+            "_id": "xVA8OR3w94lFhn9V",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 feet",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "re5ykch24w02sc7b",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Statuesense",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Ulistul built herself components granting her enhanced senses that can detect the location of other constructs and similar objects. She's aware of any constructs or inanimate statuary at the listed range.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "cvo2jPtdUJb7aWW4",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Z5JLcmODdNjkEBu4",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Status to All Saves vs. Effects Created by Constructs",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "origin:trait:construct"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zhivtbulh8incqga",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Artificer's Command",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr />\n<p><strong>Effect</strong> Ulistul directs one construct within 60 feet that can perceive her and has a level lower than hers, delivering helpful commands that improve its capabilities. The construct gains a +1 status bonus to attack rolls, damage rolls, and saving throws.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Artificer's Command]</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "moi5og7cfsnhxu7q",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Artificer's Eye",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Ulistul chooses one construct or statue she can currently perceive with a precise sense or with statuesense; usually, her only precise sense is vision. After choosing her target, she begins to perceive the target's surroundings as though she occupied its space. If the target is either an inanimate statue or a mindless creature, she can also verbally interact with nearby creatures (including issuing Artificer's Commands) or cause the target to move subtly, such as moving its mouth. This ability can be sustained indefinitely as long as Ulistul can perceive the target, though her visual stimuli from her own body are harder to process; she's @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] when using her own senses for the effect's duration.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "scrying"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zxaue83rtbozk3b8",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Dismantler",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Ulistul's attacks against constructs and objects gain the deadly d12 trait and ignore up to 10 of the target's Hardness and resistances.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:trait:construct",
+                                    "target:object"
+                                ]
+                            }
+                        ],
+                        "property": "weapon-traits",
+                        "value": "deadly-d12"
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:trait:construct",
+                                    "target:object"
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "oxpacd87ogbbbiq7",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Ivory Dictum",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Ulistul takes control of a construct within 30 feet. This has the effects of @UUID[Compendium.pf2e.spells-srd.Item.Dominate](@Check[will|dc:32]) but can affect mindless creatures and ignores the target's golem antimagic, if any.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "incapacitation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "w2eyHgOrm5G2ZnA7",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pk40hmh4zig769nn",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Jistka Lore",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 24
+                },
+                "proficient": {
                     "value": 0
                 },
                 "publication": {
@@ -27,60 +362,155 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "y0kcxknsdxjgxyap",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 1100000,
+            "system": {
+                "attack": {
+                    "value": ""
                 },
-                "slots": {
-                    "slot0": {
-                        "max": 3,
-                        "prepared": [
-                            "message",
-                            "shield",
-                            "telekinetic projectile"
-                        ],
-                        "value": 3
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 23
+                },
+                "damageRolls": {
+                    "tQtkcnJblDw7Ii9y": {
+                        "damage": "2d12+12",
+                        "damageType": "slashing"
                     },
-                    "slot4": {
-                        "max": 4,
-                        "prepared": [
-                            "fly",
-                            "resilient sphere",
-                            "resilient sphere",
-                            "shape stone"
-                        ],
-                        "value": 4
-                    },
-                    "slot5": {
-                        "max": 2,
-                        "prepared": [
-                            "secret chest (Advanced Player's Guide 226)",
-                            "sending"
-                        ],
-                        "value": 2
-                    },
-                    "slot6": {
-                        "max": 3,
-                        "prepared": [
-                            "cloudkill",
-                            "slow",
-                            "summon construct",
-                            "detect magic"
-                        ],
-                        "value": 3
+                    "tf9nb4b3krco5j6476ov": {
+                        "damage": "1d8",
+                        "damageType": "fire"
                     }
                 },
-                "slug": null,
-                "spelldc": {
-                    "dc": 30,
-                    "item": 0,
-                    "mod": 0,
-                    "value": 22
+                "description": {
+                    "value": ""
                 },
-                "tradition": {
-                    "value": "divine"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "reach-10",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "ue6gij3jwtdyh4ey",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 1200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 23
+                },
+                "damageRolls": {
+                    "CD0kLH8RZC39oAhN": {
+                        "damage": "2d10+12",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "reach-10",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "h5bgzsm0jttoq8b9",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Energy Beam",
+            "sort": 1300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 22
+                },
+                "damageRolls": {
+                    "6UcXKCIoGZcXML9l": {
+                        "damage": "2d12+12",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fire",
+                        "lawful",
+                        "magical",
+                        "range-increment-60"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "vx8ZJpEMvoSab6vd",
@@ -89,7 +519,7 @@
             },
             "img": "icons/creatures/slimes/slime-movement-splash-green.webp",
             "name": "Cloudkill",
-            "sort": 200000,
+            "sort": 1400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -178,7 +608,7 @@
             },
             "img": "systems/pf2e/icons/spells/secret-chest.webp",
             "name": "Secret Chest",
-            "sort": 300000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -239,7 +669,7 @@
             },
             "img": "systems/pf2e/icons/spells/sending.webp",
             "name": "Sending",
-            "sort": 400000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -302,7 +732,7 @@
             },
             "img": "icons/creatures/mammals/bats-movement-flying-black.webp",
             "name": "Fly",
-            "sort": 500000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -364,7 +794,7 @@
             },
             "img": "icons/magic/unholy/orb-beam-pink.webp",
             "name": "Resilient Sphere",
-            "sort": 600000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -430,7 +860,7 @@
             },
             "img": "systems/pf2e/icons/spells/shape-stone.webp",
             "name": "Shape Stone",
-            "sort": 700000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -497,7 +927,7 @@
             },
             "img": "icons/magic/time/hourglass-tilted-gray.webp",
             "name": "Slow",
-            "sort": 800000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -564,7 +994,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic (Constant)",
-            "sort": 900000,
+            "sort": 2100000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -631,7 +1061,7 @@
             },
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
-            "sort": 1000000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -696,7 +1126,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 1100000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -758,7 +1188,7 @@
             },
             "img": "systems/pf2e/icons/spells/summon-construct.webp",
             "name": "Summon Construct",
-            "sort": 1200000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -818,7 +1248,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 1300000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -936,502 +1366,21 @@
             "type": "spell"
         },
         {
-            "_id": "y0kcxknsdxjgxyap",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 1400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 23
-                },
-                "damageRolls": {
-                    "tQtkcnJblDw7Ii9y": {
-                        "damage": "2d12+12",
-                        "damageType": "slashing"
-                    },
-                    "tf9nb4b3krco5j6476ov": {
-                        "damage": "1d8",
-                        "damageType": "fire"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "reach-10",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "ue6gij3jwtdyh4ey",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 1500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 23
-                },
-                "damageRolls": {
-                    "CD0kLH8RZC39oAhN": {
-                        "damage": "2d10+12",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "reach-10",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "h5bgzsm0jttoq8b9",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Energy Beam",
-            "sort": 1600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 22
-                },
-                "damageRolls": {
-                    "6UcXKCIoGZcXML9l": {
-                        "damage": "2d12+12",
-                        "damageType": "fire"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "fire",
-                        "lawful",
-                        "magical",
-                        "range-increment-60"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "xVA8OR3w94lFhn9V",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 100 feet",
-            "sort": 1700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "re5ykch24w02sc7b",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Statuesense",
-            "sort": 1800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Ulistul built herself components granting her enhanced senses that can detect the location of other constructs and similar objects. She's aware of any constructs or inanimate statuary at the listed range.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "cvo2jPtdUJb7aWW4",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 1900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Z5JLcmODdNjkEBu4",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 Status to All Saves vs. Effects Created by Constructs",
-            "sort": 2000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "origin:trait:construct"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 2
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "zhivtbulh8incqga",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Artificer's Command",
-            "sort": 2100000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p><hr />\n<p><strong>Effect</strong> Ulistul directs one construct within 60 feet that can perceive her and has a level lower than hers, delivering helpful commands that improve its capabilities. The construct gains a +1 status bonus to attack rolls, damage rolls, and saving throws.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Artificer's Command]</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "moi5og7cfsnhxu7q",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Artificer's Eye",
-            "sort": 2200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Ulistul chooses one construct or statue she can currently perceive with a precise sense or with statuesense; usually, her only precise sense is vision. After choosing her target, she begins to perceive the target's surroundings as though she occupied its space. If the target is either an inanimate statue or a mindless creature, she can also verbally interact with nearby creatures (including issuing Artificer's Commands) or cause the target to move subtly, such as moving its mouth. This ability can be sustained indefinitely as long as Ulistul can perceive the target, though her visual stimuli from her own body are harder to process; she's @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] when using her own senses for the effect's duration.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "scrying"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "zxaue83rtbozk3b8",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Dismantler",
-            "sort": 2300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Ulistul's attacks against constructs and objects gain the deadly d12 trait and ignore up to 10 of the target's Hardness and resistances.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "target:trait:construct",
-                                    "target:object"
-                                ]
-                            }
-                        ],
-                        "property": "weapon-traits",
-                        "value": "deadly-d12"
-                    },
-                    {
-                        "key": "Note",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "target:trait:construct",
-                                    "target:object"
-                                ]
-                            }
-                        ],
-                        "selector": "strike-damage",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}",
-                        "visibility": "owner"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "oxpacd87ogbbbiq7",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Ivory Dictum",
-            "sort": 2400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Ulistul takes control of a construct within 30 feet. This has the effects of @UUID[Compendium.pf2e.spells-srd.Item.Dominate](@Check[will|dc:32]) but can affect mindless creatures and ignores the target's golem antimagic, if any.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "incapacitation"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "w2eyHgOrm5G2ZnA7",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
-            "sort": 2500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "grab",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "pk40hmh4zig769nn",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Jistka Lore",
+            "_id": "mujbtzw2w6ou044c",
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Arcane Innate Spells",
             "sort": 2600000,
             "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 24
+                "prepared": {
+                    "value": "innate"
                 },
-                "proficient": {
+                "proficiency": {
                     "value": 0
                 },
                 "publication": {
@@ -1440,9 +1389,60 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {
+                    "slot0": {
+                        "max": 3,
+                        "prepared": [
+                            "message",
+                            "shield",
+                            "telekinetic projectile"
+                        ],
+                        "value": 3
+                    },
+                    "slot4": {
+                        "max": 4,
+                        "prepared": [
+                            "fly",
+                            "resilient sphere",
+                            "resilient sphere",
+                            "shape stone"
+                        ],
+                        "value": 4
+                    },
+                    "slot5": {
+                        "max": 2,
+                        "prepared": [
+                            "secret chest (Advanced Player's Guide 226)",
+                            "sending"
+                        ],
+                        "value": 2
+                    },
+                    "slot6": {
+                        "max": 3,
+                        "prepared": [
+                            "cloudkill",
+                            "slow",
+                            "summon construct",
+                            "detect magic"
+                        ],
+                        "value": 3
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 30,
+                    "item": 0,
+                    "mod": 0,
+                    "value": 22
+                },
+                "tradition": {
+                    "value": "divine"
+                }
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Ulistul",

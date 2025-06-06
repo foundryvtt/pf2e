@@ -4,23 +4,144 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "qg3r6OKHjX8qHiNS",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "M2JcdJZTsdKY31Ed",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "DxJcguaM5VY5ipoX",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Status to All Saves vs. Magic",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
-                    "value": 0
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hvdEekJwNvI4RMw1",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "-2 to All Saves (If Heartstone is Lost)",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "saving-throw",
+                        "key": "RollOption",
+                        "option": "lost-heartstone",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "lost-heartstone"
+                        ],
+                        "selector": "saving-throw",
+                        "value": -2
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "yuLQ9sFd8fTrXXTj",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Aslynn's Gaze",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Aslynn gazes upon a creature, afflicting it with intense distress and a gnawing sense of impending doom; the creature must attempt a @Check[will|dc:30] save. Since this effect isn't visual, the creature doesn't need to be able to see Aslynn to be affected.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and is temporarily immune to Aslynn's gaze for 1 day.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is frightened 1 and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and slowed 1 for 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -28,21 +149,435 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 30,
-                    "mod": 0,
-                    "value": 22
-                },
-                "tradition": {
-                    "value": "occult"
+                "traits": {
+                    "value": [
+                        "curse",
+                        "emotion",
+                        "fear",
+                        "mental",
+                        "occult"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "wya8y6adOGTfI5jX",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Aslynn can takes on the specific appearance of any Medium female humanoid or any Large or smaller cat who she has seen and whose appearance she remembers. This doesn't change her Speed or her attack and damage bonuses with her Strikes but might change the damage type her Strikes deal (typically to bludgeoning).</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "change-shape",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "occult",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NQDVbGtmbPnfDJxZ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Dream Theft",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Aslynn can trap a dreaming mind in her siphoning heartstone. She can force the dreaming creature into a lucid body and enter its dreamscape (@Check[will|dc:27] save negates). There, if the creature's lucid body would be killed, she can trap the creature's dreaming mind within her siphoning heartstone, causing the creature's body to remain in a mindless coma indefinitely.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "incapacitation",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "iIyI1mfhlZaog0gJ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Ethereal Spying",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Aslynn plucks an ethereal eye from the air and sends it off to do her spy work. The eye has AC 18, HP 1, and a fly speed of 60 feet. Aslynn can see through this eye and move it in any direction using a single action.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uRUu4i6CLIVFjcbZ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Nightmarish Wounds",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Wounds caused by Aslynn's claws cause creatures to dwell on their worst nightmares. A creature damaged by Aslynn's claw must succeed at a @Check[fortitude|dc:30] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 day. On a critical failure, or if it gets hit again and fails its save a second time, it's @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 day.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SZafYEjKmu9zC1XL",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Spell Ambush",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to the night hag takes a -2 circumstance penalty to checks and DCs to defend against her spells.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "spell-attack",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uo6lKFMbqZxMQ8gr",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Yv6WDpfxcukReBl4"
+            },
+            "img": "systems/pf2e/icons/default-icons/equipment.svg",
+            "name": "Bring Me Near",
+            "sort": 1000000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This collapsible fine spyglass consists of 3 leather tubes that slide into one another. The edge of each is trimmed in silver, and the lenses are made of finely crafted glass. While looking through it, you gain a +2 item bonus to any Perception checks made involving sight.</p>\n<p><strong>Activate</strong> 1 minute (envision, Interact)</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You focus on any spot you can see within 5 miles through the spyglass and rotate its parts in a meticulous order. You and up to 4 willing creatures adjacent to you are instantly teleported to that spot. If there's not enough room for everyone, only you are transported. If there's not enough room for you, the teleportation fails.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 12
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1800
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Treasure Vault"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "visual"
+                        ],
+                        "selector": "perception",
+                        "type": "item",
+                        "value": 2
+                    }
+                ],
+                "size": "med",
+                "slug": "bring-me-near",
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "magical",
+                        "teleportation"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "tXmJsvy8cmebCijh",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.9XkETOZQWMAdfzch"
+            },
+            "img": "icons/commodities/gems/gem-rough-heart-pink.webp",
+            "name": "Siphoning Heartstone",
+            "sort": 1100000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This variant of a traditional hag's heartstone was crafted from the petrified tears of a dream dragon, which is psychically attuned by Aslynn's spirit and proximity. The <em>siphoning heartstone</em> stores the dreaming minds stolen by Aslynn through her siphoning stones. Aslynn can release a stored mind, sifting out its essence, but such tampering usually inflicts psychological harm, resulting in new phobias or sleep disorders.</p>\n<p>When Aslynn wears the <em>siphoning heartstone</em>, she gains a +2 item bonus to saving throws. Additionally, it grants her Dream Theft ability and allows her to use additional occult innate spells: @UUID[Compendium.pf2e.spells-srd.Item.Ethereal Jaunt] (9th level), @UUID[Compendium.pf2e.spells-srd.Item.Seize Soul], and @UUID[Compendium.pf2e.spells-srd.Item.Mind Reading] at will. If it's separated from Aslynn for 24 hours (or she's been dead for 24 hours), the <em>siphoning heartstone</em> becomes a nonmagical gemstone.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> command</p>\n<p><strong>Requirements</strong> You must be touching the siphoning heartstone</p>\n<hr />\n<p><strong>Effect</strong> The <em>siphoning heartstone</em> attempts to counteract one disease affecting you (counteract rank 5, counteract modifier [[/r 1d20+18 #Counteract]]{+18}).</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 9
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 600
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Society Scenario #4-17: Trapping the Hag's Claw"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "saving-throw",
+                        "type": "item",
+                        "value": 2
+                    }
+                ],
+                "size": "med",
+                "slug": "heartstone",
+                "traits": {
+                    "rarity": "unique",
+                    "value": [
+                        "invested",
+                        "occult"
+                    ]
+                },
+                "usage": {
+                    "value": "worn"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "3cGYB1usBk6SXYto",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 1200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "yeifsloxt6hkhwx6qerj": {
+                        "damage": "2d8+11",
+                        "damageType": "piercing"
+                    },
+                    "7k6jiobi823nrzg86qog": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "jaws",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "unarmed",
+                        "unholy"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "tV18raweChPRFzPo",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 1300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "nightmarish-wounds"
+                    ]
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "fiwkr8ru9ii18fsx4b42": {
+                        "damage": "2d12+13",
+                        "damageType": "slashing"
+                    },
+                    "h0xxzb3igakz29s7dud3": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "unarmed",
+                        "unholy"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "uxpBDVyA3sf3skst",
@@ -51,7 +586,7 @@
             },
             "img": "icons/magic/unholy/orb-glowing-purple.webp",
             "name": "Bind Soul (At Will) (Heartstone)",
-            "sort": 200000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -113,7 +648,7 @@
             },
             "img": "icons/consumables/food/candy-pattie-pink-white.webp",
             "name": "Dream Council",
-            "sort": 300000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -177,7 +712,7 @@
             },
             "img": "systems/pf2e/icons/spells/etheral-jaunt.webp",
             "name": "Ethereal Jaunt (At Will) (Heartstone)",
-            "sort": 400000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -252,7 +787,7 @@
             },
             "img": "icons/magic/earth/explosion-lava-stone-red.webp",
             "name": "Phantasmal Calamity",
-            "sort": 500000,
+            "sort": 1700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -345,7 +880,7 @@
             },
             "img": "systems/pf2e/icons/spells/scrying.webp",
             "name": "Scrying",
-            "sort": 600000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -412,7 +947,7 @@
             },
             "img": "icons/magic/control/encase-creature-spider-hold.webp",
             "name": "Nightmare",
-            "sort": 700000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -480,7 +1015,7 @@
             },
             "img": "icons/skills/trades/music-singing-voice-blue.webp",
             "name": "Dream Message (At Will)",
-            "sort": 800000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -553,7 +1088,7 @@
             },
             "img": "systems/pf2e/icons/spells/mind-reading.webp",
             "name": "Mind Reading (At Will) (Heartstone)",
-            "sort": 900000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -621,7 +1156,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility (At Will)",
-            "sort": 1000000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -682,7 +1217,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic (Constant 3rd)",
-            "sort": 1100000,
+            "sort": 2300000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -749,7 +1284,7 @@
             },
             "img": "systems/pf2e/icons/spells/magic-missile.webp",
             "name": "Magic Missile (At Will)",
-            "sort": 1200000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -823,7 +1358,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Ray of Enfeeblement (At Will)",
-            "sort": 1300000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -891,7 +1426,7 @@
             },
             "img": "systems/pf2e/icons/spells/sleep.webp",
             "name": "Sleep (At Will)",
-            "sort": 1400000,
+            "sort": 2600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -957,580 +1492,45 @@
             "type": "spell"
         },
         {
-            "_id": "uo6lKFMbqZxMQ8gr",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Yv6WDpfxcukReBl4"
-            },
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "Bring Me Near",
-            "sort": 1500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This collapsible fine spyglass consists of 3 leather tubes that slide into one another. The edge of each is trimmed in silver, and the lenses are made of finely crafted glass. While looking through it, you gain a +2 item bonus to any Perception checks made involving sight.</p>\n<p><strong>Activate</strong> 1 minute (envision, Interact)</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You focus on any spot you can see within 5 miles through the spyglass and rotate its parts in a meticulous order. You and up to 4 willing creatures adjacent to you are instantly teleported to that spot. If there's not enough room for everyone, only you are transported. If there's not enough room for you, the teleportation fails.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 12
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 1800
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Treasure Vault"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "visual"
-                        ],
-                        "selector": "perception",
-                        "type": "item",
-                        "value": 2
-                    }
-                ],
-                "size": "med",
-                "slug": "bring-me-near",
-                "traits": {
-                    "rarity": "uncommon",
-                    "value": [
-                        "magical",
-                        "teleportation"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "tXmJsvy8cmebCijh",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.9XkETOZQWMAdfzch"
-            },
-            "img": "icons/commodities/gems/gem-rough-heart-pink.webp",
-            "name": "Siphoning Heartstone",
-            "sort": 1600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This variant of a traditional hag's heartstone was crafted from the petrified tears of a dream dragon, which is psychically attuned by Aslynn's spirit and proximity. The <em>siphoning heartstone</em> stores the dreaming minds stolen by Aslynn through her siphoning stones. Aslynn can release a stored mind, sifting out its essence, but such tampering usually inflicts psychological harm, resulting in new phobias or sleep disorders.</p>\n<p>When Aslynn wears the <em>siphoning heartstone</em>, she gains a +2 item bonus to saving throws. Additionally, it grants her Dream Theft ability and allows her to use additional occult innate spells: @UUID[Compendium.pf2e.spells-srd.Item.Ethereal Jaunt] (9th level), @UUID[Compendium.pf2e.spells-srd.Item.Seize Soul], and @UUID[Compendium.pf2e.spells-srd.Item.Mind Reading] at will. If it's separated from Aslynn for 24 hours (or she's been dead for 24 hours), the <em>siphoning heartstone</em> becomes a nonmagical gemstone.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> command</p>\n<p><strong>Requirements</strong> You must be touching the siphoning heartstone</p>\n<hr />\n<p><strong>Effect</strong> The <em>siphoning heartstone</em> attempts to counteract one disease affecting you (counteract rank 5, counteract modifier [[/r 1d20+18 #Counteract]]{+18}).</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 9
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 600
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Society Scenario #4-17: Trapping the Hag's Claw"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": "saving-throw",
-                        "type": "item",
-                        "value": 2
-                    }
-                ],
-                "size": "med",
-                "slug": "heartstone",
-                "traits": {
-                    "rarity": "unique",
-                    "value": [
-                        "invested",
-                        "occult"
-                    ]
-                },
-                "usage": {
-                    "value": "worn"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "3cGYB1usBk6SXYto",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 1700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 24
-                },
-                "damageRolls": {
-                    "yeifsloxt6hkhwx6qerj": {
-                        "damage": "2d8+11",
-                        "damageType": "piercing"
-                    },
-                    "7k6jiobi823nrzg86qog": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "jaws",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "unarmed",
-                        "unholy"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "tV18raweChPRFzPo",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 1800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "nightmarish-wounds"
-                    ]
-                },
-                "bonus": {
-                    "value": 24
-                },
-                "damageRolls": {
-                    "fiwkr8ru9ii18fsx4b42": {
-                        "damage": "2d12+13",
-                        "damageType": "slashing"
-                    },
-                    "h0xxzb3igakz29s7dud3": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "unarmed",
-                        "unholy"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "M2JcdJZTsdKY31Ed",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 1900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "DxJcguaM5VY5ipoX",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 Status to All Saves vs. Magic",
-            "sort": 2000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 2
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "hvdEekJwNvI4RMw1",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "-2 to All Saves (If Heartstone is Lost)",
-            "sort": 2100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "saving-throw",
-                        "key": "RollOption",
-                        "option": "lost-heartstone",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "lost-heartstone"
-                        ],
-                        "selector": "saving-throw",
-                        "value": -2
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "yuLQ9sFd8fTrXXTj",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Aslynn's Gaze",
-            "sort": 2200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Aslynn gazes upon a creature, afflicting it with intense distress and a gnawing sense of impending doom; the creature must attempt a @Check[will|dc:30] save. Since this effect isn't visual, the creature doesn't need to be able to see Aslynn to be affected.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and is temporarily immune to Aslynn's gaze for 1 day.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is frightened 1 and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and slowed 1 for 1 minute.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "curse",
-                        "emotion",
-                        "fear",
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "wya8y6adOGTfI5jX",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
-            "sort": 2300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Aslynn can takes on the specific appearance of any Medium female humanoid or any Large or smaller cat who she has seen and whose appearance she remembers. This doesn't change her Speed or her attack and damage bonuses with her Strikes but might change the damage type her Strikes deal (typically to bludgeoning).</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "change-shape",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "occult",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "NQDVbGtmbPnfDJxZ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Dream Theft",
-            "sort": 2400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Aslynn can trap a dreaming mind in her siphoning heartstone. She can force the dreaming creature into a lucid body and enter its dreamscape (@Check[will|dc:27] save negates). There, if the creature's lucid body would be killed, she can trap the creature's dreaming mind within her siphoning heartstone, causing the creature's body to remain in a mindless coma indefinitely.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "incapacitation",
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "iIyI1mfhlZaog0gJ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Ethereal Spying",
-            "sort": 2500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Aslynn plucks an ethereal eye from the air and sends it off to do her spy work. The eye has AC 18, HP 1, and a fly speed of 60 feet. Aslynn can see through this eye and move it in any direction using a single action.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "uRUu4i6CLIVFjcbZ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Nightmarish Wounds",
-            "sort": 2600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Wounds caused by Aslynn's claws cause creatures to dwell on their worst nightmares. A creature damaged by Aslynn's claw must succeed at a @Check[fortitude|dc:30] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 day. On a critical failure, or if it gets hit again and fails its save a second time, it's @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 day.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "SZafYEjKmu9zC1XL",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Spell Ambush",
+            "_id": "qg3r6OKHjX8qHiNS",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 2700000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>A creature @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to the night hag takes a -2 circumstance penalty to checks and DCs to defend against her spells.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "spell-attack",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
-                    }
-                ],
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 30,
+                    "mod": 0,
+                    "value": 22
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Aslynn the Dream Taker",

@@ -4,24 +4,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "HkaLSWDV9fVv0xkG",
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Primal Spontaneous Spells",
+            "_id": "e77kx9kh3ao1pfk0",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Soul-Shaking Croak",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "actionType": {
+                    "value": "action"
                 },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Spellcasting Type",
-                    "type": "String",
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 0
+                    "value": "<p>Grouloop utters a powerful croak that deals @Damage[6d10[sonic]] damage to any non-boggard within a @Template[emanation|distance:30|damaging:yes]{30-foot emanation} (@Check[fortitude|dc:27|basic] save).</p>\n<p>A creature with the @UUID[Compendium.pf2e.conditionitems.Item.Frightened] condition that fails its saving throw increases its frightened condition by 1 (on a critical failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for as long as it is frightened).</p>\n<p>Grouloop can't use Soul-Shaking Croak again for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -29,100 +25,292 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "1IEZxdlDsJHNF6VV"
-                            },
-                            {
-                                "id": "fDbIT4q0JydBhMCK"
-                            },
-                            {
-                                "id": "bitevPtOPEfaCxKO"
-                            },
-                            {
-                                "id": "RoDaBtE64gU7LBoq"
-                            },
-                            {
-                                "id": "xEJutcuDDeoy8pd6"
-                            }
-                        ],
-                        "value": 5
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "rXm4NbStEWsSWRyv"
-                            },
-                            {
-                                "id": "mokjSeYW7fRSVnUv"
-                            }
-                        ],
-                        "value": 3
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "fGb9MekqMQPmhr0Z"
-                            },
-                            {
-                                "id": "wdZoDvKO1KuqCFGn"
-                            }
-                        ],
-                        "value": 3
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "LYNCsl1NBJphmoHd"
-                            },
-                            {
-                                "id": "ZOn5e98fPXQWcmt2"
-                            }
-                        ],
-                        "value": 3
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "tVPWhKVON4Tv71WK"
-                            },
-                            {
-                                "id": "rySQf0FxKvR2sK7j"
-                            }
-                        ],
-                        "value": 3
-                    },
-                    "slot5": {
-                        "max": 2,
-                        "prepared": [
-                            {
-                                "id": "W8umMB2LsPZAyh2W"
-                            }
-                        ],
-                        "value": 2
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 28,
-                    "item": 0,
-                    "label": "Class DC",
-                    "mod": 0,
-                    "type": "String",
-                    "value": 20
-                },
-                "tradition": {
-                    "value": "divine"
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "sonic"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "q19s4nupvasfksu1",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Swamp Stride",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Grouloop ignores difficult terrain caused by swamp terrain features.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "q2xt5rycxzs5o14q",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tongue Grab",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If Grouloop hits a creature with her tongue, that creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]. Unlike with a normal grab, the creature isn't @UUID[Compendium.pf2e.conditionitems.Item.Immobilized], but it can't move beyond the reach of Grouloop's tongue.</p>\n<p>A creature can sever the tongue by hitting AC 24 and dealing at least 9 slashing damage. Though this doesn't deal any damage to the boggard, it prevents her from using her tongue Strike until she regrows her tongue, which takes a week.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zcuDHSCu30NxcvlE",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
+            },
+            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
+            "name": "Leather Armor",
+            "sort": 400000,
+            "system": {
+                "acBonus": 1,
+                "baseItem": "leather-armor",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
+                },
+                "dexCap": 4,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "leather-armor",
+                "speedPenalty": 0,
+                "strength": 0,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "z9izmkpvmp7qy2lq",
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Bag of Dead Dragonflies",
+            "sort": 500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "clflpru3zpd91jst",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "7CMichBc5pvHmVIa"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Sickle",
+            "sort": 600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "7dupd6wcVhpyzeST": {
+                        "damage": "1d4+6",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "trip"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "4dgnrtynr68usjup",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tongue",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "tongue-grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "isYrMsMIeEc2oBoF": {
+                        "damage": "1d4+6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "8DyBC0HzyCgSNjXN",
@@ -131,7 +319,7 @@
             },
             "img": "systems/pf2e/icons/spells/primal-call.webp",
             "name": "Primal Call",
-            "sort": 200000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -194,7 +382,7 @@
             },
             "img": "icons/creatures/slimes/slime-movement-splash-green.webp",
             "name": "Cloudkill",
-            "sort": 300000,
+            "sort": 900000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -282,7 +470,7 @@
             },
             "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
             "name": "Freedom of Movement",
-            "sort": 400000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -343,7 +531,7 @@
             },
             "img": "icons/magic/air/wind-tornado-funnel-damage-blue.webp",
             "name": "Hydraulic Torrent",
-            "sort": 500000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "line",
@@ -430,7 +618,7 @@
             },
             "img": "icons/creatures/mammals/dog-husky-white-blue.webp",
             "name": "Animal Vision",
-            "sort": 600000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -491,7 +679,7 @@
             },
             "img": "systems/pf2e/icons/spells/glyph-of-warding.webp",
             "name": "Glyph of Warding",
-            "sort": 700000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -553,7 +741,7 @@
             },
             "img": "icons/creatures/slimes/slime-movement-splash-green.webp",
             "name": "Stinking Cloud",
-            "sort": 800000,
+            "sort": 1400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -622,7 +810,7 @@
             },
             "img": "systems/pf2e/icons/spells/acid-arrow.webp",
             "name": "Acid Arrow",
-            "sort": 900000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -703,7 +891,7 @@
             },
             "img": "icons/magic/holy/chalice-glowing-gold-water.webp",
             "name": "Consecrate",
-            "sort": 1000000,
+            "sort": 1600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -769,7 +957,7 @@
             },
             "img": "systems/pf2e/icons/spells/darkness.webp",
             "name": "Darkness",
-            "sort": 1100000,
+            "sort": 1700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -836,7 +1024,7 @@
             },
             "img": "systems/pf2e/icons/spells/summon-elemental.webp",
             "name": "Summon Elemental",
-            "sort": 1200000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -897,7 +1085,7 @@
             },
             "img": "icons/magic/water/wave-water-blue.webp",
             "name": "Water Walk",
-            "sort": 1300000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -958,7 +1146,7 @@
             },
             "img": "icons/creatures/webs/web-spider-glowing-pink.webp",
             "name": "Web",
-            "sort": 1400000,
+            "sort": 2000000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1026,7 +1214,7 @@
             },
             "img": "icons/magic/acid/projectile-smoke-glowing.webp",
             "name": "Acid Splash",
-            "sort": 1500000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1187,7 +1375,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1600000,
+            "sort": 2200000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1254,7 +1442,7 @@
             },
             "img": "icons/skills/movement/feet-winged-sandals-tan.webp",
             "name": "Fleet Step",
-            "sort": 1700000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1315,7 +1503,7 @@
             },
             "img": "systems/pf2e/icons/spells/grease.webp",
             "name": "Grease",
-            "sort": 1800000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1380,7 +1568,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 1900000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1444,7 +1632,7 @@
             },
             "img": "systems/pf2e/icons/spells/mending.webp",
             "name": "Mending",
-            "sort": 2000000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1506,7 +1694,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 2100000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1570,7 +1758,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tanglefoot",
-            "sort": 2200000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1627,13 +1815,134 @@
             "type": "spell"
         },
         {
+            "_id": "HkaLSWDV9fVv0xkG",
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Primal Spontaneous Spells",
+            "sort": 2900000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "label": "Spellcasting Type",
+                    "type": "String",
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "1IEZxdlDsJHNF6VV"
+                            },
+                            {
+                                "id": "fDbIT4q0JydBhMCK"
+                            },
+                            {
+                                "id": "bitevPtOPEfaCxKO"
+                            },
+                            {
+                                "id": "RoDaBtE64gU7LBoq"
+                            },
+                            {
+                                "id": "xEJutcuDDeoy8pd6"
+                            }
+                        ],
+                        "value": 5
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "rXm4NbStEWsSWRyv"
+                            },
+                            {
+                                "id": "mokjSeYW7fRSVnUv"
+                            }
+                        ],
+                        "value": 3
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "fGb9MekqMQPmhr0Z"
+                            },
+                            {
+                                "id": "wdZoDvKO1KuqCFGn"
+                            }
+                        ],
+                        "value": 3
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "LYNCsl1NBJphmoHd"
+                            },
+                            {
+                                "id": "ZOn5e98fPXQWcmt2"
+                            }
+                        ],
+                        "value": 3
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "tVPWhKVON4Tv71WK"
+                            },
+                            {
+                                "id": "rySQf0FxKvR2sK7j"
+                            }
+                        ],
+                        "value": 3
+                    },
+                    "slot5": {
+                        "max": 2,
+                        "prepared": [
+                            {
+                                "id": "W8umMB2LsPZAyh2W"
+                            }
+                        ],
+                        "value": 2
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 28,
+                    "item": 0,
+                    "label": "Class DC",
+                    "mod": 0,
+                    "type": "String",
+                    "value": 20
+                },
+                "tradition": {
+                    "value": "divine"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "7CMichBc5pvHmVIa",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ynnBwzkzsR6B73iO"
             },
             "img": "systems/pf2e/icons/equipment/weapons/sickle.webp",
             "name": "Sickle",
-            "sort": 2300000,
+            "sort": 3000000,
             "system": {
                 "baseItem": "sickle",
                 "bonus": {
@@ -1712,315 +2021,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "zcuDHSCu30NxcvlE",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
-            },
-            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
-            "name": "Leather Armor",
-            "sort": 2400000,
-            "system": {
-                "acBonus": 1,
-                "baseItem": "leather-armor",
-                "bulk": {
-                    "value": 1
-                },
-                "category": "light",
-                "checkPenalty": -1,
-                "containerId": null,
-                "description": {
-                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
-                },
-                "dexCap": 4,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": null
-                },
-                "group": "leather",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "leather-armor",
-                "speedPenalty": 0,
-                "strength": 0,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "z9izmkpvmp7qy2lq",
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Bag of Dead Dragonflies",
-            "sort": 2500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "clflpru3zpd91jst",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "7CMichBc5pvHmVIa"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Sickle",
-            "sort": 2600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "7dupd6wcVhpyzeST": {
-                        "damage": "1d4+6",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "trip"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "4dgnrtynr68usjup",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tongue",
-            "sort": 2700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "tongue-grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "isYrMsMIeEc2oBoF": {
-                        "damage": "1d4+6",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "reach-10"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "e77kx9kh3ao1pfk0",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Soul-Shaking Croak",
-            "sort": 2800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Grouloop utters a powerful croak that deals @Damage[6d10[sonic]] damage to any non-boggard within a @Template[emanation|distance:30|damaging:yes]{30-foot emanation} (@Check[fortitude|dc:27|basic] save).</p>\n<p>A creature with the @UUID[Compendium.pf2e.conditionitems.Item.Frightened] condition that fails its saving throw increases its frightened condition by 1 (on a critical failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for as long as it is frightened).</p>\n<p>Grouloop can't use Soul-Shaking Croak again for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "sonic"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "q19s4nupvasfksu1",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Swamp Stride",
-            "sort": 2900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Grouloop ignores difficult terrain caused by swamp terrain features.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "q2xt5rycxzs5o14q",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Tongue Grab",
-            "sort": 3000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>If Grouloop hits a creature with her tongue, that creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]. Unlike with a normal grab, the creature isn't @UUID[Compendium.pf2e.conditionitems.Item.Immobilized], but it can't move beyond the reach of Grouloop's tongue.</p>\n<p>A creature can sever the tongue by hitting AC 24 and dealing at least 9 slashing damage. Though this doesn't deal any damage to the boggard, it prevents her from using her tongue Strike until she regrows her tongue, which takes a week.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Grouloop",

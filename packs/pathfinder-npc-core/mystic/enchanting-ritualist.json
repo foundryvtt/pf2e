@@ -4,22 +4,300 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "voUeoN7SEBJBFWg0",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Spontaneous Spells",
+            "_id": "Wppw8k8RCqzIQbCA",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "+2 Circumstance to Skill Checks for Rituals",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "spontaneous"
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [
+                    {
+                        "domain": "skill-check",
+                        "key": "RollOption",
+                        "option": "item:trait:ritual",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:trait:ritual"
+                        ],
+                        "selector": "skill-check",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7fskfALHJVMBtTdx",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Aura of Contentment",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. A creature that enters or starts its turn in the aura must succeed at a @Check[will|dc:38] save or lose the desire to do anything except rest and relax. Hostile actions taken against creatures affected by the aura end the effect. If a creature in the aura succeeds on their Will save or is the subject of a hostile action, it's temporarily immune to the aura of contentment for 24 hours. The enchanting ritualist can exempt creatures from the aura's effects.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "traits": [
+                            "emotion",
+                            "incapacitation",
+                            "mental",
+                            "occult"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "emotion",
+                        "incapacitation",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "McEglbw10Vv8fl9M",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Fool's Feast",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Recipients of the ritualist's generosity pay dearly if the ritualist decides to turn against them. The ritualist gets a +4 circumstance bonus to attack rolls against any creature that has willingly participated in or benefited from one of their spells or rituals conducted in the last 12 hours. A creature that didn't help conduct a ritual still qualifies if it benefited in other ways, such as drinking a serving of @UUID[Compendium.pf2e.spells-srd.Item.Fortifying Brew].</p>\n<p>When the enchanting ritualist damages such a creature with a Strike, the target is affected by a 9th-rank @UUID[Compendium.pf2e.spells-srd.Item.Cursed Metamorphosis] spell (DC 42). If the Strike was a critical hit, the creature gets a degree of success one worse than it rolled. Once a creature succeeds at a save against this spell, it is temporarily immune for 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "fools-feast",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "fools-feast"
+                        ],
+                        "selector": "attack-roll",
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "iy1PAGblDTi2TkIV",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8mhSUxEvNuXDP8Ki"
+            },
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/bracers-of-armor.webp",
+            "name": "Bands of Force (Greater)",
+            "sort": 400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>Decorated with clear gemstones, these thick metal bands spread an inflexible layer of force over your body. The force grants you a +2 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5 as armor. You can affix talismans to the bands as though they were light armor.</p>\n<p><strong>Activate—Return Force</strong> <span class=\"action-glyph\">R</span> (force, manipulate)</p>\n<p><strong>Trigger</strong> A creature critically misses you with a melee Strike</p>\n<hr />\n<p><strong>Effect</strong> You Shove the creature using the bands' Athletics modifier of [[/r d20+21]]{+21}.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 14
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 4500
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": [
+                            "ac",
+                            "saving-throw"
+                        ],
+                        "slug": "bracers-of-armor",
+                        "type": "item",
+                        "value": 2
+                    },
+                    {
+                        "key": "DexterityModifierCap",
+                        "value": 5
+                    }
+                ],
+                "size": "med",
+                "slug": "bands-of-force-greater",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "force",
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "wornarmbands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "9hGzHisDFmFBG21a",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FOWF5f0tCaApv9RE"
+            },
+            "img": "icons/sundries/books/book-embossed-jewel-silver-green.webp",
+            "name": "Ornate Ritual Book",
+            "sort": 500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder NPC Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "ornate-ritual-book",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "84UN5XiapxWYFGgM",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "y57IAy9trSz1UvG8"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Club",
+            "sort": 600000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 30
+                },
+                "damageRolls": {
+                    "A23NItWIekCIQKof": {
+                        "damage": "3d6+12",
+                        "damageType": "bludgeoning"
+                    },
+                    "jQ6nDXgJi3ZbCld9": {
+                        "damage": "2d6",
+                        "damageType": "mental"
+                    }
+                },
+                "description": {
+                    "value": ""
                 },
                 "publication": {
                     "license": "ORC",
@@ -27,55 +305,143 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
+                "slug": "club",
+                "traits": {
+                    "value": [
+                        "magical"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Hl8KPP24fFHWwDM5",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "y57IAy9trSz1UvG8"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Club",
+            "sort": 700000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 28
+                },
+                "damageRolls": {
+                    "j3CqpbKcifhACgsr": {
+                        "damage": "2d6",
+                        "damageType": "mental"
                     },
-                    "slot2": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot3": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot4": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot5": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot6": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot7": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot8": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot9": {
-                        "max": 4,
-                        "value": 4
+                    "mVbIbm651Wh2o3Cs": {
+                        "damage": "3d6+12",
+                        "damageType": "bludgeoning"
                     }
                 },
-                "slug": null,
-                "spelldc": {
-                    "dc": 42,
-                    "value": 34
+                "description": {
+                    "value": ""
                 },
-                "tradition": {
-                    "value": "occult"
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
                 },
-                "traits": {}
+                "rules": [],
+                "slug": "club",
+                "traits": {
+                    "value": [
+                        "magical",
+                        "thrown-10"
+                    ]
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "N4yRsS5H0pYHvp42",
+            "_stats": {
+                "compendiumSource": "Actor.OnQ779U03HyImPcw.Item.0vVEiwK17dpFzgYu"
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 800000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 28
+                },
+                "damageRolls": {
+                    "AG71gLJtwmLrHviN": {
+                        "damage": "2d6",
+                        "damageType": "mental"
+                    },
+                    "iswR188zNNz1VJHP": {
+                        "damage": "1d4+12",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder NPC Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "KHQqt7JX2J9bhy4E",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Enchanting Wisps",
+            "sort": 900000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 30
+                },
+                "damageRolls": {
+                    "Oq49GGSyBadF10Nx": {
+                        "damage": "9d6",
+                        "damageType": "mental"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "mental",
+                        "range-100"
+                    ]
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "GWmLIPIKAIfoZOrn",
@@ -84,7 +450,7 @@
             },
             "img": "icons/environment/settlement/tavern.webp",
             "name": "Fantastic Facade",
-            "sort": 200000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -149,7 +515,7 @@
             },
             "img": "icons/magic/perception/orb-eye-scrying.webp",
             "name": "Foresight",
-            "sort": 300000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -213,7 +579,7 @@
             },
             "img": "icons/magic/control/control-influence-crown-gold.webp",
             "name": "Overwhelming Presence",
-            "sort": 400000,
+            "sort": 1200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -286,7 +652,7 @@
             },
             "img": "systems/pf2e/icons/spells/telepathic-demand.webp",
             "name": "Telepathic Demand",
-            "sort": 500000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -356,7 +722,7 @@
             },
             "img": "systems/pf2e/icons/spells/canticle-of-everlasting-grief.webp",
             "name": "Canticle of Everlasting Grief",
-            "sort": 600000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -438,7 +804,7 @@
             },
             "img": "systems/pf2e/icons/spells/maze.webp",
             "name": "Quandary",
-            "sort": 700000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -501,7 +867,7 @@
             },
             "img": "systems/pf2e/icons/spells/spirit-song.webp",
             "name": "Spirit Song",
-            "sort": 800000,
+            "sort": 1600000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -589,7 +955,7 @@
             },
             "img": "systems/pf2e/icons/spells/uncontrollable-dance.webp",
             "name": "Uncontrollable Dance",
-            "sort": 900000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -657,7 +1023,7 @@
             },
             "img": "icons/sundries/scrolls/scroll-runed-brown-purple.webp",
             "name": "Collective Memories",
-            "sort": 1000000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -720,7 +1086,7 @@
             },
             "img": "icons/commodities/treasure/mask-wood-tan.webp",
             "name": "Mask of Terror",
-            "sort": 1100000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -792,7 +1158,7 @@
             },
             "img": "icons/magic/symbols/star-yellow.webp",
             "name": "Planar Displacement",
-            "sort": 1200000,
+            "sort": 2000000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -860,7 +1226,7 @@
             },
             "img": "systems/pf2e/icons/spells/project-image.webp",
             "name": "Project Image",
-            "sort": 1300000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -923,7 +1289,7 @@
             },
             "img": "icons/magic/perception/orb-crystal-ball-scrying-blue.webp",
             "name": "Binding Circle",
-            "sort": 1400000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -986,7 +1352,7 @@
             },
             "img": "systems/pf2e/icons/spells/commune.webp",
             "name": "Commune",
-            "sort": 1500000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1051,7 +1417,7 @@
             },
             "img": "systems/pf2e/icons/spells/mislead.webp",
             "name": "Mislead",
-            "sort": 1600000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1113,7 +1479,7 @@
             },
             "img": "icons/magic/air/wind-vortex-swirl-blue-purple.webp",
             "name": "Repulsion",
-            "sort": 1700000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1182,7 +1548,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "Truesight",
-            "sort": 1800000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1246,7 +1612,7 @@
             },
             "img": "systems/pf2e/icons/spells/zealous-conviction.webp",
             "name": "Zealous Conviction",
-            "sort": 1900000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1309,7 +1675,7 @@
             },
             "img": "icons/magic/defensive/barrier-shield-dome-deflect-teal.webp",
             "name": "Astral Projection",
-            "sort": 2000000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1372,7 +1738,7 @@
             },
             "img": "icons/magic/death/undead-ghost-scream-teal.webp",
             "name": "Call Spirit",
-            "sort": 2100000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1435,7 +1801,7 @@
             },
             "img": "icons/environment/settlement/gazebo.webp",
             "name": "Dreaming Potential",
-            "sort": 2200000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1496,7 +1862,7 @@
             },
             "img": "systems/pf2e/icons/spells/heroes-feast.webp",
             "name": "Fortifying Brew",
-            "sort": 2300000,
+            "sort": 3100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1559,7 +1925,7 @@
             },
             "img": "systems/pf2e/icons/spells/hallucination.webp",
             "name": "Hallucination",
-            "sort": 2400000,
+            "sort": 3200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1643,7 +2009,7 @@
             },
             "img": "systems/pf2e/icons/spells/planar-ally.webp",
             "name": "Planar Servitor",
-            "sort": 2500000,
+            "sort": 3300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1706,7 +2072,7 @@
             },
             "img": "systems/pf2e/icons/spells/resurrect.webp",
             "name": "Resurrect",
-            "sort": 2600000,
+            "sort": 3400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1771,7 +2137,7 @@
             },
             "img": "systems/pf2e/icons/spells/prying-eye.webp",
             "name": "Scouting Eye",
-            "sort": 2700000,
+            "sort": 3500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1834,7 +2200,7 @@
             },
             "img": "systems/pf2e/icons/spells/sending.webp",
             "name": "Sending",
-            "sort": 2800000,
+            "sort": 3600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1897,7 +2263,7 @@
             },
             "img": "systems/pf2e/icons/spells/synesthesia.webp",
             "name": "Synesthesia",
-            "sort": 2900000,
+            "sort": 3700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1973,7 +2339,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Truespeech",
-            "sort": 3000000,
+            "sort": 3800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2035,7 +2401,7 @@
             },
             "img": "icons/creatures/slimes/slime-face-teeth-purple.webp",
             "name": "Wave of Despair",
-            "sort": 3100000,
+            "sort": 3900000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -2117,7 +2483,7 @@
             },
             "img": "icons/environment/people/cleric-orange.webp",
             "name": "Atone",
-            "sort": 3200000,
+            "sort": 4000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2180,7 +2546,7 @@
             },
             "img": "systems/pf2e/icons/spells/confusion.webp",
             "name": "Confusion",
-            "sort": 3300000,
+            "sort": 4100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2258,7 +2624,7 @@
             },
             "img": "icons/creatures/mammals/bats-movement-flying-black.webp",
             "name": "Fly",
-            "sort": 3400000,
+            "sort": 4200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2321,7 +2687,7 @@
             },
             "img": "systems/pf2e/icons/spells/glibness.webp",
             "name": "Honeyed Words",
-            "sort": 3500000,
+            "sort": 4300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2382,7 +2748,7 @@
             },
             "img": "systems/pf2e/icons/spells/rest-eternal.webp",
             "name": "Rest Eternal",
-            "sort": 3600000,
+            "sort": 4400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2445,7 +2811,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Translocate",
-            "sort": 3700000,
+            "sort": 4500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2517,7 +2883,7 @@
             },
             "img": "icons/skills/trades/music-singing-voice-blue.webp",
             "name": "Dream Message",
-            "sort": 3800000,
+            "sort": 4600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2590,7 +2956,7 @@
             },
             "img": "icons/equipment/head/mask-carved-wood-brown.webp",
             "name": "Geas",
-            "sort": 3900000,
+            "sort": 4700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2656,7 +3022,7 @@
             },
             "img": "systems/pf2e/icons/spells/hypnotic-pattern.webp",
             "name": "Hypnotize",
-            "sort": 4000000,
+            "sort": 4800000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -2727,7 +3093,7 @@
             },
             "img": "icons/magic/light/projectile-stars-blue.webp",
             "name": "Levitate",
-            "sort": 4100000,
+            "sort": 4900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2788,7 +3154,7 @@
             },
             "img": "systems/pf2e/icons/spells/augury.webp",
             "name": "Augury",
-            "sort": 4200000,
+            "sort": 5000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2850,7 +3216,7 @@
             },
             "img": "systems/pf2e/icons/spells/darkvision.webp",
             "name": "Darkvision",
-            "sort": 4300000,
+            "sort": 5100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2926,7 +3292,7 @@
             },
             "img": "icons/skills/social/diplomacy-handshake.webp",
             "name": "Heartbond",
-            "sort": 4400000,
+            "sort": 5200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2989,7 +3355,7 @@
             },
             "img": "systems/pf2e/icons/spells/see-invisibility.webp",
             "name": "See the Unseen",
-            "sort": 4500000,
+            "sort": 5300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3052,7 +3418,7 @@
             },
             "img": "icons/magic/perception/orb-eye-scrying.webp",
             "name": "Status",
-            "sort": 4600000,
+            "sort": 5400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3128,7 +3494,7 @@
             },
             "img": "systems/pf2e/icons/spells/alarm.webp",
             "name": "Alarm",
-            "sort": 4700000,
+            "sort": 5500000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -3194,7 +3560,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 4800000,
+            "sort": 5600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3281,7 +3647,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 4900000,
+            "sort": 5700000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -3348,7 +3714,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 5000000,
+            "sort": 5800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3429,7 +3795,7 @@
             },
             "img": "icons/sundries/lights/candles-lit-red-evil.webp",
             "name": "Ill Omen",
-            "sort": 5100000,
+            "sort": 5900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3496,7 +3862,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise",
-            "sort": 5200000,
+            "sort": 6000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3559,7 +3925,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-object.webp",
             "name": "Illusory Object",
-            "sort": 5300000,
+            "sort": 6100000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -3625,7 +3991,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 5400000,
+            "sort": 6200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3689,7 +4055,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 5500000,
+            "sort": 6300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3768,7 +4134,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Telekinetic Hand",
-            "sort": 5600000,
+            "sort": 6400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3843,13 +4209,87 @@
             "type": "spell"
         },
         {
+            "_id": "voUeoN7SEBJBFWg0",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Spontaneous Spells",
+            "sort": 6500000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot2": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot3": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot4": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot5": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot6": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot7": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot8": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot9": {
+                        "max": 4,
+                        "value": 4
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 42,
+                    "value": 34
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "y57IAy9trSz1UvG8",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.c58wczIzH2gzeXQL"
             },
             "img": "icons/weapons/clubs/club-banded-brown.webp",
             "name": "Club",
-            "sort": 5700000,
+            "sort": 6600000,
             "system": {
                 "baseItem": "club",
                 "bonus": {
@@ -3925,446 +4365,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "iy1PAGblDTi2TkIV",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8mhSUxEvNuXDP8Ki"
-            },
-            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/bracers-of-armor.webp",
-            "name": "Bands of Force (Greater)",
-            "sort": 5800000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>Decorated with clear gemstones, these thick metal bands spread an inflexible layer of force over your body. The force grants you a +2 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5 as armor. You can affix talismans to the bands as though they were light armor.</p>\n<p><strong>Activate—Return Force</strong> <span class=\"action-glyph\">R</span> (force, manipulate)</p>\n<p><strong>Trigger</strong> A creature critically misses you with a melee Strike</p>\n<hr />\n<p><strong>Effect</strong> You Shove the creature using the bands' Athletics modifier of [[/r d20+21]]{+21}.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 14
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 4500
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder GM Core"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": [
-                            "ac",
-                            "saving-throw"
-                        ],
-                        "slug": "bracers-of-armor",
-                        "type": "item",
-                        "value": 2
-                    },
-                    {
-                        "key": "DexterityModifierCap",
-                        "value": 5
-                    }
-                ],
-                "size": "med",
-                "slug": "bands-of-force-greater",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "force",
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "wornarmbands"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "9hGzHisDFmFBG21a",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FOWF5f0tCaApv9RE"
-            },
-            "img": "icons/sundries/books/book-embossed-jewel-silver-green.webp",
-            "name": "Ornate Ritual Book",
-            "sort": 5900000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder NPC Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "ornate-ritual-book",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "84UN5XiapxWYFGgM",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "y57IAy9trSz1UvG8"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Club",
-            "sort": 6000000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 30
-                },
-                "damageRolls": {
-                    "A23NItWIekCIQKof": {
-                        "damage": "3d6+12",
-                        "damageType": "bludgeoning"
-                    },
-                    "jQ6nDXgJi3ZbCld9": {
-                        "damage": "2d6",
-                        "damageType": "mental"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "club",
-                "traits": {
-                    "value": [
-                        "magical"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Hl8KPP24fFHWwDM5",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "y57IAy9trSz1UvG8"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Club",
-            "sort": 6100000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 28
-                },
-                "damageRolls": {
-                    "j3CqpbKcifhACgsr": {
-                        "damage": "2d6",
-                        "damageType": "mental"
-                    },
-                    "mVbIbm651Wh2o3Cs": {
-                        "damage": "3d6+12",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "club",
-                "traits": {
-                    "value": [
-                        "magical",
-                        "thrown-10"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "N4yRsS5H0pYHvp42",
-            "_stats": {
-                "compendiumSource": "Actor.OnQ779U03HyImPcw.Item.0vVEiwK17dpFzgYu"
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 6200000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 28
-                },
-                "damageRolls": {
-                    "AG71gLJtwmLrHviN": {
-                        "damage": "2d6",
-                        "damageType": "mental"
-                    },
-                    "iswR188zNNz1VJHP": {
-                        "damage": "1d4+12",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder NPC Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "KHQqt7JX2J9bhy4E",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Enchanting Wisps",
-            "sort": 6300000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 30
-                },
-                "damageRolls": {
-                    "Oq49GGSyBadF10Nx": {
-                        "damage": "9d6",
-                        "damageType": "mental"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "mental",
-                        "range-100"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Wppw8k8RCqzIQbCA",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "+2 Circumstance to Skill Checks for Rituals",
-            "sort": 6400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "skill-check",
-                        "key": "RollOption",
-                        "option": "item:trait:ritual",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:trait:ritual"
-                        ],
-                        "selector": "skill-check",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7fskfALHJVMBtTdx",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Aura of Contentment",
-            "sort": 6500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>30 feet. A creature that enters or starts its turn in the aura must succeed at a @Check[will|dc:38] save or lose the desire to do anything except rest and relax. Hostile actions taken against creatures affected by the aura end the effect. If a creature in the aura succeeds on their Will save or is the subject of a hostile action, it's temporarily immune to the aura of contentment for 24 hours. The enchanting ritualist can exempt creatures from the aura's effects.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "traits": [
-                            "emotion",
-                            "incapacitation",
-                            "mental",
-                            "occult"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "emotion",
-                        "incapacitation",
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "McEglbw10Vv8fl9M",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Fool's Feast",
-            "sort": 6600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Recipients of the ritualist's generosity pay dearly if the ritualist decides to turn against them. The ritualist gets a +4 circumstance bonus to attack rolls against any creature that has willingly participated in or benefited from one of their spells or rituals conducted in the last 12 hours. A creature that didn't help conduct a ritual still qualifies if it benefited in other ways, such as drinking a serving of @UUID[Compendium.pf2e.spells-srd.Item.Fortifying Brew].</p>\n<p>When the enchanting ritualist damages such a creature with a Strike, the target is affected by a 9th-rank @UUID[Compendium.pf2e.spells-srd.Item.Cursed Metamorphosis] spell (DC 42). If the Strike was a critical hit, the creature gets a degree of success one worse than it rolled. Once a creature succeeds at a save against this spell, it is temporarily immune for 24 hours.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "RollOption",
-                        "option": "fools-feast",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "fools-feast"
-                        ],
-                        "selector": "attack-roll",
-                        "type": "circumstance",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Enchanting Ritualist",

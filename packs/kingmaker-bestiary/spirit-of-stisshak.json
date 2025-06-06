@@ -3,22 +3,72 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "3hPEjn6DWOXtuQ2I",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "_id": "wChn2PEw9GYziq2n",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Glow",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
+                    "value": "<p>20 feet. A will-o'-wisp is itself naturally invisible, but glows with a colored light, casting bright light in the aura and making it visible.</p>"
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            {
+                                "not": "go-dark"
+                            }
+                        ],
+                        "value": {
+                            "alpha": 0.2,
+                            "animation": {
+                                "intensity": 1,
+                                "speed": 3,
+                                "type": "pulse"
+                            },
+                            "bright": 20,
+                            "color": "#fff9a3"
+                        }
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "light"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3Eksrmh390T4SrP7",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Magic Immunity",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A will-o'-wisp is immune to all spells except @UUID[Compendium.pf2e.spells-srd.Item.Faerie Fire], @UUID[Compendium.pf2e.spells-srd.Item.Revealing Light], @UUID[Compendium.pf2e.spells-srd.Item.Force Barrage], and @UUID[Compendium.pf2e.spells-srd.Item.Quandary].</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -26,20 +76,203 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "value": 17
-                },
-                "tradition": {
-                    "value": "occult"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "F8xpT7h5a5ZviXU5",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Feed on Fear",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirement</strong> An enemy is under a fear effect or @UUID[Compendium.pf2e.conditionitems.Item.Dying] within 15 feet of the will-o'-wisp.</p>\n<hr />\n<p><strong>Effect</strong> The will-o'wisp feeds on the creature's terror. It regains @Damage[2d4[healing]] Hit Points, and if it has Gone Dark, its glow reignites.</p>\n<p>A will-o'-wisp can take this action only once per round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "USCoVo5LJNs12zB4",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Go Dark",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The will-o'-wisp extinguishes its glow, becoming @UUID[Compendium.pf2e.conditionitems.Item.Invisible]. It can end this effect with another use of this action. If it uses its shock attack while invisible, the arc of electricity lets any observer determine its location, making the will-o'-wisp only @UUID[Compendium.pf2e.conditionitems.Item.Hidden] to all observers until it moves.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "go-dark",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.ConditionTypeInvisible",
+                                "value": "Compendium.pf2e.conditionitems.Item.Invisible"
+                            },
+                            {
+                                "label": "PF2E.ConditionTypeHidden",
+                                "value": "Compendium.pf2e.conditionitems.Item.Hidden"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "go-dark"
+                        ],
+                        "uuid": "{item|flags.pf2e.rulesSelections.goDark}"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7SDmYIdMAER2dLGK",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Invoke Stisshak",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> The Spirit of Stisshak manifests a shimmering form, that of a regal lizardfolk king made of flickering ghostly light. This image is Medium and must manifest within 10 feet of the will-o'-wisp. The will-o'-wisp can sustain the image by concentrating, and can speak through it and control minor motions (such as movement of limbs), but cannot cause it to leave the square in which it appeared. The will-o'-wisp gains a +2 circumstance bonus on Intimidation checks made to demoralize foes through this invoked image. Any damage inflicted to the will-o'-wisp or the illusion itself causes the invoked illusion to vanish immediately.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "intimidation",
+                        "key": "RollOption",
+                        "option": "invoke-stisshak",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "invoke-stisshak"
+                        ],
+                        "selector": "intimidation",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "auditory",
+                        "illusion",
+                        "occult",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2rAKighB6Ywhk5s3",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Shock",
+            "sort": 600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "jtguda2tjozvfz78bzs3": {
+                        "damage": "2d8+6",
+                        "damageType": "electricity"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "electricity",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "g4NxNl89cPFtPKmI",
@@ -48,7 +281,7 @@
             },
             "img": "systems/pf2e/icons/spells/modify-memory.webp",
             "name": "Modify Memory",
-            "sort": 200000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -120,7 +353,7 @@
             },
             "img": "icons/magic/control/encase-creature-spider-hold.webp",
             "name": "Nightmare",
-            "sort": 300000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -188,7 +421,7 @@
             },
             "img": "systems/pf2e/icons/spells/mind-reading.webp",
             "name": "Mind Reading",
-            "sort": 400000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -256,7 +489,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 500000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -331,240 +564,21 @@
             "type": "spell"
         },
         {
-            "_id": "2rAKighB6Ywhk5s3",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Shock",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "jtguda2tjozvfz78bzs3": {
-                        "damage": "2d8+6",
-                        "damageType": "electricity"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "electricity",
-                        "magical"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "wChn2PEw9GYziq2n",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Glow",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>20 feet. A will-o'-wisp is itself naturally invisible, but glows with a colored light, casting bright light in the aura and making it visible.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "TokenLight",
-                        "predicate": [
-                            {
-                                "not": "go-dark"
-                            }
-                        ],
-                        "value": {
-                            "alpha": 0.2,
-                            "animation": {
-                                "intensity": 1,
-                                "speed": 3,
-                                "type": "pulse"
-                            },
-                            "bright": 20,
-                            "color": "#fff9a3"
-                        }
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "light"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "3Eksrmh390T4SrP7",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Magic Immunity",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A will-o'-wisp is immune to all spells except @UUID[Compendium.pf2e.spells-srd.Item.Faerie Fire], @UUID[Compendium.pf2e.spells-srd.Item.Revealing Light], @UUID[Compendium.pf2e.spells-srd.Item.Force Barrage], and @UUID[Compendium.pf2e.spells-srd.Item.Quandary].</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "F8xpT7h5a5ZviXU5",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Feed on Fear",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirement</strong> An enemy is under a fear effect or @UUID[Compendium.pf2e.conditionitems.Item.Dying] within 15 feet of the will-o'-wisp.</p>\n<hr />\n<p><strong>Effect</strong> The will-o'wisp feeds on the creature's terror. It regains @Damage[2d4[healing]] Hit Points, and if it has Gone Dark, its glow reignites.</p>\n<p>A will-o'-wisp can take this action only once per round.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "USCoVo5LJNs12zB4",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Go Dark",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The will-o'-wisp extinguishes its glow, becoming @UUID[Compendium.pf2e.conditionitems.Item.Invisible]. It can end this effect with another use of this action. If it uses its shock attack while invisible, the arc of electricity lets any observer determine its location, making the will-o'-wisp only @UUID[Compendium.pf2e.conditionitems.Item.Hidden] to all observers until it moves.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "go-dark",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.ConditionTypeInvisible",
-                                "value": "Compendium.pf2e.conditionitems.Item.Invisible"
-                            },
-                            {
-                                "label": "PF2E.ConditionTypeHidden",
-                                "value": "Compendium.pf2e.conditionitems.Item.Hidden"
-                            }
-                        ],
-                        "toggleable": true
-                    },
-                    {
-                        "inMemoryOnly": true,
-                        "key": "GrantItem",
-                        "predicate": [
-                            "go-dark"
-                        ],
-                        "uuid": "{item|flags.pf2e.rulesSelections.goDark}"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7SDmYIdMAER2dLGK",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Invoke Stisshak",
+            "_id": "3hPEjn6DWOXtuQ2I",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 1100000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> The Spirit of Stisshak manifests a shimmering form, that of a regal lizardfolk king made of flickering ghostly light. This image is Medium and must manifest within 10 feet of the will-o'-wisp. The will-o'-wisp can sustain the image by concentrating, and can speak through it and control minor motions (such as movement of limbs), but cannot cause it to leave the square in which it appeared. The will-o'-wisp gains a +2 circumstance bonus on Intimidation checks made to demoralize foes through this invoked image. Any damage inflicted to the will-o'-wisp or the illusion itself causes the invoked illusion to vanish immediately.</p>"
+                    "value": ""
                 },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
                     "value": 1
                 },
                 "publication": {
@@ -572,35 +586,21 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "domain": "intimidation",
-                        "key": "RollOption",
-                        "option": "invoke-stisshak",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "invoke-stisshak"
-                        ],
-                        "selector": "intimidation",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "auditory",
-                        "illusion",
-                        "occult",
-                        "visual"
-                    ]
+                "spelldc": {
+                    "dc": 25,
+                    "value": 17
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Spirit of Stisshak",

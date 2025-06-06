@@ -4,87 +4,250 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "E8NgBdpkb4LqWCuz",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.UCH4myuFnokGv0vF"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/sling.webp",
-            "name": "Sling",
+            "_id": "Wf1Tdobs4qgJT8Eb",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+4 Bonus on Perception to Find traps",
             "sort": 100000,
             "system": {
-                "baseItem": "sling",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "passive"
                 },
-                "bonusDamage": {
-                    "value": 0
+                "actions": {
+                    "value": null
                 },
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "simple",
-                "containerId": null,
-                "damage": {
-                    "damageType": "bludgeoning",
-                    "dice": 1,
-                    "die": "d6"
-                },
+                "category": "interaction",
                 "description": {
-                    "value": "<p>Little more than a leather cup attached to a pair of straps, a sling can be used to fling smooth stones or sling bullets at a range.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "sling",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
+                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": ""
                 },
-                "quantity": 1,
-                "range": 50,
-                "reload": {
-                    "value": "1"
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "origin:trait:trap"
+                        ],
+                        "selector": "perception",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "u3movj1s97ncasy6",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Pinion",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within 10 feet of Kuworsys uses an action to Fly</p>\n<strong>Requirements</strong> Kuworsys is Reared Back\n<hr />\n<p><strong>Effect</strong> Kuworsys lashes out at the triggering creature, attempting to swat it to the ground. Kuworsys attempts a melee Strike against the creature. If the Strike hits, the creature's movement is interrupted. The creature is knocked to the ground; on a critical hit, they also can't Fly again for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
                 "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [],
-                    "striking": 1
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "kmp486s05w9uw8yf",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Addictive Exhaustion",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
                 },
-                "size": "lg",
-                "slug": "sling",
-                "splashDamage": {
-                    "value": 0
+                "actions": {
+                    "value": null
                 },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:32]</p>\n<p>Creatures with addictive exhaustion can't reduce their sickened condition from addictive exhaustion while they have the disease</p>\n<p><strong>Stage 1</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. One skill of the creature's choice doesn't suffer the status penalty from this sickened condition to its skill checks (1 day)</p>\n<p><strong>Stage 2</strong> As Stage 1, but the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} and is @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] (5 days)</p>\n<p><strong>Stage 3</strong> As Stage 2, but the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3} and has incurable hunger and thirst, in addition to being fatigued (1 day)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "propulsive"
+                        "disease"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
-            "type": "weapon"
+            "type": "action"
+        },
+        {
+            "_id": "ewnpn4rag7hdax6z",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Gauge Potential",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Kuworsys studies a creature it can see, attempting to predict its actions. The creature attempts a @Check[will|dc:32] save. On a failed save, Kuworsys predicts the creature's moves, gaining a +2 circumstance bonus to attack rolls and AC against the target creature for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "Attacking or Being Attacked by Target of Gauge Potential",
+                        "option": "gauge-potential",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "gauge-potential"
+                        ],
+                        "selector": "attack",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "gauge-potential"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4823l9uw0tsvtj20",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Infectious Spores",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Kuworsys releases a choking field of spores within a @Template[burst|distance:30]{30-foot radius}, continuing to release them until the end of its next turn. Creatures who begin their turns within the area of the spores, or who enter the area, must attempt a @Check[fortitude|dc:32|traits:disease] save. On a failure, the creature becomes afflicted with addictive exhaustion.</p>\n<p>Kuworsys then can't use its Infectious Spores again for [[/gmr 1d4 #Recharge Infectious Spores]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0bqi2q6wsh0szfmu",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Rear Back",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Kuworsys stands on its two hind limbs, bringing its other four limbs to bear on its foes. Kuworsys stays Reared Back until it uses a single action to return to its normal stance. While Kuworsys is Reared Back, it is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} but can use its Pinion and Yank abilities.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "k4lsjk7s4vksbbq4",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Yank",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Kuworsys is Reared Back</p>\n<hr />\n<p><strong>Effect</strong> Kuworsys makes a melee limb Strike against a creature and, on a success, attempts to steal the creature's weapon from its hands. Kuworsys attempts a @Check[thievery|defense:reflex] check against the target's Reflex DC.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature's weapon falls to the floor in the creature's space.</p>\n<p><strong>Success</strong> Until the start of that creature's turn, attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] the creature of its weapon gain a +2 circumstance bonus, and the target takes a -2 circumstance penalty to attacks with the weapon or other checks requiring a firm grasp on the weapon.</p>\n<p><strong>Failure</strong> The creature is unaffected.</p>\n<p><strong>Critical Failure</strong> The creature can use a reaction to attempt a melee Strike against Kuworsys with the weapon Kuworsys attempted to grab.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         },
         {
             "_id": "GqL7dmFwFRzqXh53",
@@ -93,7 +256,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/sling-bullets.webp",
             "name": "Sling Bullets",
-            "sort": 200000,
+            "sort": 800000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -159,7 +322,7 @@
             },
             "img": "systems/pf2e/icons/equipment/consumables/ammunition/explosive-ammunition.webp",
             "name": "Explosive Ammunition",
-            "sort": 300000,
+            "sort": 900000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -238,7 +401,7 @@
             },
             "img": "systems/pf2e/icons/equipment/consumables/ammunition/freezing-ammunition.webp",
             "name": "Freezing Ammunition",
-            "sort": 400000,
+            "sort": 1000000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -303,7 +466,7 @@
             "_id": "vtbs1pjkeja92k54",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Limb",
-            "sort": 500000,
+            "sort": 1100000,
             "system": {
                 "attack": {
                     "value": ""
@@ -354,7 +517,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Sling",
-            "sort": 600000,
+            "sort": 1200000,
             "system": {
                 "attack": {
                     "value": ""
@@ -397,250 +560,87 @@
             "type": "melee"
         },
         {
-            "_id": "Wf1Tdobs4qgJT8Eb",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+4 Bonus on Perception to Find traps",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "origin:trait:trap"
-                        ],
-                        "selector": "perception",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
+            "_id": "E8NgBdpkb4LqWCuz",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.UCH4myuFnokGv0vF"
             },
-            "type": "action"
-        },
-        {
-            "_id": "u3movj1s97ncasy6",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Pinion",
-            "sort": 800000,
+            "img": "systems/pf2e/icons/equipment/weapons/sling.webp",
+            "name": "Sling",
+            "sort": 1300000,
             "system": {
-                "actionType": {
-                    "value": "reaction"
+                "baseItem": "sling",
+                "bonus": {
+                    "value": 0
                 },
-                "actions": {
-                    "value": null
+                "bonusDamage": {
+                    "value": 0
                 },
-                "category": "defensive",
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "bludgeoning",
+                    "dice": 1,
+                    "die": "d6"
+                },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within 10 feet of Kuworsys uses an action to Fly</p>\n<strong>Requirements</strong> Kuworsys is Reared Back\n<hr />\n<p><strong>Effect</strong> Kuworsys lashes out at the triggering creature, attempting to swat it to the ground. Kuworsys attempts a melee Strike against the creature. If the Strike hits, the creature's movement is interrupted. The creature is knocked to the ground; on a critical hit, they also can't Fly again for 1 minute.</p>"
+                    "value": "<p>Little more than a leather cup attached to a pair of straps, a sling can be used to fling smooth stones or sling bullets at a range.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "sling",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "range": 50,
+                "reload": {
+                    "value": "1"
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "kmp486s05w9uw8yf",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Addictive Exhaustion",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "striking": 1
                 },
-                "actions": {
-                    "value": null
+                "size": "lg",
+                "slug": "sling",
+                "splashDamage": {
+                    "value": 0
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:32]</p>\n<p>Creatures with addictive exhaustion can't reduce their sickened condition from addictive exhaustion while they have the disease</p>\n<p><strong>Stage 1</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. One skill of the creature's choice doesn't suffer the status penalty from this sickened condition to its skill checks (1 day)</p>\n<p><strong>Stage 2</strong> As Stage 1, but the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} and is @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] (5 days)</p>\n<p><strong>Stage 3</strong> As Stage 2, but the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3} and has incurable hunger and thirst, in addition to being fatigued (1 day)</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "disease"
+                        "propulsive"
                     ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
                 }
             },
-            "type": "action"
-        },
-        {
-            "_id": "ewnpn4rag7hdax6z",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Gauge Potential",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Kuworsys studies a creature it can see, attempting to predict its actions. The creature attempts a @Check[will|dc:32] save. On a failed save, Kuworsys predicts the creature's moves, gaining a +2 circumstance bonus to attack rolls and AC against the target creature for 1 minute.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "Attacking or Being Attacked by Target of Gauge Potential",
-                        "option": "gauge-potential",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "gauge-potential"
-                        ],
-                        "selector": "attack",
-                        "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "gauge-potential"
-                        ],
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "4823l9uw0tsvtj20",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Infectious Spores",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Kuworsys releases a choking field of spores within a @Template[burst|distance:30]{30-foot radius}, continuing to release them until the end of its next turn. Creatures who begin their turns within the area of the spores, or who enter the area, must attempt a @Check[fortitude|dc:32|traits:disease] save. On a failure, the creature becomes afflicted with addictive exhaustion.</p>\n<p>Kuworsys then can't use its Infectious Spores again for [[/gmr 1d4 #Recharge Infectious Spores]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "0bqi2q6wsh0szfmu",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Rear Back",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Kuworsys stands on its two hind limbs, bringing its other four limbs to bear on its foes. Kuworsys stays Reared Back until it uses a single action to return to its normal stance. While Kuworsys is Reared Back, it is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} but can use its Pinion and Yank abilities.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "k4lsjk7s4vksbbq4",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Yank",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Kuworsys is Reared Back</p>\n<hr />\n<p><strong>Effect</strong> Kuworsys makes a melee limb Strike against a creature and, on a success, attempts to steal the creature's weapon from its hands. Kuworsys attempts a @Check[thievery|defense:reflex] check against the target's Reflex DC.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature's weapon falls to the floor in the creature's space.</p>\n<p><strong>Success</strong> Until the start of that creature's turn, attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] the creature of its weapon gain a +2 circumstance bonus, and the target takes a -2 circumstance penalty to attacks with the weapon or other checks requiring a firm grasp on the weapon.</p>\n<p><strong>Failure</strong> The creature is unaffected.</p>\n<p><strong>Critical Failure</strong> The creature can use a reaction to attempt a melee Strike against Kuworsys with the weapon Kuworsys attempted to grab.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
+            "type": "weapon"
         }
     ],
     "name": "Kuworsys",

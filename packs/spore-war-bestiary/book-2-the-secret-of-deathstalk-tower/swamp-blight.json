@@ -4,22 +4,97 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "RHTgoeoXprekmUNY",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
+            "_id": "MIe6z3p4TMVFmAaU",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Mosquito Aura",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
+                    "value": "<p>30 feet. Mosquitoes surround the blight. The mosquitoes ignore creatures the blight designates as allies as well as any who are at full HP. All other creatures who enter the aura or begin their turn within it take @Damage[2d6[persistent,bleed]] damage with a @Check[fortitude|dc:35] save.</p><hr /><p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>"
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "traits": [
+                            "primal"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aDhi9XrvRPZGGELa",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.fJSNOw4zHGbIm4bZ"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Fast Healing 30",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.FastHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FastHealing",
+                        "value": 30
+                    }
+                ],
+                "slug": "fast-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Hpnp9sOhmA6SZeqA",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Putrefied Expulsion",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within 20 feet of the swamp blight deals damage to the blight</p><hr /><p><strong>Effect</strong> The swamp blight violently expels putrefied organic matter at their attacker, making a decaying flesh Strike against them.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,21 +102,317 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 38,
-                    "value": 30
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BLdkNidRdojGz90U",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.LZsABXwRruB99A0k"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Blight Domination",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
                 },
-                "tradition": {
-                    "value": "primal"
+                "actions": {
+                    "value": null
                 },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>All blights can cast @UUID[Compendium.pf2e.spells-srd.Item.Dominate] as an innate primal spell but can target only animals, beasts, fungi, oozes, plants, or undead that are located inside their cursed domain. If a creature dominated by this spell leaves the cursed domain, the effects of <em>dominate</em> immediately end, but as long as the dominated creature remains in the cursed domain, the duration is unlimited. When a blight targets a mindless fungi, ooze, or plant, its <em>dominate</em> spell loses the mental trait.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder #211: The Secret of Deathstalk Tower"
+                },
+                "rules": [],
+                "slug": "blight-blight-domination",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Ek7f9vg0YLD3SmX7",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Call of the Mire",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> An aura of glittering lights surrounds the swamp blight, compelling a target the swamp blight can see that's within 60 feet to move toward it. This is not forced movement and can compel creatures to move through dangerous terrain. The target must attempt a @Check[will|dc:38] save.</p><hr /><p><strong>Critical Success</strong> The creature is temporarily immune to Call of the Mire for 1 hour.</p>\n<p><strong>Success</strong> The target immediately Strides or otherwise uses their fastest Speed to approach the swamp blight. This movement does not cost the target their actions. On the target's next turn, they cannot willingly move farther away from the blight, but they can otherwise act normally.</p>\n<p><strong>Failure</strong> As success, except that the target spends all of their actions on their next turn also approaching the blight if they are not already adjacent, and they cannot take any other actions for 1 round. Additionally, the target cannot willingly move farther away from the blight for 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, except that the creature's only actions are to approach the blight for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "incapacitation",
+                        "mental",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LuAy4QdolmpZrOfg",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.h6rf7Z7Vy1OD1YFw"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Cursed Domain",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Humanoid creatures that die in a swamp blight's cursed domain are infused with void energy. After 24 hours, they rise as undead creatures of their level of lower. Creatures whose bodies were intact typically become zombies or mummies, while those whose bodies were severely damaged typically rise as shadows or bhutas. These undead are not automatically under the swamp blight's direct control, but they can potentially be dominated by the swamp blight.</p><hr /><p>Once per year, when in a terrain that is compatible with its type (such as a swamp for a swamp blight), the blight can infuse the land around it with its corrupted essence by performing a rite that takes one day. The region in a 5-mile radius becomes its cursed domain; this effect does not extend into incompatible terrain and does not move with the blight. The point at which the blight cursed the domain becomes its epicenter.</p>\n<p>Within their cursed domain, a blight ignores all non-magical difficult terrain and always gains the benefits of the @UUID[Compendium.pf2e.actionspf2e.Item.Cover Tracks] action. Blights also have an imprecise sense for the locations of all creatures within their domain and can communicate with all sapient creatures they detect within their domain using telepathy. Each blight's cursed domain has additional properties specific to the blight's type. A blight outside of a cursed domain becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until it returns to its own or another blight's cursed domain.</p>\n<p>Removing this curse requires a character with the @UUID[Compendium.pf2e.feats-srd.Item.Break Curse] feat (or a similar ability); this activity must be performed at the cursed domain's epicenter. If the blight that cursed the domain is dead, checks to counteract a cursed domain gain a +4 circumstance bonus.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder #211: The Secret of Deathstalk Tower"
+                },
+                "rules": [],
+                "slug": "blight-cursed-domain",
+                "traits": {
+                    "value": [
+                        "curse",
+                        "primal",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8wHudiQfa99uH0vB",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.Sx3uEPB6AD1iGbDp"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Oversee Domain",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The blight projects its senses to any point in its cursed domain, gaining a precise sense of its surroundings with a 500-foot radius until the end of its next turn. A blight can cast @UUID[Compendium.pf2e.spells-srd.Item.Dominate] through this sensory link. A blight can Sustain this ability, but cannot use it to extend its senses beyond the edges of its domain.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder #211: The Secret of Deathstalk Tower"
+                },
+                "rules": [],
+                "slug": "blight-oversee-domain",
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uZiJtdvDjUk2umPP",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.xGwpAMVb1UGFJqf9"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Rejuvenation",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If a blight is slain within its cursed domain, its body melts into the surrounding environment and a new blight of the same type spontaneously forms in [[/gmr 1d10 #Days]] days at the cursed domain's epicenter unless the curse is removed before then. The new blight retains all the memories of the previous blight.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder #211: The Secret of Deathstalk Tower"
+                },
+                "rules": [],
+                "slug": "blight-rejuvenation",
+                "traits": {
+                    "value": [
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "a6tGUz3QzuHcYSJA",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Splatter Viscera",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Targets hit by a decaying flesh Strike must succeed at a @Check[fortitude|dc:40] save or be @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure). This condition is cumulative with itself and with the sickened condition from the mosquito aura, up to a maximum value of @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 4}. If the Strike critically hits, the target also takes @Damage[2d6[persistent,acid]] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "j1n3RYioGNHJsT6v",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Swamp Lore",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 29
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
                 "traits": {}
             },
-            "type": "spellcastingEntry"
+            "type": "lore"
+        },
+        {
+            "_id": "vTivo3M2rcdrS1U9",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Stinger",
+            "sort": 1100000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "Gnqr2QsKTGxqV1wp": {
+                        "category": "persistent",
+                        "damage": "2d6",
+                        "damageType": "acid"
+                    },
+                    "kP31YvYbL9Ekz4Qk": {
+                        "damage": "3d8+12",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "esPEKLLtemdZde2G",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Decaying Flesh",
+            "sort": 1200000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "splatter-viscera"
+                    ]
+                },
+                "bonus": {
+                    "value": 32
+                },
+                "damageRolls": {
+                    "hFzk4g6A7M2cmSdN": {
+                        "damage": "3d8+12",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "range-increment-60"
+                    ]
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "KjrhpvX3sRmEu3jf",
@@ -50,7 +421,7 @@
             },
             "img": "systems/pf2e/icons/spells/dominate.webp",
             "name": "Dominate",
-            "sort": 200000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -119,7 +490,7 @@
             },
             "img": "systems/pf2e/icons/spells/dominate.webp",
             "name": "Dominate (At Will)",
-            "sort": 300000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -188,7 +559,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-humanoid.webp",
             "name": "Nature's Pathway (At Will, Within Cursed Domain Only)",
-            "sort": 400000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -251,7 +622,7 @@
             },
             "img": "systems/pf2e/icons/spells/blight.webp",
             "name": "Blight",
-            "sort": 500000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -317,7 +688,7 @@
             },
             "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
             "name": "Mirage",
-            "sort": 600000,
+            "sort": 1700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -383,7 +754,7 @@
             },
             "img": "icons/creatures/invertebrates/spider-beetle-runed-green.webp",
             "name": "Vomit Swarm",
-            "sort": 700000,
+            "sort": 1800000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -475,7 +846,7 @@
             },
             "img": "systems/pf2e/icons/spells/command.webp",
             "name": "Command (At Will, Plants Only)",
-            "sort": 800000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -549,404 +920,22 @@
             "type": "spell"
         },
         {
-            "_id": "vTivo3M2rcdrS1U9",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Stinger",
-            "sort": 900000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 33
-                },
-                "damageRolls": {
-                    "Gnqr2QsKTGxqV1wp": {
-                        "category": "persistent",
-                        "damage": "2d6",
-                        "damageType": "acid"
-                    },
-                    "kP31YvYbL9Ekz4Qk": {
-                        "damage": "3d8+12",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "magical"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "esPEKLLtemdZde2G",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Decaying Flesh",
-            "sort": 1000000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "splatter-viscera"
-                    ]
-                },
-                "bonus": {
-                    "value": 32
-                },
-                "damageRolls": {
-                    "hFzk4g6A7M2cmSdN": {
-                        "damage": "3d8+12",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "range-increment-60"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "MIe6z3p4TMVFmAaU",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Mosquito Aura",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>30 feet. Mosquitoes surround the blight. The mosquitoes ignore creatures the blight designates as allies as well as any who are at full HP. All other creatures who enter the aura or begin their turn within it take @Damage[2d6[persistent,bleed]] damage with a @Check[fortitude|dc:35] save.</p><hr /><p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "traits": [
-                            "primal"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "aDhi9XrvRPZGGELa",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.fJSNOw4zHGbIm4bZ"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Fast Healing 30",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.FastHealing]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "FastHealing",
-                        "value": 30
-                    }
-                ],
-                "slug": "fast-healing",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Hpnp9sOhmA6SZeqA",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Putrefied Expulsion",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within 20 feet of the swamp blight deals damage to the blight</p><hr /><p><strong>Effect</strong> The swamp blight violently expels putrefied organic matter at their attacker, making a decaying flesh Strike against them.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "BLdkNidRdojGz90U",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.LZsABXwRruB99A0k"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Blight Domination",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>All blights can cast @UUID[Compendium.pf2e.spells-srd.Item.Dominate] as an innate primal spell but can target only animals, beasts, fungi, oozes, plants, or undead that are located inside their cursed domain. If a creature dominated by this spell leaves the cursed domain, the effects of <em>dominate</em> immediately end, but as long as the dominated creature remains in the cursed domain, the duration is unlimited. When a blight targets a mindless fungi, ooze, or plant, its <em>dominate</em> spell loses the mental trait.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder #211: The Secret of Deathstalk Tower"
-                },
-                "rules": [],
-                "slug": "blight-blight-domination",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Ek7f9vg0YLD3SmX7",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Call of the Mire",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> An aura of glittering lights surrounds the swamp blight, compelling a target the swamp blight can see that's within 60 feet to move toward it. This is not forced movement and can compel creatures to move through dangerous terrain. The target must attempt a @Check[will|dc:38] save.</p><hr /><p><strong>Critical Success</strong> The creature is temporarily immune to Call of the Mire for 1 hour.</p>\n<p><strong>Success</strong> The target immediately Strides or otherwise uses their fastest Speed to approach the swamp blight. This movement does not cost the target their actions. On the target's next turn, they cannot willingly move farther away from the blight, but they can otherwise act normally.</p>\n<p><strong>Failure</strong> As success, except that the target spends all of their actions on their next turn also approaching the blight if they are not already adjacent, and they cannot take any other actions for 1 round. Additionally, the target cannot willingly move farther away from the blight for 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, except that the creature's only actions are to approach the blight for 1 minute.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "incapacitation",
-                        "mental",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "LuAy4QdolmpZrOfg",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.h6rf7Z7Vy1OD1YFw"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Cursed Domain",
-            "sort": 1600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Humanoid creatures that die in a swamp blight's cursed domain are infused with void energy. After 24 hours, they rise as undead creatures of their level of lower. Creatures whose bodies were intact typically become zombies or mummies, while those whose bodies were severely damaged typically rise as shadows or bhutas. These undead are not automatically under the swamp blight's direct control, but they can potentially be dominated by the swamp blight.</p><hr /><p>Once per year, when in a terrain that is compatible with its type (such as a swamp for a swamp blight), the blight can infuse the land around it with its corrupted essence by performing a rite that takes one day. The region in a 5-mile radius becomes its cursed domain; this effect does not extend into incompatible terrain and does not move with the blight. The point at which the blight cursed the domain becomes its epicenter.</p>\n<p>Within their cursed domain, a blight ignores all non-magical difficult terrain and always gains the benefits of the @UUID[Compendium.pf2e.actionspf2e.Item.Cover Tracks] action. Blights also have an imprecise sense for the locations of all creatures within their domain and can communicate with all sapient creatures they detect within their domain using telepathy. Each blight's cursed domain has additional properties specific to the blight's type. A blight outside of a cursed domain becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until it returns to its own or another blight's cursed domain.</p>\n<p>Removing this curse requires a character with the @UUID[Compendium.pf2e.feats-srd.Item.Break Curse] feat (or a similar ability); this activity must be performed at the cursed domain's epicenter. If the blight that cursed the domain is dead, checks to counteract a cursed domain gain a +4 circumstance bonus.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder #211: The Secret of Deathstalk Tower"
-                },
-                "rules": [],
-                "slug": "blight-cursed-domain",
-                "traits": {
-                    "value": [
-                        "curse",
-                        "primal",
-                        "void"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8wHudiQfa99uH0vB",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.Sx3uEPB6AD1iGbDp"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Oversee Domain",
-            "sort": 1700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The blight projects its senses to any point in its cursed domain, gaining a precise sense of its surroundings with a 500-foot radius until the end of its next turn. A blight can cast @UUID[Compendium.pf2e.spells-srd.Item.Dominate] through this sensory link. A blight can Sustain this ability, but cannot use it to extend its senses beyond the edges of its domain.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder #211: The Secret of Deathstalk Tower"
-                },
-                "rules": [],
-                "slug": "blight-oversee-domain",
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "uZiJtdvDjUk2umPP",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.xGwpAMVb1UGFJqf9"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Rejuvenation",
-            "sort": 1800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>If a blight is slain within its cursed domain, its body melts into the surrounding environment and a new blight of the same type spontaneously forms in [[/gmr 1d10 #Days]] days at the cursed domain's epicenter unless the curse is removed before then. The new blight retains all the memories of the previous blight.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder #211: The Secret of Deathstalk Tower"
-                },
-                "rules": [],
-                "slug": "blight-rejuvenation",
-                "traits": {
-                    "value": [
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "a6tGUz3QzuHcYSJA",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Splatter Viscera",
-            "sort": 1900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Targets hit by a decaying flesh Strike must succeed at a @Check[fortitude|dc:40] save or be @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure). This condition is cumulative with itself and with the sickened condition from the mosquito aura, up to a maximum value of @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 4}. If the Strike critically hits, the target also takes @Damage[2d6[persistent,acid]] damage.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "j1n3RYioGNHJsT6v",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Swamp Lore",
+            "_id": "RHTgoeoXprekmUNY",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 2000000,
             "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 29
+                "prepared": {
+                    "value": "innate"
                 },
-                "proficient": {
-                    "value": 0
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -954,10 +943,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
+                "spelldc": {
+                    "dc": 38,
+                    "value": 30
+                },
+                "tradition": {
+                    "value": "primal"
+                },
                 "traits": {}
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
         }
     ],
     "name": "Swamp Blight",

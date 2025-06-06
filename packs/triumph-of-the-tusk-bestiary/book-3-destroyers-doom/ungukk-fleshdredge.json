@@ -4,22 +4,62 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "WIQ7UcqgaMAVh5pU",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Spontaneous Spells",
+            "_id": "hpoWK7VWQoK7tfgG",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Vs. Fear",
             "sort": 100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "spontaneous"
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:trait:fear"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-vs-fear",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "l60UlN4ucU0iTvSN",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Cursebound",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Using a cursebound ability makes Ungukk @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} or increases his enfeebled value by 1, to a maximum of 3. If he reaches @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 3}, he also becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,43 +67,464 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6mP28IGRPsZoqvnS",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.N1kstYbHScxgUQtN"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Ferocity",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Ferocity]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "ferocity",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HOhuY3rHTg3XUCD4",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jZkagxvTiXhLytVE",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Curse of the Fallen Divine",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Ungukk increases the damage of a spell he casts by 1 die.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "curse-of-the-fallen-divine",
+                        "placement": "spellcasting",
+                        "toggleable": true
                     },
-                    "slot2": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot3": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot5": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot6": {
-                        "max": 3,
-                        "value": 3
+                    {
+                        "diceNumber": 1,
+                        "key": "DamageDice",
+                        "predicate": [
+                            "curse-of-the-fallen-divine"
+                        ],
+                        "selector": "spell-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "cursebound",
+                        "divine",
+                        "spellshape"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "iQFhvPOV85xEBpPW",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Quickened Casting",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> If Ungukk's next action is to cast a cantrip or a spell of 4th rank or lower, reduce the number of actions to cast it by 1 (minimum of 1 action).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "spellshape"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BpbGQqXrwJAgvWOX",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Roar of Zagresh",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>With a mighty roar, Ungukk unleashes void energy in a @Template[type:emanation|distance:30]. Creatures in the area must make a @Check[fortitude|dc:30] save or take @Damage[6d6[void]] damage and become @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} (@UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 2} on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "cursebound",
+                        "divine",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "WACHCeQrOEEQlZU3",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Undying Conviction",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>30 feet. Ungukk's undead allies within his aura gain a +2 status bonus to saving throws to resist vitality damage and to Will saving throws to resist effects that would make them @UUID[Compendium.pf2e.conditionitems.Item.Controlled].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "effects": [
+                            {
+                                "affects": "allies",
+                                "includesSelf": false,
+                                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Undying Conviction"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 30
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LA7nA82oy2KXPQlw",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ewQZ0VeL38v3qFnN"
+            },
+            "img": "icons/equipment/chest/breastplate-layered-leather-studded-brown.webp",
+            "name": "Studded Leather Armor",
+            "sort": 900000,
+            "system": {
+                "acBonus": 2,
+                "baseItem": "studded-leather-armor",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>This leather armor is reinforced with metal studs and sometimes small metal plates, providing most of the flexibility of leather armor with more robust protection.</p>"
+                },
+                "dexCap": 3,
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
                     }
                 },
-                "slug": null,
-                "spelldc": {
-                    "dc": 30,
-                    "value": 22
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
-                "tradition": {
-                    "value": "divine"
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "resilient": 0
                 },
-                "traits": {}
+                "size": "med",
+                "slug": "studded-leather-armor",
+                "speedPenalty": 0,
+                "strength": 1,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "armor"
+        },
+        {
+            "_id": "mGGPDCkXqYj71u7C",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.P9v4lpVpLlL7AGnw"
+            },
+            "img": "icons/equipment/neck/amulet-round-engraved-gold.webp",
+            "name": "Amulet of Kinship's Strength",
+            "sort": 1000000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This weighty brass disk is inscribed with the ancestral names of its previous owners and now includes your own. When worn, it rests against your chest with a heavy warmth, a reminder of the strength of those who came before you. While worn and invested, you gain a +2 item bonus to Will saves. This bonus increases to +3 if the effect has the fear trait.</p>\n<p><strong>Activate—Strengthen Resolve</strong> <span class=\"action-glyph\">1</span></p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> You extend your resolve to your allies, casting @UUID[Compendium.pf2e.spells-srd.Item.Strength of Mind] on up to three willing targets.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 12
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2000
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder #209: Destroyer's Doom"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "will",
+                        "type": "item",
+                        "value": 2
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "mode": "add",
+                        "predicate": [
+                            "item:trait:fear"
+                        ],
+                        "selector": "will",
+                        "slug": "amulet-of-kinships-strength",
+                        "value": 1
+                    }
+                ],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "worn"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "L36hQ2bWzDXrdg82",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "GgMoGoXFt6PpDlHV"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Club",
+            "sort": 1100000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "5zc81tz9Av5b89YP": {
+                        "damage": "2d10+12",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "club",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "5wqiF8GHxfZ4Ztv1",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "GgMoGoXFt6PpDlHV"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Club",
+            "sort": 1200000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "z5SL8hwbbHFG1aMW": {
+                        "damage": "2d10+12",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "club",
+                "traits": {
+                    "value": [
+                        "thrown-10"
+                    ]
+                }
+            },
+            "type": "melee"
         },
         {
             "_id": "NReUf3t4wo1vgUpY",
@@ -72,7 +533,7 @@
             },
             "img": "systems/pf2e/icons/spells/spiritual-blast.webp",
             "name": "Spirit Blast",
-            "sort": 200000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -157,7 +618,7 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-exsanguination.webp",
             "name": "Vampiric Exsanguination",
-            "sort": 300000,
+            "sort": 1400000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -247,7 +708,7 @@
             },
             "img": "icons/magic/death/undead-ghost-scream-teal.webp",
             "name": "Call Spirit",
-            "sort": 400000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -310,7 +771,7 @@
             },
             "img": "icons/magic/unholy/beam-impact-purple.webp",
             "name": "Shadow Blast",
-            "sort": 500000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -420,7 +881,7 @@
             },
             "img": "systems/pf2e/icons/spells/spiritual-guardian.webp",
             "name": "Spiritual Guardian",
-            "sort": 600000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -500,7 +961,7 @@
             },
             "img": "icons/magic/light/projectile-beam-yellow.webp",
             "name": "Divine Wrath",
-            "sort": 700000,
+            "sort": 1800000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -589,7 +1050,7 @@
             },
             "img": "systems/pf2e/icons/spells/talking-corpse.webp",
             "name": "Talking Corpse",
-            "sort": 800000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -655,7 +1116,7 @@
             },
             "img": "systems/pf2e/icons/spells/bind-undead.webp",
             "name": "Bind Undead",
-            "sort": 900000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -717,7 +1178,7 @@
             },
             "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
             "name": "Crisis of Faith",
-            "sort": 1000000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -827,7 +1288,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghostly-weapon.webp",
             "name": "Ghostly Weapon",
-            "sort": 1100000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -888,7 +1349,7 @@
             },
             "img": "icons/magic/perception/eye-ringed-green.webp",
             "name": "Strength of Mind",
-            "sort": 1200000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -950,7 +1411,7 @@
             },
             "img": "systems/pf2e/icons/spells/blood-vendetta.webp",
             "name": "Blood Vendetta",
-            "sort": 1300000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1035,7 +1496,7 @@
             },
             "img": "systems/pf2e/icons/spells/create-undead.webp",
             "name": "Create Undead",
-            "sort": 1400000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1100,7 +1561,7 @@
             },
             "img": "systems/pf2e/icons/spells/darkness.webp",
             "name": "Darkness",
-            "sort": 1500000,
+            "sort": 2600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1167,7 +1628,7 @@
             },
             "img": "systems/pf2e/icons/spells/false-life.webp",
             "name": "False Vitality",
-            "sort": 1600000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1228,7 +1689,7 @@
             },
             "img": "systems/pf2e/icons/spells/see-invisibility.webp",
             "name": "See the Unseen",
-            "sort": 1700000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1291,7 +1752,7 @@
             },
             "img": "systems/pf2e/icons/spells/bane.webp",
             "name": "Bane",
-            "sort": 1800000,
+            "sort": 2900000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1362,7 +1823,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1900000,
+            "sort": 3000000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1429,7 +1890,7 @@
             },
             "img": "systems/pf2e/icons/spells/divine-lance.webp",
             "name": "Divine Lance",
-            "sort": 2000000,
+            "sort": 3100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1511,7 +1972,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Enfeeble",
-            "sort": 2100000,
+            "sort": 3200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1578,7 +2039,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 2200000,
+            "sort": 3300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1659,7 +2120,7 @@
             },
             "img": "systems/pf2e/icons/spells/forbidding-ward.webp",
             "name": "Forbidding Ward",
-            "sort": 2300000,
+            "sort": 3400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1720,7 +2181,7 @@
             },
             "img": "systems/pf2e/icons/spells/grim-tendrils.webp",
             "name": "Grim Tendrils",
-            "sort": 2400000,
+            "sort": 3500000,
             "system": {
                 "area": {
                     "type": "line",
@@ -1808,7 +2269,7 @@
             },
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
-            "sort": 2500000,
+            "sort": 3600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2003,7 +2464,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 2600000,
+            "sort": 3700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2065,7 +2526,7 @@
             },
             "img": "systems/pf2e/icons/spells/animate-dead.webp",
             "name": "Summon Undead",
-            "sort": 2700000,
+            "sort": 3800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2128,7 +2589,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Void Warp",
-            "sort": 2800000,
+            "sort": 3900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2208,13 +2669,75 @@
             "type": "spell"
         },
         {
+            "_id": "WIQ7UcqgaMAVh5pU",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Spontaneous Spells",
+            "sort": 4000000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot2": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot3": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot5": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot6": {
+                        "max": 3,
+                        "value": 3
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 30,
+                    "value": 22
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
             "_id": "KnANAcuCc6EAbsY0",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.1uWytZ76MwVQYIO9"
             },
             "img": "icons/weapons/staves/staff-skull-feathers-brown.webp",
             "name": "Staff of the Dead",
-            "sort": 2900000,
+            "sort": 4100000,
             "system": {
                 "baseItem": "staff",
                 "bonus": {
@@ -2301,7 +2824,7 @@
             },
             "img": "icons/weapons/clubs/club-banded-brown.webp",
             "name": "Club",
-            "sort": 3000000,
+            "sort": 4200000,
             "system": {
                 "baseItem": "club",
                 "bonus": {
@@ -2377,529 +2900,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "LA7nA82oy2KXPQlw",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ewQZ0VeL38v3qFnN"
-            },
-            "img": "icons/equipment/chest/breastplate-layered-leather-studded-brown.webp",
-            "name": "Studded Leather Armor",
-            "sort": 3100000,
-            "system": {
-                "acBonus": 2,
-                "baseItem": "studded-leather-armor",
-                "bulk": {
-                    "value": 1
-                },
-                "category": "light",
-                "checkPenalty": -1,
-                "containerId": null,
-                "description": {
-                    "value": "<p>This leather armor is reinforced with metal studs and sometimes small metal plates, providing most of the flexibility of leather armor with more robust protection.</p>"
-                },
-                "dexCap": 3,
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "group": "leather",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 3
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "studded-leather-armor",
-                "speedPenalty": 0,
-                "strength": 1,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "mGGPDCkXqYj71u7C",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.P9v4lpVpLlL7AGnw"
-            },
-            "img": "icons/equipment/neck/amulet-round-engraved-gold.webp",
-            "name": "Amulet of Kinship's Strength",
-            "sort": 3200000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This weighty brass disk is inscribed with the ancestral names of its previous owners and now includes your own. When worn, it rests against your chest with a heavy warmth, a reminder of the strength of those who came before you. While worn and invested, you gain a +2 item bonus to Will saves. This bonus increases to +3 if the effect has the fear trait.</p>\n<p><strong>Activate—Strengthen Resolve</strong> <span class=\"action-glyph\">1</span></p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> You extend your resolve to your allies, casting @UUID[Compendium.pf2e.spells-srd.Item.Strength of Mind] on up to three willing targets.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 12
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2000
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder #209: Destroyer's Doom"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": "will",
-                        "type": "item",
-                        "value": 2
-                    },
-                    {
-                        "key": "AdjustModifier",
-                        "mode": "add",
-                        "predicate": [
-                            "item:trait:fear"
-                        ],
-                        "selector": "will",
-                        "slug": "amulet-of-kinships-strength",
-                        "value": 1
-                    }
-                ],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "uncommon",
-                    "value": [
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "worn"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "L36hQ2bWzDXrdg82",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "GgMoGoXFt6PpDlHV"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Club",
-            "sort": 3300000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "5zc81tz9Av5b89YP": {
-                        "damage": "2d10+12",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "club",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "5wqiF8GHxfZ4Ztv1",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "GgMoGoXFt6PpDlHV"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Club",
-            "sort": 3400000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "z5SL8hwbbHFG1aMW": {
-                        "damage": "2d10+12",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "club",
-                "traits": {
-                    "value": [
-                        "thrown-10"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "hpoWK7VWQoK7tfgG",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Vs. Fear",
-            "sort": 3500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:trait:fear"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-vs-fear",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "l60UlN4ucU0iTvSN",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Cursebound",
-            "sort": 3600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Using a cursebound ability makes Ungukk @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} or increases his enfeebled value by 1, to a maximum of 3. If he reaches @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 3}, he also becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "6mP28IGRPsZoqvnS",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.N1kstYbHScxgUQtN"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Ferocity",
-            "sort": 3700000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Ferocity]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "ferocity",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "HOhuY3rHTg3XUCD4",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 3800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "void-healing",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "jZkagxvTiXhLytVE",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Curse of the Fallen Divine",
-            "sort": 3900000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Ungukk increases the damage of a spell he casts by 1 die.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "curse-of-the-fallen-divine",
-                        "placement": "spellcasting",
-                        "toggleable": true
-                    },
-                    {
-                        "diceNumber": 1,
-                        "key": "DamageDice",
-                        "predicate": [
-                            "curse-of-the-fallen-divine"
-                        ],
-                        "selector": "spell-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "cursebound",
-                        "divine",
-                        "spellshape"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "iQFhvPOV85xEBpPW",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Quickened Casting",
-            "sort": 4000000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> If Ungukk's next action is to cast a cantrip or a spell of 4th rank or lower, reduce the number of actions to cast it by 1 (minimum of 1 action).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "spellshape"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "BpbGQqXrwJAgvWOX",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Roar of Zagresh",
-            "sort": 4100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>With a mighty roar, Ungukk unleashes void energy in a @Template[type:emanation|distance:30]. Creatures in the area must make a @Check[fortitude|dc:30] save or take @Damage[6d6[void]] damage and become @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} (@UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 2} on a critical failure).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "cursebound",
-                        "divine",
-                        "void"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "WACHCeQrOEEQlZU3",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Undying Conviction",
-            "sort": 4200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>30 feet. Ungukk's undead allies within his aura gain a +2 status bonus to saving throws to resist vitality damage and to Will saving throws to resist effects that would make them @UUID[Compendium.pf2e.conditionitems.Item.Controlled].</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "effects": [
-                            {
-                                "affects": "allies",
-                                "includesSelf": false,
-                                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Undying Conviction"
-                            }
-                        ],
-                        "key": "Aura",
-                        "radius": 30
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Ungukk Fleshdredge",

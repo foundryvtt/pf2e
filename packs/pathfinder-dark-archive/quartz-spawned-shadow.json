@@ -3,10 +3,104 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "ACHlnYzXVxizzqPw",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Light Vulnerability",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>An object shedding magical light (such as from the @UUID[Compendium.pf2e.spells-srd.Item.Light] spell) is treated as magical when used to attack the shadow.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LkqCkG3YFw362zdS",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Crystal Siphon",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The shadow and the target are both within 40 feet of the crystal that spawned the shadow, and the crystal isn't covered or obstructed</p>\n<hr />\n<p><strong>Effect</strong> Shadows in the shape of tendrils curl around the target, drawing out a portion of the target's vitality and siphoning it into the crystal. The target takes @Damage[4d6[void]] damage (@Check[fortitude|dc:21|basic]). On a failure, they are also @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}. This enfeebled condition is cumulative with other enfeebled conditions from quartz-spawned shadows, to a maximum of enfeebled 4. If Crystal Siphon increases the creature's enfeebled value to 3 or more, the target's shadow is pulled entirely into the shadow's crystal.</p>\n<p>While the target's shadow is trapped, they feel an @UUID[Compendium.pf2e.conditionitems.Item.Invisible] tether linking them to the crystal, and they become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} whenever they are more than 40 feet away from it. The enfeebled condition from Crystal Siphon can't be reduced until the crystal is broken; if the crystal is broken, the effect immediately ends.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "death",
+                        "divine",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0QWVJ7Of8cQNKp0N",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Slink in Shadows",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The shadow can @UUID[Compendium.pf2e.actionspf2e.Item.Hide] or end its @UUID[Compendium.pf2e.actionspf2e.Item.Sneak] in a creature's or object's shadow.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "x47iDfIE9albveGl",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Shadow Hand",
-            "sort": 100000,
+            "sort": 400000,
             "system": {
                 "attack": {
                     "value": ""
@@ -46,100 +140,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "ACHlnYzXVxizzqPw",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Light Vulnerability",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>An object shedding magical light (such as from the @UUID[Compendium.pf2e.spells-srd.Item.Light] spell) is treated as magical when used to attack the shadow.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "LkqCkG3YFw362zdS",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Crystal Siphon",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The shadow and the target are both within 40 feet of the crystal that spawned the shadow, and the crystal isn't covered or obstructed</p>\n<hr />\n<p><strong>Effect</strong> Shadows in the shape of tendrils curl around the target, drawing out a portion of the target's vitality and siphoning it into the crystal. The target takes @Damage[4d6[void]] damage (@Check[fortitude|dc:21|basic]). On a failure, they are also @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}. This enfeebled condition is cumulative with other enfeebled conditions from quartz-spawned shadows, to a maximum of enfeebled 4. If Crystal Siphon increases the creature's enfeebled value to 3 or more, the target's shadow is pulled entirely into the shadow's crystal.</p>\n<p>While the target's shadow is trapped, they feel an @UUID[Compendium.pf2e.conditionitems.Item.Invisible] tether linking them to the crystal, and they become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} whenever they are more than 40 feet away from it. The enfeebled condition from Crystal Siphon can't be reduced until the crystal is broken; if the crystal is broken, the effect immediately ends.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "death",
-                        "divine",
-                        "void"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "0QWVJ7Of8cQNKp0N",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Slink in Shadows",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The shadow can @UUID[Compendium.pf2e.actionspf2e.Item.Hide] or end its @UUID[Compendium.pf2e.actionspf2e.Item.Sneak] in a creature's or object's shadow.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Quartz-Spawned Shadow",

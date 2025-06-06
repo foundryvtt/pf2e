@@ -3,10 +3,52 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "e3ozogxqOi4jcWiU",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Pungent Aura",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>10 feet. Creatures other than yzobus or hobgoblins that enter or start their turn in the yzobu's aura must succeed at a @Check[fortitude|dc:14] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}, or @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure. A creature that succeeds at its save is temporarily immune for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 10,
+                        "slug": "pungent-aura",
+                        "traits": [
+                            "olfactory"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "olfactory"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "llRkvAv40JIHPwXk",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Horn",
-            "sort": 100000,
+            "sort": 200000,
             "system": {
                 "attack": {
                     "value": ""
@@ -50,7 +92,7 @@
             "_id": "LzvPd4UTa6iofTzD",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Hoof",
-            "sort": 200000,
+            "sort": 300000,
             "system": {
                 "attack": {
                     "value": ""
@@ -89,48 +131,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "e3ozogxqOi4jcWiU",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Pungent Aura",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>10 feet. Creatures other than yzobus or hobgoblins that enter or start their turn in the yzobu's aura must succeed at a @Check[fortitude|dc:14] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}, or @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure. A creature that succeeds at its save is temporarily immune for 1 minute.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 10,
-                        "slug": "pungent-aura",
-                        "traits": [
-                            "olfactory"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "olfactory"
-                    ]
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Yzobu",

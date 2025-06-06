@@ -4,13 +4,901 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "1BZlxGhTFq59fpA6",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Infused Items",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Zuferian's items listed as infused last for 24 hours, or until her next daily preparations.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "454nSdnfQdhFZ4cJ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Alchemical Formulas",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.Acid Flask (Greater)]</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Item.Alchemist's Fire (Greater)]</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Item.Bottled Lightning (Greater)]</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Item.Darkvision Elixir (Greater)]</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Item.Deathcap Powder]</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Item.Elixir of Life (Greater)]</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Item.Frost Vial (Greater)]</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Item.Lethargy Poison]</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Item.Cave Worm Venom]{Purple Worm Venom}</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Item.Glue Bomb (Greater)]{Tanglefoot Bag (Greater)}</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wBZt1NPsZgzDeD2m",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Expanded Splash",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Zuferian's bombs that have the splash trait deal 8 extra splash damage, and splash to 10 feet.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "damageCategory": "splash",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:trait:splash"
+                        ],
+                        "selector": "alchemical-bomb-damage",
+                        "value": 8
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "item:trait:splash"
+                        ],
+                        "selector": "alchemical-bomb-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": "expanded-splash",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qtiwr8Rp5Y4kIa7O",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Quick Alchemy",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Zuferian creates a single alchemical item from her formula book. This item has the infused trait, but it remains potent only until the start of her next turn. With her typical preparations, she can use this ability 7 times per day.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Hfn2kPN8v4JuYF1l",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Quick Bomber",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Zuferian Interacts to draw a bomb, then Strikes with it.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "H2vI4lzuGs1S1ljJ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "True Debilitating Bomb",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When Zuferian uses Debilitating Bomb, add the following to the list of effects Zuferian can choose from:</p>\n<ul>\n<li>@UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}</li>\n<li>@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2}</li>\n<li>a -15-foot status penalty to Speeds.</li>\n</ul>\n<p>If Zuferian instead applies one of the effects listed in Debilitating Bomb, the target avoids the effect only if the result of its saving throw is a critical success.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "15vIK60zfhRa5WGH",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Uncanny Bombs",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When Zuferian throws an alchemical item with the bomb trait, its range increment increases to 60 feet, Zuferian reduces any circumstance bonus to the target's AC from cover by 1, and Zuferian automatically succeeds at the flat check when targeting a concealed creature.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "uncanny-bombs",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "M2OxBMZbqLpIs5U3",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
+            },
+            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
+            "name": "Leather Armor",
+            "sort": 800000,
+            "system": {
+                "acBonus": 1,
+                "baseItem": "leather-armor",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
+                },
+                "dexCap": 4,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 2,
+                    "property": [],
+                    "resilient": 1
+                },
+                "size": "med",
+                "slug": "leather-armor",
+                "speedPenalty": 0,
+                "strength": 0,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "MvAnys19mxToQGDU",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.mYozcVg9fQY6zO7C"
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.webp",
+            "name": "Elixir of Life (Greater)",
+            "sort": 900000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "elixir",
+                "containerId": null,
+                "damage": {
+                    "formula": "7d6+18",
+                    "kind": "healing",
+                    "type": "untyped"
+                },
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creature''s natural healing processes and immune system. Upon drinking this elixir, you regain @Damage[(7d6+18)[healing]] Hit Points and gain +2 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 13
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 600
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 2,
+                "rules": [],
+                "size": "med",
+                "slug": "elixir-of-life-greater",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "elixir",
+                        "healing"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "eVp9yzgr73sRje00",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8XZqdeZStFAM4XnH"
+            },
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/alchemist-goggles.webp",
+            "name": "Alchemist Goggles (Greater)",
+            "sort": 1000000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>These brass goggles are engraved with flame patterns and have thick, heavy lenses.</p>\n<p>While worn, they give you a +2 item bonus to Crafting checks to Craft alchemical items and a +2 item bonus to attack rolls with alchemical bombs.</p>\n<p>You can also ignore lesser cover when making Strikes with alchemical bombs.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": false,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 11
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1400
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "Alchemist Goggles (craft alchemical items)",
+                        "predicate": [
+                            "alchemical",
+                            "action:craft"
+                        ],
+                        "selector": "crafting",
+                        "type": "item",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "Alchemist Goggles, Greater (alchemical bombs)",
+                        "predicate": [
+                            "alchemical",
+                            "bomb"
+                        ],
+                        "selector": "attack",
+                        "type": "item",
+                        "value": 2
+                    }
+                ],
+                "size": "med",
+                "slug": "alchemist-goggles-greater",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "worneyepiece"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "W24hKhRcyY9H8AQZ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.qCEOZ6109Yo34tRx"
+            },
+            "img": "icons/sundries/books/book-tooled-brass-brown.webp",
+            "name": "Formula Book",
+            "sort": 1100000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>A formula book holds the formulas necessary to make items other than the common equipment from this chapter; alchemists typically get one for free. Each formula book can hold the formulas for up to 100 different items. Formulas can also appear on parchment sheets, tablets, and almost any other medium; there's no need for you to copy them into a specific book as long as you can keep them on hand to reference them.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "formula-book-blank",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "8tasUeRLnXBUpVlJ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4ftXXUCBHcf4b0MH"
+            },
+            "img": "icons/tools/laboratory/vials-blue-pink.webp",
+            "name": "Alchemist's Tools",
+            "sort": 1200000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This mobile collection of vials and chemicals can be used for simple alchemical tasks.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "alchemists-tools",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "0Eqa5Be8keCH6y7q",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "50JvEJYUrD0euZsR"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Light Mace",
+            "sort": 1300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 30
+                },
+                "damageRolls": {
+                    "gafflj51wcio5yrg9xt9": {
+                        "damage": "2d4+8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "shove"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "hCNYJ9tfRIOCl989",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "kpp6uAfQZcHA99Ot"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Greater Acid Flask",
+            "sort": 1400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "uncanny-bombs"
+                    ]
+                },
+                "bonus": {
+                    "value": 30
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1",
+                        "damageType": "acid"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "3d6",
+                        "damageType": "acid"
+                    },
+                    "2": {
+                        "category": "splash",
+                        "damage": "3",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "acid",
+                        "alchemical",
+                        "bomb",
+                        "consumable",
+                        "range-increment-60",
+                        "splash"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "2MUmPkWIDTgvArGY",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "9AtNenLXqz5Zm0T4"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Greater Alchemist's Fire",
+            "sort": 1500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "uncanny-bombs"
+                    ]
+                },
+                "bonus": {
+                    "value": 30
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d8",
+                        "damageType": "fire"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "3",
+                        "damageType": "fire"
+                    },
+                    "2": {
+                        "category": "splash",
+                        "damage": "3",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "bomb",
+                        "consumable",
+                        "fire",
+                        "range-increment-60",
+                        "splash"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "sc3daf0IgUPTb2rM",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "FGLOUpHNkmleuOIx"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Greater Frost Vial",
+            "sort": 1600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "uncanny-bombs"
+                    ]
+                },
+                "bonus": {
+                    "value": 30
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d6",
+                        "damageType": "cold"
+                    },
+                    "1": {
+                        "category": "splash",
+                        "damage": "3",
+                        "damageType": "cold"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.BombNotes.FrostVial.Greater.success"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "bomb",
+                        "cold",
+                        "consumable",
+                        "range-increment-60",
+                        "splash"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "e0qpil2ll45f3L8R",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "bQGNTrxdCyY34M1f"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Greater Thunderstone",
+            "sort": 1700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "uncanny-bombs"
+                    ]
+                },
+                "bonus": {
+                    "value": 30
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d4",
+                        "damageType": "sonic"
+                    },
+                    "1": {
+                        "category": "splash",
+                        "damage": "3",
+                        "damageType": "sonic"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.BombNotes.Thunderstone.Greater.success"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "bomb",
+                        "consumable",
+                        "range-increment-60",
+                        "sonic",
+                        "splash"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
             "_id": "kpp6uAfQZcHA99Ot",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.jC8GmH0Un6vDxdMj"
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/acid-flask.webp",
             "name": "Acid Flask (Greater) [Infused]",
-            "sort": 100000,
+            "sort": 1800000,
             "system": {
                 "baseItem": "alchemical-bomb",
                 "bonus": {
@@ -105,7 +993,7 @@
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/frost-vial.webp",
             "name": "Frost Vial (Greater) [Infused]",
-            "sort": 200000,
+            "sort": 1900000,
             "system": {
                 "baseItem": "alchemical-bomb",
                 "bonus": {
@@ -201,7 +1089,7 @@
             },
             "img": "icons/weapons/maces/mace-round-steel.webp",
             "name": "Light Mace",
-            "sort": 300000,
+            "sort": 2000000,
             "system": {
                 "baseItem": "light-mace",
                 "bonus": {
@@ -288,7 +1176,7 @@
             },
             "img": "icons/commodities/gems/pearl-rough-turquoise.webp",
             "name": "Thunderstone (Greater) [Infused]",
-            "sort": 400000,
+            "sort": 2100000,
             "system": {
                 "baseItem": "alchemical-bomb",
                 "bonus": {
@@ -384,7 +1272,7 @@
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/alchemists-fire.webp",
             "name": "Alchemist's Fire (Greater) [Infused]",
-            "sort": 500000,
+            "sort": 2200000,
             "system": {
                 "baseItem": "alchemical-bomb",
                 "bonus": {
@@ -472,894 +1360,6 @@
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "M2OxBMZbqLpIs5U3",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
-            },
-            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
-            "name": "Leather Armor",
-            "sort": 600000,
-            "system": {
-                "acBonus": 1,
-                "baseItem": "leather-armor",
-                "bulk": {
-                    "value": 1
-                },
-                "category": "light",
-                "checkPenalty": -1,
-                "containerId": null,
-                "description": {
-                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
-                },
-                "dexCap": 4,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": null
-                },
-                "group": "leather",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 2,
-                    "property": [],
-                    "resilient": 1
-                },
-                "size": "med",
-                "slug": "leather-armor",
-                "speedPenalty": 0,
-                "strength": 0,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "eVp9yzgr73sRje00",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8XZqdeZStFAM4XnH"
-            },
-            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/alchemist-goggles.webp",
-            "name": "Alchemist Goggles (Greater)",
-            "sort": 700000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>These brass goggles are engraved with flame patterns and have thick, heavy lenses.</p>\n<p>While worn, they give you a +2 item bonus to Crafting checks to Craft alchemical items and a +2 item bonus to attack rolls with alchemical bombs.</p>\n<p>You can also ignore lesser cover when making Strikes with alchemical bombs.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": false,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 11
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 1400
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Alchemist Goggles (craft alchemical items)",
-                        "predicate": [
-                            "alchemical",
-                            "action:craft"
-                        ],
-                        "selector": "crafting",
-                        "type": "item",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "Alchemist Goggles, Greater (alchemical bombs)",
-                        "predicate": [
-                            "alchemical",
-                            "bomb"
-                        ],
-                        "selector": "attack",
-                        "type": "item",
-                        "value": 2
-                    }
-                ],
-                "size": "med",
-                "slug": "alchemist-goggles-greater",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "worneyepiece"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "W24hKhRcyY9H8AQZ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.qCEOZ6109Yo34tRx"
-            },
-            "img": "icons/sundries/books/book-tooled-brass-brown.webp",
-            "name": "Formula Book",
-            "sort": 800000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>A formula book holds the formulas necessary to make items other than the common equipment from this chapter; alchemists typically get one for free. Each formula book can hold the formulas for up to 100 different items. Formulas can also appear on parchment sheets, tablets, and almost any other medium; there's no need for you to copy them into a specific book as long as you can keep them on hand to reference them.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "formula-book-blank",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "8tasUeRLnXBUpVlJ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4ftXXUCBHcf4b0MH"
-            },
-            "img": "icons/tools/laboratory/vials-blue-pink.webp",
-            "name": "Alchemist's Tools",
-            "sort": 900000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This mobile collection of vials and chemicals can be used for simple alchemical tasks.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 3
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "alchemists-tools",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "MvAnys19mxToQGDU",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.mYozcVg9fQY6zO7C"
-            },
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.webp",
-            "name": "Elixir of Life (Greater)",
-            "sort": 1000000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "elixir",
-                "containerId": null,
-                "damage": {
-                    "formula": "7d6+18",
-                    "kind": "healing",
-                    "type": "untyped"
-                },
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creature''s natural healing processes and immune system. Upon drinking this elixir, you regain @Damage[(7d6+18)[healing]] Hit Points and gain +2 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life]</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 13
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 600
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 2,
-                "rules": [],
-                "size": "med",
-                "slug": "elixir-of-life-greater",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "consumable",
-                        "elixir",
-                        "healing"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "0Eqa5Be8keCH6y7q",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "50JvEJYUrD0euZsR"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Light Mace",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 30
-                },
-                "damageRolls": {
-                    "gafflj51wcio5yrg9xt9": {
-                        "damage": "2d4+8",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "shove"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "hCNYJ9tfRIOCl989",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "kpp6uAfQZcHA99Ot"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Greater Acid Flask",
-            "sort": 1200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "uncanny-bombs"
-                    ]
-                },
-                "bonus": {
-                    "value": 30
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1",
-                        "damageType": "acid"
-                    },
-                    "1": {
-                        "category": "persistent",
-                        "damage": "3d6",
-                        "damageType": "acid"
-                    },
-                    "2": {
-                        "category": "splash",
-                        "damage": "3",
-                        "damageType": "acid"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "acid",
-                        "alchemical",
-                        "bomb",
-                        "consumable",
-                        "range-increment-60",
-                        "splash"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "2MUmPkWIDTgvArGY",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "9AtNenLXqz5Zm0T4"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Greater Alchemist's Fire",
-            "sort": 1300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "uncanny-bombs"
-                    ]
-                },
-                "bonus": {
-                    "value": 30
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "3d8",
-                        "damageType": "fire"
-                    },
-                    "1": {
-                        "category": "persistent",
-                        "damage": "3",
-                        "damageType": "fire"
-                    },
-                    "2": {
-                        "category": "splash",
-                        "damage": "3",
-                        "damageType": "fire"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "bomb",
-                        "consumable",
-                        "fire",
-                        "range-increment-60",
-                        "splash"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "sc3daf0IgUPTb2rM",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "FGLOUpHNkmleuOIx"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Greater Frost Vial",
-            "sort": 1400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "uncanny-bombs"
-                    ]
-                },
-                "bonus": {
-                    "value": 30
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "3d6",
-                        "damageType": "cold"
-                    },
-                    "1": {
-                        "category": "splash",
-                        "damage": "3",
-                        "damageType": "cold"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.BombNotes.FrostVial.Greater.success"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "bomb",
-                        "cold",
-                        "consumable",
-                        "range-increment-60",
-                        "splash"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "e0qpil2ll45f3L8R",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "bQGNTrxdCyY34M1f"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Greater Thunderstone",
-            "sort": 1500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "uncanny-bombs"
-                    ]
-                },
-                "bonus": {
-                    "value": 30
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "3d4",
-                        "damageType": "sonic"
-                    },
-                    "1": {
-                        "category": "splash",
-                        "damage": "3",
-                        "damageType": "sonic"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.BombNotes.Thunderstone.Greater.success"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "bomb",
-                        "consumable",
-                        "range-increment-60",
-                        "sonic",
-                        "splash"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "1BZlxGhTFq59fpA6",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Infused Items",
-            "sort": 1600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Zuferian's items listed as infused last for 24 hours, or until her next daily preparations.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "454nSdnfQdhFZ4cJ",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Alchemical Formulas",
-            "sort": 1700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.Acid Flask (Greater)]</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Item.Alchemist's Fire (Greater)]</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Item.Bottled Lightning (Greater)]</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Item.Darkvision Elixir (Greater)]</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Item.Deathcap Powder]</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Item.Elixir of Life (Greater)]</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Item.Frost Vial (Greater)]</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Item.Lethargy Poison]</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Item.Cave Worm Venom]{Purple Worm Venom}</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Item.Glue Bomb (Greater)]{Tanglefoot Bag (Greater)}</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "wBZt1NPsZgzDeD2m",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Expanded Splash",
-            "sort": 1800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Zuferian's bombs that have the splash trait deal 8 extra splash damage, and splash to 10 feet.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "damageCategory": "splash",
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:trait:splash"
-                        ],
-                        "selector": "alchemical-bomb-damage",
-                        "value": 8
-                    },
-                    {
-                        "key": "Note",
-                        "predicate": [
-                            "item:trait:splash"
-                        ],
-                        "selector": "alchemical-bomb-damage",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}",
-                        "visibility": "owner"
-                    }
-                ],
-                "slug": "expanded-splash",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qtiwr8Rp5Y4kIa7O",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Quick Alchemy",
-            "sort": 1900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Zuferian creates a single alchemical item from her formula book. This item has the infused trait, but it remains potent only until the start of her next turn. With her typical preparations, she can use this ability 7 times per day.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Hfn2kPN8v4JuYF1l",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Quick Bomber",
-            "sort": 2000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Zuferian Interacts to draw a bomb, then Strikes with it.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "H2vI4lzuGs1S1ljJ",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "True Debilitating Bomb",
-            "sort": 2100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When Zuferian uses Debilitating Bomb, add the following to the list of effects Zuferian can choose from:</p>\n<ul>\n<li>@UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}</li>\n<li>@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2}</li>\n<li>a -15-foot status penalty to Speeds.</li>\n</ul>\n<p>If Zuferian instead applies one of the effects listed in Debilitating Bomb, the target avoids the effect only if the result of its saving throw is a critical success.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "15vIK60zfhRa5WGH",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Uncanny Bombs",
-            "sort": 2200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When Zuferian throws an alchemical item with the bomb trait, its range increment increases to 60 feet, Zuferian reduces any circumstance bonus to the target's AC from cover by 1, and Zuferian automatically succeeds at the flat check when targeting a concealed creature.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "uncanny-bombs",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Zuferian",
