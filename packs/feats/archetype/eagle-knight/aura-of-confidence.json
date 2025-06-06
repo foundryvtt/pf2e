@@ -1,0 +1,68 @@
+{
+    "_id": "RXs4YB6Kie4MbgDs",
+    "folder": "GwVL9jInifkR7Euo",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Aura of Confidence",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your will and your faith in your nation is unassailable, and the feeling is contagious. You gain resistance to mental damage equal to half your level. You and all allies within 15 feet gain a +2 status bonus to saving throws against mental effects.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Eagle Knight Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Shining Kingdoms"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "mental",
+                "value": "floor(@actor.level/2)"
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Aura of Confidence"
+                    }
+                ],
+                "key": "Aura",
+                "radius": 15,
+                "traits": [
+                    "emotion",
+                    "mental"
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "emotion",
+                "mental"
+            ]
+        }
+    },
+    "type": "feat"
+}

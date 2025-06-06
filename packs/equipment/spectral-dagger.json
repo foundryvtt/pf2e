@@ -18,7 +18,7 @@
             "die": "d6"
         },
         "description": {
-            "value": ""
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Spectral Dagger]</p>"
         },
         "group": "knife",
         "hardness": 0,
@@ -46,50 +46,7 @@
         "reload": {
             "value": null
         },
-        "rules": [
-            {
-                "critical": false,
-                "damageType": "spirit",
-                "key": "FlatModifier",
-                "predicate": [
-                    "check:outcome:success"
-                ],
-                "selector": "spectral-dagger-damage",
-                "value": 1
-            },
-            {
-                "critical": false,
-                "damageType": "spirit",
-                "diceNumber": 1,
-                "dieSize": "d6",
-                "hideIfDisabled": true,
-                "key": "DamageDice",
-                "predicate": [
-                    "check:outcome:critical-success"
-                ],
-                "selector": "spectral-dagger-damage"
-            },
-            {
-                "category": "persistent",
-                "critical": false,
-                "damageType": "spirit",
-                "diceNumber": 1,
-                "dieSize": "d6",
-                "hideIfDisabled": true,
-                "key": "DamageDice",
-                "predicate": [
-                    "check:outcome:critical-success",
-                    "feat:soul-bleed"
-                ],
-                "selector": "spectral-dagger-damage"
-            },
-            {
-                "key": "Note",
-                "selector": "{item|name}",
-                "text": "",
-                "title": "spectral-dagger-damage"
-            }
-        ],
+        "rules": [],
         "runes": {
             "potency": 1,
             "property": [

@@ -1,0 +1,75 @@
+{
+    "_id": "Y2xjlHMGvr8Mkg3r",
+    "img": "icons/magic/unholy/beams-impact-pink.webp",
+    "name": "Effect: Instrument of Death",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Instrument of Death]</p>\n<p>Choose one:</p><ul><li><p>You can't benefit from circumstance or status bonuses.</p></li><li><p>You gain weakness 10 to spirit damage.</p></li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 16
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Shining Kingdoms"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.SpectralDagger.InstrumentOfDeath.SuppressBonuses",
+                        "value": "suppression"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpectralDagger.InstrumentOfDeath.Weakness",
+                        "value": "weakness"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Effect",
+                "rollOption": "instrument-of-death"
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "instrument-of-death:suppression",
+                    {
+                        "or": [
+                            "bonus:type:circumstance",
+                            "bonus:type:status"
+                        ]
+                    }
+                ],
+                "selector": "all",
+                "suppress": true
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "instrument-of-death:weakness"
+                ],
+                "type": "spirit",
+                "value": 10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

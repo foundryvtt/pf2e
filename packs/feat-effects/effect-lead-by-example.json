@@ -1,0 +1,52 @@
+{
+    "_id": "TVWgsv3ypaqh5Y8T",
+    "img": "icons/skills/social/diplomacy-unity-alliance.webp",
+    "name": "Effect: Lead by Example",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Lead by Example]</p>\n<p>You gain a +2 circumstance bonus to your attack roll.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 8
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Shining Kingdoms"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "lead-by-example"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:lead-by-example"
+                ],
+                "removeAfterRoll": "if-enabled",
+                "selector": "strike-attack-roll",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

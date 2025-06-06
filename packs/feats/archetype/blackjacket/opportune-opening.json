@@ -1,0 +1,60 @@
+{
+    "_id": "3q7uo810lJJ09ghv",
+    "folder": "eLN5fg0dn0xdQGZZ",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Opportune Opening",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> An ally lands a critical hit on a creature within your melee reach.</p><hr /><p>Your combat training taught you to capitalize on any moment of weakness from your foe. You make a melee Strike against the same creature your ally just hit. The creature is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against this Strike</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Blackjacket Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Shining Kingdoms"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "opportune-opening",
+                "toggleable": true
+            },
+            {
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "opportune-opening"
+                ],
+                "selectors": "strike-attack-roll",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

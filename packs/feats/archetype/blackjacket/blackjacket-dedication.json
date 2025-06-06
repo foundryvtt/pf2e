@@ -1,0 +1,67 @@
+{
+    "_id": "PWKHlkSx7baAcPw4",
+    "folder": "eLN5fg0dn0xdQGZZ",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Blackjacket Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Access</strong> You're from Druma.</p><hr /><p>You have entered the ranks of the Mercenary League and now wear the black uniform that's the source of the organization's popular epithet. You become trained in Intimidation; if you were already trained, you become an expert instead. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Additional Lore] skill feat for Warfare Lore; if you were already trained in Warfare Lore, you also become trained in a Lore skill of your choice. While wearing medium or heavy armor, you gain a +1 circumstance bonus to Intimidation checks.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.irUrG1k3AJ0OfW9b]{Blackjacket}</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in medium armor and martial weapons"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Shining Kingdoms"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Additional Lore"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "armor:equipped",
+                    {
+                        "or": [
+                            "armor:category:medium",
+                            "armor:category:heavy"
+                        ]
+                    }
+                ],
+                "selector": "intimidation",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

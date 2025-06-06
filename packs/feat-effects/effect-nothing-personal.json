@@ -1,0 +1,58 @@
+{
+    "_id": "YJPiAE71tq3bp74B",
+    "img": "icons/skills/targeting/crosshair-mark-rough-pink.webp",
+    "name": "Effect: Nothing Personal",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Nothing Personal]</p>\n<p>Your first strike each round deals an extra die of weapon damage to the marked target. This increases to 2 die at level 14, and 3 die at level 20.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 8
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Shining Kingdoms"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "nothing-personal"
+            },
+            {
+                "domain": "strike-damage",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Blackjacket.NothingPersonal.ToggleLabel",
+                "option": "nothing-personal-first-strike",
+                "toggleable": true
+            },
+            {
+                "diceNumber": "ternary(gte(@actor.level,20),3,ternary(gte(@actor.level,14),2,1))",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:mark:nothing-personal",
+                    "nothing-personal-first-strike"
+                ],
+                "selector": "weapon-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

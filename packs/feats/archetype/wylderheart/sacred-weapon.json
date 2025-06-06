@@ -1,0 +1,68 @@
+{
+    "_id": "5Ar7r5HA9k73whaB",
+    "folder": "OB0hHuUjROemcE5L",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Sacred Weapon",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You're a living weapon honed to destroy fiends. Whenever you critically Strike a fiend, your attack deals an extra weapon damage die, and the fiend is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} until the beginning of your next turn.</p>"
+        },
+        "level": {
+            "value": 18
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Wylderheart Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Shining Kingdoms"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "target:trait:fiend"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "{item|description}",
+                "title": "{item|name}"
+            },
+            {
+                "critical": true,
+                "diceNumber": "1",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:trait:fiend"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

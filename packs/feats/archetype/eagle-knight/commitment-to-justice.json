@@ -1,0 +1,62 @@
+{
+    "_id": "OMiIO6BzaXZTKjTt",
+    "folder": "GwVL9jInifkR7Euo",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Commitment to Justice",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You witnessed a creature kill or reduce an ally to 0 Hit Points since your last turn.</p><hr /><p>When your allies are harmed, you deliver retribution. Make a Strike against the required creature. If this Strike hits, you gain a circumstance bonus to damage equal to three times the number of weapon damage dice.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Eagle Knight Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Shining Kingdoms"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "commitment-to-justice",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "commitment-to-justice"
+                ],
+                "selector": "strike-damage",
+                "type": "circumstance",
+                "value": "3*@weapon.system.damage.dice"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "flourish"
+            ]
+        }
+    },
+    "type": "feat"
+}

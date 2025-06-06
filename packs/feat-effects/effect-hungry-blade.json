@@ -1,0 +1,54 @@
+{
+    "_id": "blwrnLLvtR6PVJlp",
+    "img": "icons/weapons/daggers/dagger-ritual-black.webp",
+    "name": "Effect: Hungry Blade",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Hungry Blade]</p>\n<p>Your <em>spectral dagger</em> gains the effects of a <em>keen</em> property rune that applies only to Strikes against the target of the required Strike.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 12
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Shining Kingdoms"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "hungry-blade"
+            },
+            {
+                "definition": [
+                    "item:slug:spectral-dagger"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "target:mark:hungry-blade"
+                ],
+                "property": "property-runes",
+                "value": "keen"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

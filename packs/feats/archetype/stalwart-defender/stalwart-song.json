@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Trigger</strong> You're about to attempt a saving throw against a fear effect.</p>\n<p><strong>Requirements</strong> You're in Tenacious Stance.</p><hr /><p>As a stalwart defender, you rely on your martial training and your tried-and-true armor to face any danger without flinching. Your mountain-like resilience and courage draw strength from the centuries-old traditions of dwarven song. You bring to mind—and possibly give voice to—a cherished dwarven song of inspiring heroism, granting you a +2 circumstance bonus to the saving throw.</p>"
+            "value": "<p><strong>Trigger</strong> You're about to attempt a saving throw against a fear effect.</p>\n<p><strong>Requirements</strong> You're in @UUID[Compendium.pf2e.actionspf2e.Item.Tenacious Stance].</p><hr /><p>As a stalwart defender, you rely on your martial training and your tried-and-true armor to face any danger without flinching. Your mountain-like resilience and courage draw strength from the centuries-old traditions of dwarven song. You bring to mind—and possibly give voice to—a cherished dwarven song of inspiring heroism, granting you a +2 circumstance bonus to the saving throw.</p>"
         },
         "level": {
             "value": 4
@@ -43,7 +43,17 @@
                 "key": "FlatModifier",
                 "predicate": [
                     "stalwart-song",
-                    "fear"
+                    {
+                        "or": [
+                            "item:trait:fear",
+                            {
+                                "and": [
+                                    "item:trait:mental",
+                                    "feat:stalwart-chant"
+                                ]
+                            }
+                        ]
+                    }
                 ],
                 "selector": "saving-throw",
                 "type": "circumstance",
